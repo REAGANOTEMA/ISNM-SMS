@@ -30,32 +30,95 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3730a3;
-            --accent-blue: #3b82f6;
-            --light-green: #22c55e;
-            --creamy-yellow: #fef3c7;
-            --golden-yellow: #fbbf24;
-            --neon-cyan: #06b6d4;
-            --clean-white: #ffffff;
-            --cream-white: #fafafa;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.15);
-            --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.2);
-            --shadow-xl: 0 32px 64px rgba(0, 0, 0, 0.3);
-            --border-color: #e2e8f0;
-            --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #3b82f6 50%, #06b6d4 75%, #22c55e 100%);
-            --gradient-hero: linear-gradient(135deg, #1e3a8a 0%, #3730a3 33%, #3b82f6 66%, #06b6d4 100%);
-            --gradient-luxury: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            /* Modern Vibrant Color Palette */
+            --vibrant-purple: #8B5CF6;
+            --electric-blue: #3B82F6;
+            --neon-cyan: #06B6D4;
+            --bright-green: #10B981;
+            --golden-yellow: #F59E0B;
+            --hot-pink: #EC4899;
+            --deep-indigo: #4F46E5;
+            --sunset-orange: #F97316;
+            --crimson-red: #DC2626;
+            --pure-white: #FFFFFF;
+            --dark-bg: #0F172A;
+            --light-bg: #F8FAFC;
+            
+            /* Advanced Color Variations */
+            --primary-vibrant: #8B5CF6;
+            --secondary-vibrant: #3B82F6;
+            --accent-vibrant: #06B6D4;
+            --success-vibrant: #10B981;
+            --warning-vibrant: #F59E0B;
+            --danger-vibrant: #EF4444;
+            --info-vibrant: #06B6D4;
+            --dark-vibrant: #1E293B;
+            --light-vibrant: #F1F5F9;
+            
+            /* Modern Gradients */
+            --gradient-modern: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 25%, #06B6D4 50%, #10B981 75%, #F59E0B 100%);
+            --gradient-hero: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 33%, #EC4899 66%, #F97316 100%);
+            --gradient-luxury: linear-gradient(135deg, #F59E0B 0%, #FCD34D 50%, #FEF3C7 100%);
+            --gradient-neon: linear-gradient(135deg, #06B6D4 0%, #10B981 50%, #8B5CF6 100%);
+            --gradient-sunset: linear-gradient(135deg, #F97316 0%, #EF4444 50%, #EC4899 100%);
+            --gradient-ocean: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 50%, #10B981 100%);
+            --gradient-galaxy: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 50%, #EC4899 100%);
+            
+            /* Modern Shadows */
+            --shadow-modern-sm: 0 4px 6px -1px rgba(139, 92, 246, 0.1), 0 2px 4px -1px rgba(139, 92, 246, 0.06);
+            --shadow-modern-md: 0 10px 15px -3px rgba(139, 92, 246, 0.1), 0 4px 6px -2px rgba(139, 92, 246, 0.05);
+            --shadow-modern-lg: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(139, 92, 246, 0.04);
+            --shadow-neon: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.4);
+            --shadow-glow: 0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(249, 115, 22, 0.3);
+            
+            /* Modern Border Colors */
+            --border-modern: #E5E7EB;
+            --border-vibrant: #8B5CF6;
+            --border-neon: #06B6D4;
+            --border-glow: #F59E0B;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--cream-white), var(--clean-white));
-            color: var(--text-primary);
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            color: var(--pure-white);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
+            animation: modernAurora 15s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="modern-governance-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(139,92,246,0.3)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(59,130,246,0.4)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23modern-governance-pattern)"/></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="vibrant-governance-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(236,72,153,0.3)" stroke-width="2"/><circle cx="25" cy="25" r="6" fill="rgba(249,115,22,0.4)"/></pattern></defs><rect width="200" height="200" fill="url(%23vibrant-governance-pattern)"/></svg>');
+            background-size: 30px 30px, 100px 100px;
+            animation: modernPatternFloat 25s linear infinite;
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* Luxury Header */
@@ -242,53 +305,213 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .directors-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
             margin-bottom: 3rem;
         }
 
         .director-card {
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.05), rgba(55, 48, 163, 0.05));
-            border-radius: 15px;
-            padding: 2rem;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
+            border-radius: 20px;
+            padding: 2.5rem;
             text-align: center;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            border: 2px solid var(--border-color);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.1);
+        }
+
+        .director-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .director-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="director-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="var(--golden-yellow)" opacity="0.2"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="var(--primary-blue)" stroke-width="0.5" fill="none" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23director-pattern)"/></svg>'),
+                linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+            background-size: 40px 40px, cover;
+            background-position: 0 0, center;
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
         }
 
         .director-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--accent-blue);
+            transform: translateY(-15px) scale(1.02) rotateX(3deg) translateZ(25px);
+            box-shadow: 0 25px 50px rgba(30, 58, 138, 0.2);
+            border-color: var(--primary-blue);
+        }
+
+        .director-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .director-card:hover::after {
+            transform: translateX(100%);
         }
 
         .director-avatar {
-            width: 120px;
-            height: 120px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            background: var(--gradient-primary);
+            margin: 0 auto 2rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 
+                0 0 30px rgba(30, 58, 138, 0.3),
+                0 10px 20px rgba(30, 58, 138, 0.2),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+            animation: directorFloat 4s ease-in-out infinite;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 4px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        var(--gradient-primary) border-box;
+        }
+
+        .director-avatar:hover {
+            transform: scale(1.1) rotateY(10deg) translateZ(15px);
+            box-shadow: 
+                0 0 40px rgba(30, 58, 138, 0.5),
+                0 15px 30px rgba(30, 58, 138, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+            border-color: var(--neon-cyan);
+        }
+
+        .director-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(1.05) contrast(1.05);
+        }
+
+        .director-avatar:hover img {
+            transform: scale(1.05) rotateY(-5deg);
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .director-avatar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        .director-avatar:hover::before {
+            transform: translateX(100%);
+        }
+
+        .director-rank {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--gradient-luxury);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 3rem;
-            box-shadow: 0 0 20px rgba(30, 58, 138, 0.3);
+            font-weight: 800;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.4);
+            border: 3px solid white;
+            z-index: 10;
+        }
+
+        @keyframes directorFloat {
+            0%, 100% { 
+                transform: translateY(0px) translateZ(0px) rotateY(0deg); 
+            }
+            25% { 
+                transform: translateY(-8px) translateZ(10px) rotateY(2deg); 
+            }
+            50% { 
+                transform: translateY(-12px) translateZ(20px) rotateY(0deg); 
+            }
+            75% { 
+                transform: translateY(-8px) translateZ(10px) rotateY(-2deg); 
+            }
         }
 
         .director-name {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.6rem;
+            font-weight: 800;
             color: var(--primary-blue);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 2px 4px rgba(30, 58, 138, 0.1);
+            position: relative;
+        }
+
+        .director-name::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--gradient-luxury);
+            border-radius: 1px;
         }
 
         .director-title {
             color: var(--text-secondary);
             font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .director-role {
+            color: var(--accent-blue);
+            font-size: 1rem;
+            font-weight: 500;
             font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .director-badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .director-badge {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* Board Functions */
@@ -342,12 +565,13 @@ if (session_status() === PHP_SESSION_NONE) {
         .chairman-highlight {
             background: var(--gradient-primary);
             color: white;
-            border-radius: 15px;
-            padding: 2rem;
+            border-radius: 20px;
+            padding: 3rem;
             margin-bottom: 3rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.3);
         }
 
         .chairman-highlight::before {
@@ -361,6 +585,19 @@ if (session_status() === PHP_SESSION_NONE) {
             animation: rotate 20s linear infinite;
         }
 
+        .chairman-highlight::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="chairman-pattern" width="25" height="25" patternUnits="userSpaceOnUse"><circle cx="12.5" cy="12.5" r="2" fill="rgba(255,255,255,0.2)"/><path d="M5 12.5 Q12.5 5, 20 12.5 T35 12.5" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23chairman-pattern)"/></svg>');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -368,18 +605,44 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .chairman-name {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .chairman-title {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .chairman-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
             position: relative;
             z-index: 1;
         }
 
-        .chairman-title {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
+        .chairman-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .members-list {
@@ -426,11 +689,12 @@ if (session_status() === PHP_SESSION_NONE) {
         .principal-card {
             background: var(--gradient-primary);
             color: white;
-            border-radius: 15px;
-            padding: 3rem;
+            border-radius: 20px;
+            padding: 3.5rem;
             margin-top: 2rem;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 25px 50px rgba(30, 58, 138, 0.4);
         }
 
         .principal-card::before {
@@ -444,20 +708,194 @@ if (session_status() === PHP_SESSION_NONE) {
             animation: rotate 25s linear infinite reverse;
         }
 
+        .principal-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="principal-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(255,255,255,0.2)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23principal-pattern)"/></svg>');
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
         .principal-avatar {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            margin: 0 auto 2rem;
+            margin: 0 auto 2.5rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 
+                0 0 40px rgba(30, 58, 138, 0.5),
+                0 15px 30px rgba(30, 58, 138, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.2);
+            animation: principalGlow 4s ease-in-out infinite;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 5px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        var(--gradient-luxury) border-box;
+        }
+
+        .principal-avatar:hover {
+            transform: scale(1.1) rotateY(15deg) translateZ(20px);
+            box-shadow: 
+                0 0 50px rgba(30, 58, 138, 0.7),
+                0 20px 40px rgba(30, 58, 138, 0.5),
+                inset 0 0 40px rgba(255, 255, 255, 0.3);
+            border-color: var(--golden-yellow);
+        }
+
+        .principal-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(1.05) contrast(1.05) saturate(1.1);
+        }
+
+        .principal-avatar:hover img {
+            transform: scale(1.05) rotateY(-8deg);
+            filter: brightness(1.1) contrast(1.1) saturate(1.2);
+        }
+
+        .principal-avatar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+
+        .principal-avatar:hover::before {
+            transform: translateX(100%);
+        }
+
+        .principal-rank {
+            position: absolute;
+            top: -15px;
+            right: -15px;
             background: var(--gradient-luxury);
+            color: var(--primary-blue);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 4rem;
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+            font-weight: 900;
+            font-size: 1.4rem;
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.5);
+            border: 4px solid white;
+            z-index: 10;
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+        }
+
+        @keyframes principalGlow {
+            0%, 100% { 
+                transform: translateY(0px) translateZ(0px) rotateY(0deg); 
+                box-shadow: 0 0 40px rgba(30, 58, 138, 0.5);
+            }
+            25% { 
+                transform: translateY(-10px) translateZ(15px) rotateY(3deg); 
+                box-shadow: 0 0 50px rgba(30, 58, 138, 0.6);
+            }
+            50% { 
+                transform: translateY(-15px) translateZ(25px) rotateY(0deg); 
+                box-shadow: 0 0 60px rgba(30, 58, 138, 0.7);
+            }
+            75% { 
+                transform: translateY(-10px) translateZ(15px) rotateY(-3deg); 
+                box-shadow: 0 0 50px rgba(30, 58, 138, 0.6);
+            }
+        }
+
+        .principal-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
             position: relative;
             z-index: 1;
+        }
+
+        .principal-badge {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chairman-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            display: inline-block;
+            border: 3px solid var(--golden-yellow);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
+            animation: chairmanShine 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .chairman-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.6);
+            border-color: var(--neon-cyan);
+        }
+
+        .chairman-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .chairman-avatar:hover img {
+            transform: scale(1.05);
+        }
+
+        .chairman-avatar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(6, 182, 212, 0.2));
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .chairman-avatar:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes chairmanShine {
+            0%, 100% { 
+                transform: translateY(0px) scale(1); 
+                box-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
+            }
+            50% { 
+                transform: translateY(-3px) scale(1.02); 
+                box-shadow: 0 0 40px rgba(251, 191, 36, 0.6);
+            }
         }
 
         .principal-name {
@@ -528,6 +966,10 @@ if (session_status() === PHP_SESSION_NONE) {
                     <li><a href="governance.php"><i class="fas fa-users"></i> Governance</a></li>
                     <li><a href="programs.php"><i class="fas fa-graduation-cap"></i> Programs</a></li>
                     <li><a href="admissions.php"><i class="fas fa-user-plus"></i> Admissions</a></li>
+                    <li><a href="activities.php"><i class="fas fa-running"></i> Activities</a></li>
+                    <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
+                    <li><a href="achievements.php"><i class="fas fa-trophy"></i> Achievements</a></li>
+                    <li><a href="history.php"><i class="fas fa-history"></i> History</a></li>
                     <li><a href="contact.php"><i class="fas fa-envelope"></i> Contact</a></li>
                     <li><a href="login-portal.php"><i class="fas fa-sign-in-alt"></i> Portal</a></li>
                 </ul>
@@ -559,27 +1001,45 @@ if (session_status() === PHP_SESSION_NONE) {
                 
                 <div class="directors-grid">
                     <div class="director-card">
-                        <div class="director-avatar">
-                            <i class="fas fa-user"></i>
+                        <div class="director-avatar" title="Mr. Baliddawa David Byawaka - Chairman Board of Directors">
+                            <img src="assets/chairman-board-of-director-mr-baliddawa-david-byawaka.jpg" alt="Mr. Baliddawa David Byawaka - Chairman Board of Directors">
+                            <div class="director-rank">1</div>
                         </div>
                         <h4 class="director-name">Mr. Baliddawa David Byawaka</h4>
-                        <p class="director-title">Member Board of Directors</p>
+                        <p class="director-title">CHAIRMAN</p>
+                        <p class="director-role">Board of Directors</p>
+                        <div class="director-badges">
+                            <span class="director-badge">Founder</span>
+                            <span class="director-badge">Chairman</span>
+                        </div>
                     </div>
                     
                     <div class="director-card">
-                        <div class="director-avatar">
-                            <i class="fas fa-user"></i>
+                        <div class="director-avatar" title="Dr. Banonya Stephen - Member Board of Directors">
+                            <img src="assets/member-board-of-directors-dr-banonya-stephen.jpg" alt="Dr. Banonya Stephen - Member Board of Directors">
+                            <div class="director-rank">2</div>
                         </div>
                         <h4 class="director-name">Dr. Banonya Stephen</h4>
-                        <p class="director-title">Member Board of Directors</p>
+                        <p class="director-title">MEMBER</p>
+                        <p class="director-role">Board of Directors</p>
+                        <div class="director-badges">
+                            <span class="director-badge">Founder</span>
+                            <span class="director-badge">Medical</span>
+                        </div>
                     </div>
                     
                     <div class="director-card">
-                        <div class="director-avatar">
-                            <i class="fas fa-user"></i>
+                        <div class="director-avatar" title="Mrs. Mercy Byawaka - Member Board of Directors">
+                            <img src="assets/member-board-of-directors-mrs-mercy-byawaka.jpg" alt="Mrs. Mercy Byawaka - Member Board of Directors">
+                            <div class="director-rank">3</div>
                         </div>
                         <h4 class="director-name">Mrs. Mercy Byawaka</h4>
-                        <p class="director-title">Member Board of Directors</p>
+                        <p class="director-title">MEMBER</p>
+                        <p class="director-role">Board of Directors</p>
+                        <div class="director-badges">
+                            <span class="director-badge">Founder</span>
+                            <span class="director-badge">Admin</span>
+                        </div>
                     </div>
                 </div>
                 
@@ -632,8 +1092,19 @@ if (session_status() === PHP_SESSION_NONE) {
             
             <div class="governors-section">
                 <div class="chairman-highlight">
+                    <div style="text-align: center; margin-bottom: 2rem; position: relative;">
+                        <div class="chairman-avatar" title="Mr. Naluwairo David Kigenyi - Chairman Board of Governors">
+                            <img src="assets/chairman-board-of-governors-mr-naluwairo-david-kigenyi,.jpg" alt="Mr. Naluwairo David Kigenyi - Chairman Board of Governors">
+                        </div>
+                        <div class="director-rank" style="position: absolute; top: -5px; right: calc(50% - 100px);">CHAIR</div>
+                    </div>
                     <h3 class="chairman-name">Mr. Naluwairo David Kigenyi</h3>
                     <p class="chairman-title">Chairman Governing Council</p>
+                    <div class="chairman-badges">
+                        <span class="chairman-badge">Board of Governors</span>
+                        <span class="chairman-badge">Chairman</span>
+                        <span class="chairman-badge">Leadership</span>
+                    </div>
                 </div>
                 
                 <div class="board-description">
@@ -715,11 +1186,19 @@ if (session_status() === PHP_SESSION_NONE) {
             
             <div class="management-section">
                 <div class="principal-card">
-                    <div class="principal-avatar">
-                        <i class="fas fa-user-tie"></i>
+                    <div style="text-align: center; margin-bottom: 2rem; position: relative;">
+                        <div class="principal-avatar" title="Sr. Edith Mwebaza - Principal of Iganga School of Nursing and Midwifery">
+                            <img src="assets/sr-edith-mwebaza-principal-of-the-school.jpg" alt="Sr. Edith Mwebaza - Principal of Iganga School of Nursing and Midwifery">
+                            <div class="principal-rank">PRINCIPAL</div>
+                        </div>
                     </div>
-                    <h3 class="principal-name">Sr. Joyce C. Zirabamuzale</h3>
+                    <h3 class="principal-name">Sr. Edith Mwebaza</h3>
                     <p class="principal-title">Principal of the School</p>
+                    <div class="principal-badges">
+                        <span class="principal-badge">Leadership</span>
+                        <span class="principal-badge">Administration</span>
+                        <span class="principal-badge">Academic</span>
+                    </div>
                     <p class="principal-description">
                         The Principal is responsible for the day to day running of the school assisted by the Deputy and other staff. 
                         The staff serves in various committees such as academic, disciplinary, welfare, health and sanitation. 

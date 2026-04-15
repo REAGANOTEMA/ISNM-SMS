@@ -30,32 +30,95 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3730a3;
-            --accent-blue: #3b82f6;
-            --light-green: #22c55e;
-            --creamy-yellow: #fef3c7;
-            --golden-yellow: #fbbf24;
-            --neon-cyan: #06b6d4;
-            --clean-white: #ffffff;
-            --cream-white: #fafafa;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.15);
-            --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.2);
-            --shadow-xl: 0 32px 64px rgba(0, 0, 0, 0.3);
-            --border-color: #e2e8f0;
-            --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #3b82f6 50%, #06b6d4 75%, #22c55e 100%);
-            --gradient-hero: linear-gradient(135deg, #1e3a8a 0%, #3730a3 33%, #3b82f6 66%, #06b6d4 100%);
-            --gradient-luxury: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            /* Modern Vibrant Color Palette */
+            --vibrant-purple: #8B5CF6;
+            --electric-blue: #3B82F6;
+            --neon-cyan: #06B6D4;
+            --bright-green: #10B981;
+            --golden-yellow: #F59E0B;
+            --hot-pink: #EC4899;
+            --deep-indigo: #4F46E5;
+            --sunset-orange: #F97316;
+            --crimson-red: #DC2626;
+            --pure-white: #FFFFFF;
+            --dark-bg: #0F172A;
+            --light-bg: #F8FAFC;
+            
+            /* Advanced Color Variations */
+            --primary-vibrant: #8B5CF6;
+            --secondary-vibrant: #3B82F6;
+            --accent-vibrant: #06B6D4;
+            --success-vibrant: #10B981;
+            --warning-vibrant: #F59E0B;
+            --danger-vibrant: #EF4444;
+            --info-vibrant: #06B6D4;
+            --dark-vibrant: #1E293B;
+            --light-vibrant: #F1F5F9;
+            
+            /* Modern Gradients */
+            --gradient-modern: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 25%, #06B6D4 50%, #10B981 75%, #F59E0B 100%);
+            --gradient-hero: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 33%, #EC4899 66%, #F97316 100%);
+            --gradient-luxury: linear-gradient(135deg, #F59E0B 0%, #FCD34D 50%, #FEF3C7 100%);
+            --gradient-neon: linear-gradient(135deg, #06B6D4 0%, #10B981 50%, #8B5CF6 100%);
+            --gradient-sunset: linear-gradient(135deg, #F97316 0%, #EF4444 50%, #EC4899 100%);
+            --gradient-ocean: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 50%, #10B981 100%);
+            --gradient-galaxy: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 50%, #EC4899 100%);
+            
+            /* Modern Shadows */
+            --shadow-modern-sm: 0 4px 6px -1px rgba(139, 92, 246, 0.1), 0 2px 4px -1px rgba(139, 92, 246, 0.06);
+            --shadow-modern-md: 0 10px 15px -3px rgba(139, 92, 246, 0.1), 0 4px 6px -2px rgba(139, 92, 246, 0.05);
+            --shadow-modern-lg: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(139, 92, 246, 0.04);
+            --shadow-neon: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.4);
+            --shadow-glow: 0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(249, 115, 22, 0.3);
+            
+            /* Modern Border Colors */
+            --border-modern: #E5E7EB;
+            --border-vibrant: #8B5CF6;
+            --border-neon: #06B6D4;
+            --border-glow: #F59E0B;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--cream-white), var(--clean-white));
-            color: var(--text-primary);
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            color: var(--pure-white);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
+            animation: modernAurora 15s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="modern-achievements-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(139,92,246,0.3)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(59,130,246,0.4)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23modern-achievements-pattern)"/></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="vibrant-achievements-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(236,72,153,0.3)" stroke-width="2"/><circle cx="25" cy="25" r="6" fill="rgba(249,115,22,0.4)"/></pattern></defs><rect width="200" height="200" fill="url(%23vibrant-achievements-pattern)"/></svg>');
+            background-size: 30px 30px, 100px 100px;
+            animation: modernPatternFloat 25s linear infinite;
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* Luxury Header */
@@ -497,6 +560,139 @@ if (session_status() === PHP_SESSION_NONE) {
             box-shadow: var(--shadow-md);
         }
 
+        /* Enhanced Achievement Gallery */
+        .achievement-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .achievement-card {
+            background: linear-gradient(145deg, var(--white), var(--cream-white));
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            border: 2px solid transparent;
+        }
+
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--light-green), var(--golden-yellow));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .achievement-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="achievement-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="var(--golden-yellow)" opacity="0.2"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="var(--light-green)" stroke-width="1" fill="none" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23achievement-pattern)"/></svg>'),
+                linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+            background-size: 40px 40px, cover;
+            background-position: 0 0, center;
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-15px) scale(1.02) rotateX(3deg) translateZ(25px);
+            box-shadow: var(--shadow-xl), 0 0 40px rgba(37, 99, 235, 0.3);
+            border-color: var(--primary-blue);
+        }
+
+        .achievement-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .achievement-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .achievement-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .achievement-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        .achievement-card:hover .achievement-image {
+            transform: scale(1.05) rotateX(2deg) translateZ(10px);
+        }
+
+        .achievement-card:hover .achievement-image::before {
+            transform: translateX(100%);
+        }
+
+        .achievement-card-content {
+            padding: 2rem;
+        }
+
+        .achievement-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .achievement-card-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .achievement-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .achievement-badge {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        @keyframes achievementFloat {
+            0%, 100% { transform: translateY(0px) translateZ(0px); }
+            50% { transform: translateY(-5px) translateZ(10px); }
+        }
+
         .plan-icon {
             width: 60px;
             height: 60px;
@@ -615,9 +811,13 @@ if (session_status() === PHP_SESSION_NONE) {
                 <ul class="nav-links">
                     <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="about.php"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="governance.php"><i class="fas fa-users"></i> Governance</a></li>
                     <li><a href="programs.php"><i class="fas fa-graduation-cap"></i> Programs</a></li>
-                    <li><a href="achievements.php"><i class="fas fa-trophy"></i> Achievements</a></li>
                     <li><a href="admissions.php"><i class="fas fa-user-plus"></i> Admissions</a></li>
+                    <li><a href="activities.php"><i class="fas fa-running"></i> Activities</a></li>
+                    <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
+                    <li><a href="achievements.php"><i class="fas fa-trophy"></i> Achievements</a></li>
+                    <li><a href="history.php"><i class="fas fa-history"></i> History</a></li>
                     <li><a href="contact.php"><i class="fas fa-envelope"></i> Contact</a></li>
                     <li><a href="login-portal.php"><i class="fas fa-sign-in-alt"></i> Portal</a></li>
                 </ul>
@@ -942,6 +1142,170 @@ if (session_status() === PHP_SESSION_NONE) {
                             <p class="plan-description">
                                 Appeal to Ministry of Education and Sports (MOES) and Ministry of Health (MOH) to identify donors to support the school
                             </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievement Gallery Section -->
+        <section class="section">
+            <div class="achievement-gallery-section">
+                <div class="section-content">
+                    <h2 class="section-title">Achievement Gallery</h2>
+                    <p class="section-description">
+                        Visual showcase of our major achievements and milestones throughout the years
+                    </p>
+                    
+                    <div class="achievement-gallery">
+                        <!-- Administration Block -->
+                        <div class="achievement-card">
+                            <img src="assets/administration-block.jpg" alt="ISNM Administration Block - Main Administrative Building" title="ISNM Administration Block - Central Hub of School Management" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Administration Block</h3>
+                                <p class="achievement-card-description">
+                                    Our modern administration block serves as the central hub for school management and operations
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Infrastructure</span>
+                                    <span class="achievement-badge">Management</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Certificate Students in Examination -->
+                        <div class="achievement-card">
+                            <img src="assets/certificate-in-nursing-students-in-examamination-room.jpg" alt="ISNM Certificate Nursing Students in Examination Room" title="ISNM Certificate Nursing Students - Academic Assessment in Progress" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Academic Excellence</h3>
+                                <p class="achievement-card-description">
+                                    Certificate nursing students demonstrating their knowledge during rigorous examinations
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Academics</span>
+                                    <span class="achievement-badge">Assessment</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Classroom Building -->
+                        <div class="achievement-card">
+                            <img src="assets/classroom-building.jpg" alt="ISNM Classroom Building - Modern Learning Facilities" title="ISNM Classroom Building - State-of-the-Art Learning Environment" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Modern Classrooms</h3>
+                                <p class="achievement-card-description">
+                                    Well-equipped classroom buildings providing conducive learning environments
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Infrastructure</span>
+                                    <span class="achievement-badge">Learning</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dining Hall -->
+                        <div class="achievement-card">
+                            <img src="assets/dinnin-hall-or-main-hall.jpg" alt="ISNM Dining Hall - Student Dining Facilities" title="ISNM Main Dining Hall - Student Nutrition and Social Space" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Dining Hall</h3>
+                                <p class="achievement-card-description">
+                                    Spacious dining hall providing nutritious meals and social interaction space
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Facilities</span>
+                                    <span class="achievement-badge">Student Life</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Diploma Hostel -->
+                        <div class="achievement-card">
+                            <img src="assets/diploma-hostel.jpg" alt="ISNM Diploma Hostel - Student Accommodation" title="ISNM Diploma Hostel - Comfortable Student Living Facilities" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Diploma Hostel</h3>
+                                <p class="achievement-card-description">
+                                    Modern hostel facilities providing comfortable accommodation for diploma students
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Accommodation</span>
+                                    <span class="achievement-badge">Student Welfare</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Diploma Extension Images -->
+                        <div class="achievement-card">
+                            <img src="assets/diploma-in-nursing-and-midwifery-extension-images-for-students.jpg" alt="ISNM Diploma Extension Program - Student Activities" title="ISNM Diploma Extension Program - Enhanced Learning Opportunities" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Extension Programs</h3>
+                                <p class="achievement-card-description">
+                                    Diploma in nursing and midwifery extension programs enhancing student opportunities
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Programs</span>
+                                    <span class="achievement-badge">Innovation</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Girls Hostel -->
+                        <div class="achievement-card">
+                            <img src="assets/girls-hostel.jpg" alt="ISNM Girls Hostel - Female Student Accommodation" title="ISNM Girls Hostel - Safe and Comfortable Living Environment" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Girls Hostel</h3>
+                                <p class="achievement-card-description">
+                                    Secure and comfortable hostel facilities specifically designed for female students
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Accommodation</span>
+                                    <span class="achievement-badge">Safety</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Library Revision Session -->
+                        <div class="achievement-card">
+                            <img src="assets/revision-session-at-the-school-library.jpg" alt="ISNM Library Revision Session - Student Study" title="ISNM Library Revision Session - Academic Excellence in Progress" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Library Studies</h3>
+                                <p class="achievement-card-description">
+                                    Students engaged in intensive revision sessions at the school library
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Academics</span>
+                                    <span class="achievement-badge">Library</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- School Kitchen -->
+                        <div class="achievement-card">
+                            <img src="assets/school-kitchen.jpg" alt="ISNM School Kitchen - Food Preparation Facilities" title="ISNM School Kitchen - Modern Food Preparation and Nutrition Center" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">School Kitchen</h3>
+                                <p class="achievement-card-description">
+                                    Modern kitchen facilities ensuring nutritious meal preparation for all students
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Facilities</span>
+                                    <span class="achievement-badge">Nutrition</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Skills Laboratory -->
+                        <div class="achievement-card">
+                            <img src="assets/students-in-skill-laboratory-in-practical-training.jpg" alt="ISNM Skills Laboratory - Practical Training Session" title="ISNM Skills Laboratory - Hands-on Practical Training for Students" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Skills Laboratory</h3>
+                                <p class="achievement-card-description">
+                                    Students engaged in practical training sessions in our modern skills laboratory
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Training</span>
+                                    <span class="achievement-badge">Skills</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

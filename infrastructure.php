@@ -30,32 +30,95 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3730a3;
-            --accent-blue: #3b82f6;
-            --light-green: #22c55e;
-            --creamy-yellow: #fef3c7;
-            --golden-yellow: #fbbf24;
-            --neon-cyan: #06b6d4;
-            --clean-white: #ffffff;
-            --cream-white: #fafafa;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.15);
-            --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.2);
-            --shadow-xl: 0 32px 64px rgba(0, 0, 0, 0.3);
-            --border-color: #e2e8f0;
-            --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #3b82f6 50%, #06b6d4 75%, #22c55e 100%);
-            --gradient-hero: linear-gradient(135deg, #1e3a8a 0%, #3730a3 33%, #3b82f6 66%, #06b6d4 100%);
-            --gradient-luxury: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            /* Modern Vibrant Color Palette */
+            --vibrant-purple: #8B5CF6;
+            --electric-blue: #3B82F6;
+            --neon-cyan: #06B6D4;
+            --bright-green: #10B981;
+            --golden-yellow: #F59E0B;
+            --hot-pink: #EC4899;
+            --deep-indigo: #4F46E5;
+            --sunset-orange: #F97316;
+            --crimson-red: #DC2626;
+            --pure-white: #FFFFFF;
+            --dark-bg: #0F172A;
+            --light-bg: #F8FAFC;
+            
+            /* Advanced Color Variations */
+            --primary-vibrant: #8B5CF6;
+            --secondary-vibrant: #3B82F6;
+            --accent-vibrant: #06B6D4;
+            --success-vibrant: #10B981;
+            --warning-vibrant: #F59E0B;
+            --danger-vibrant: #EF4444;
+            --info-vibrant: #06B6D4;
+            --dark-vibrant: #1E293B;
+            --light-vibrant: #F1F5F9;
+            
+            /* Modern Gradients */
+            --gradient-modern: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 25%, #06B6D4 50%, #10B981 75%, #F59E0B 100%);
+            --gradient-hero: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 33%, #EC4899 66%, #F97316 100%);
+            --gradient-luxury: linear-gradient(135deg, #F59E0B 0%, #FCD34D 50%, #FEF3C7 100%);
+            --gradient-neon: linear-gradient(135deg, #06B6D4 0%, #10B981 50%, #8B5CF6 100%);
+            --gradient-sunset: linear-gradient(135deg, #F97316 0%, #EF4444 50%, #EC4899 100%);
+            --gradient-ocean: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 50%, #10B981 100%);
+            --gradient-galaxy: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 50%, #EC4899 100%);
+            
+            /* Modern Shadows */
+            --shadow-modern-sm: 0 4px 6px -1px rgba(139, 92, 246, 0.1), 0 2px 4px -1px rgba(139, 92, 246, 0.06);
+            --shadow-modern-md: 0 10px 15px -3px rgba(139, 92, 246, 0.1), 0 4px 6px -2px rgba(139, 92, 246, 0.05);
+            --shadow-modern-lg: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(139, 92, 246, 0.04);
+            --shadow-neon: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.4);
+            --shadow-glow: 0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(249, 115, 22, 0.3);
+            
+            /* Modern Border Colors */
+            --border-modern: #E5E7EB;
+            --border-vibrant: #8B5CF6;
+            --border-neon: #06B6D4;
+            --border-glow: #F59E0B;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--cream-white), var(--clean-white));
-            color: var(--text-primary);
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            color: var(--pure-white);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
+            animation: modernAurora 15s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="modern-infrastructure-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(139,92,246,0.3)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(59,130,246,0.4)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23modern-infrastructure-pattern)"/></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="vibrant-infrastructure-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(236,72,153,0.3)" stroke-width="2"/><circle cx="25" cy="25" r="6" fill="rgba(249,115,22,0.4)"/></pattern></defs><rect width="200" height="200" fill="url(%23vibrant-infrastructure-pattern)"/></svg>');
+            background-size: 30px 30px, 100px 100px;
+            animation: modernPatternFloat 25s linear infinite;
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* Luxury Header */
@@ -244,11 +307,25 @@ if (session_status() === PHP_SESSION_NONE) {
             border: 1px solid var(--border-color);
             transition: all 0.3s ease;
             position: relative;
+            animation: facilityCardFloat 5s ease-in-out infinite;
         }
 
         .facility-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px) scale(1.02);
             box-shadow: var(--shadow-xl);
+        }
+
+        .facility-card img {
+            transition: all 0.3s ease;
+        }
+
+        .facility-card:hover img {
+            transform: scale(1.05);
+        }
+
+        @keyframes facilityCardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
 
         .facility-image {
@@ -617,9 +694,13 @@ if (session_status() === PHP_SESSION_NONE) {
                 <ul class="nav-links">
                     <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="about.php"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="governance.php"><i class="fas fa-users"></i> Governance</a></li>
                     <li><a href="programs.php"><i class="fas fa-graduation-cap"></i> Programs</a></li>
-                    <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
                     <li><a href="admissions.php"><i class="fas fa-user-plus"></i> Admissions</a></li>
+                    <li><a href="activities.php"><i class="fas fa-running"></i> Activities</a></li>
+                    <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
+                    <li><a href="achievements.php"><i class="fas fa-trophy"></i> Achievements</a></li>
+                    <li><a href="history.php"><i class="fas fa-history"></i> History</a></li>
                     <li><a href="contact.php"><i class="fas fa-envelope"></i> Contact</a></li>
                     <li><a href="login-portal.php"><i class="fas fa-sign-in-alt"></i> Portal</a></li>
                 </ul>
@@ -654,8 +735,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 <!-- Multi-Purpose Hall -->
                 <div class="facility-card">
                     <div class="facility-image">
-                        <i class="fas fa-building"></i>
-                    </div>
+                    <img src="assets/dinnin-hall-or-main-hall.jpg" alt="ISNM Multi-Purpose Hall - Examination and Events Center" title="ISNM Multi-Purpose Hall - Accommodates 300 Students for Exams and Events" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
                     <div class="facility-content">
                         <h3 class="facility-title">Multi-Purpose Hall</h3>
                         <p class="facility-description">
@@ -688,7 +769,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <!-- Kitchen & Dining Hall -->
                 <div class="facility-card">
                     <div class="facility-image">
-                        <i class="fas fa-utensils"></i>
+                        <img src="assets/school-kitchen.jpg" alt="ISNM School Kitchen - Modern Food Preparation Facility" title="ISNM School Kitchen - Complete Kitchen and Food Store for Student Meals" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="facility-content">
                         <h3 class="facility-title">Kitchen & Dining Hall</h3>
@@ -722,7 +803,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <!-- Classrooms -->
                 <div class="facility-card">
                     <div class="facility-image">
-                        <i class="fas fa-chalkboard"></i>
+                        <img src="assets/classroom-building.jpg" alt="ISNM Classroom Building - Modern Learning Facilities" title="ISNM Classroom Building - Six Classrooms Accommodating 60 Students Each" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                     <div class="facility-content">
                         <h3 class="facility-title">Classrooms</h3>
@@ -748,6 +829,40 @@ if (session_status() === PHP_SESSION_NONE) {
                                     <i class="fas fa-chair"></i>
                                 </div>
                                 <div class="spec-text">Comfortable Seating</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Girls Hostel -->
+                <div class="facility-card">
+                    <div class="facility-image">
+                        <img src="assets/girls-hostel.jpg" alt="ISNM Girls Hostel - Modern Student Accommodation" title="ISNM Girls Hostel - Safe and Comfortable Accommodation for Female Students" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="facility-content">
+                        <h3 class="facility-title">Girls Hostel</h3>
+                        <p class="facility-description">
+                            Modern hostel accommodation for female students with comfortable living spaces 
+                            and 24/7 security for safe and conducive learning environment.
+                        </p>
+                        <div class="facility-specs">
+                            <div class="spec-item">
+                                <div class="spec-icon">
+                                    <i class="fas fa-bed"></i>
+                                </div>
+                                <div class="spec-text">Comfortable Accommodation</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="spec-text">24/7 Security</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="spec-text">Female Students Only</div>
                             </div>
                         </div>
                     </div>
@@ -799,13 +914,14 @@ if (session_status() === PHP_SESSION_NONE) {
                 
                 <div class="utilities-grid">
                     <!-- Water Supply -->
-                    <div class="utility-card">
-                        <div class="utility-icon">
+                    <div class="utility-card" style="position: relative;">
+                        <img src="assets/school-borehole-a-student-is-fetching-water.jpg" alt="ISNM Water Supply System - Borehole Water Facility" title="ISNM Water Supply - Student Fetching Water from School Borehole" style="width: 100%; height: 120px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                        <div class="utility-icon" style="position: absolute; top: 10px; right: 10px; background: var(--gradient-luxury);">
                             <i class="fas fa-tint"></i>
                         </div>
                         <h3 class="utility-title">Water Supply</h3>
                         <p class="utility-description">
-                            The school has adequate water supplies from multiple sources ensuring constant availability.
+                            The school has adequate water supplies from 3 boreholes and harvested rainwater ensuring constant availability.
                         </p>
                         <div class="utility-stats">
                             <div class="stat-item">
@@ -871,7 +987,8 @@ if (session_status() === PHP_SESSION_NONE) {
                     <h2 class="transport-title">8.0 Transport</h2>
                     <div class="transport-grid">
                         <div class="transport-item">
-                            <div class="transport-icon">
+                            <img src="assets/school-mini-buses-2-costers.jpg" alt="ISNM School Transport Fleet - Two Coaster Buses" title="ISNM School Transport - Two Coaster Buses for Student Transportation" style="width: 100%; height: 120px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                            <div class="transport-icon" style="position: absolute; top: 10px; right: 10px; background: var(--gradient-luxury);">
                                 <i class="fas fa-bus"></i>
                             </div>
                             <h3 class="transport-name">Coaster Buses</h3>

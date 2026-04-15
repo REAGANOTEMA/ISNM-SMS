@@ -32,58 +32,100 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         :root {
-            --primary-blue: #2563eb;
-            --secondary-blue: #3b82f6;
-            --accent-blue: #60a5fa;
-            --sky-blue: #0ea5e9;
-            --ocean-blue: #0284c7;
-            --light-green: #86efac;
-            --soft-green: #4ade80;
-            --mint-green: #10b981;
-            --lime-green: #84cc16;
-            --creamy-yellow: #fef3c7;
-            --golden-yellow: #fbbf24;
-            --warm-yellow: #f59e0b;
-            --soft-yellow: #fde68a;
-            --white: #ffffff;
-            --cream-white: #fefaf3;
-            --light-gray: #f8fafc;
-            --soft-gray: #f1f5f9;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
-            --text-muted: #94a3b8;
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.15);
-            --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.2);
-            --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.25);
-            --shadow-2xl: 0 32px 64px rgba(0, 0, 0, 0.3);
-            --shadow-3d: 0 12px 24px rgba(0, 0, 0, 0.3), 0 8px 16px rgba(0, 0, 0, 0.2);
-            --shadow-gold: 0 8px 16px rgba(251, 191, 36, 0.4);
-            --shadow-blue: 0 8px 16px rgba(37, 99, 235, 0.4);
-            --shadow-green: 0 8px 16px rgba(74, 222, 128, 0.4);
-            --shadow-yellow: 0 8px 16px rgba(251, 191, 36, 0.3);
-            --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-            --shadow-inset-light: inset 0 1px 2px rgba(255, 255, 255, 0.8);
-            --gradient-primary: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue), var(--accent-blue));
-            --gradient-secondary: linear-gradient(135deg, var(--light-green), var(--soft-green), var(--mint-green));
-            --gradient-tertiary: linear-gradient(135deg, var(--creamy-yellow), var(--golden-yellow), var(--warm-yellow));
-            --gradient-hero: linear-gradient(135deg, var(--ocean-blue), var(--light-green), var(--creamy-yellow));
+            /* Modern Vibrant Color Palette */
+            --vibrant-purple: #8B5CF6;
+            --electric-blue: #3B82F6;
+            --neon-cyan: #06B6D4;
+            --bright-green: #10B981;
+            --golden-yellow: #F59E0B;
+            --hot-pink: #EC4899;
+            --deep-indigo: #4F46E5;
+            --sunset-orange: #F97316;
+            --crimson-red: #DC2626;
+            --pure-white: #FFFFFF;
+            --dark-bg: #0F172A;
+            --light-bg: #F8FAFC;
+            
+            /* Advanced Color Variations */
+            --primary-vibrant: #8B5CF6;
+            --secondary-vibrant: #3B82F6;
+            --accent-vibrant: #06B6D4;
+            --success-vibrant: #10B981;
+            --warning-vibrant: #F59E0B;
+            --danger-vibrant: #EF4444;
+            --info-vibrant: #06B6D4;
+            --dark-vibrant: #1E293B;
+            --light-vibrant: #F1F5F9;
+            
+            /* Modern Gradients */
+            --gradient-modern: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 25%, #06B6D4 50%, #10B981 75%, #F59E0B 100%);
+            --gradient-hero: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 33%, #EC4899 66%, #F97316 100%);
+            --gradient-luxury: linear-gradient(135deg, #F59E0B 0%, #FCD34D 50%, #FEF3C7 100%);
+            --gradient-neon: linear-gradient(135deg, #06B6D4 0%, #10B981 50%, #8B5CF6 100%);
+            --gradient-sunset: linear-gradient(135deg, #F97316 0%, #EF4444 50%, #EC4899 100%);
+            --gradient-ocean: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 50%, #10B981 100%);
+            --gradient-galaxy: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 50%, #EC4899 100%);
+            
+            /* Modern Shadows */
+            --shadow-modern-sm: 0 4px 6px -1px rgba(139, 92, 246, 0.1), 0 2px 4px -1px rgba(139, 92, 246, 0.06);
+            --shadow-modern-md: 0 10px 15px -3px rgba(139, 92, 246, 0.1), 0 4px 6px -2px rgba(139, 92, 246, 0.05);
+            --shadow-modern-lg: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(139, 92, 246, 0.04);
+            --shadow-neon: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.4);
+            --shadow-glow: 0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(249, 115, 22, 0.3);
+            
+            /* Modern Border Colors */
+            --border-modern: #E5E7EB;
+            --border-vibrant: #8B5CF6;
+            --border-neon: #06B6D4;
+            --border-glow: #F59E0B;
         }
 
         body {
             font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--light-green) 50%, var(--creamy-yellow) 100%);
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
             min-height: 100vh;
-            color: var(--text-dark);
+            color: var(--pure-white);
             line-height: 1.6;
             position: relative;
             perspective: 1000px;
-            transform-style: preserve-3d;
-            font-weight: 400;
-            letter-spacing: -0.01em;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
+            animation: modernAurora 15s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="modern-login-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(139,92,246,0.3)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(59,130,246,0.4)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23modern-login-pattern)"/></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="vibrant-login-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(236,72,153,0.3)" stroke-width="2"/><circle cx="25" cy="25" r="6" fill="rgba(249,115,22,0.4)"/></pattern></defs><rect width="200" height="200" fill="url(%23vibrant-login-pattern)"/></svg>');
+            background-size: 30px 30px, 100px 100px;
+            animation: modernPatternFloat 25s linear infinite;
+            pointer-events: none;
+            z-index: -1;
         }
 
         .organogram-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
             background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
             color: white;
             padding: 3rem 2rem;
@@ -279,52 +321,21 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .org-box {
-            background: linear-gradient(145deg, var(--white), var(--cream-white));
-            border: 2px solid var(--primary-blue);
-            border-radius: 16px;
-            padding: 2rem 1.5rem;
-            min-width: 220px;
-            max-width: 300px;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--school-white);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 180px;
+            max-width: 220px;
+            box-shadow: var(--shadow-clean-sm);
+            transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
             text-align: center;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
             overflow: hidden;
         }
 
-        .org-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--light-green), var(--golden-yellow));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        .org-box::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="box-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1.5" fill="var(--golden-yellow)" opacity="0.15"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="var(--light-green)" stroke-width="0.5" fill="none" opacity="0.2"/></pattern></defs><rect width="100" height="100" fill="url(%23box-pattern)"/></svg>'),
-                linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
-            background-size: 40px 40px, cover;
-            background-position: 0 0, center;
-            transform: translateX(-100%);
-            transition: transform 0.8s ease;
-            pointer-events: none;
-        }
-
+        
         .org-box.root {
             border: 3px solid var(--golden-yellow);
             background: linear-gradient(145deg, var(--white), var(--creamy-yellow));
@@ -361,10 +372,9 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .org-box:hover {
-            transform: translateY(-8px) scale(1.08) rotateX(2deg) translateZ(20px);
-            box-shadow: var(--shadow-2xl), 0 0 40px rgba(251,191,36,0.3);
-            border-color: var(--golden-yellow);
-            background: linear-gradient(145deg, var(--light-green), var(--creamy-yellow));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-clean-md);
+            border-color: var(--school-primary);
         }
 
         .org-box:hover::before {
@@ -1288,27 +1298,32 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .auth-gateway {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            max-width: 800px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
         }
 
         .auth-button {
-            padding: 2rem 2.5rem;
-            background: var(--gradient-tertiary);
+            padding: 2.5rem 3rem;
+            background: linear-gradient(145deg, var(--white), var(--cream-white));
             color: var(--primary-blue);
-            border: 3px solid var(--golden-yellow);
-            border-radius: 20px;
+            border: 4px solid var(--golden-yellow);
+            border-radius: 25px;
             font-weight: 900;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-xl), var(--shadow-inset);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                var(--shadow-2xl), 
+                0 0 40px rgba(251, 191, 36, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.8),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.1);
             text-decoration: none;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 1rem;
@@ -1317,11 +1332,270 @@ if (session_status() === PHP_SESSION_NONE) {
             transform-style: preserve-3d;
             transform: translateZ(0);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+            animation: authButtonFloat 4s ease-in-out infinite;
         }
 
+        .auth-button:nth-child(1) { animation-delay: 0s; }
+        .auth-button:nth-child(2) { animation-delay: 0.5s; }
+        .auth-button:nth-child(3) { animation-delay: 1s; }
+        .auth-button:nth-child(4) { animation-delay: 1.5s; }
+
         .auth-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .auth-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="auth-medical" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M5 10 Q10 5, 15 10 T25 10" stroke="var(--primary-blue)" stroke-width="1.5" fill="none" opacity="0.3"/><circle cx="5" cy="10" r="3" fill="var(--golden-yellow)" opacity="0.4"/><circle cx="25" cy="10" r="3" fill="var(--golden-yellow)" opacity="0.4"/></pattern></defs><rect width="100" height="100" fill="url(%23auth-medical)"/></svg>'),
+                linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+            background-size: 40px 40px, cover;
+            background-position: 0 0, center;
+            transform: translateX(-100%);
+            transition: transform 1s ease;
+            pointer-events: none;
+        }
+
+        .auth-button:hover {
+            transform: translateY(-12px) scale(1.15) rotateX(-5deg) rotateY(5deg) translateZ(20px);
+            box-shadow: 
+                var(--shadow-2xl), 
+                0 0 60px rgba(251, 191, 36, 0.6),
+                0 0 80px rgba(37, 99, 235, 0.4),
+                inset 0 2px 4px rgba(255, 255, 255, 0.9),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(145deg, var(--light-green), var(--creamy-yellow));
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+
+        .auth-button:hover::before {
+            left: 100%;
+        }
+
+        .auth-button:hover::after {
+            transform: translateX(100%);
+        }
+
+        .auth-button:active {
+            transform: translateY(-6px) scale(1.08) rotateX(-2deg) rotateY(2deg) translateZ(10px);
+            transition: all 0.1s ease;
+        }
+
+        .auth-button-icon {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: iconPulse 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .auth-button:hover .auth-button-icon {
+            animation: iconRotate 1s ease-in-out;
+            background: linear-gradient(135deg, var(--golden-yellow), var(--warm-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-button-text {
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .auth-button-subtext {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        @keyframes authButtonFloat {
+            0%, 100% { 
+                transform: translateY(0px) translateZ(0px) rotateX(0deg) rotateY(0deg); 
+            }
+            25% { 
+                transform: translateY(-5px) translateZ(5px) rotateX(1deg) rotateY(1deg); 
+            }
+            50% { 
+                transform: translateY(-10px) translateZ(10px) rotateX(0deg) rotateY(0deg); 
+            }
+            75% { 
+                transform: translateY(-5px) translateZ(5px) rotateX(-1deg) rotateY(-1deg); 
+            }
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes iconRotate {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        /* Department Portal Section */
+        .department-portals {
+            background: linear-gradient(145deg, var(--cream-white), var(--white));
+            border-radius: 30px;
+            padding: 3rem;
+            margin: 3rem auto;
+            max-width: 1400px;
+            box-shadow: var(--shadow-2xl);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--light-green);
+        }
+
+        .department-portals::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--light-green), var(--golden-yellow));
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .department-portals::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="dept-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M10 20 Q20 10, 30 20 T50 20" stroke="var(--primary-blue)" stroke-width="1" fill="none" opacity="0.15"/><circle cx="10" cy="20" r="3" fill="var(--light-green)" opacity="0.2"/><circle cx="50" cy="20" r="3" fill="var(--light-green)" opacity="0.2"/></pattern></defs><rect width="200" height="200" fill="url(%23dept-pattern)"/></svg>'),
+                linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+            background-size: 80px 80px, cover;
+            background-position: 0 0, center;
+            pointer-events: none;
+            animation: deptPatternFloat 12s ease-in-out infinite;
+        }
+
+        .department-title {
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .department-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .department-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .department-card {
+            background: linear-gradient(145deg, var(--white), var(--cream-white));
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .department-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--light-green), var(--golden-yellow));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .department-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dept-card-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="var(--golden-yellow)" opacity="0.2"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="var(--light-green)" stroke-width="1" fill="none" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23dept-card-pattern)"/></svg>'),
+                linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+            background-size: 40px 40px, cover;
+            background-position: 0 0, center;
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        .department-card:hover {
+            transform: translateY(-10px) scale(1.05) rotateX(2deg) translateZ(15px);
+            box-shadow: var(--shadow-xl), 0 0 30px rgba(37, 99, 235, 0.3);
+            border-color: var(--primary-blue);
+            background: linear-gradient(145deg, var(--light-green), var(--creamy-yellow));
+        }
+
+        .department-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .department-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .department-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .department-icon::before {
             content: '';
             position: absolute;
             top: 0;
@@ -1332,43 +1606,43 @@ if (session_status() === PHP_SESSION_NONE) {
             transition: left 0.6s ease;
         }
 
-        .auth-button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><defs><pattern id="auth-medical" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M4 8 Q8 4, 12 8 T20 8" stroke="white" stroke-width="1" fill="none" opacity="0.4"/><circle cx="4" cy="8" r="2" fill="white" opacity="0.5"/><circle cx="20" cy="8" r="2" fill="white" opacity="0.5"/></pattern></defs><rect width="80" height="80" fill="url(%23auth-medical)"/></svg>'),
-                radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);
-            background-size: 32px 32px, cover;
-            background-position: 0 0, center;
-            transform: translate(-50%, -50%);
-            transition: all 0.5s ease;
-            border-radius: 50%;
+        .department-card:hover .department-icon {
+            transform: scale(1.1) rotateY(10deg);
+            background: linear-gradient(145deg, var(--golden-yellow), var(--warm-yellow));
         }
 
-        .auth-button:hover {
-            transform: translateY(-8px) scale(1.1) rotateX(5deg);
-            box-shadow: var(--shadow-xl), 0 0 30px rgba(251, 191, 36, 0.5);
-            background: var(--gradient-primary);
-            color: white;
-            border-color: var(--primary-blue);
-        }
-
-        .auth-button:hover::before {
+        .department-card:hover .department-icon::before {
             left: 100%;
         }
 
-        .auth-button:hover::after {
-            width: 120%;
-            height: 120%;
+        .department-name {
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
         }
 
-        .auth-button:active {
-            transform: translateY(-4px) scale(1.05) rotateX(2deg);
-            transition: all 0.1s ease;
+        .department-role {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .department-access {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        @keyframes deptPatternFloat {
+            0%, 100% { transform: translateY(0px); opacity: 0.3; }
+            50% { transform: translateY(-5px); opacity: 0.6; }
         }
 
         .footer {
@@ -1971,6 +2245,113 @@ if (session_status() === PHP_SESSION_NONE) {
             box-shadow: var(--shadow-md);
             background: var(--gradient-secondary);
         }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.5rem 0;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .nav-logo {
+                font-size: 0.9rem;
+            }
+
+            .nav-logo img {
+                width: 35px;
+                height: 35px;
+            }
+
+            .nav-links {
+                gap: 0.25rem;
+            }
+
+            .nav-link {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .org-box {
+                min-width: 140px;
+                max-width: 160px;
+                padding: 0.8rem;
+            }
+
+            .org-level {
+                gap: 0.5rem;
+            }
+
+            .org-title {
+                font-size: 0.9rem;
+            }
+
+            .org-subtitle {
+                font-size: 0.8rem;
+            }
+
+            .org-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .organogram-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .organogram-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .organogram-header p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                display: none;
+            }
+
+            .org-box {
+                min-width: 120px;
+                max-width: 140px;
+                padding: 0.6rem;
+            }
+
+            .org-title {
+                font-size: 0.8rem;
+            }
+
+            .org-subtitle {
+                font-size: 0.7rem;
+            }
+
+            .org-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            .organogram-header {
+                padding: 1rem 0.5rem;
+            }
+
+            .organogram-header h1 {
+                font-size: 1.2rem;
+            }
+
+            .organogram-header p {
+                font-size: 0.8rem;
+            }
+
+            .org-level {
+                gap: 0.3rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1984,7 +2365,43 @@ if (session_status() === PHP_SESSION_NONE) {
             <div class="nav-links">
                 <a href="index.php" class="nav-link">
                     <i class="fas fa-home"></i>
-                    Back to Home
+                    Home
+                </a>
+                <a href="about.php" class="nav-link">
+                    <i class="fas fa-info-circle"></i>
+                    About
+                </a>
+                <a href="governance.php" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    Governance
+                </a>
+                <a href="programs.php" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i>
+                    Programs
+                </a>
+                <a href="admissions.php" class="nav-link">
+                    <i class="fas fa-user-plus"></i>
+                    Admissions
+                </a>
+                <a href="activities.php" class="nav-link">
+                    <i class="fas fa-running"></i>
+                    Activities
+                </a>
+                <a href="infrastructure.php" class="nav-link">
+                    <i class="fas fa-building"></i>
+                    Infrastructure
+                </a>
+                <a href="achievements.php" class="nav-link">
+                    <i class="fas fa-trophy"></i>
+                    Achievements
+                </a>
+                <a href="history.php" class="nav-link">
+                    <i class="fas fa-history"></i>
+                    History
+                </a>
+                <a href="contact.php" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    Contact
                 </a>
             </div>
         </div>
@@ -2014,10 +2431,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">Director Overall</h3>
                         <p class="org-subtitle">Chief Executive Officer</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> director@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 <div class="org-box root" onclick="handleSectionClick('director-academic')">
                     <div class="org-icon">
@@ -2026,10 +2440,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">Director Academic</h3>
                         <p class="org-subtitle">Academic Affairs</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> academic@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 <div class="org-box root" onclick="handleSectionClick('director-ict-sports')">
                     <div class="org-icon">
@@ -2038,10 +2449,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">Director ICT & Sports</h3>
                         <p class="org-subtitle">Technology & Sports</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> ictsports@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 <div class="org-box root" onclick="handleSectionClick('director-requirements')">
                     <div class="org-icon">
@@ -2050,10 +2458,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">Director Requirements & Admission</h3>
                         <p class="org-subtitle">Admissions & Requirements</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> admissions@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
             </div>
 
@@ -2088,10 +2493,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">DEPUTY PRINCIPAL</h3>
                         <p class="org-subtitle">Academic Administration</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> deputy@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
             </div>
 
@@ -2112,10 +2514,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">HR Manager</h3>
                         <p class="org-subtitle">Human Resources</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> hr@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 <div class="org-box management" onclick="handleSectionClick('academic-registrar')">
                     <div class="org-icon">
@@ -2124,10 +2523,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">Academic Registrar</h3>
                         <p class="org-subtitle">Academic Records</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> registrar@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 <div class="org-box management" onclick="handleSectionClick('school-bursar')">
                     <div class="org-icon">
@@ -2136,10 +2532,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">School Bursar</h3>
                         <p class="org-subtitle">Financial Management</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> bursar@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 <div class="org-box management" onclick="handleSectionClick('secretary')">
                     <div class="org-icon">
@@ -2148,10 +2541,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">Secretary</h3>
                         <p class="org-subtitle">Administrative Support</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> secretary@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
             </div>
 
@@ -2177,10 +2567,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">SICK BAY</h3>
                         <p class="org-subtitle">Medical Services</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> sickbay@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
 
                 <!-- ICT Department -->
@@ -2191,10 +2578,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">ICT DIRECTOR</h3>
                         <p class="org-subtitle">Technology Management</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> ict@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 
                 <!-- Computer Lab Attendants -->
@@ -2205,10 +2589,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">LAB ATTENDANT 1</h3>
                         <p class="org-subtitle">Computer Lab</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> lab1@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('computer-lab-2')">
@@ -2218,10 +2599,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">LAB ATTENDANT 2</h3>
                         <p class="org-subtitle">Computer Lab</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> lab2@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
 
                 <!-- Library -->
@@ -2232,10 +2610,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">LIBRARIAN</h3>
                         <p class="org-subtitle">Library Services</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> library@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
 
                 <!-- Skills Lab Attendants -->
@@ -2246,10 +2621,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">SKILLS LAB 1</h3>
                         <p class="org-subtitle">Nursing Skills</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> skillslab1@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('skills-lab-2')">
@@ -2259,10 +2631,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">SKILLS LAB 2</h3>
                         <p class="org-subtitle">Midwifery Skills</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> skillslab2@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
             </div>
 
@@ -2288,10 +2657,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">MATRON 1</h3>
                         <p class="org-subtitle">Girls Hostel A</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> matron1@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('matron-2')">
@@ -2301,10 +2667,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">MATRON 2</h3>
                         <p class="org-subtitle">Girls Hostel B</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> matron2@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('matron-3')">
@@ -2314,10 +2677,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">MATRON 3</h3>
                         <p class="org-subtitle">Girls Hostel C</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> matron3@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
 
                 <!-- Warden/Area Manager -->
@@ -2328,10 +2688,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">WARDEN</h3>
                         <p class="org-subtitle">Boys Affairs & Area Manager</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> warden@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
 
                 <!-- Academic Heads (2 Individual) -->
@@ -2342,10 +2699,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">HEAD NURSING</h3>
                         <p class="org-subtitle">Nursing Department</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> headnursing@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('head-midwifery')">
@@ -2355,10 +2709,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">HEAD MIDWIFERY</h3>
                         <p class="org-subtitle">Midwifery Department</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> headmidwifery@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
             </div>
 
@@ -2466,10 +2817,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">TUTOR 1</h3>
                         <p class="org-subtitle">Academic Tutor</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> tutor1@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
             </div>
 
@@ -2487,10 +2835,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">DRIVERS</h3>
                         <p class="org-subtitle">Transportation</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> drivers@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('cooks')">
@@ -2500,10 +2845,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">COOKS</h3>
                         <p class="org-subtitle">Kitchen Services</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> cooks@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('cleaners')">
@@ -2513,10 +2855,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">CLEANERS</h3>
                         <p class="org-subtitle">Cleaning Services</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> cleaners@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('security')">
@@ -2526,10 +2865,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">SECURITY</h3>
                         <p class="org-subtitle">Campus Security</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> security@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('tailors')">
@@ -2539,10 +2875,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-content">
                         <h3 class="org-title">TAILORS</h3>
                         <p class="org-subtitle">Uniform Services</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> tailors@isnm.ac.ug
-                        </div>
-                    </div>
+                                            </div>
                 </div>
             </div>
         </div>
@@ -2578,18 +2911,157 @@ if (session_status() === PHP_SESSION_NONE) {
             </p>
             <div class="auth-gateway">
                 <a href="login.php?role=admin" class="auth-button">
-                    <i class="fas fa-user-shield"></i> Admin
+                    <div class="auth-button-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="auth-button-text">ADMIN</div>
+                    <div class="auth-button-subtext">System Administrator</div>
                 </a>
                 <a href="login.php?role=lecturer" class="auth-button">
-                    <i class="fas fa-chalkboard-teacher"></i> Lecturer
+                    <div class="auth-button-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="auth-button-text">LECTURER</div>
+                    <div class="auth-button-subtext">Teaching Staff</div>
                 </a>
                 <a href="login.php?role=student" class="auth-button">
-                    <i class="fas fa-user-graduate"></i> Student
+                    <div class="auth-button-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="auth-button-text">STUDENT</div>
+                    <div class="auth-button-subtext">Nursing & Midwifery</div>
                 </a>
                 <a href="login.php?role=support" class="auth-button">
-                    <i class="fas fa-tools"></i> Support
+                    <div class="auth-button-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="auth-button-text">SUPPORT</div>
+                    <div class="auth-button-subtext">Support Staff</div>
                 </a>
             </div>
+
+            <!-- Department Portals Section -->
+            <section class="department-portals">
+                <h2 class="department-title">
+                    <i class="fas fa-building"></i> DEPARTMENT PORTALS
+                </h2>
+                <p class="department-subtitle">
+                    Access specific department portals and management systems
+                </p>
+                <div class="department-grid">
+                    <!-- Administrative Portals -->
+                    <a href="dashboard-director.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3 class="department-name">Director Portal</h3>
+                        <p class="department-role">Executive Management</p>
+                        <span class="department-access">Admin Access</span>
+                    </a>
+
+                    <a href="dashboard-principal.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3 class="department-name">Principal Portal</h3>
+                        <p class="department-role">School Administration</p>
+                        <span class="department-access">Admin Access</span>
+                    </a>
+
+                    <a href="dashboard-hr-manager.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <h3 class="department-name">HR Portal</h3>
+                        <p class="department-role">Human Resources</p>
+                        <span class="department-access">Admin Access</span>
+                    </a>
+
+                    <!-- Academic Portals -->
+                    <a href="dashboard-academic.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="department-name">Academic Portal</h3>
+                        <p class="department-role">Academic Management</p>
+                        <span class="department-access">Lecturer Access</span>
+                    </a>
+
+                    <a href="dashboard-nursing.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <h3 class="department-name">Nursing Dept</h3>
+                        <p class="department-role">Nursing Department</p>
+                        <span class="department-access">Lecturer Access</span>
+                    </a>
+
+                    <a href="dashboard-midwifery.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-baby"></i>
+                        </div>
+                        <h3 class="department-name">Midwifery Dept</h3>
+                        <p class="department-role">Midwifery Department</p>
+                        <span class="department-access">Lecturer Access</span>
+                    </a>
+
+                    <!-- Student Services Portals -->
+                    <a href="dashboard-student.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3 class="department-name">Student Portal</h3>
+                        <p class="department-role">Student Services</p>
+                        <span class="department-access">Student Access</span>
+                    </a>
+
+                    <a href="dashboard-library.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="department-name">Library Portal</h3>
+                        <p class="department-role">Library Services</p>
+                        <span class="department-access">Support Access</span>
+                    </a>
+
+                    <!-- Support Services Portals -->
+                    <a href="dashboard-ict.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3 class="department-name">ICT Portal</h3>
+                        <p class="department-role">IT Services</p>
+                        <span class="department-access">Support Access</span>
+                    </a>
+
+                    <a href="dashboard-finance.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3 class="department-name">Finance Portal</h3>
+                        <p class="department-role">Financial Services</p>
+                        <span class="department-access">Admin Access</span>
+                    </a>
+
+                    <a href="dashboard-hostel.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3 class="department-name">Hostel Portal</h3>
+                        <p class="department-role">Student Housing</p>
+                        <span class="department-access">Support Access</span>
+                    </a>
+
+                    <a href="dashboard-clinical.php" class="department-card">
+                        <div class="department-icon">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <h3 class="department-name">Clinical Portal</h3>
+                        <p class="department-role">Clinical Training</p>
+                        <span class="department-access">Lecturer Access</span>
+                    </a>
+                </div>
+            </section>
         </section>
     </main>
 

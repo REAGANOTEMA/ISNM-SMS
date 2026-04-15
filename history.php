@@ -30,32 +30,95 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3730a3;
-            --accent-blue: #3b82f6;
-            --light-green: #22c55e;
-            --creamy-yellow: #fef3c7;
-            --golden-yellow: #fbbf24;
-            --neon-cyan: #06b6d4;
-            --clean-white: #ffffff;
-            --cream-white: #fafafa;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.15);
-            --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.2);
-            --shadow-xl: 0 32px 64px rgba(0, 0, 0, 0.3);
-            --border-color: #e2e8f0;
-            --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #3b82f6 50%, #06b6d4 75%, #22c55e 100%);
-            --gradient-hero: linear-gradient(135deg, #1e3a8a 0%, #3730a3 33%, #3b82f6 66%, #06b6d4 100%);
-            --gradient-luxury: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+            /* Modern Vibrant Color Palette */
+            --vibrant-purple: #8B5CF6;
+            --electric-blue: #3B82F6;
+            --neon-cyan: #06B6D4;
+            --bright-green: #10B981;
+            --golden-yellow: #F59E0B;
+            --hot-pink: #EC4899;
+            --deep-indigo: #4F46E5;
+            --sunset-orange: #F97316;
+            --crimson-red: #DC2626;
+            --pure-white: #FFFFFF;
+            --dark-bg: #0F172A;
+            --light-bg: #F8FAFC;
+            
+            /* Advanced Color Variations */
+            --primary-vibrant: #8B5CF6;
+            --secondary-vibrant: #3B82F6;
+            --accent-vibrant: #06B6D4;
+            --success-vibrant: #10B981;
+            --warning-vibrant: #F59E0B;
+            --danger-vibrant: #EF4444;
+            --info-vibrant: #06B6D4;
+            --dark-vibrant: #1E293B;
+            --light-vibrant: #F1F5F9;
+            
+            /* Modern Gradients */
+            --gradient-modern: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 25%, #06B6D4 50%, #10B981 75%, #F59E0B 100%);
+            --gradient-hero: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 33%, #EC4899 66%, #F97316 100%);
+            --gradient-luxury: linear-gradient(135deg, #F59E0B 0%, #FCD34D 50%, #FEF3C7 100%);
+            --gradient-neon: linear-gradient(135deg, #06B6D4 0%, #10B981 50%, #8B5CF6 100%);
+            --gradient-sunset: linear-gradient(135deg, #F97316 0%, #EF4444 50%, #EC4899 100%);
+            --gradient-ocean: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 50%, #10B981 100%);
+            --gradient-galaxy: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 50%, #EC4899 100%);
+            
+            /* Modern Shadows */
+            --shadow-modern-sm: 0 4px 6px -1px rgba(139, 92, 246, 0.1), 0 2px 4px -1px rgba(139, 92, 246, 0.06);
+            --shadow-modern-md: 0 10px 15px -3px rgba(139, 92, 246, 0.1), 0 4px 6px -2px rgba(139, 92, 246, 0.05);
+            --shadow-modern-lg: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(139, 92, 246, 0.04);
+            --shadow-neon: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.4);
+            --shadow-glow: 0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(249, 115, 22, 0.3);
+            
+            /* Modern Border Colors */
+            --border-modern: #E5E7EB;
+            --border-vibrant: #8B5CF6;
+            --border-neon: #06B6D4;
+            --border-glow: #F59E0B;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--cream-white), var(--clean-white));
-            color: var(--text-primary);
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            color: var(--pure-white);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
+            animation: modernAurora 15s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="modern-history-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(139,92,246,0.3)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(59,130,246,0.4)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23modern-history-pattern)"/></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="vibrant-history-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(236,72,153,0.3)" stroke-width="2"/><circle cx="25" cy="25" r="6" fill="rgba(249,115,22,0.4)"/></pattern></defs><rect width="200" height="200" fill="url(%23vibrant-history-pattern)"/></svg>');
+            background-size: 30px 30px, 100px 100px;
+            animation: modernPatternFloat 25s linear infinite;
+            pointer-events: none;
+            z-index: -1;
         }
 
         /* Luxury Header */
@@ -459,6 +522,139 @@ if (session_status() === PHP_SESSION_NONE) {
             margin: 0 auto 1rem;
         }
 
+        /* Enhanced History Gallery */
+        .history-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .history-card {
+            background: linear-gradient(145deg, var(--white), var(--cream-white));
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            border: 2px solid transparent;
+        }
+
+        .history-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--light-green), var(--golden-yellow));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .history-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="history-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="var(--golden-yellow)" opacity="0.2"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="var(--light-green)" stroke-width="1" fill="none" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23history-pattern)"/></svg>'),
+                linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+            background-size: 40px 40px, cover;
+            background-position: 0 0, center;
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        .history-card:hover {
+            transform: translateY(-15px) scale(1.02) rotateX(3deg) translateZ(25px);
+            box-shadow: var(--shadow-xl), 0 0 40px rgba(37, 99, 235, 0.3);
+            border-color: var(--primary-blue);
+        }
+
+        .history-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .history-card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .history-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .history-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        .history-card:hover .history-image {
+            transform: scale(1.05) rotateX(2deg) translateZ(10px);
+        }
+
+        .history-card:hover .history-image::before {
+            transform: translateX(100%);
+        }
+
+        .history-card-content {
+            padding: 2rem;
+        }
+
+        .history-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .history-card-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .history-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .history-badge {
+            display: inline-block;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        @keyframes historyFloat {
+            0%, 100% { transform: translateY(0px) translateZ(0px); }
+            50% { transform: translateY(-5px) translateZ(10px); }
+        }
+
         /* Vision Section */
         .vision-section {
             background: var(--gradient-luxury);
@@ -558,9 +754,13 @@ if (session_status() === PHP_SESSION_NONE) {
                 <ul class="nav-links">
                     <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="about.php"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="history.php"><i class="fas fa-history"></i> History</a></li>
+                    <li><a href="governance.php"><i class="fas fa-users"></i> Governance</a></li>
                     <li><a href="programs.php"><i class="fas fa-graduation-cap"></i> Programs</a></li>
                     <li><a href="admissions.php"><i class="fas fa-user-plus"></i> Admissions</a></li>
+                    <li><a href="activities.php"><i class="fas fa-running"></i> Activities</a></li>
+                    <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
+                    <li><a href="achievements.php"><i class="fas fa-trophy"></i> Achievements</a></li>
+                    <li><a href="history.php"><i class="fas fa-history"></i> History</a></li>
                     <li><a href="contact.php"><i class="fas fa-envelope"></i> Contact</a></li>
                     <li><a href="login-portal.php"><i class="fas fa-sign-in-alt"></i> Portal</a></li>
                 </ul>
@@ -791,6 +991,134 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <span class="growth-number">60</span>
                         <span class="growth-label">Computers</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- History Gallery Section -->
+        <section class="section">
+            <div class="history-gallery-section">
+                <div class="section-header">
+                    <h2 class="section-title">Historical Gallery</h2>
+                    <p class="section-subtitle">Visual memories of our journey through the years</p>
+                </div>
+                
+                <div class="history-gallery">
+                    <!-- Football Team Images -->
+                    <div class="history-card">
+                        <img src="assets/footbal-team-student-images1.jpg" alt="ISNM Football Team - Student Sports Activities" title="ISNM Football Team - Building Team Spirit and Physical Fitness" class="history-image">
+                        <div class="history-card-content">
+                            <h3 class="history-card-title">Football Team</h3>
+                            <p class="history-card-description">
+                                Our talented football team representing ISNM in various competitions
+                            </p>
+                            <div class="history-badges">
+                                <span class="history-badge">Sports</span>
+                                <span class="history-badge">Team Spirit</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="history-card">
+                        <img src="assets/footbal-team-student-images2.jpg" alt="ISNM Football Team in Action - Competitive Sports" title="ISNM Football Team - Competitive Sports and Team Building" class="history-image">
+                        <div class="history-card-content">
+                            <h3 class="history-card-title">Team Competition</h3>
+                            <p class="history-card-description">
+                                Students showcasing their skills in competitive football matches
+                            </p>
+                            <div class="history-badges">
+                                <span class="history-badge">Competition</span>
+                                <span class="history-badge">Excellence</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="history-card">
+                        <img src="assets/footbal-team-student-images3.jpg" alt="ISNM Football Team Training - Sports Development" title="ISNM Football Team - Training and Skills Development" class="history-image">
+                        <div class="history-card-content">
+                            <h3 class="history-card-title">Training Sessions</h3>
+                            <p class="history-card-description">
+                                Intensive training sessions to develop athletic skills and teamwork
+                            </p>
+                            <div class="history-badges">
+                                <span class="history-badge">Training</span>
+                                <span class="history-badge">Development</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Practicum Site Images -->
+                    <div class="history-card">
+                        <img src="assets/student-st-practicum-sites1.jpg" alt="ISNM Students at Practicum Site - Clinical Training" title="ISNM Students - Hands-on Clinical Training at Practicum Sites" class="history-image">
+                        <div class="history-card-content">
+                            <h3 class="history-card-title">Clinical Practicum</h3>
+                            <p class="history-card-description">
+                                Students gaining practical experience at partner healthcare facilities
+                            </p>
+                            <div class="history-badges">
+                                <span class="history-badge">Clinical</span>
+                                <span class="history-badge">Training</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="history-card">
+                        <img src="assets/student-at-practicum-site2.jpg" alt="ISNM Students at Practicum Site - Healthcare Experience" title="ISNM Students - Real-world Healthcare Experience" class="history-image">
+                        <div class="history-card-content">
+                            <h3 class="history-card-title">Healthcare Experience</h3>
+                            <p class="history-card-description">
+                                Students applying their knowledge in real healthcare settings
+                            </p>
+                            <div class="history-badges">
+                                <span class="history-badge">Experience</span>
+                                <span class="history-badge">Application</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- School Infrastructure Images -->
+                    <div class="history-card">
+                        <img src="assets/school-borehole-a-student-is-fetching-water.jpg" alt="ISNM School Borehole - Water Supply System" title="ISNM Water Supply - Student Fetching Water from School Borehole" class="history-image">
+                        <div class="history-card-content">
+                            <h3 class="history-card-title">Water Supply</h3>
+                            <p class="history-card-description">
+                                School borehole providing clean water for students and staff
+                            </p>
+                            <div class="history-badges">
+                                <span class="history-badge">Infrastructure</span>
+                                <span class="history-badge">Sustainability</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="history-card">
+                        <img src="assets/school-mini-buses-2-costers.jpg" alt="ISNM School Transport - Two Coaster Buses" title="ISNM School Transport - Two Coaster Buses for Student Transportation" class="history-image">
+                        <div class="history-card-content">
+                            <h3 class="history-card-title">School Transport</h3>
+                            <p class="history-card-description">
+                                Two coaster buses providing transportation for students to practicum sites
+                            </p>
+                            <div class="history-badges">
+                                <span class="history-badge">Transport</span>
+                                <span class="history-badge">Logistics</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Leadership Images -->
+                    <div class="history-card">
+                        <img src="assets/sr-edith-mwebaza-principal-of-the-school.jpg" alt="Sr. Edith Mwebaza - ISNM School Principal" title="Sr. Edith Mwebaza - Principal of Iganga School of Nursing and Midwifery" class="history-image">
+                        <div class="history-card-content">
+                            <h3 class="history-card-title">School Leadership</h3>
+                            <p class="history-card-description">
+                                Sr. Edith Mwebaza, the dedicated principal leading our institution
+                            </p>
+                            <div class="history-badges">
+                                <span class="history-badge">Leadership</span>
+                                <span class="history-badge">Excellence</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
