@@ -30,74 +30,128 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         :root {
-            /* Clean School Color Palette */
-            --school-primary: #1E3A8A;
-            --school-secondary: #2563EB;
-            --school-accent: #3B82F6;
-            --school-green: #10B981;
-            --school-cream: #FEF3C7;
-            --school-gold: #F59E0B;
-            --school-white: #FFFFFF;
-            --school-gray: #F3F4F6;
-            --school-dark: #1F2937;
-            --school-light: #F9FAFB;
+            /* Hospital-Quality Professional Color Palette */
+            --medical-primary: #0F4C75;
+            --medical-secondary: #1E6BA8;
+            --medical-accent: #2E8BC0;
+            --medical-teal: #16A5A5;
+            --medical-cyan: #0EA5E9;
+            --medical-blue: #3B82F6;
+            --medical-green: #10B981;
+            --medical-white: #FFFFFF;
+            --medical-gray: #F8FAFC;
+            --medical-dark: #0F172A;
+            --medical-light: #F1F5F9;
             
-            /* Clean Color Variations */
-            --primary-clean: #1E3A8A;
-            --secondary-clean: #2563EB;
-            --accent-clean: #3B82F6;
-            --success-clean: #10B981;
-            --warning-clean: #F59E0B;
-            --danger-clean: #EF4444;
-            --info-clean: #06B6D4;
-            --dark-clean: #1F2937;
-            --light-clean: #F9FAFB;
+            /* Medical 3D Color Variations */
+            --primary-3d: #0F4C75;
+            --secondary-3d: #1E6BA8;
+            --accent-3d: #2E8BC0;
+            --success-3d: #10B981;
+            --warning-3d: #F59E0B;
+            --danger-3d: #EF4444;
+            --info-3d: #06B6D4;
+            --dark-3d: #0F172A;
+            --light-3d: #F1F5F9;
             
-            /* Clean Gradients */
-            --gradient-primary: linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #3B82F6 100%);
-            --gradient-hero: linear-gradient(135deg, #1E3A8A 0%, #2563EB 33%, #3B82F6 66%, #06B6D4 100%);
-            --gradient-luxury: linear-gradient(135deg, #F59E0B 0%, #FCD34D 50%, #FEF3C7 100%);
-            --gradient-clean: linear-gradient(135deg, #F3F4F6 0%, #F9FAFB 50%, #FFFFFF 100%);
-            --gradient-success: linear-gradient(135deg, #10B981 0%, #34D399 100%);
-            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+            /* Mind-Blowing 3D Gradients */
+            --gradient-3d-hero: linear-gradient(135deg, #0F4C75 0%, #1E6BA8 25%, #2E8BC0 50%, #16A5A5 75%, #0EA5E9 100%);
+            --gradient-3d-primary: linear-gradient(135deg, #0F4C75 0%, #1E6BA8 50%, #2E8BC0 100%);
+            --gradient-3d-luxury: linear-gradient(135deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%);
+            --gradient-3d-clean: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #FFFFFF 100%);
+            --gradient-3d-success: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+            --gradient-3d-warning: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
             
-            /* Clean Shadows */
-            --shadow-clean-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-            --shadow-clean-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
-            --shadow-clean-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+            /* Professional 3D Shadows */
+            --shadow-3d-sm: 0 2px 4px rgba(15, 76, 117, 0.1), 0 1px 2px rgba(15, 76, 117, 0.06);
+            --shadow-3d-md: 0 4px 8px rgba(15, 76, 117, 0.15), 0 2px 4px rgba(15, 76, 117, 0.08);
+            --shadow-3d-lg: 0 8px 16px rgba(15, 76, 117, 0.2), 0 4px 8px rgba(15, 76, 117, 0.1);
+            --shadow-3d-xl: 0 20px 40px rgba(15, 76, 117, 0.25), 0 10px 20px rgba(15, 76, 117, 0.15);
+            --shadow-3d-neon: 0 0 20px rgba(15, 76, 117, 0.3), 0 0 40px rgba(30, 107, 168, 0.2);
             
-            /* Clean Border Colors */
-            --border-light: #E5E7EB;
-            --border-medium: #D1D5DB;
-            --border-dark: #9CA3AF;
+            /* 3D Border Colors */
+            --border-3d-light: #E2E8F0;
+            --border-3d-medium: #CBD5E1;
+            --border-3d-dark: #94A3B8;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--gradient-clean);
-            color: var(--school-dark);
+            background: var(--gradient-3d-clean);
+            color: var(--medical-dark);
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
-        /* Clean Navigation */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(15, 76, 117, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(30, 107, 168, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(46, 139, 192, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(22, 165, 165, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(14, 165, 233, 0.06) 0%, transparent 50%);
+            animation: medicalAurora 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical-3d-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="rgba(15,76,117,0.1)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(30,107,168,0.15)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23medical-3d-pattern)"/></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="medical-3d-grid" width="60" height="60" patternUnits="userSpaceOnUse"><rect x="15" y="15" width="30" height="30" fill="none" stroke="rgba(46,139,192,0.1)" stroke-width="2"/><circle cx="30" cy="30" r="8" fill="rgba(22,165,165,0.15)"/></pattern></defs><rect width="200" height="200" fill="url(%23medical-3d-grid)"/></svg>');
+            background-size: 40px 40px, 120px 120px;
+            animation: medical3DFloat 30s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Hospital-Quality 3D Navigation */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: var(--school-white);
-            border-bottom: 2px solid var(--border-light);
+            background: var(--medical-white);
+            border-bottom: 2px solid var(--border-3d-light);
             z-index: 1000;
             padding: 0.75rem 0;
-            box-shadow: var(--shadow-clean-sm);
+            box-shadow: var(--shadow-3d-md);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--medical-primary), transparent);
+            opacity: 0.3;
         }
 
         .navbar.scrolled {
-            background: var(--school-white);
-            box-shadow: var(--shadow-clean-md);
-            border-bottom-color: var(--border-medium);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-3d-lg);
+            border-bottom-color: var(--border-3d-medium);
+            transform: translateY(0);
         }
 
         .nav-container {
@@ -115,62 +169,126 @@ if (session_status() === PHP_SESSION_NONE) {
             gap: 0.75rem;
             font-weight: 700;
             font-size: 1.25rem;
-            color: var(--school-primary);
+            color: var(--medical-primary);
             text-decoration: none;
             font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
         }
 
         .nav-logo img {
             width: 50px;
             height: 50px;
             object-fit: cover;
-            border: 2px solid var(--school-primary);
+            border: 2px solid var(--medical-primary);
             border-radius: 50%;
             transition: all 0.3s ease;
+            box-shadow: var(--shadow-3d-sm);
+            transform-style: preserve-3d;
+        }
+
+        .nav-logo:hover {
+            transform: translateY(-2px) rotateX(2deg);
         }
 
         .nav-logo:hover img {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-clean-md);
+            transform: scale(1.05) rotateY(5deg);
+            box-shadow: var(--shadow-3d-lg);
+            border-color: var(--medical-accent);
         }
 
         .nav-links {
             display: flex;
             gap: 0.5rem;
             align-items: center;
+            transform-style: preserve-3d;
         }
 
         .nav-link {
-            color: var(--school-dark);
+            color: var(--medical-dark);
             text-decoration: none;
             font-weight: 500;
             font-size: 0.9rem;
             transition: all 0.3s ease;
             position: relative;
             padding: 0.5rem 1rem;
-            border-radius: 6px;
+            border-radius: 8px;
             background: transparent;
             border: 1px solid transparent;
             font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-3d-primary);
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
 
         .nav-link:hover {
-            color: var(--school-primary);
-            background: var(--school-light);
-            border-color: var(--border-light);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-clean-sm);
+            color: var(--medical-white);
+            transform: translateY(-3px) translateZ(10px) rotateX(2deg);
+            box-shadow: var(--shadow-3d-md);
+            border-color: var(--medical-primary);
         }
 
-        /* Clean Hero Section */
+        .nav-link:hover::before {
+            opacity: 1;
+        }
+
+        /* Hospital-Quality 3D Hero Section */
         .hero-section {
             min-height: 60vh;
             display: flex;
             align-items: center;
-            background: var(--gradient-hero);
+            background: var(--gradient-3d-hero);
             position: relative;
             overflow: hidden;
             margin-top: 70px;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(15, 76, 117, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(30, 107, 168, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(46, 139, 192, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(22, 165, 165, 0.2) 0%, transparent 50%);
+            animation: hero3DAurora 15s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hero-3d-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="4" fill="rgba(15,76,117,0.2)"/><path d="M15 25 Q25 15, 35 25 T55 25" stroke="rgba(30,107,168,0.3)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23hero-3d-pattern)"/></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="hero-3d-grid" width="80" height="80" patternUnits="userSpaceOnUse"><rect x="20" y="20" width="40" height="40" fill="none" stroke="rgba(46,139,192,0.2)" stroke-width="3"/><circle cx="40" cy="40" r="10" fill="rgba(22,165,165,0.25)"/></pattern></defs><rect width="200" height="200" fill="url(%23hero-3d-grid)"/></svg>');
+            background-size: 50px 50px, 160px 160px;
+            animation: hero3DFloat 25s linear infinite;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .hero-content {
@@ -183,67 +301,121 @@ if (session_status() === PHP_SESSION_NONE) {
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
+            transform-style: preserve-3d;
         }
 
         .hero-text {
             animation: fadeInUp 1s ease-out;
+            transform-style: preserve-3d;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: var(--school-light);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            color: var(--school-primary);
-            font-size: 0.9rem;
+            background: var(--medical-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
+            color: var(--medical-primary);
+            font-size: 0.8rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            border: 1px solid var(--border-light);
+            border: 1px solid var(--border-3d-light);
             font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transform: translateZ(10px);
+            box-shadow: var(--shadow-3d-sm);
         }
 
         .hero-title {
             font-size: 2.5rem;
             font-weight: 800;
             line-height: 1.2;
-            color: var(--school-primary);
+            color: var(--medical-white);
             margin-bottom: 1.5rem;
             font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transform: translateZ(20px);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 2rem;
-            line-height: 1.6;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+            font-size: 1.1rem;
+            color: var(--medical-white);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            transform-style: preserve-3d;
+            transform: translateZ(15px);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        .hero-stats {
+        .hero-buttons {
             display: flex;
-            gap: 3rem;
-            margin-bottom: 3rem;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            transform-style: preserve-3d;
+            transform: translateZ(25px);
         }
 
-        .hero-stat {
-            text-align: center;
+        .hero-button {
+            padding: 0.6rem 1.2rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            position: relative;
+            overflow: hidden;
         }
 
-        .hero-stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: white;
-            display: block;
-            margin-bottom: 0.5rem;
+        .hero-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
-        .hero-stat-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .hero-button.primary {
+            background: var(--gradient-3d-primary);
+            color: var(--medical-white);
+            box-shadow: var(--shadow-3d-md);
+        }
+
+        .hero-button.secondary {
+            background: var(--medical-white);
+            color: var(--medical-primary);
+            border: 1px solid var(--border-3d-light);
+            box-shadow: var(--shadow-3d-sm);
+        }
+
+        .hero-button:hover {
+            transform: translateY(-3px) translateZ(15px) rotateX(2deg);
+            box-shadow: var(--shadow-3d-lg);
+        }
+
+        .hero-button:hover::before {
+            opacity: 1;
+        }
+
+        .hero-button.primary:hover {
+            border-color: var(--medical-accent);
+        }
+
+        .hero-button.secondary:hover {
+            background: var(--gradient-3d-primary);
+            color: var(--medical-white);
+            border-color: var(--medical-primary);
         }
 
         .hero-visual {
@@ -1336,6 +1508,77 @@ if (session_status() === PHP_SESSION_NONE) {
             50% {
                 transform: scale(1.1);
                 opacity: 0.8;
+            }
+        }
+
+        /* Mind-Blowing Medical 3D Animations */
+        @keyframes medicalAurora {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+                opacity: 0.8;
+            }
+            25% {
+                transform: rotate(90deg) scale(1.1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: rotate(180deg) scale(1.2);
+                opacity: 0.4;
+            }
+            75% {
+                transform: rotate(270deg) scale(1.1);
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes medical3DFloat {
+            0% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateX(10px) translateY(-5px) rotate(1deg);
+            }
+            50% {
+                transform: translateX(20px) translateY(0) rotate(2deg);
+            }
+            75% {
+                transform: translateX(10px) translateY(5px) rotate(1deg);
+            }
+            100% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+            }
+        }
+
+        @keyframes hero3DAurora {
+            0%, 100% {
+                transform: rotate(0deg) scale(1) translateZ(0);
+                opacity: 0.9;
+            }
+            33% {
+                transform: rotate(120deg) scale(1.05) translateZ(10px);
+                opacity: 0.7;
+            }
+            66% {
+                transform: rotate(240deg) scale(1.1) translateZ(20px);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes hero3DFloat {
+            0% {
+                transform: translateX(0) translateY(0) translateZ(0) rotate(0deg);
+            }
+            25% {
+                transform: translateX(15px) translateY(-8px) translateZ(5px) rotate(1deg);
+            }
+            50% {
+                transform: translateX(30px) translateY(0) translateZ(10px) rotate(2deg);
+            }
+            75% {
+                transform: translateX(15px) translateY(8px) translateZ(5px) rotate(1deg);
+            }
+            100% {
+                transform: translateX(0) translateY(0) translateZ(0) rotate(0deg);
             }
         }
 
