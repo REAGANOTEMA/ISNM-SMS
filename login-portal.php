@@ -507,20 +507,130 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .vertical-line {
             position: absolute;
+            background: linear-gradient(to bottom, var(--primary-blue), var(--secondary-blue));
             width: 3px;
-            background: linear-gradient(180deg, var(--primary-blue), var(--light-green));
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px rgba(37,99,235,0.4);
             border-radius: 2px;
+            box-shadow: 0 0 10px rgba(30, 58, 138, 0.3);
         }
 
         .horizontal-line {
             position: absolute;
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
             height: 3px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--light-green), var(--primary-blue));
-            box-shadow: 0 0 10px rgba(37,99,235,0.4);
             border-radius: 2px;
+            box-shadow: 0 0 10px rgba(30, 58, 138, 0.3);
+        }
+
+        .arrow-line {
+            position: absolute;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(30, 58, 138, 0.4);
+        }
+
+        .arrow-line::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 8px solid var(--secondary-blue);
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+        }
+
+        .director-to-principal {
+            top: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 60px;
+        }
+
+        .director-to-principal::after {
+            bottom: -12px;
+            left: -6.5px;
+        }
+
+        .principal-to-deputy {
+            top: 280px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 60px;
+        }
+
+        .principal-to-deputy::after {
+            bottom: -12px;
+            left: -6.5px;
+        }
+
+        .deputy-to-hr {
+            top: 420px;
+            left: 20%;
+            width: 3px;
+            height: 60px;
+        }
+
+        .deputy-to-hr::after {
+            bottom: -12px;
+            left: -6.5px;
+        }
+
+        .deputy-to-academic {
+            top: 420px;
+            left: 35%;
+            width: 3px;
+            height: 60px;
+        }
+
+        .deputy-to-academic::after {
+            bottom: -12px;
+            left: -6.5px;
+        }
+
+        .deputy-to-bursar {
+            top: 420px;
+            left: 50%;
+            width: 3px;
+            height: 60px;
+        }
+
+        .deputy-to-bursar::after {
+            bottom: -12px;
+            left: -6.5px;
+        }
+
+        .deputy-to-secretary {
+            top: 420px;
+            left: 65%;
+            width: 3px;
+            height: 60px;
+        }
+
+        .deputy-to-secretary::after {
+            bottom: -12px;
+            left: -6.5px;
+        }
+
+        .level-1-to-2 {
+            top: 140px;
+            left: 0;
+            right: 0;
+            height: 60px;
+        }
+
+        .level-2-to-3 {
+            top: 280px;
+            left: 0;
+            right: 0;
+            height: 60px;
+        }
+
+        .level-3-to-4 {
+            top: 420px;
+            left: 0;
+            right: 0;
+            height: 60px;
         }
 
         .communication-flow {
@@ -1895,53 +2005,61 @@ if (session_status() === PHP_SESSION_NONE) {
     <main class="organogram-container">
         <div class="organogram-wrapper">
             <div class="organogram-chart">
-            <!-- Level 1: Directors (ROOT) -->
+            <!-- Level 1: Directors (4 Individual Directors) -->
             <div class="org-level org-level-1">
                 <div class="org-box root" onclick="handleSectionClick('director-overall')">
                     <div class="org-icon">
                         <i class="fas fa-crown"></i>
                     </div>
-                    <h3 class="org-title">DIRECTOR</h3>
-                    <p class="org-description">Overall Operations & All Departments</p>
-                    <div class="communication-flow">OVERALL AUTHORITY</div>
+                    <div class="org-content">
+                        <h3 class="org-title">Director Overall</h3>
+                        <p class="org-subtitle">Chief Executive Officer</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> director@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
-                
                 <div class="org-box root" onclick="handleSectionClick('director-academic')">
                     <div class="org-icon">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <h3 class="org-title">DIRECTOR</h3>
-                    <p class="org-description">Academic Affairs</p>
-                    <div class="communication-flow">ACADEMIC AUTHORITY</div>
+                    <div class="org-content">
+                        <h3 class="org-title">Director Academic</h3>
+                        <p class="org-subtitle">Academic Affairs</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> academic@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="org-box root" onclick="handleSectionClick('director-ict')">
+                <div class="org-box root" onclick="handleSectionClick('director-ict-sports')">
                     <div class="org-icon">
                         <i class="fas fa-laptop"></i>
                     </div>
-                    <h3 class="org-title">DIRECTOR</h3>
-                    <p class="org-description">ICT & Sports</p>
-                    <div class="communication-flow">ICT & SPORTS</div>
-                </div>
-                
-                <div class="org-box root" onclick="handleSectionClick('director-admission')">
-                    <div class="org-icon">
-                        <i class="fas fa-user-plus"></i>
+                    <div class="org-content">
+                        <h3 class="org-title">Director ICT & Sports</h3>
+                        <p class="org-subtitle">Technology & Sports</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> ictsports@isnm.ac.ug
+                        </div>
                     </div>
-                    <h3 class="org-title">DIRECTOR</h3>
-                    <p class="org-description">Requirements & Admission</p>
-                    <div class="communication-flow">ADMISSION AUTHORITY</div>
+                </div>
+                <div class="org-box root" onclick="handleSectionClick('director-requirements')">
+                    <div class="org-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="org-content">
+                        <h3 class="org-title">Director Requirements & Admission</h3>
+                        <p class="org-subtitle">Admissions & Requirements</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> admissions@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Connection Lines to Level 2 -->
-            <div class="connection-lines">
-                <div class="vertical-line" style="top: 120px; height: 40px;"></div>
-                <div class="horizontal-line" style="top: 160px; left: 200px; width: 1000px;"></div>
-                <div class="vertical-line" style="top: 160px; left: 200px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 160px; left: 500px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 160px; left: 800px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 160px; left: 1100px; height: 40px;"></div>
+            <!-- Connection Lines from Directors to Principal -->
+            <div class="connection-lines level-1-to-2">
+                <div class="arrow-line director-to-principal"></div>
             </div>
 
             <!-- Level 2: Principal -->
@@ -1956,9 +2074,9 @@ if (session_status() === PHP_SESSION_NONE) {
                 </div>
             </div>
 
-            <!-- Connection Lines to Level 3 -->
-            <div class="connection-lines">
-                <div class="vertical-line" style="top: 280px; height: 40px;"></div>
+            <!-- Connection Lines from Principal to Deputy Principal -->
+            <div class="connection-lines level-2-to-3">
+                <div class="arrow-line principal-to-deputy"></div>
             </div>
 
             <!-- Level 3: Deputy Principal -->
@@ -1967,57 +2085,73 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-icon">
                         <i class="fas fa-user"></i>
                     </div>
-                    <h3 class="org-title">DEPUTY PRINCIPAL</h3>
-                    <p class="org-description">Assistant School Administration</p>
-                    <div class="communication-flow">ASSIST LEADERSHIP</div>
+                    <div class="org-content">
+                        <h3 class="org-title">DEPUTY PRINCIPAL</h3>
+                        <p class="org-subtitle">Academic Administration</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> deputy@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Connection Lines to Level 4 -->
-            <div class="connection-lines">
-                <div class="vertical-line" style="top: 400px; height: 40px;"></div>
-                <div class="horizontal-line" style="top: 440px; left: 200px; width: 800px;"></div>
-                <div class="vertical-line" style="top: 440px; left: 200px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 440px; left: 500px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 440px; left: 800px; height: 40px;"></div>
+            <!-- Connection Lines from Deputy Principal to Administrative Staff -->
+            <div class="connection-lines level-3-to-4">
+                <div class="arrow-line deputy-to-hr"></div>
+                <div class="arrow-line deputy-to-academic"></div>
+                <div class="arrow-line deputy-to-bursar"></div>
+                <div class="arrow-line deputy-to-secretary"></div>
             </div>
 
-            <!-- Level 4: Key Administrative Staff -->
+            <!-- Level 4: Key Administrative Staff (Individual Boxes) -->
             <div class="org-level org-level-4">
                 <div class="org-box management" onclick="handleSectionClick('hr-manager')">
                     <div class="org-icon">
                         <i class="fas fa-users-cog"></i>
                     </div>
-                    <h3 class="org-title">HR MANAGER</h3>
-                    <p class="org-description">Human Resources</p>
-                    <div class="communication-flow">HR ADMINISTRATION</div>
+                    <div class="org-content">
+                        <h3 class="org-title">HR Manager</h3>
+                        <p class="org-subtitle">Human Resources</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> hr@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
-                
                 <div class="org-box management" onclick="handleSectionClick('academic-registrar')">
                     <div class="org-icon">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <h3 class="org-title">ACADEMIC REGISTRAR</h3>
-                    <p class="org-description">Academic Records</p>
-                    <div class="communication-flow">ACADEMIC RECORDS</div>
+                    <div class="org-content">
+                        <h3 class="org-title">Academic Registrar</h3>
+                        <p class="org-subtitle">Academic Records</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> registrar@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
-                
                 <div class="org-box management" onclick="handleSectionClick('school-bursar')">
                     <div class="org-icon">
                         <i class="fas fa-calculator"></i>
                     </div>
-                    <h3 class="org-title">SCHOOL BURSAR</h3>
-                    <p class="org-description">Financial Management</p>
-                    <div class="communication-flow">FINANCIAL CONTROL</div>
+                    <div class="org-content">
+                        <h3 class="org-title">School Bursar</h3>
+                        <p class="org-subtitle">Financial Management</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> bursar@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
-                
                 <div class="org-box management" onclick="handleSectionClick('secretary')">
                     <div class="org-icon">
                         <i class="fas fa-file-alt"></i>
                     </div>
-                    <h3 class="org-title">SECRETARY</h3>
-                    <p class="org-description">Administrative Support</p>
-                    <div class="communication-flow">ADMIN SUPPORT</div>
+                    <div class="org-content">
+                        <h3 class="org-title">Secretary</h3>
+                        <p class="org-subtitle">Administrative Support</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> secretary@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2033,16 +2167,20 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="vertical-line" style="top: 600px; left: 1100px; height: 40px;"></div>
             </div>
 
-            <!-- Level 5: Department Heads & Key Staff -->
+            <!-- Level 5: Department Heads & Key Staff (Individual Boxes) -->
             <div class="org-level org-level-5">
                 <!-- Medical Department -->
                 <div class="org-box operational" onclick="handleSectionClick('sick-bay')">
                     <div class="org-icon">
                         <i class="fas fa-hospital"></i>
                     </div>
-                    <h3 class="org-title">SICK BAY</h3>
-                    <p class="org-description">Medical Services</p>
-                    <div class="communication-flow">HEALTH SERVICES</div>
+                    <div class="org-content">
+                        <h3 class="org-title">SICK BAY</h3>
+                        <p class="org-subtitle">Medical Services</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> sickbay@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
 
                 <!-- ICT Department -->
@@ -2050,27 +2188,40 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-icon">
                         <i class="fas fa-laptop"></i>
                     </div>
-                    <h3 class="org-title">ICT DIRECTOR</h3>
-                    <p class="org-description">Technology Management</p>
-                    <div class="communication-flow">TECH LEADERSHIP</div>
+                    <div class="org-content">
+                        <h3 class="org-title">ICT DIRECTOR</h3>
+                        <p class="org-subtitle">Technology Management</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> ict@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
+                <!-- Computer Lab Attendants -->
                 <div class="org-box operational" onclick="handleSectionClick('computer-lab-1')">
                     <div class="org-icon">
                         <i class="fas fa-desktop"></i>
                     </div>
-                    <h3 class="org-title">LAB ATTENDANT 1</h3>
-                    <p class="org-description">Computer Lab</p>
-                    <div class="communication-flow">LAB SUPPORT</div>
+                    <div class="org-content">
+                        <h3 class="org-title">LAB ATTENDANT 1</h3>
+                        <p class="org-subtitle">Computer Lab</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> lab1@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('computer-lab-2')">
                     <div class="org-icon">
                         <i class="fas fa-desktop"></i>
                     </div>
-                    <h3 class="org-title">LAB ATTENDANT 2</h3>
-                    <p class="org-description">Computer Lab</p>
-                    <div class="communication-flow">LAB SUPPORT</div>
+                    <div class="org-content">
+                        <h3 class="org-title">LAB ATTENDANT 2</h3>
+                        <p class="org-subtitle">Computer Lab</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> lab2@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Library -->
@@ -2078,28 +2229,40 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-icon">
                         <i class="fas fa-book"></i>
                     </div>
-                    <h3 class="org-title">LIBRARIAN</h3>
-                    <p class="org-description">Library Services</p>
-                    <div class="communication-flow">KNOWLEDGE MGMT</div>
+                    <div class="org-content">
+                        <h3 class="org-title">LIBRARIAN</h3>
+                        <p class="org-subtitle">Library Services</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> library@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Skills Lab -->
+                <!-- Skills Lab Attendants -->
                 <div class="org-box operational" onclick="handleSectionClick('skills-lab-1')">
                     <div class="org-icon">
                         <i class="fas fa-flask"></i>
                     </div>
-                    <h3 class="org-title">SKILLS LAB 1</h3>
-                    <p class="org-description">Nursing Skills</p>
-                    <div class="communication-flow">NURSING LAB</div>
+                    <div class="org-content">
+                        <h3 class="org-title">SKILLS LAB 1</h3>
+                        <p class="org-subtitle">Nursing Skills</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> skillslab1@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('skills-lab-2')">
                     <div class="org-icon">
                         <i class="fas fa-flask"></i>
                     </div>
-                    <h3 class="org-title">SKILLS LAB 2</h3>
-                    <p class="org-description">Midwifery Skills</p>
-                    <div class="communication-flow">MIDWIFERY LAB</div>
+                    <div class="org-content">
+                        <h3 class="org-title">SKILLS LAB 2</h3>
+                        <p class="org-subtitle">Midwifery Skills</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> skillslab2@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2115,34 +2278,46 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="vertical-line" style="top: 760px; left: 1100px; height: 40px;"></div>
             </div>
 
-            <!-- Level 6: Student Services & Support Staff -->
+            <!-- Level 6: Student Services & Support Staff (Individual Boxes) -->
             <div class="org-level org-level-6">
-                <!-- Matrons (3) -->
+                <!-- Matrons (3 Individual) -->
                 <div class="org-box operational" onclick="handleSectionClick('matron-1')">
                     <div class="org-icon">
                         <i class="fas fa-home"></i>
                     </div>
-                    <h3 class="org-title">MATRON 1</h3>
-                    <p class="org-description">Girls Hostel A</p>
-                    <div class="communication-flow">GIRLS WELFARE</div>
+                    <div class="org-content">
+                        <h3 class="org-title">MATRON 1</h3>
+                        <p class="org-subtitle">Girls Hostel A</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> matron1@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('matron-2')">
                     <div class="org-icon">
                         <i class="fas fa-home"></i>
                     </div>
-                    <h3 class="org-title">MATRON 2</h3>
-                    <p class="org-description">Girls Hostel B</p>
-                    <div class="communication-flow">GIRLS WELFARE</div>
+                    <div class="org-content">
+                        <h3 class="org-title">MATRON 2</h3>
+                        <p class="org-subtitle">Girls Hostel B</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> matron2@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('matron-3')">
                     <div class="org-icon">
                         <i class="fas fa-home"></i>
                     </div>
-                    <h3 class="org-title">MATRON 3</h3>
-                    <p class="org-description">Girls Hostel C</p>
-                    <div class="communication-flow">GIRLS WELFARE</div>
+                    <div class="org-content">
+                        <h3 class="org-title">MATRON 3</h3>
+                        <p class="org-subtitle">Girls Hostel C</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> matron3@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Warden/Area Manager -->
@@ -2150,28 +2325,40 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="org-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 class="org-title">WARDEN</h3>
-                    <p class="org-description">Boys Affairs & Area Manager</p>
-                    <div class="communication-flow">BOYS WELFARE</div>
+                    <div class="org-content">
+                        <h3 class="org-title">WARDEN</h3>
+                        <p class="org-subtitle">Boys Affairs & Area Manager</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> warden@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Academic Heads -->
+                <!-- Academic Heads (2 Individual) -->
                 <div class="org-box operational" onclick="handleSectionClick('head-nursing')">
                     <div class="org-icon">
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
-                    <h3 class="org-title">HEAD NURSING</h3>
-                    <p class="org-description">Nursing Department</p>
-                    <div class="communication-flow">NURSING LEAD</div>
+                    <div class="org-content">
+                        <h3 class="org-title">HEAD NURSING</h3>
+                        <p class="org-subtitle">Nursing Department</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> headnursing@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('head-midwifery')">
                     <div class="org-icon">
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
-                    <h3 class="org-title">HEAD MIDWIFERY</h3>
-                    <p class="org-description">Midwifery Department</p>
-                    <div class="communication-flow">MIDWIFERY LEAD</div>
+                    <div class="org-content">
+                        <h3 class="org-title">HEAD MIDWIFERY</h3>
+                        <p class="org-subtitle">Midwifery Department</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> headmidwifery@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -2188,122 +2375,174 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="vertical-line" style="top: 920px; left: 1250px; height: 40px;"></div>
             </div>
 
-            <!-- Level 7: Teaching Staff (Sample - will expand to 17) -->
+            <!-- Level 7: Teaching Staff, Clinical Instructors, and Tutors (Individual Boxes) -->
             <div class="org-level org-level-7">
+                <!-- Teaching Staff (Sample - 17 total) -->
                 <div class="org-box operational" onclick="handleSectionClick('teaching-staff-1')">
                     <div class="org-icon">
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
-                    <h3 class="org-title">TEACHER 1</h3>
-                    <p class="org-description">Teaching Staff</p>
-                    <div class="communication-flow">TEACHING</div>
+                    <div class="org-content">
+                        <h3 class="org-title">TEACHER 1</h3>
+                        <p class="org-subtitle">Teaching Staff</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> teacher1@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('teaching-staff-2')">
                     <div class="org-icon">
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
-                    <h3 class="org-title">TEACHER 2</h3>
-                    <p class="org-description">Teaching Staff</p>
-                    <div class="communication-flow">TEACHING</div>
+                    <div class="org-content">
+                        <h3 class="org-title">TEACHER 2</h3>
+                        <p class="org-subtitle">Teaching Staff</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> teacher2@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
+                <!-- Clinical Instructors - Nursing (3) -->
                 <div class="org-box operational" onclick="handleSectionClick('clinical-nursing-1')">
                     <div class="org-icon">
                         <i class="fas fa-stethoscope"></i>
                     </div>
-                    <h3 class="org-title">CLINICAL N1</h3>
-                    <p class="org-description">Nursing Clinical</p>
-                    <div class="communication-flow">CLINICAL</div>
+                    <div class="org-content">
+                        <h3 class="org-title">CLINICAL N1</h3>
+                        <p class="org-subtitle">Nursing Clinical</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> clinicaln1@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('clinical-nursing-2')">
                     <div class="org-icon">
                         <i class="fas fa-stethoscope"></i>
                     </div>
-                    <h3 class="org-title">CLINICAL N2</h3>
-                    <p class="org-description">Nursing Clinical</p>
-                    <div class="communication-flow">CLINICAL</div>
+                    <div class="org-content">
+                        <h3 class="org-title">CLINICAL N2</h3>
+                        <p class="org-subtitle">Nursing Clinical</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> clinicaln2@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('clinical-nursing-3')">
                     <div class="org-icon">
                         <i class="fas fa-stethoscope"></i>
                     </div>
-                    <h3 class="org-title">CLINICAL N3</h3>
-                    <p class="org-description">Nursing Clinical</p>
-                    <div class="communication-flow">CLINICAL</div>
+                    <div class="org-content">
+                        <h3 class="org-title">CLINICAL N3</h3>
+                        <p class="org-subtitle">Nursing Clinical</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> clinicaln3@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
+                <!-- Clinical Instructors - Midwifery (3) -->
                 <div class="org-box operational" onclick="handleSectionClick('clinical-midwifery-1')">
                     <div class="org-icon">
                         <i class="fas fa-baby"></i>
                     </div>
-                    <h3 class="org-title">CLINICAL M1</h3>
-                    <p class="org-description">Midwifery Clinical</p>
-                    <div class="communication-flow">CLINICAL</div>
+                    <div class="org-content">
+                        <h3 class="org-title">CLINICAL M1</h3>
+                        <p class="org-subtitle">Midwifery Clinical</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> clinicalm1@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
+                <!-- Tutors (Sample - 9 total) -->
                 <div class="org-box operational" onclick="handleSectionClick('tutor-1')">
                     <div class="org-icon">
                         <i class="fas fa-user-graduate"></i>
                     </div>
-                    <h3 class="org-title">TUTOR 1</h3>
-                    <p class="org-description">Academic Tutor</p>
-                    <div class="communication-flow">TUTORING</div>
+                    <div class="org-content">
+                        <h3 class="org-title">TUTOR 1</h3>
+                        <p class="org-subtitle">Academic Tutor</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> tutor1@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Continue pattern for all remaining staff... -->
+            <!-- Additional Teaching Staff Indicator -->
             <div class="more-staff-indicator">
-                <p><i class="fas fa-ellipsis-h"></i> Additional Teaching Staff (10 more Teachers, 3 more Clinical Midwifery, 8 more Tutors) <i class="fas fa-ellipsis-h"></i></p>
+                <p><i class="fas fa-ellipsis-h"></i> Additional Staff: 15 more Teachers, 2 more Clinical Midwifery, 8 more Tutors <i class="fas fa-ellipsis-h"></i></p>
             </div>
 
-            <!-- Support Departments -->
+            <!-- Support Departments (Individual Boxes) -->
             <div class="org-level org-level-8">
                 <div class="org-box operational" onclick="handleSectionClick('drivers')">
                     <div class="org-icon">
                         <i class="fas fa-bus"></i>
                     </div>
-                    <h3 class="org-title">DRIVERS</h3>
-                    <p class="org-description">Transportation</p>
-                    <div class="communication-flow">TRANSPORT</div>
+                    <div class="org-content">
+                        <h3 class="org-title">DRIVERS</h3>
+                        <p class="org-subtitle">Transportation</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> drivers@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('cooks')">
                     <div class="org-icon">
                         <i class="fas fa-utensils"></i>
                     </div>
-                    <h3 class="org-title">COOKS</h3>
-                    <p class="org-description">Kitchen Services</p>
-                    <div class="communication-flow">FOOD SERVICES</div>
+                    <div class="org-content">
+                        <h3 class="org-title">COOKS</h3>
+                        <p class="org-subtitle">Kitchen Services</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> cooks@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('cleaners')">
                     <div class="org-icon">
                         <i class="fas fa-broom"></i>
                     </div>
-                    <h3 class="org-title">CLEANERS</h3>
-                    <p class="org-description">Cleaning Services</p>
-                    <div class="communication-flow">CLEANING</div>
+                    <div class="org-content">
+                        <h3 class="org-title">CLEANERS</h3>
+                        <p class="org-subtitle">Cleaning Services</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> cleaners@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('security')">
                     <div class="org-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 class="org-title">SECURITY</h3>
-                    <p class="org-description">Campus Security</p>
-                    <div class="communication-flow">SECURITY</div>
+                    <div class="org-content">
+                        <h3 class="org-title">SECURITY</h3>
+                        <p class="org-subtitle">Campus Security</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> security@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="org-box operational" onclick="handleSectionClick('tailors')">
                     <div class="org-icon">
-                        <i class="fas fa-cutting"></i>
+                        <i class="fas fa-cut"></i>
                     </div>
-                    <h3 class="org-title">TAILORS</h3>
-                    <p class="org-description">Uniform Services</p>
-                    <div class="communication-flow">UNIFORMS</div>
+                    <div class="org-content">
+                        <h3 class="org-title">TAILORS</h3>
+                        <p class="org-subtitle">Uniform Services</p>
+                        <div class="org-contact">
+                            <i class="fas fa-envelope"></i> tailors@isnm.ac.ug
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
