@@ -1,0 +1,1018 @@
+<?php
+// Error reporting for development
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+
+// Set headers
+header('Content-Type: text/html; charset=UTF-8');
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header('X-XSS-Protection: 1; mode=block');
+
+// Start session if needed
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Check authentication and role
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'staff' || $_SESSION['department'] !== 'sick-bay') {
+    header('Location: login.php');
+    exit();
+}
+
+include 'config.php';
+
+// Get Sick Bay staff information
+$sick_bay_info = [];
+try {
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ? AND role = 'staff' AND department = 'sick-bay'");
+    $stmt->execute([$_SESSION['user_id']]);
+    $sick_bay_info = $stmt->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    error_log("Error fetching Sick Bay info: " . $e->getMessage());
+}
+
+// Get Medical statistics
+$medical_stats = [];
+try {
+    // Total patients
+    $stmt = $pdo->query("SELECT COUNT(*) as total FROM medical_records");
+    $medical_stats['total_patients'] = $stmt->fetchColumn();
+    
+    // Patients today
+    $stmt = $pdo->query("SELECT COUNT(*) as total FROM medical_records WHERE DATE(created_at) = CURDATE()");
+    $medical_stats['patients_today'] = $stmt->fetchColumn();
+    
+    // Active treatments
+    $stmt = $pdo->query("SELECT COUNT(*) as total FROM treatments WHERE status = 'ongoing'");
+    $medical_stats['active_treatments'] = $stmt->fetchColumn();
+    
+    // Emergency cases this week
+    $stmt = $pdo->query("SELECT COUNT(*) as total FROM medical_records WHERE priority = 'emergency' AND DATE(created_at) >= DATE_SUB(NOW(), INTERVAL 7 DAY)");
+    $medical_stats['emergency_cases_week'] = $stmt->fetchColumn();
+    
+    // Total drugs in inventory
+    $stmt = $pdo->query("SELECT SUM(quantity) as total FROM drug_inventory");
+    $medical_stats['total_drugs'] = $stmt->fetchColumn() ?? 0;
+    
+    // Low stock drugs
+    $stmt = $pdo->query("SELECT COUNT(*) as total FROM drug_inventory WHERE quantity <= reorder_level");
+    $medical_stats['low_stock_drugs'] = $stmt->fetchColumn();
+    
+    // Pending referrals
+    $stmt = $pdo->query("SELECT COUNT(*) as total FROM referrals WHERE status = 'pending'");
+    $medical_stats['pending_referrals'] = $stmt->fetchColumn();
+} catch (PDOException $e) {
+    error_log("Error fetching Medical statistics: " . $e->getMessage());
+}
+
+// Get recent activities
+$recent_activities = [];
+try {
+    $stmt = $pdo->query("
+        SELECT al.*, u.username 
+        FROM activity_log al 
+        LEFT JOIN users u ON al.user_id = u.id 
+        ORDER BY al.created_at DESC 
+        LIMIT 10
+    ");
+    $recent_activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    error_log("Error fetching recent activities: " . $e->getMessage());
+}
+
+// Get recent patients
+$recent_patients = [];
+try {
+    $stmt = $pdo->query("
+        SELECT mr.*, u.username as patient_name, u.student_id
+        FROM medical_records mr
+        LEFT JOIN users u ON mr.patient_id = u.id
+        ORDER BY mr.created_at DESC
+        LIMIT 5
+    ");
+    $recent_patients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    error_log("Error fetching recent patients: " . $e->getMessage());
+}
+
+// Get emergency cases
+$emergency_cases = [];
+try {
+    $stmt = $pdo->query("
+        SELECT mr.*, u.username as patient_name, u.student_id
+        FROM medical_records mr
+        LEFT JOIN users u ON mr.patient_id = u.id
+        WHERE mr.priority = 'emergency' AND mr.status = 'pending'
+        ORDER BY mr.created_at DESC
+        LIMIT 5
+    ");
+    $emergency_cases = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    error_log("Error fetching emergency cases: " . $e->getMessage());
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sick Bay Dashboard - ISNM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Rockwell:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #3730a3;
+            --ocean-blue: #0ea5e9;
+            --golden-yellow: #fbbf24;
+            --warm-yellow: #f59e0b;
+            --creamy-yellow: #fef3c7;
+            --light-green: #86efac;
+            --success-green: #22c55e;
+            --danger-red: #ef4444;
+            --warning-orange: #f97316;
+            --white: #ffffff;
+            --cream-white: #fefaf3;
+            --light-gray: #f3f4f6;
+            --soft-gray: #e5e7eb;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --text-muted: #9ca3af;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
+            --shadow-3d: 0 25px 50px -12px rgba(0,0,0,0.25);
+            --gradient-primary: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            --gradient-hero: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
+            --gradient-gold: linear-gradient(135deg, var(--golden-yellow), var(--warm-yellow));
+            --gradient-success: linear-gradient(135deg, var(--success-green), var(--light-green));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--cream-white), var(--white));
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Rockwell Extra Bold', 'Rockwell', serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--golden-yellow);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .dashboard-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title {
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-subtitle {
+            font-family: 'Bernard MT Condensed', 'Arial Narrow', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, var(--white), var(--cream-white));
+            border: 2px solid var(--primary-blue);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--golden-yellow);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .panel {
+            background: linear-gradient(145deg, var(--white), var(--cream-white));
+            border: 2px solid var(--soft-gray);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--soft-gray);
+        }
+
+        .panel-title {
+            font-family: 'Rockwell Extra Bold', 'Rockwell', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .patient-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .patient-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--soft-gray);
+            transition: all 0.3s ease;
+        }
+
+        .patient-item:hover {
+            background: var(--light-gray);
+        }
+
+        .patient-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .patient-content {
+            flex: 1;
+        }
+
+        .patient-text {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .patient-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .patient-priority {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .priority-emergency {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-red);
+        }
+
+        .priority-urgent {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-orange);
+        }
+
+        .priority-normal {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-green);
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .action-btn i {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .header-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="login-portal.php" class="nav-logo">
+                <img src="public/isnm-logo.jpeg" alt="ISNM">
+                <span>IGANGA SCHOOL OF NURSING AND MIDWIFERY</span>
+            </a>
+            <div class="nav-links">
+                <a href="dashboard-sick-bay.php" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user-injured"></i> Patient Records
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-pills"></i> Drug Inventory
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-procedures"></i> Treatment Management
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-ambulance"></i> Emergency Cases
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-file-medical"></i> Medical Reports
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-user-md"></i> Referral Management
+                </a>
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+                <div class="user-menu">
+                    <i class="fas fa-user"></i>
+                    <span><?php echo htmlspecialchars($sick_bay_info['username'] ?? 'School Nurse'); ?></span>
+                    <a href="logout.php" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <header class="dashboard-header fade-in">
+            <div class="header-content">
+                <h1 class="header-title">SICK BAY</h1>
+                <p class="header-subtitle">Medical Services & Healthcare Excellence</p>
+            </div>
+        </header>
+
+        <div class="stats-grid fade-in">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-injured"></i>
+                </div>
+                <div class="stat-value"><?php echo number_format($medical_stats['total_patients'] ?? 0); ?></div>
+                <div class="stat-label">Total Patients</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <div class="stat-value"><?php echo number_format($medical_stats['patients_today'] ?? 0); ?></div>
+                <div class="stat-label">Patients Today</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-procedures"></i>
+                </div>
+                <div class="stat-value"><?php echo number_format($medical_stats['active_treatments'] ?? 0); ?></div>
+                <div class="stat-label">Active Treatments</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-ambulance"></i>
+                </div>
+                <div class="stat-value"><?php echo number_format($medical_stats['emergency_cases_week'] ?? 0); ?></div>
+                <div class="stat-label">Emergency Cases This Week</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-pills"></i>
+                </div>
+                <div class="stat-value"><?php echo number_format($medical_stats['total_drugs'] ?? 0); ?></div>
+                <div class="stat-label">Total Drugs in Inventory</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-value"><?php echo number_format($medical_stats['low_stock_drugs'] ?? 0); ?></div>
+                <div class="stat-label">Low Stock Drugs</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="stat-value"><?php echo number_format($medical_stats['pending_referrals'] ?? 0); ?></div>
+                <div class="stat-label">Pending Referrals</div>
+            </div>
+        </div>
+
+        <div class="content-grid fade-in">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <i class="fas fa-user-injured"></i> Recent Patients
+                    </h2>
+                    <a href="#" class="nav-link">View All</a>
+                </div>
+                <div class="patient-list">
+                    <?php foreach ($recent_patients as $patient): ?>
+                        <div class="patient-item">
+                            <div class="patient-icon">
+                                <i class="fas fa-user-injured"></i>
+                            </div>
+                            <div class="patient-content">
+                                <div class="patient-text">
+                                    <strong><?php echo htmlspecialchars($patient['patient_name'] ?? 'Unknown'); ?></strong>
+                                    (<?php echo htmlspecialchars($patient['student_id'] ?? 'N/A'); ?>)
+                                    - <?php echo htmlspecialchars($patient['complaint'] ?? 'General Checkup'); ?>
+                                </div>
+                                <div class="patient-time">
+                                    <?php echo date('M d, Y H:i', strtotime($patient['created_at'])); ?>
+                                </div>
+                            </div>
+                            <div class="patient-priority priority-<?php echo htmlspecialchars($patient['priority'] ?? 'normal'); ?>">
+                                <?php echo htmlspecialchars(ucfirst($patient['priority'] ?? 'Normal')); ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">
+                        <i class="fas fa-ambulance"></i> Emergency Cases
+                    </h2>
+                    <a href="#" class="nav-link">View All</a>
+                </div>
+                <div class="patient-list">
+                    <?php foreach ($emergency_cases as $emergency): ?>
+                        <div class="patient-item">
+                            <div class="patient-icon">
+                                <i class="fas fa-ambulance"></i>
+                            </div>
+                            <div class="patient-content">
+                                <div class="patient-text">
+                                    <strong><?php echo htmlspecialchars($emergency['patient_name'] ?? 'Unknown'); ?></strong>
+                                    (<?php echo htmlspecialchars($emergency['student_id'] ?? 'N/A'); ?>)
+                                    - <?php echo htmlspecialchars($emergency['complaint'] ?? 'Emergency'); ?>
+                                </div>
+                                <div class="patient-time">
+                                    <?php echo date('M d, Y H:i', strtotime($emergency['created_at'])); ?>
+                                </div>
+                            </div>
+                            <div class="patient-priority priority-emergency">
+                                Emergency
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel fade-in">
+            <div class="panel-header">
+                <h2 class="panel-title">
+                    <i class="fas fa-tasks"></i> Sick Bay Quick Actions
+                </h2>
+            </div>
+            <div class="quick-actions">
+                <a href="#" class="action-btn">
+                    <i class="fas fa-user-plus"></i>
+                    Add New Patient
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-user-injured"></i>
+                    Patient Records Management
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-pills"></i>
+                    Drug Inventory Management
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-procedures"></i>
+                    Treatment Management
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-ambulance"></i>
+                    Emergency Response
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-file-medical"></i>
+                    Medical Reports
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-user-md"></i>
+                    Referral Management
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-calendar-check"></i>
+                    Follow-up Appointments
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-boxes"></i>
+                    Medical Inventory Portal
+                </a>
+                <a href="#" class="action-btn">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Add entrance animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Add interactive hover effects
+        const cards = document.querySelectorAll('.stat-card, .patient-item');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Auto-refresh activities every 30 seconds
+        setInterval(() => {
+            // Refresh recent activities
+            fetch('api/recent-activities.php')
+                .then(response => response.json())
+                .then(data => {
+                    // Update activity list
+                    console.log('Activities refreshed');
+                })
+                .catch(error => console.error('Error refreshing activities:', error));
+        }, 30000);
+    </script>
+</body>
+</html>
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+        body { font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--gray-50); color: var(--gray-900); }
+        .dashboard { display: flex; min-height: 100vh; }
+        .sidebar { width: 280px; background: var(--white); box-shadow: var(--shadow-lg); }
+        .sidebar-header { padding: 2rem; border-bottom: 1px solid var(--gray-200); text-align: center; }
+        .school-logo { width: 60px; height: 60px; border-radius: 50%; margin-bottom: 1rem; box-shadow: var(--shadow-md); border: 2px solid var(--primary); }
+        .user-info { display: flex; align-items: center; gap: 1rem; }
+        .user-avatar { width: 48px; height: 48px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; }
+        .user-details h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .user-details p { font-size: 0.875rem; color: var(--gray-600); }
+        .nav-menu { list-style: none; padding: 1rem 0; }
+        .nav-item { margin-bottom: 0.25rem; }
+        .nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 2rem; color: var(--gray-700); text-decoration: none; transition: all 0.2s; border-left: 3px solid transparent; }
+        .nav-link:hover, .nav-link.active { background: var(--gray-50); color: var(--primary); border-left-color: var(--primary); }
+        .main-content { flex: 1; padding: 2rem; }
+        .header { background: var(--white); border-radius: 12px; padding: 2rem; box-shadow: var(--shadow-md); margin-bottom: 2rem; }
+        .header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .header p { color: var(--gray-600); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--white); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow-md); transition: transform 0.2s; }
+        .stat-card:hover { transform: translateY(-2px); }
+        .stat-icon { width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 1rem; }
+        .stat-icon.blue { background: rgba(30, 58, 138, 0.1); color: var(--primary); }
+        .stat-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .stat-icon.yellow { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .stat-icon.red { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .stat-value { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .stat-label { color: var(--gray-600); font-size: 0.875rem; }
+        .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .card { background: var(--white); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow-md); }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .card-title { font-size: 1.25rem; font-weight: 600; }
+        .btn { padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s; border: none; cursor: pointer; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--secondary); }
+        .btn-secondary { background: var(--gray-200); color: var(--gray-700); }
+        .btn-secondary:hover { background: var(--gray-300); }
+        .patient-list { list-style: none; max-height: 400px; overflow-y: auto; }
+        .patient-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--gray-100); }
+        .patient-item:last-child { border-bottom: none; }
+        .patient-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; color: var(--gray-600); }
+        .patient-info { flex: 1; }
+        .patient-name { font-weight: 500; margin-bottom: 0.25rem; }
+        .patient-details { font-size: 0.875rem; color: var(--gray-600); }
+        .patient-status { padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; }
+        .status-critical { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .status-stable { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .status-observation { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .staff-list { list-style: none; }
+        .staff-item { background: var(--gray-50); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; border-left: 4px solid var(--primary); }
+        .staff-name { font-weight: 600; color: var(--primary); margin-bottom: 0.25rem; }
+        .staff-title { font-weight: 500; margin-bottom: 0.25rem; }
+        .staff-contact { font-size: 0.875rem; color: var(--gray-600); }
+        .drugs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .drug-category { background: var(--gray-50); border-radius: 8px; padding: 1rem; border-left: 4px solid var(--secondary); }
+        .drug-category h4 { font-weight: 600; color: var(--secondary); margin-bottom: 0.5rem; }
+        .drug-list { list-style: none; font-size: 0.875rem; }
+        .drug-list li { padding: 0.25rem 0; color: var(--gray-600); }
+        @media (max-width: 768px) { .dashboard { flex-direction: column; } .sidebar { width: 100%; } .content-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="public/isnm-logo.jpeg" alt="ISNM Logo" class="school-logo">
+                <div class="user-info">
+                    <div class="user-avatar"><i class="fas fa-user-md"></i></div>
+                    <div class="user-details">
+                        <h3><?php echo htmlspecialchars($user['username']); ?></h3>
+                        <p>Sick Bay Department</p>
+                    </div>
+                </div>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-users"></i> Patient Management</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-pills"></i> Drug Inventory</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-file-medical"></i> Medical Records</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Health Reports</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-calendar"></i> Appointments</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li class="nav-item"><a href="logout.php" class="nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="header">
+                <h1>IGANGA SCHOOL OF NURSING AND MIDWIFERY - SICK BAY DEPARTMENT</h1>
+                <p>Welcome back, <?php echo htmlspecialchars($user['username']); ?>. Manage patient care and medical services.</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Total Patients</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon red"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Critical Cases</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-value">18</div>
+                    <div class="stat-label">Stable Patients</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon yellow"><i class="fas fa-pills"></i></div>
+                    <div class="stat-value">156</div>
+                    <div class="stat-label">Drug Types</div>
+                </div>
+            </div>
+            <div class="content-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">STAFF AND THEIR TITLES</h2>
+                        <a href="#" class="btn btn-secondary">View All</a>
+                    </div>
+                    <ul class="staff-list">
+                        <li class="staff-item">
+                            <div class="staff-name">IN CHARGE</div>
+                            <div class="staff-title">Mr Sseruwagi Tom</div>
+                            <div class="staff-contact">0777534466 / 0705608372</div>
+                        </li>
+                        <li class="staff-item">
+                            <div class="staff-name">HEALTH MINISTER</div>
+                            <div class="staff-title">Mr Mpata Nicolas</div>
+                            <div class="staff-contact">0752152838</div>
+                        </li>
+                        <li class="staff-item">
+                            <div class="staff-name">ASSISTANT HEALTH MINISTER</div>
+                            <div class="staff-title">Sister Asmart</div>
+                            <div class="staff-contact">0755077863</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">CURRENT PATIENTS</h2>
+                        <a href="#" class="btn btn-primary">Add Patient</a>
+                    </div>
+                    <ul class="patient-list">
+                        <li class="patient-item">
+                            <div class="patient-icon"><i class="fas fa-user"></i></div>
+                            <div class="patient-info">
+                                <div class="patient-name">Jane Nakato</div>
+                                <div class="patient-details">Set A-12 | Female | Fever & Headache</div>
+                            </div>
+                            <div class="patient-status status-critical">Critical</div>
+                        </li>
+                        <li class="patient-item">
+                            <div class="patient-icon"><i class="fas fa-user"></i></div>
+                            <div class="patient-info">
+                                <div class="patient-name">John Mukasa</div>
+                                <div class="patient-details">Set B-08 | Male | Minor Injury</div>
+                            </div>
+                            <div class="patient-status status-stable">Stable</div>
+                        </li>
+                        <li class="patient-item">
+                            <div class="patient-icon"><i class="fas fa-user"></i></div>
+                            <div class="patient-info">
+                                <div class="patient-name">Sarah Nalwoga</div>
+                                <div class="patient-details">Set C-15 | Female | Stomach Pain</div>
+                            </div>
+                            <div class="patient-status status-observation">Observation</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">DRUGS INVENTORY</h2>
+                    <a href="#" class="btn btn-primary">Manage Drugs</a>
+                </div>
+                <div class="drugs-grid">
+                    <div class="drug-category">
+                        <h4>ANTIBIOTICS - INJECTABLES</h4>
+                        <ul class="drug-list">
+                            <li>Penicillin G</li>
+                            <li>Ampicillin</li>
+                            <li>Gentamicin</li>
+                            <li>Ceftriaxone</li>
+                        </ul>
+                    </div>
+                    <div class="drug-category">
+                        <h4>ANTIBIOTICS - INTRAVENOUS</h4>
+                        <ul class="drug-list">
+                            <li>Vancomycin</li>
+                            <li>Meropenem</li>
+                            <li>Levofloxacin</li>
+                            <li>Clindamycin</li>
+                        </ul>
+                    </div>
+                    <div class="drug-category">
+                        <h4>ANTIBIOTICS - INTRAMUSCULAR</h4>
+                        <ul class="drug-list">
+                            <li>Benzathine Penicillin</li>
+                            <li>Ceftriaxone IM</li>
+                            <li>Erythromycin IM</li>
+                        </ul>
+                    </div>
+                    <div class="drug-category">
+                        <h4>CAPSULES</h4>
+                        <ul class="drug-list">
+                            <li>Amoxicillin</li>
+                            <li>Azithromycin</li>
+                            <li>Doxycycline</li>
+                            <li>Cephalexin</li>
+                        </ul>
+                    </div>
+                    <div class="drug-category">
+                        <h4>TABLETS</h4>
+                        <ul class="drug-list">
+                            <li>Paracetamol</li>
+                            <li>Ibuprofen</li>
+                            <li>Aspirin</li>
+                            <li>Ciprofloxacin</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">SICK BAY OPERATIONS</h2>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                    <a href="#" class="btn btn-primary"><i class="fas fa-user-plus"></i> Register Patient</a>
+                    <a href="#" class="btn btn-primary"><i class="fas fa-stethoscope"></i> Record Diagnosis</a>
+                    <a href="#" class="btn btn-primary"><i class="fas fa-pills"></i> Dispense Drugs</a>
+                    <a href="#" class="btn btn-primary"><i class="fas fa-file-medical"></i> Update Records</a>
+                    <a href="#" class="btn btn-primary"><i class="fas fa-chart-line"></i> Generate Reports</a>
+                    <a href="#" class="btn btn-primary"><i class="fas fa-ambulance"></i> Emergency Response</a>
+                    <a href="#" class="btn btn-primary"><i class="fas fa-phone"></i> Contact Parents</a>
+                    <a href="#" class="btn btn-primary"><i class="fas fa-calendar-check"></i> Schedule Follow-up</a>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
