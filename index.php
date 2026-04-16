@@ -64,7 +64,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--gradient-clean);
+            background: linear-gradient(180deg, #f3efe5 0%, #f7f5ef 45%, #fbfaf8 100%);
             color: var(--primary-dark);
             line-height: 1.6;
             overflow-x: hidden;
@@ -110,18 +110,17 @@ if (session_status() === PHP_SESSION_NONE) {
         /* Cinema-Quality 3D Navigation - No Space Above */
         .navbar {
             position: fixed;
-            top: 0;
+            top: 38px;
             left: 0;
             right: 0;
-            background: var(--white);
-            border-bottom: 3px solid var(--border-light);
-            z-index: 1000;
-            padding: 1.2rem 0;
-            box-shadow: var(--shadow-xl);
+            background: rgba(255,255,255,0.96);
+            border-bottom: 1px solid rgba(220,220,220,0.9);
+            z-index: 1001;
+            padding: 1rem 0;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
             transform-style: preserve-3d;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(15px);
-            animation: cinemaNavFloat 8s ease-in-out infinite;
+            transition: all 0.35s ease;
+            backdrop-filter: blur(16px);
         }
 
         .navbar::before {
@@ -149,11 +148,45 @@ if (session_status() === PHP_SESSION_NONE) {
             animation: navPatternFloat 30s linear infinite;
         }
 
+        .brand-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 38px;
+            background: #ffffff;
+            border-bottom: 1px solid rgba(220,220,220,0.9);
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+        }
+
+        .brand-marquee {
+            display: inline-flex;
+            align-items: center;
+            gap: 3rem;
+            white-space: nowrap;
+            animation: marquee 18s linear infinite;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--primary-dark);
+            font-size: 0.95rem;
+            transform: perspective(1000px) rotateX(2deg);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%) perspective(1000px) rotateX(2deg); }
+            100% { transform: translateX(-100%) perspective(1000px) rotateX(2deg); }
+        }
+
         .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(15px);
-            box-shadow: var(--shadow-3d-xl);
-            border-bottom-color: var(--border-3d-medium);
+            background: rgba(255, 255, 255, 1);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.1);
+            border-bottom-color: rgba(210,210,210,0.95);
             transform: translateY(0);
         }
 
@@ -171,18 +204,16 @@ if (session_status() === PHP_SESSION_NONE) {
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 1rem;
             font-weight: 900;
             font-size: 1.6rem;
-            color: var(--medical-primary);
+            color: var(--primary-dark);
             text-decoration: none;
             font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
             transform-style: preserve-3d;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.35s ease;
             position: relative;
             z-index: 5;
-            text-shadow: 0 4px 8px rgba(15, 76, 117, 0.2);
-            animation: cinemaLogoGlow 3s ease-in-out infinite;
         }
 
         .nav-logo::before {
@@ -204,15 +235,15 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .nav-logo img {
-            width: 70px;
-            height: 70px;
+            width: 64px;
+            height: 64px;
             object-fit: cover;
-            border: 3px solid var(--medical-primary);
+            border: 2px solid rgba(17, 82, 147, 0.2);
             border-radius: 50%;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-3d-md);
+            transition: all 0.35s ease;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
             transform-style: preserve-3d;
-            background: var(--medical-white);
+            background: white;
             position: relative;
             z-index: 3;
         }
@@ -232,17 +263,17 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .nav-logo:hover {
-            transform: translateY(-5px) translateZ(10px) rotateX(2deg) scale(1.02);
+            transform: translateY(-2px);
         }
 
         .nav-logo:hover img {
-            transform: scale(1.12) rotateY(5deg);
-            box-shadow: var(--shadow-3d-xl);
-            border-color: var(--medical-accent);
+            transform: scale(1.03);
+            box-shadow: 0 14px 32px rgba(0,0,0,0.16);
+            border-color: rgba(255, 215, 0, 0.8);
         }
 
         .nav-logo:hover img::after {
-            opacity: 0.3;
+            opacity: 0;
         }
 
         .nav-links {
@@ -341,13 +372,12 @@ if (session_status() === PHP_SESSION_NONE) {
             height: 100%;
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
             opacity: 0;
-            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 1s ease, transform 1s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            transform: scale(1.1) rotateX(5deg);
+            transform: scale(1.03);
         }
 
         .slide.active {
@@ -362,8 +392,7 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(26, 26, 26, 0.7) 0%, rgba(45, 45, 45, 0.5) 50%, rgba(255, 215, 0, 0.1) 100%);
-            animation: heroOverlayPulse 4s ease-in-out infinite;
+            background: linear-gradient(45deg, rgba(20, 22, 30, 0.6) 0%, rgba(10, 12, 18, 0.75) 100%);
         }
 
         .slide-overlay {
@@ -390,37 +419,33 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .slide-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.6rem, 5vw, 4rem);
             font-weight: 900;
             margin-bottom: 1rem;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
-            animation: textGlow 3s ease-in-out infinite alternate;
             font-family: 'Playfair Display', serif;
-            letter-spacing: -1px;
-            line-height: 1.1;
+            letter-spacing: -0.5px;
+            line-height: 1.05;
         }
 
         .slide-subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
-            margin-bottom: 2rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            margin-bottom: 1.75rem;
             font-weight: 400;
-            line-height: 1.4;
-            opacity: 0.95;
+            line-height: 1.6;
+            opacity: 0.9;
         }
 
         .slide-btn {
             display: inline-block;
             padding: 1rem 2.5rem;
-            background: var(--gradient-primary);
+            background: var(--primary-dark);
             color: var(--white);
             text-decoration: none;
             border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-lg);
-            border: 2px solid transparent;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.25);
             position: relative;
             overflow: hidden;
             transform-style: preserve-3d;
@@ -438,9 +463,10 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .slide-btn:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--accent-gold);
+            transform: translateY(-3px);
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            border-color: rgba(255,255,255,0.2);
         }
 
         .slide-btn:hover::before {
@@ -459,15 +485,15 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .slider-btn {
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(0,0,0,0.08);
-            width: 55px;
-            height: 55px;
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(200,200,200,0.8);
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             cursor: pointer;
-            transition: all 0.35s ease;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+            transition: all 0.3s ease;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.12);
             color: var(--primary-dark);
             display: flex;
             align-items: center;
@@ -477,8 +503,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .slider-btn:hover {
             background: var(--accent-gold);
-            transform: scale(1.05);
-            box-shadow: 0 14px 28px rgba(0,0,0,0.15);
+            transform: scale(1.04);
+            box-shadow: 0 16px 32px rgba(0,0,0,0.16);
             color: var(--white);
         }
 
@@ -2168,6 +2194,13 @@ if (session_status() === PHP_SESSION_NONE) {
     </style>
 </head>
 <body>
+    <div class="brand-banner">
+        <div class="brand-marquee">
+            <span>Iganga School of Nursing & Midwifery</span>
+            <span>Practical Skills Lab | Modern Healthcare Training | Student Success</span>
+            <span>Academic Excellence | Compassionate Care | Career Ready Nurses</span>
+        </div>
+    </div>
     <!-- Professional Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
