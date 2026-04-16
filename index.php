@@ -116,8 +116,8 @@ if (session_status() === PHP_SESSION_NONE) {
             background: rgba(255,255,255,0.96);
             border-bottom: 1px solid rgba(220,220,220,0.9);
             z-index: 1001;
-            padding: 1rem 0;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+            padding: 0.85rem 0;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.08);
             transform-style: preserve-3d;
             transition: all 0.35s ease;
             backdrop-filter: blur(16px);
@@ -178,7 +178,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         @keyframes marquee {
-            0% { transform: translateX(100%) perspective(1000px) rotateX(2deg); }
+            0% { transform: translateX(0) perspective(1000px) rotateX(2deg); }
             100% { transform: translateX(-100%) perspective(1000px) rotateX(2deg); }
         }
 
@@ -350,10 +350,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
         /* Hero Section with Slider */
         .hero-section {
-            min-height: calc(100vh - 110px);
+            min-height: calc(100vh - 98px);
             position: relative;
             overflow: hidden;
-            margin-top: 110px;
+            margin-top: 98px;
             transform-style: preserve-3d;
             perspective: 1000px;
         }
@@ -631,11 +631,6 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         /* Animations */
-        @keyframes heroOverlayPulse {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 0.9; }
-        }
-
         @keyframes slideInUp {
             from {
                 opacity: 0;
@@ -645,31 +640,6 @@ if (session_status() === PHP_SESSION_NONE) {
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
-        }
-
-        @keyframes textGlow {
-            from {
-                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.3);
-            }
-            to {
-                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.4);
-            }
-        }
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--medical-light);
-            padding: 0.4rem 0.8rem;
-            border-radius: 12px;
-            color: var(--medical-primary);
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--border-3d-light);
-            font-family: 'Inter', sans-serif;
-            transform-style: preserve-3d;
-            transform: translateZ(10px);
-            box-shadow: var(--shadow-3d-sm);
         }
 
         .hero-title {
@@ -1870,56 +1840,7 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         }
 
-        @keyframes textGlow {
-            from {
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px var(--accent-gold);
-            }
-            to {
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-gold), 0 0 30px var(--accent-gold);
-            }
-        }
-
         /* Cinema-Like Medical 3D Animations */
-        @keyframes cinemaNavFloat {
-            0%, 100% {
-                transform: translateY(0) translateX(0) rotateX(0deg);
-                box-shadow: var(--shadow-3d-lg);
-            }
-            25% {
-                transform: translateY(-2px) translateX(3px) rotateX(1deg);
-                box-shadow: var(--shadow-3d-xl);
-            }
-            50% {
-                transform: translateY(-4px) translateX(0) rotateX(0deg);
-                box-shadow: var(--shadow-3d-xl);
-            }
-            75% {
-                transform: translateY(-2px) translateX(-3px) rotateX(-1deg);
-                box-shadow: var(--shadow-3d-lg);
-            }
-        }
-
-        @keyframes cinemaLogoGlow {
-            0%, 100% {
-                text-shadow: 0 0 25px rgba(15, 76, 117, 0.3), 0 0 50px rgba(30, 107, 168, 0.2);
-                transform: scale(1);
-            }
-            50% {
-                text-shadow: 0 0 40px rgba(15, 76, 117, 0.5), 0 0 80px rgba(30, 107, 168, 0.3);
-                transform: scale(1.05);
-            }
-        }
-
-        @keyframes cinemaLinkPulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 15px rgba(15, 76, 117, 0.2);
-            }
-            50% {
-                transform: scale(1.03);
-                box-shadow: 0 0 25px rgba(15, 76, 117, 0.4);
-            }
-        }
 
         @keyframes medicalAurora {
             0%, 100% {
