@@ -2407,7 +2407,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.php" class="nav-logo">
-                <img src="public/isnm-logo.jpeg" alt="ISNM">
+                <img src="assets/school-logo.png" alt="ISNM">
                 <span>IGANGA SCHOOL OF NURSING AND MIDWIFERY</span>
             </a>
             <div class="nav-links">
@@ -2458,7 +2458,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <header class="organogram-header">
         <div class="header-content">
             <div class="logo-section">
-                <img src="public/isnm-logo.jpeg" alt="ISNM Official Logo" class="organogram-logo">
+                <img src="assets/school-logo.png" alt="ISNM Official Logo" class="organogram-logo">
             </div>
             <div class="title-section">
                 <h1 class="organogram-title">IGANGA SCHOOL OF NURSING AND MIDWIFERY</h1>

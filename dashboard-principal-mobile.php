@@ -105,7 +105,7 @@ $user = $_SESSION['user'];
     <div class="mobile-dashboard">
         <header class="mobile-header">
             <div class="header-content">
-                <img src="public/isnm-logo.jpeg" alt="ISNM Logo" class="school-logo">
+                <img src="assets/school-logo.png" alt="ISNM Logo" class="school-logo">
                 <div class="user-info">
                     <div class="user-avatar"><i class="fas fa-user-tie"></i></div>
                     <div class="user-name"><?php echo htmlspecialchars($user['username']); ?></div>

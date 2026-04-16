@@ -642,7 +642,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="header-content">
             <nav class="header-nav">
                 <div class="logo-section">
-                    <img src="public/isnm-logo.jpeg" alt="ISNM Logo" class="logo">
+                    <img src="assets/school-logo.png" alt="ISNM Logo" class="logo">
                     <div>
                         <h1 style="font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif; font-size: 1.2rem; font-weight: 900;">ISNM</h1>
                         <p style="font-size: 0.8rem; opacity: 0.9;">Excellence in Healthcare Education</p>

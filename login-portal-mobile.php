@@ -461,7 +461,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <body>
     <div class="mobile-container">
         <header class="header">
-            <img src="public/isnm-logo.jpeg" alt="ISNM Logo" class="school-logo">
+            <img src="assets/school-logo.png" alt="ISNM Logo" class="school-logo">
             <h1>Iganga School of Nursing & Midwifery</h1>
             <p>Department Login Portal</p>
         </header>

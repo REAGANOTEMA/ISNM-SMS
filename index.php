@@ -258,22 +258,19 @@ if (session_status() === PHP_SESSION_NONE) {
         .nav-link {
             color: var(--primary-dark);
             text-decoration: none;
-            font-weight: 800;
-            font-size: 1rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 700;
+            font-size: 0.98rem;
+            transition: all 0.35s ease;
             position: relative;
-            padding: 0.9rem 1.6rem;
-            border-radius: 18px;
-            background: var(--white);
-            border: 2px solid var(--border-light);
+            padding: 0.85rem 1.5rem;
+            border-radius: 16px;
+            background: white;
+            border: 1px solid rgba(220, 220, 220, 0.9);
             font-family: 'Inter', sans-serif;
             transform-style: preserve-3d;
             transform: translateZ(0);
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
-            white-space: nowrap;
-            animation: cinemaLinkPulse 4s ease-in-out infinite;
-            text-shadow: 0 2px 4px rgba(26, 26, 26, 0.1);
         }
 
         .nav-link::before {
@@ -283,10 +280,10 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: var(--gradient-3d-primary);
-            border-radius: 12px;
+            background: var(--gradient-primary);
+            border-radius: 16px;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.35s ease;
             z-index: -1;
         }
 
@@ -306,10 +303,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .nav-link:hover {
             color: var(--white);
-            transform: translateY(-6px) translateZ(20px) rotateX(3deg) scale(1.08);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--accent-gold);
-            background: var(--gradient-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: transparent;
+            background: var(--primary-dark);
         }
 
         .nav-link:hover::before {
@@ -317,15 +314,15 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .nav-link:hover::after {
-            opacity: 1;
+            opacity: 0.15;
         }
 
         /* Hero Section with Slider */
         .hero-section {
-            min-height: 100vh;
+            min-height: calc(100vh - 110px);
             position: relative;
             overflow: hidden;
-            margin-top: 70px;
+            margin-top: 110px;
             transform-style: preserve-3d;
             perspective: 1000px;
         }
@@ -458,19 +455,19 @@ if (session_status() === PHP_SESSION_NONE) {
             justify-content: space-between;
             transform: translateY(-50%);
             z-index: 10;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
         }
 
         .slider-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid var(--accent-gold);
-            width: 60px;
-            height: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0,0,0,0.08);
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: var(--shadow-lg);
+            transition: all 0.35s ease;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
             color: var(--primary-dark);
             display: flex;
             align-items: center;
@@ -480,8 +477,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .slider-btn:hover {
             background: var(--accent-gold);
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: var(--shadow-xl);
+            transform: scale(1.05);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.15);
             color: var(--white);
         }
 
@@ -538,12 +535,12 @@ if (session_status() === PHP_SESSION_NONE) {
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .hero-section {
-                margin-top: 60px;
-                min-height: 90vh;
+                margin-top: 98px;
+                min-height: 85vh;
             }
 
             .hero-slider {
-                height: 90vh;
+                height: 85vh;
             }
 
             .slide-content {
@@ -2175,7 +2172,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="nav-logo">
-                <img src="public/isnm-logo.jpeg" alt="ISNM Logo" style="width: 75px; height: 75px;">
+                <img src="assets/school-logo.png" alt="ISNM Logo" style="width: 75px; height: 75px;">
                 <div class="nav-logo-text">
                     <span style="font-weight: 900; font-size: 1.2rem;">ISNM</span>
                     <span style="font-size: 0.75rem; opacity: 0.95;">Iganga School of Nursing & Midwifery</span>
@@ -2572,3 +2569,4 @@ if (session_status() === PHP_SESSION_NONE) {
 </html>
 
 
+                                                                                                                                                                                                                   

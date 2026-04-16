@@ -124,7 +124,7 @@ $user = $_SESSION['user'];
     <div class="dashboard">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <img src="public/isnm-logo.jpeg" alt="ISNM Logo" class="school-logo">
+                <img src="assets/school-logo.png" alt="ISNM Logo" class="school-logo">
                 <div class="user-info">
                     <div class="user-avatar"><i class="fas fa-calculator"></i></div>
                     <div class="user-details">

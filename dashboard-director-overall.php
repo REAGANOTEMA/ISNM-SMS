@@ -491,7 +491,7 @@ try {
     <nav class="navbar">
         <div class="nav-container">
             <a href="login-portal.php" class="nav-logo">
-                <img src="public/isnm-logo.jpeg" alt="ISNM">
+                <img src="assets/school-logo.png" alt="ISNM">
                 <span>IGANGA SCHOOL OF NURSING AND MIDWIFERY</span>
             </a>
             <div class="nav-links">

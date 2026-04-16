@@ -562,7 +562,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="mobile-login-container">
         <div class="login-header">
-            <img src="public/isnm-logo.jpeg" alt="ISNM Logo" class="school-logo">
+            <img src="assets/school-logo.png" alt="ISNM Logo" class="school-logo">
             <div class="role-icon">
                 <i class="<?php echo $current_role['icon']; ?>"></i>
             </div>

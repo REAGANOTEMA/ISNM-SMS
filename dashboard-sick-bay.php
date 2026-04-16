@@ -517,7 +517,7 @@ try {
     <nav class="navbar">
         <div class="nav-container">
             <a href="login-portal.php" class="nav-logo">
-                <img src="public/isnm-logo.jpeg" alt="ISNM">
+                <img src="assets/school-logo.png" alt="ISNM">
                 <span>IGANGA SCHOOL OF NURSING AND MIDWIFERY</span>
             </a>
             <div class="nav-links">
@@ -842,7 +842,7 @@ try {
     <div class="dashboard">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <img src="public/isnm-logo.jpeg" alt="ISNM Logo" class="school-logo">
+                <img src="assets/school-logo.png" alt="ISNM Logo" class="school-logo">
                 <div class="user-info">
                     <div class="user-avatar"><i class="fas fa-user-md"></i></div>
                     <div class="user-details">
