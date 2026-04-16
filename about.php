@@ -30,61 +30,76 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         :root {
-            /* Modern Vibrant Color Palette */
-            --vibrant-purple: #8B5CF6;
-            --electric-blue: #3B82F6;
-            --neon-cyan: #06B6D4;
-            --bright-green: #10B981;
-            --golden-yellow: #F59E0B;
-            --hot-pink: #EC4899;
-            --deep-indigo: #4F46E5;
-            --sunset-orange: #F97316;
-            --crimson-red: #DC2626;
-            --pure-white: #FFFFFF;
-            --dark-bg: #0F172A;
-            --light-bg: #F8FAFC;
+            /* Hospital-Quality Professional Color Palette */
+            --medical-primary: #0F4C75;
+            --medical-secondary: #1E6BA8;
+            --medical-accent: #2E8BC0;
+            --medical-teal: #16A5A5;
+            --medical-cyan: #0EA5E9;
+            --medical-blue: #3B82F6;
+            --medical-green: #10B981;
+            --medical-white: #FFFFFF;
+            --medical-gray: #F8FAFC;
+            --medical-dark: #0F172A;
+            --medical-light: #F1F5F9;
             
-            /* Advanced Color Variations */
-            --primary-vibrant: #8B5CF6;
-            --secondary-vibrant: #3B82F6;
-            --accent-vibrant: #06B6D4;
-            --success-vibrant: #10B981;
-            --warning-vibrant: #F59E0B;
-            --danger-vibrant: #EF4444;
-            --info-vibrant: #06B6D4;
-            --dark-vibrant: #1E293B;
-            --light-vibrant: #F1F5F9;
+            /* Medical 3D Color Variations */
+            --primary-3d: #0F4C75;
+            --secondary-3d: #1E6BA8;
+            --accent-3d: #2E8BC0;
+            --success-3d: #10B981;
+            --warning-3d: #F59E0B;
+            --danger-3d: #EF4444;
+            --info-3d: #06B6D4;
+            --dark-3d: #0F172A;
+            --light-3d: #F1F5F9;
             
-            /* Modern Gradients */
-            --gradient-modern: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 25%, #06B6D4 50%, #10B981 75%, #F59E0B 100%);
-            --gradient-hero: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 33%, #EC4899 66%, #F97316 100%);
-            --gradient-luxury: linear-gradient(135deg, #F59E0B 0%, #FCD34D 50%, #FEF3C7 100%);
-            --gradient-neon: linear-gradient(135deg, #06B6D4 0%, #10B981 50%, #8B5CF6 100%);
-            --gradient-sunset: linear-gradient(135deg, #F97316 0%, #EF4444 50%, #EC4899 100%);
-            --gradient-ocean: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 50%, #10B981 100%);
-            --gradient-galaxy: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 50%, #EC4899 100%);
+            /* Mind-Blowing 3D Gradients */
+            --gradient-3d-hero: linear-gradient(135deg, #0F4C75 0%, #1E6BA8 25%, #2E8BC0 50%, #16A5A5 75%, #0EA5E9 100%);
+            --gradient-3d-primary: linear-gradient(135deg, #0F4C75 0%, #1E6BA8 50%, #2E8BC0 100%);
+            --gradient-3d-luxury: linear-gradient(135deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%);
+            --gradient-3d-clean: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #FFFFFF 100%);
+            --gradient-3d-success: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+            --gradient-3d-warning: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
             
-            /* Modern Shadows */
-            --shadow-modern-sm: 0 4px 6px -1px rgba(139, 92, 246, 0.1), 0 2px 4px -1px rgba(139, 92, 246, 0.06);
-            --shadow-modern-md: 0 10px 15px -3px rgba(139, 92, 246, 0.1), 0 4px 6px -2px rgba(139, 92, 246, 0.05);
-            --shadow-modern-lg: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(139, 92, 246, 0.04);
-            --shadow-neon: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.4);
-            --shadow-glow: 0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(249, 115, 22, 0.3);
+            /* Professional 3D Shadows */
+            --shadow-3d-sm: 0 2px 4px rgba(15, 76, 117, 0.1), 0 1px 2px rgba(15, 76, 117, 0.06);
+            --shadow-3d-md: 0 4px 8px rgba(15, 76, 117, 0.15), 0 2px 4px rgba(15, 76, 117, 0.08);
+            --shadow-3d-lg: 0 8px 16px rgba(15, 76, 117, 0.2), 0 4px 8px rgba(15, 76, 117, 0.1);
+            --shadow-3d-xl: 0 20px 40px rgba(15, 76, 117, 0.25), 0 10px 20px rgba(15, 76, 117, 0.15);
+            --shadow-3d-neon: 0 0 20px rgba(15, 76, 117, 0.3), 0 0 40px rgba(30, 107, 168, 0.2);
             
-            /* Modern Border Colors */
-            --border-modern: #E5E7EB;
-            --border-vibrant: #8B5CF6;
-            --border-neon: #06B6D4;
-            --border-glow: #F59E0B;
+            /* 3D Border Colors */
+            --border-3d-light: #E2E8F0;
+            --border-3d-medium: #CBD5E1;
+            --border-3d-dark: #94A3B8;
+            
+            /* Legacy Variables for Compatibility */
+            --gradient-primary: var(--gradient-3d-primary);
+            --gradient-luxury: var(--gradient-3d-luxury);
+            --primary-blue: var(--medical-primary);
+            --golden-yellow: var(--medical-accent);
+            --neon-cyan: var(--medical-cyan);
+            --shadow-sm: var(--shadow-3d-sm);
+            --shadow-md: var(--shadow-3d-md);
+            --shadow-lg: var(--shadow-3d-lg);
+            --shadow-xl: var(--shadow-3d-xl);
+            --border-color: var(--border-3d-light);
+            --text-primary: var(--medical-dark);
+            --text-secondary: var(--medical-secondary);
+            --accent-blue: var(--medical-accent);
+            --light-green: var(--medical-green);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
-            color: var(--pure-white);
+            background: var(--gradient-3d-clean);
+            color: var(--medical-dark);
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         body::before {
@@ -95,12 +110,12 @@ if (session_status() === PHP_SESSION_NONE) {
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 50% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
-            animation: modernAurora 15s ease-in-out infinite;
+                radial-gradient(circle at 20% 50%, rgba(15, 76, 117, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(30, 107, 168, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(46, 139, 192, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(22, 165, 165, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(14, 165, 233, 0.04) 0%, transparent 50%);
+            animation: medicalAurora 20s ease-in-out infinite;
             pointer-events: none;
             z-index: -1;
         }
@@ -113,21 +128,23 @@ if (session_status() === PHP_SESSION_NONE) {
             width: 100%;
             height: 100%;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="modern-about-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(139,92,246,0.3)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(59,130,246,0.4)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23modern-about-pattern)"/></svg>'),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="vibrant-about-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(236,72,153,0.3)" stroke-width="2"/><circle cx="25" cy="25" r="6" fill="rgba(249,115,22,0.4)"/></pattern></defs><rect width="200" height="200" fill="url(%23vibrant-about-pattern)"/></svg>');
-            background-size: 30px 30px, 100px 100px;
-            animation: modernPatternFloat 25s linear infinite;
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical-3d-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="rgba(15,76,117,0.08)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(30,107,168,0.1)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23medical-3d-pattern)"/></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="medical-3d-grid" width="60" height="60" patternUnits="userSpaceOnUse"><rect x="15" y="15" width="30" height="30" fill="none" stroke="rgba(46,139,192,0.08)" stroke-width="2"/><circle cx="30" cy="30" r="8" fill="rgba(22,165,165,0.1)"/></pattern></defs><rect width="200" height="200" fill="url(%23medical-3d-grid)"/></svg>');
+            background-size: 40px 40px, 120px 120px;
+            animation: medical3DFloat 30s linear infinite;
             pointer-events: none;
             z-index: -1;
         }
 
-        /* Luxury Header */
+        /* Hospital-Quality 3D Header */
         .luxury-header {
-            background: var(--gradient-primary);
-            color: white;
+            background: var(--gradient-3d-primary);
+            color: var(--medical-white);
             padding: 2rem 0;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .luxury-header::before {
@@ -137,13 +154,8 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            animation: floatPattern 20s ease-in-out infinite;
-        }
-
-        @keyframes floatPattern {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(10px, 10px); }
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical-grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23medical-grid)"/></svg>');
+            animation: medical3DFloat 20s ease-in-out infinite;
         }
 
         .header-content {
@@ -171,28 +183,59 @@ if (session_status() === PHP_SESSION_NONE) {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            border: 3px solid var(--golden-yellow);
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+            border: 3px solid var(--medical-accent);
+            box-shadow: var(--shadow-3d-md);
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px) rotateY(5deg);
+            box-shadow: var(--shadow-3d-lg);
+            border-color: var(--medical-cyan);
         }
 
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
+            transform-style: preserve-3d;
         }
 
         .nav-links a {
-            color: white;
+            color: var(--medical-white);
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
             padding: 0.5rem 1rem;
             border-radius: 8px;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-3d-luxury);
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
 
         .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px) translateZ(10px) rotateX(2deg);
+            box-shadow: var(--shadow-3d-sm);
+        }
+
+        .nav-links a:hover::before {
+            opacity: 0.2;
         }
 
         .page-title {
@@ -249,10 +292,12 @@ if (session_status() === PHP_SESSION_NONE) {
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--primary-blue);
+            color: var(--medical-primary);
             margin-bottom: 1rem;
             position: relative;
             display: inline-block;
+            transform-style: preserve-3d;
+            transform: translateZ(10px);
         }
 
         .section-title::after {
@@ -263,26 +308,27 @@ if (session_status() === PHP_SESSION_NONE) {
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: var(--gradient-luxury);
+            background: var(--gradient-3d-primary);
             border-radius: 2px;
         }
 
         .section-subtitle {
-            color: var(--text-secondary);
+            color: var(--medical-secondary);
             font-size: 1.1rem;
             max-width: 600px;
             margin: 0 auto;
         }
 
-        /* Introduction Section */
+        /* Introduction Section - Hospital-Quality 3D */
         .intro-card {
-            background: white;
+            background: var(--medical-white);
             border-radius: 20px;
             padding: 3rem;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-3d-md);
+            border: 1px solid var(--border-3d-light);
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .intro-card::before {
@@ -292,13 +338,13 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             height: 5px;
-            background: var(--gradient-primary);
+            background: var(--gradient-3d-primary);
         }
 
         .intro-content {
             font-size: 1.1rem;
             line-height: 1.8;
-            color: var(--text-primary);
+            color: var(--medical-dark);
         }
 
         .registration-badges {
@@ -313,17 +359,19 @@ if (session_status() === PHP_SESSION_NONE) {
             align-items: center;
             gap: 0.5rem;
             padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, var(--light-green), var(--accent-blue));
-            color: white;
+            background: var(--gradient-3d-luxury);
+            color: var(--medical-white);
             border-radius: 50px;
             font-weight: 600;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--shadow-3d-sm);
             transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
         }
 
         .badge:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
+            transform: translateY(-3px) translateZ(10px) rotateX(2deg);
+            box-shadow: var(--shadow-3d-md);
         }
 
         /* Vision Mission Section */
@@ -335,15 +383,17 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .vm-card {
-            background: white;
+            background: var(--medical-white);
             border-radius: 20px;
             padding: 2.5rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-3d-sm);
+            border: 1px solid var(--border-3d-light);
             text-align: center;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
         }
 
         .vm-card::before {
@@ -353,7 +403,7 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.05), rgba(55, 48, 163, 0.05));
+            background: linear-gradient(135deg, rgba(15, 76, 117, 0.05), rgba(30, 107, 168, 0.05));
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -363,34 +413,38 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .vm-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
+            transform: translateY(-8px) translateZ(15px) rotateX(2deg);
+            box-shadow: var(--shadow-3d-lg);
         }
 
         .vm-icon {
             width: 80px;
             height: 80px;
             margin: 0 auto 1.5rem;
-            background: var(--gradient-primary);
+            background: var(--gradient-3d-primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
-            color: white;
-            box-shadow: 0 0 20px rgba(30, 58, 138, 0.3);
+            color: var(--medical-white);
+            box-shadow: var(--shadow-3d-md);
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
         }
 
         .vm-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary-blue);
+            color: var(--medical-primary);
             margin-bottom: 1rem;
+            transform-style: preserve-3d;
+            transform: translateZ(3px);
         }
 
         .vm-content {
-            color: var(--text-primary);
+            color: var(--medical-dark);
             font-size: 1.1rem;
             line-height: 1.6;
             font-style: italic;
@@ -400,11 +454,12 @@ if (session_status() === PHP_SESSION_NONE) {
 
         /* Strategic Objectives */
         .objectives-list {
-            background: white;
+            background: var(--medical-white);
             border-radius: 20px;
             padding: 3rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-3d-sm);
+            border: 1px solid var(--border-3d-light);
+            transform-style: preserve-3d;
         }
 
         .objective-item {
@@ -412,7 +467,7 @@ if (session_status() === PHP_SESSION_NONE) {
             align-items: flex-start;
             gap: 1.5rem;
             padding: 1.5rem 0;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-3d-light);
             transition: all 0.3s ease;
         }
 
@@ -421,29 +476,33 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .objective-item:hover {
-            background: rgba(30, 58, 138, 0.05);
+            background: rgba(15, 76, 117, 0.02);
             margin: 0 -1rem;
             padding: 1.5rem;
             border-radius: 10px;
+            transform: translateX(5px);
         }
 
         .objective-icon {
             width: 50px;
             height: 50px;
-            background: var(--gradient-luxury);
+            background: var(--gradient-3d-luxury);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--medical-white);
             font-size: 1.2rem;
             flex-shrink: 0;
+            box-shadow: var(--shadow-3d-sm);
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
         }
 
         .objective-text {
             font-size: 1.1rem;
             line-height: 1.6;
-            color: var(--text-primary);
+            color: var(--medical-dark);
         }
 
         /* Core Values */
@@ -455,50 +514,58 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .value-card {
-            background: white;
+            background: var(--medical-white);
             border-radius: 15px;
             padding: 2rem;
             text-align: center;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-3d-sm);
+            border: 1px solid var(--border-3d-light);
             transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
         }
 
         .value-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--accent-blue);
+            transform: translateY(-8px) translateZ(15px) rotateX(2deg);
+            box-shadow: var(--shadow-3d-md);
+            border-color: var(--medical-accent);
         }
 
         .value-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--neon-cyan));
+            background: var(--gradient-3d-luxury);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            color: var(--medical-white);
             font-size: 1.5rem;
             margin: 0 auto 1rem;
+            box-shadow: var(--shadow-3d-sm);
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
         }
 
         .value-title {
             font-weight: 700;
-            color: var(--primary-blue);
+            color: var(--medical-primary);
             margin-bottom: 0.5rem;
             font-size: 1.1rem;
+            transform-style: preserve-3d;
+            transform: translateZ(3px);
         }
 
-        /* Motto Section */
+        /* Motto Section - Hospital-Quality 3D */
         .motto-section {
-            background: var(--gradient-primary);
-            color: white;
+            background: var(--gradient-3d-primary);
+            color: var(--medical-white);
             border-radius: 20px;
             padding: 3rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .motto-section::before {
@@ -508,8 +575,8 @@ if (session_status() === PHP_SESSION_NONE) {
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            animation: medical3DFloat 20s linear infinite;
         }
 
         @keyframes rotate {
@@ -531,6 +598,44 @@ if (session_status() === PHP_SESSION_NONE) {
             opacity: 0.9;
             position: relative;
             z-index: 1;
+        }
+
+        /* Medical 3D Animations */
+        @keyframes medicalAurora {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+                opacity: 0.8;
+            }
+            25% {
+                transform: rotate(90deg) scale(1.1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: rotate(180deg) scale(1.2);
+                opacity: 0.4;
+            }
+            75% {
+                transform: rotate(270deg) scale(1.1);
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes medical3DFloat {
+            0% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateX(10px) translateY(-5px) rotate(1deg);
+            }
+            50% {
+                transform: translateX(20px) translateY(0) rotate(2deg);
+            }
+            75% {
+                transform: translateX(10px) translateY(5px) rotate(1deg);
+            }
+            100% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+            }
         }
 
         /* Responsive Design */

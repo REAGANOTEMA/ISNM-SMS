@@ -120,19 +120,21 @@ if (session_status() === PHP_SESSION_NONE) {
             z-index: -1;
         }
 
-        /* Hospital-Quality 3D Navigation */
+        /* Cinema-Quality 3D Navigation - No Space Above */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             background: var(--medical-white);
-            border-bottom: 2px solid var(--border-3d-light);
+            border-bottom: 3px solid var(--border-3d-light);
             z-index: 1000;
-            padding: 0.75rem 0;
-            box-shadow: var(--shadow-3d-md);
+            padding: 1.2rem 0;
+            box-shadow: var(--shadow-3d-xl);
             transform-style: preserve-3d;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(15px);
+            animation: cinemaNavFloat 8s ease-in-out infinite;
         }
 
         .navbar::before {
@@ -141,83 +143,150 @@ if (session_status() === PHP_SESSION_NONE) {
             top: 0;
             left: 0;
             right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--medical-primary), transparent);
-            opacity: 0.3;
+            height: 2px;
+            background: var(--gradient-3d-primary);
+            opacity: 0.8;
+        }
+
+        .navbar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="nav-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(15,76,117,0.1)"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="rgba(30,107,168,0.15)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23nav-pattern)"/></svg>');
+            opacity: 0.05;
+            pointer-events: none;
+            animation: navPatternFloat 30s linear infinite;
         }
 
         .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-3d-lg);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            box-shadow: var(--shadow-3d-xl);
             border-bottom-color: var(--border-3d-medium);
             transform: translateY(0);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            font-weight: 700;
-            font-size: 1.25rem;
+            gap: 1.2rem;
+            font-weight: 900;
+            font-size: 1.6rem;
             color: var(--medical-primary);
             text-decoration: none;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
             transform-style: preserve-3d;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 5;
+            text-shadow: 0 4px 8px rgba(15, 76, 117, 0.2);
+            animation: cinemaLogoGlow 3s ease-in-out infinite;
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: var(--gradient-3d-primary);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-logo:hover::before {
+            opacity: 0.2;
         }
 
         .nav-logo img {
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            height: 70px;
             object-fit: cover;
-            border: 2px solid var(--medical-primary);
+            border: 3px solid var(--medical-primary);
             border-radius: 50%;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-3d-sm);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-3d-md);
             transform-style: preserve-3d;
+            background: var(--medical-white);
+            position: relative;
+            z-index: 3;
+        }
+
+        .nav-logo img::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(135deg, var(--medical-accent), var(--medical-cyan));
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
         }
 
         .nav-logo:hover {
-            transform: translateY(-2px) rotateX(2deg);
+            transform: translateY(-5px) translateZ(10px) rotateX(2deg) scale(1.02);
         }
 
         .nav-logo:hover img {
-            transform: scale(1.05) rotateY(5deg);
-            box-shadow: var(--shadow-3d-lg);
+            transform: scale(1.12) rotateY(5deg);
+            box-shadow: var(--shadow-3d-xl);
             border-color: var(--medical-accent);
+        }
+
+        .nav-logo:hover img::after {
+            opacity: 0.3;
         }
 
         .nav-links {
             display: flex;
-            gap: 0.5rem;
+            gap: 1rem;
             align-items: center;
             transform-style: preserve-3d;
+            position: relative;
+            z-index: 2;
+            flex-wrap: nowrap;
         }
 
         .nav-link {
             color: var(--medical-dark);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-weight: 800;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+            padding: 0.9rem 1.6rem;
+            border-radius: 18px;
             background: transparent;
-            border: 1px solid transparent;
+            border: 2px solid var(--border-3d-light);
             font-family: 'Inter', sans-serif;
             transform-style: preserve-3d;
             transform: translateZ(0);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            animation: cinemaLinkPulse 4s ease-in-out infinite;
+            text-shadow: 0 2px 4px rgba(15, 76, 117, 0.1);
         }
 
         .nav-link::before {
@@ -228,20 +297,39 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: var(--gradient-3d-primary);
-            border-radius: 8px;
+            border-radius: 12px;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
             z-index: -1;
         }
 
         .nav-link:hover {
             color: var(--medical-white);
-            transform: translateY(-3px) translateZ(10px) rotateX(2deg);
-            box-shadow: var(--shadow-3d-md);
-            border-color: var(--medical-primary);
+            transform: translateY(-6px) translateZ(20px) rotateX(3deg) scale(1.08);
+            box-shadow: var(--shadow-3d-xl);
+            border-color: var(--medical-accent);
+            background: var(--gradient-3d-primary);
         }
 
         .nav-link:hover::before {
+            opacity: 1;
+        }
+
+        .nav-link:hover::after {
             opacity: 1;
         }
 
@@ -428,10 +516,11 @@ if (session_status() === PHP_SESSION_NONE) {
             backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 3rem;
-            box-shadow: var(--shadow-2xl);
+            box-shadow: var(--shadow-3d-xl);
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
         }
 
         .hero-card::before {
@@ -441,32 +530,37 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             height: 4px;
-            background: var(--gradient-primary);
+            background: var(--gradient-3d-primary);
         }
 
         .hero-card-icon {
             width: 80px;
             height: 80px;
-            background: var(--gradient-primary);
+            background: var(--gradient-3d-primary);
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2rem;
-            color: white;
+            color: var(--medical-white);
             margin-bottom: 2rem;
             animation: pulse 2s ease-in-out infinite;
+            box-shadow: var(--shadow-3d-md);
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
         }
 
         .hero-card-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--medical-primary);
             margin-bottom: 1rem;
+            transform-style: preserve-3d;
+            transform: translateZ(3px);
         }
 
         .hero-card-description {
-            color: var(--text-secondary);
+            color: var(--medical-secondary);
             margin-bottom: 2rem;
             line-height: 1.6;
         }
@@ -475,6 +569,8 @@ if (session_status() === PHP_SESSION_NONE) {
             display: flex;
             gap: 1rem;
             margin-top: 1.5rem;
+            transform-style: preserve-3d;
+            transform: translateZ(25px);
         }
 
         .hero-button {
@@ -487,24 +583,28 @@ if (session_status() === PHP_SESSION_NONE) {
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-button.primary {
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: var(--shadow-clean-md);
+            background: var(--gradient-3d-primary);
+            color: var(--medical-white);
+            box-shadow: var(--shadow-3d-md);
         }
 
         .hero-button.secondary {
-            background: var(--school-white);
-            color: var(--school-primary);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-clean-sm);
+            background: var(--medical-white);
+            color: var(--medical-primary);
+            border: 1px solid var(--border-3d-light);
+            box-shadow: var(--shadow-3d-sm);
         }
 
         .hero-button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-clean-lg);
+            transform: translateY(-3px) translateZ(15px) rotateX(2deg);
+            box-shadow: var(--shadow-3d-lg);
         }
 
         .btn {
@@ -554,15 +654,11 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .btn-primary {
-            background: var(--gradient-primary);
-            color: var(--school-white);
-            box-shadow: 
-                0 15px 35px rgba(107, 68, 35, 0.4),
-                0 8px 20px rgba(107, 68, 35, 0.3),
-                inset 0 2px 0 rgba(255, 255, 255, 0.3),
-                inset 0 -2px 0 rgba(0, 0, 0, 0.2);
+            background: var(--gradient-3d-primary);
+            color: var(--medical-white);
+            box-shadow: var(--shadow-3d-xl);
             border: 3px solid rgba(255, 255, 255, 0.3);
-            animation: luxuryBtnFloat 5s ease-in-out infinite;
+            animation: medical3DFloat 5s ease-in-out infinite;
             transform: translateZ(25px);
             position: relative;
             overflow: hidden;
@@ -576,32 +672,24 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="btn-pattern" width="25" height="25" patternUnits="userSpaceOnUse"><circle cx="12.5" cy="12.5" r="2" fill="rgba(255,255,255,0.2)"/><path d="M5 12.5 Q12.5 5, 20 12.5 T35 12.5" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23btn-pattern)"/></svg>');
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical-btn-pattern" width="25" height="25" patternUnits="userSpaceOnUse"><circle cx="12.5" cy="12.5" r="2" fill="rgba(15,76,117,0.2)"/><path d="M5 12.5 Q12.5 5, 20 12.5 T35 12.5" stroke="rgba(30,107,168,0.3)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23medical-btn-pattern)"/></svg>');
             opacity: 0.3;
             pointer-events: none;
         }
 
         .btn-primary:hover {
             transform: translateY(-12px) translateZ(35px) rotateX(-8deg) rotateY(8deg);
-            box-shadow: 
-                0 25px 50px rgba(107, 68, 35, 0.6),
-                0 15px 30px rgba(107, 68, 35, 0.4),
-                inset 0 2px 0 rgba(255, 255, 255, 0.4),
-                inset 0 -2px 0 rgba(0, 0, 0, 0.3);
-            background: linear-gradient(135deg, var(--secondary-coffee) 0%, var(--school-blue-dark) 25%, var(--school-green-dark) 50%, var(--school-gold-dark) 75%, var(--school-gold-light) 100%);
+            box-shadow: var(--shadow-3d-xl);
+            background: var(--gradient-3d-luxury);
         }
 
         .btn-secondary {
-            background: linear-gradient(135deg, rgba(245, 230, 211, 0.2), rgba(245, 230, 211, 0.3));
-            color: var(--school-white);
-            border: 3px solid rgba(245, 230, 211, 0.5);
+            background: var(--gradient-3d-luxury);
+            color: var(--medical-white);
+            border: 3px solid var(--medical-accent);
             backdrop-filter: blur(25px);
-            box-shadow: 
-                0 15px 35px rgba(245, 230, 211, 0.3),
-                0 8px 20px rgba(245, 230, 211, 0.2),
-                inset 0 2px 0 rgba(255, 255, 255, 0.3),
-                inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-            animation: luxuryBtnFloat 5s ease-in-out infinite 0.7s;
+            box-shadow: var(--shadow-3d-xl);
+            animation: medical3DFloat 5s ease-in-out infinite 0.7s;
             transform: translateZ(25px);
             position: relative;
             overflow: hidden;
@@ -615,32 +703,24 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="btn-secondary-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(107,68,35,0.2)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(74,124,89,0.3)" stroke-width="1.5" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23btn-secondary-pattern)"/></svg>');
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical-btn-secondary-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(15,76,117,0.2)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(30,107,168,0.3)" stroke-width="1.5" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23medical-btn-secondary-pattern)"/></svg>');
             opacity: 0.3;
             pointer-events: none;
         }
 
         .btn-secondary:hover {
             transform: translateY(-12px) translateZ(35px) rotateX(-8deg) rotateY(8deg);
-            box-shadow: 
-                0 25px 50px rgba(245, 230, 211, 0.5),
-                0 15px 30px rgba(245, 230, 211, 0.3),
-                inset 0 2px 0 rgba(255, 255, 255, 0.5),
-                inset 0 -2px 0 rgba(0, 0, 0, 0.3);
-            background: linear-gradient(135deg, rgba(245, 230, 211, 0.3), rgba(245, 230, 211, 0.4));
-            border-color: rgba(245, 230, 211, 0.7);
+            box-shadow: var(--shadow-3d-xl);
+            background: var(--gradient-3d-primary);
+            border-color: var(--medical-primary);
         }
 
         .btn-portal {
-            background: var(--gradient-luxury);
-            color: var(--school-coffee-brown);
-            box-shadow: 
-                0 15px 35px rgba(212, 175, 55, 0.4),
-                0 8px 20px rgba(212, 175, 55, 0.3),
-                inset 0 2px 0 rgba(255, 255, 255, 0.4),
-                inset 0 -2px 0 rgba(0, 0, 0, 0.2);
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            animation: luxuryBtnFloat 5s ease-in-out infinite 1.4s;
+            background: var(--gradient-3d-luxury);
+            color: var(--medical-white);
+            box-shadow: var(--shadow-3d-xl);
+            border: 3px solid var(--medical-accent);
+            animation: medical3DFloat 5s ease-in-out infinite;
             transform: translateZ(25px);
             position: relative;
             overflow: hidden;
@@ -654,20 +734,16 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="btn-portal-pattern" width="35" height="35" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="15" height="15" fill="none" stroke="rgba(107,68,35,0.3)" stroke-width="2"/><circle cx="17.5" cy="17.5" r="4" fill="rgba(74,124,89,0.4)"/></pattern></defs><rect width="100" height="100" fill="url(%23btn-portal-pattern)"/></svg>');
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical-btn-portal-pattern" width="35" height="35" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="15" height="15" fill="none" stroke="rgba(15,76,117,0.2)" stroke-width="2"/><circle cx="17.5" cy="17.5" r="4" fill="rgba(30,107,168,0.3)"/></pattern></defs><rect width="100" height="100" fill="url(%23medical-btn-portal-pattern)"/></svg>');
             opacity: 0.3;
             pointer-events: none;
         }
 
         .btn-portal:hover {
             transform: translateY(-12px) translateZ(35px) rotateX(-8deg) rotateY(8deg);
-            box-shadow: 
-                0 25px 50px rgba(212, 175, 55, 0.6),
-                0 15px 30px rgba(212, 175, 55, 0.4),
-                inset 0 2px 0 rgba(255, 255, 255, 0.5),
-                inset 0 -2px 0 rgba(0, 0, 0, 0.3);
-            background: linear-gradient(135deg, var(--school-gold-light) 0%, var(--school-yellow-cream) 50%, var(--school-gold-dark) 100%);
-            color: var(--school-white);
+            box-shadow: var(--shadow-3d-xl);
+            background: var(--gradient-3d-primary);
+            color: var(--medical-white);
         }
 
         .btn-portal:hover::before {
@@ -697,7 +773,7 @@ if (session_status() === PHP_SESSION_NONE) {
         /* Showcase Section */
         .showcase-section {
             padding: 6rem 2rem;
-            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            background: var(--gradient-3d-clean);
         }
 
         .showcase-grid {
@@ -708,14 +784,16 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .showcase-card {
-            background: white;
+            background: var(--medical-white);
             border-radius: 20px;
             padding: 2.5rem;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-3d-md);
+            border: 1px solid var(--border-3d-light);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
         }
 
         .showcase-card::before {
@@ -725,14 +803,14 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             height: 4px;
-            background: var(--gradient-primary);
+            background: var(--gradient-3d-primary);
             transform: scaleX(0);
             transition: transform 0.3s ease;
         }
 
         .showcase-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-xl);
+            transform: translateY(-8px) translateZ(15px) rotateX(2deg);
+            box-shadow: var(--shadow-3d-lg);
         }
 
         .showcase-card:hover::before {
@@ -742,26 +820,30 @@ if (session_status() === PHP_SESSION_NONE) {
         .showcase-icon {
             width: 70px;
             height: 70px;
-            background: var(--gradient-primary);
+            background: var(--gradient-3d-primary);
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.8rem;
-            color: white;
+            color: var(--medical-white);
             margin-bottom: 1.5rem;
-            box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+            box-shadow: var(--shadow-3d-md);
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
         }
 
         .showcase-title {
             font-size: 1.4rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--medical-primary);
             margin-bottom: 1rem;
+            transform-style: preserve-3d;
+            transform: translateZ(3px);
         }
 
         .showcase-description {
-            color: var(--text-secondary);
+            color: var(--medical-secondary);
             line-height: 1.6;
             margin-bottom: 1.5rem;
         }
@@ -770,21 +852,23 @@ if (session_status() === PHP_SESSION_NONE) {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--primary-blue);
+            color: var(--medical-primary);
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
         }
 
         .showcase-link:hover {
-            color: var(--accent-blue);
-            transform: translateX(5px);
+            color: var(--medical-accent);
+            transform: translateX(5px) translateZ(10px) rotateY(2deg);
         }
 
         /* Features Section */
         .features-section {
             padding: 6rem 2rem;
-            background: white;
+            background: var(--medical-white);
         }
 
         .section-container {
@@ -831,13 +915,15 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .feature-card {
-            background: white;
-            border: 1px solid var(--border-color);
+            background: var(--medical-white);
+            border: 1px solid var(--border-3d-light);
             border-radius: 20px;
             padding: 2.5rem;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
         }
 
         .feature-card::before {
@@ -847,14 +933,14 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             height: 3px;
-            background: var(--gradient-primary);
+            background: var(--gradient-3d-primary);
             transform: scaleX(0);
             transition: transform 0.3s ease;
         }
 
         .feature-card:hover {
-            box-shadow: var(--shadow-xl);
-            transform: translateY(-5px);
+            box-shadow: var(--shadow-3d-lg);
+            transform: translateY(-8px) translateZ(15px) rotateX(2deg);
         }
 
         .feature-card:hover::before {
@@ -864,32 +950,37 @@ if (session_status() === PHP_SESSION_NONE) {
         .feature-icon {
             width: 60px;
             height: 60px;
-            background: var(--gradient-primary);
+            background: var(--gradient-3d-primary);
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            color: white;
+            color: var(--medical-white);
             margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-3d-md);
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
         }
 
         .feature-title {
             font-size: 1.3rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--medical-primary);
             margin-bottom: 1rem;
+            transform-style: preserve-3d;
+            transform: translateZ(3px);
         }
 
         .feature-description {
-            color: var(--text-secondary);
+            color: var(--medical-secondary);
             line-height: 1.6;
         }
 
         /* Programs Section */
         .programs-section {
             padding: 6rem 2rem;
-            background: var(--soft-gray);
+            background: var(--gradient-3d-clean);
         }
 
         .programs-grid {
@@ -1511,7 +1602,48 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         }
 
-        /* Mind-Blowing Medical 3D Animations */
+        /* Cinema-Like Medical 3D Animations */
+        @keyframes cinemaNavFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotateX(0deg);
+                box-shadow: var(--shadow-3d-lg);
+            }
+            25% {
+                transform: translateY(-2px) translateX(3px) rotateX(1deg);
+                box-shadow: var(--shadow-3d-xl);
+            }
+            50% {
+                transform: translateY(-4px) translateX(0) rotateX(0deg);
+                box-shadow: var(--shadow-3d-xl);
+            }
+            75% {
+                transform: translateY(-2px) translateX(-3px) rotateX(-1deg);
+                box-shadow: var(--shadow-3d-lg);
+            }
+        }
+
+        @keyframes cinemaLogoGlow {
+            0%, 100% {
+                text-shadow: 0 0 25px rgba(15, 76, 117, 0.3), 0 0 50px rgba(30, 107, 168, 0.2);
+                transform: scale(1);
+            }
+            50% {
+                text-shadow: 0 0 40px rgba(15, 76, 117, 0.5), 0 0 80px rgba(30, 107, 168, 0.3);
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes cinemaLinkPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(15, 76, 117, 0.2);
+            }
+            50% {
+                transform: scale(1.03);
+                box-shadow: 0 0 25px rgba(15, 76, 117, 0.4);
+            }
+        }
+
         @keyframes medicalAurora {
             0%, 100% {
                 transform: rotate(0deg) scale(1);
@@ -1582,10 +1714,75 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         }
 
+        /* Professional Header Section */
+        .header-section {
+            position: relative;
+            z-index: 1001;
+        }
+
+        /* Navigation Logo Text Styling */
+        .nav-logo-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transform-style: preserve-3d;
+            transform: translateZ(2px);
+            background: linear-gradient(135deg, var(--medical-primary), var(--medical-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        .nav-logo-text span:first-child {
+            margin-bottom: 0.2rem;
+            text-shadow: 0 3px 6px rgba(15, 76, 117, 0.25);
+            letter-spacing: 1px;
+        }
+
+        .nav-logo-text span:last-child {
+            font-weight: 400;
+            text-shadow: 0 2px 4px rgba(15, 76, 117, 0.2);
+            font-size: 0.8rem;
+            opacity: 0.95;
+        }
+
         /* Perfect Mobile Responsive Design */
         @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 0;
+            }
+
+            .nav-container {
+                padding: 0 1.5rem;
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+            .nav-logo {
+                font-size: 1.3rem;
+                gap: 1rem;
+            }
+
+            .nav-logo img {
+                width: 50px;
+                height: 50px;
+            }
+
             .nav-links {
-                display: none;
+                display: flex;
+                gap: 0.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .nav-link {
+                font-size: 0.85rem;
+                padding: 0.6rem 1rem;
+                border-radius: 12px;
+                letter-spacing: 0.5px;
             }
 
             .hero-content {
@@ -1675,11 +1872,15 @@ if (session_status() === PHP_SESSION_NONE) {
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Professional Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="nav-logo">
-                <img src="public/isnm-logo.jpeg" alt="ISNM" style="width: 80px; height: 80px;">
+                <img src="public/isnm-logo.jpeg" alt="ISNM Logo" style="width: 75px; height: 75px;">
+                <div class="nav-logo-text">
+                    <span style="font-weight: 900; font-size: 1.2rem;">ISNM</span>
+                    <span style="font-size: 0.75rem; opacity: 0.95;">Iganga School of Nursing & Midwifery</span>
+                </div>
             </a>
             <div class="nav-links">
                 <a href="#home" class="nav-link">Home</a>
