@@ -15,16 +15,36 @@ $user = $_SESSION['user'];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --primary: #dc2626; --secondary: #ef4444; --accent: #f87171;
-            --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
-            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-600: #4b5563;
-            --gray-700: #374151; --gray-800: #1f2937; --gray-900: #111827;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+                :root {
+            /* Dark and Creamy Yellow Color Palette */
+            --primary-dark: #1a1a1a;
+            --creamy-yellow: #FFF8DC;
+            --accent-gold: #FFD700;
+            --secondary-dark: #2d2d2d;
+            --light-cream: #FAF0E6;
+            --dark-accent: #B8860B;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray-medium: #D3D3D3;
+            --gray-dark: #696969;
+            
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
+            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
+            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
+            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
+            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
+            
+            /* Borders */
+            --border-light: var(--gray-medium);
+            --border-medium: var(--gray-dark);
+            --border-dark: var(--primary-dark);
         }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--gray-50); color: var(--gray-900); }
         .dashboard { display: flex; min-height: 100vh; }
@@ -230,3 +250,5 @@ $user = $_SESSION['user'];
     </div>
     <</body>
 </html>
+
+

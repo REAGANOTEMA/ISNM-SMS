@@ -29,64 +29,36 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-        :root {
-            /* Hospital-Quality Professional Color Palette */
-            --medical-primary: #0F4C75;
-            --medical-secondary: #1E6BA8;
-            --medical-accent: #2E8BC0;
-            --medical-teal: #16A5A5;
-            --medical-cyan: #0EA5E9;
-            --medical-blue: #3B82F6;
-            --medical-green: #10B981;
-            --medical-white: #FFFFFF;
-            --medical-gray: #F8FAFC;
-            --medical-dark: #0F172A;
-            --medical-light: #F1F5F9;
+                :root {
+            /* Dark and Creamy Yellow Color Palette */
+            --primary-dark: #1a1a1a;
+            --creamy-yellow: #FFF8DC;
+            --accent-gold: #FFD700;
+            --secondary-dark: #2d2d2d;
+            --light-cream: #FAF0E6;
+            --dark-accent: #B8860B;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray-medium: #D3D3D3;
+            --gray-dark: #696969;
             
-            /* Medical 3D Color Variations */
-            --primary-3d: #0F4C75;
-            --secondary-3d: #1E6BA8;
-            --accent-3d: #2E8BC0;
-            --success-3d: #10B981;
-            --warning-3d: #F59E0B;
-            --danger-3d: #EF4444;
-            --info-3d: #06B6D4;
-            --dark-3d: #0F172A;
-            --light-3d: #F1F5F9;
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
             
-            /* Mind-Blowing 3D Gradients */
-            --gradient-3d-hero: linear-gradient(135deg, #0F4C75 0%, #1E6BA8 25%, #2E8BC0 50%, #16A5A5 75%, #0EA5E9 100%);
-            --gradient-3d-primary: linear-gradient(135deg, #0F4C75 0%, #1E6BA8 50%, #2E8BC0 100%);
-            --gradient-3d-luxury: linear-gradient(135deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%);
-            --gradient-3d-clean: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #FFFFFF 100%);
-            --gradient-3d-success: linear-gradient(135deg, #10B981 0%, #34D399 100%);
-            --gradient-3d-warning: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
+            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
+            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
+            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
+            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
             
-            /* Professional 3D Shadows */
-            --shadow-3d-sm: 0 2px 4px rgba(15, 76, 117, 0.1), 0 1px 2px rgba(15, 76, 117, 0.06);
-            --shadow-3d-md: 0 4px 8px rgba(15, 76, 117, 0.15), 0 2px 4px rgba(15, 76, 117, 0.08);
-            --shadow-3d-lg: 0 8px 16px rgba(15, 76, 117, 0.2), 0 4px 8px rgba(15, 76, 117, 0.1);
-            --shadow-3d-xl: 0 20px 40px rgba(15, 76, 117, 0.25), 0 10px 20px rgba(15, 76, 117, 0.15);
-            --shadow-3d-neon: 0 0 20px rgba(15, 76, 117, 0.3), 0 0 40px rgba(30, 107, 168, 0.2);
-            
-            /* 3D Border Colors */
-            --border-3d-light: #E2E8F0;
-            --border-3d-medium: #CBD5E1;
-            --border-3d-dark: #94A3B8;
-            
-            /* Legacy Variables for Compatibility */
-            --gradient-primary: var(--gradient-3d-primary);
-            --gradient-luxury: var(--gradient-3d-luxury);
-            --primary-blue: var(--medical-primary);
-            --golden-yellow: var(--medical-accent);
-            --neon-cyan: var(--medical-cyan);
-            --shadow-sm: var(--shadow-3d-sm);
-            --shadow-md: var(--shadow-3d-md);
-            --shadow-lg: var(--shadow-3d-lg);
-            --border-color: var(--border-3d-light);
-            --text-primary: var(--medical-dark);
-            --text-secondary: var(--medical-secondary);
-            --accent-blue: var(--medical-accent);
+            /* Borders */
+            --border-light: var(--gray-medium);
+            --border-medium: var(--gray-dark);
+            --border-dark: var(--primary-dark);
         }
 
         body {
@@ -1368,3 +1340,5 @@ if (session_status() === PHP_SESSION_NONE) {
     </script>
 </body>
 </html>
+
+

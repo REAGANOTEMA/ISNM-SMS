@@ -24,20 +24,36 @@ $user = $_SESSION['user'];
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-orange: #ea580c;
-            --secondary-orange: #f97316;
-            --accent-orange: #fb923c;
-            --light-green: #86efac;
-            --creamy-yellow: #fef3c7;
-            --golden-yellow: #fbbf24;
-            --white: #ffffff;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
-            --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.15);
-            --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.2);
-            --gradient-primary: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange), var(--accent-orange));
+                :root {
+            /* Dark and Creamy Yellow Color Palette */
+            --primary-dark: #1a1a1a;
+            --creamy-yellow: #FFF8DC;
+            --accent-gold: #FFD700;
+            --secondary-dark: #2d2d2d;
+            --light-cream: #FAF0E6;
+            --dark-accent: #B8860B;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray-medium: #D3D3D3;
+            --gray-dark: #696969;
+            
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
+            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
+            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
+            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
+            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
+            
+            /* Borders */
+            --border-light: var(--gray-medium);
+            --border-medium: var(--gray-dark);
+            --border-dark: var(--primary-dark);
         }
 
         body {
@@ -365,3 +381,5 @@ $user = $_SESSION['user'];
     </div>
 </body>
 </html>
+
+

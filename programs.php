@@ -29,25 +29,36 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3730a3;
-            --accent-blue: #3b82f6;
-            --light-green: #22c55e;
-            --creamy-yellow: #fef3c7;
-            --golden-yellow: #fbbf24;
-            --neon-cyan: #06b6d4;
-            --clean-white: #ffffff;
-            --cream-white: #fafafa;
-            --text-primary: #1e293b;
-            --text-secondary: #64748b;
-            --shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.15);
-            --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.2);
-            --shadow-xl: 0 32px 64px rgba(0, 0, 0, 0.3);
-            --border-color: #e2e8f0;
-            --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3730a3 25%, #3b82f6 50%, #06b6d4 75%, #22c55e 100%);
-            --gradient-hero: linear-gradient(135deg, #1e3a8a 0%, #3730a3 33%, #3b82f6 66%, #06b6d4 100%);
-            --gradient-luxury: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+                :root {
+            /* Dark and Creamy Yellow Color Palette */
+            --primary-dark: #1a1a1a;
+            --creamy-yellow: #FFF8DC;
+            --accent-gold: #FFD700;
+            --secondary-dark: #2d2d2d;
+            --light-cream: #FAF0E6;
+            --dark-accent: #B8860B;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray-medium: #D3D3D3;
+            --gray-dark: #696969;
+            
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
+            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
+            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
+            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
+            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
+            
+            /* Borders */
+            --border-light: var(--gray-medium);
+            --border-medium: var(--gray-dark);
+            --border-dark: var(--primary-dark);
         }
 
         body {
@@ -993,3 +1004,5 @@ if (session_status() === PHP_SESSION_NONE) {
     </script>
 </body>
 </html>
+
+

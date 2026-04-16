@@ -29,53 +29,36 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-        :root {
-            /* Modern Vibrant Color Palette */
-            --vibrant-purple: #8B5CF6;
-            --electric-blue: #3B82F6;
-            --neon-cyan: #06B6D4;
-            --bright-green: #10B981;
-            --golden-yellow: #F59E0B;
-            --hot-pink: #EC4899;
-            --deep-indigo: #4F46E5;
-            --sunset-orange: #F97316;
-            --crimson-red: #DC2626;
-            --pure-white: #FFFFFF;
-            --dark-bg: #0F172A;
-            --light-bg: #F8FAFC;
+                :root {
+            /* Dark and Creamy Yellow Color Palette */
+            --primary-dark: #1a1a1a;
+            --creamy-yellow: #FFF8DC;
+            --accent-gold: #FFD700;
+            --secondary-dark: #2d2d2d;
+            --light-cream: #FAF0E6;
+            --dark-accent: #B8860B;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray-medium: #D3D3D3;
+            --gray-dark: #696969;
             
-            /* Advanced Color Variations */
-            --primary-vibrant: #8B5CF6;
-            --secondary-vibrant: #3B82F6;
-            --accent-vibrant: #06B6D4;
-            --success-vibrant: #10B981;
-            --warning-vibrant: #F59E0B;
-            --danger-vibrant: #EF4444;
-            --info-vibrant: #06B6D4;
-            --dark-vibrant: #1E293B;
-            --light-vibrant: #F1F5F9;
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
             
-            /* Modern Gradients */
-            --gradient-modern: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 25%, #06B6D4 50%, #10B981 75%, #F59E0B 100%);
-            --gradient-hero: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 33%, #EC4899 66%, #F97316 100%);
-            --gradient-luxury: linear-gradient(135deg, #F59E0B 0%, #FCD34D 50%, #FEF3C7 100%);
-            --gradient-neon: linear-gradient(135deg, #06B6D4 0%, #10B981 50%, #8B5CF6 100%);
-            --gradient-sunset: linear-gradient(135deg, #F97316 0%, #EF4444 50%, #EC4899 100%);
-            --gradient-ocean: linear-gradient(135deg, #0EA5E9 0%, #06B6D4 50%, #10B981 100%);
-            --gradient-galaxy: linear-gradient(135deg, #4F46E5 0%, #8B5CF6 50%, #EC4899 100%);
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
+            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
+            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
+            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
+            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
             
-            /* Modern Shadows */
-            --shadow-modern-sm: 0 4px 6px -1px rgba(139, 92, 246, 0.1), 0 2px 4px -1px rgba(139, 92, 246, 0.06);
-            --shadow-modern-md: 0 10px 15px -3px rgba(139, 92, 246, 0.1), 0 4px 6px -2px rgba(139, 92, 246, 0.05);
-            --shadow-modern-lg: 0 20px 25px -5px rgba(139, 92, 246, 0.1), 0 10px 10px -5px rgba(139, 92, 246, 0.04);
-            --shadow-neon: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.4);
-            --shadow-glow: 0 0 30px rgba(236, 72, 153, 0.5), 0 0 60px rgba(249, 115, 22, 0.3);
-            
-            /* Modern Border Colors */
-            --border-modern: #E5E7EB;
-            --border-vibrant: #8B5CF6;
-            --border-neon: #06B6D4;
-            --border-glow: #F59E0B;
+            /* Borders */
+            --border-light: var(--gray-medium);
+            --border-medium: var(--gray-dark);
+            --border-dark: var(--primary-dark);
         }
 
         body {
@@ -1102,3 +1085,5 @@ if (session_status() === PHP_SESSION_NONE) {
     </script>
 </body>
 </html>
+
+

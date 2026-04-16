@@ -23,7 +23,8 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Rockwell:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Rockwell:wght@400;700;900&display=swap" rel="stylesheet">`n    <link rel="stylesheet" href="assets/modern-theme.css">`n    <link rel="stylesheet" href="assets/modern-theme.css">
+    <link rel="stylesheet" href="assets/modern-theme.css">
     <style>
         * {
             margin: 0;
@@ -31,57 +32,48 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-        :root {
-            /* Hospital-Quality Professional Color Palette */
-            --medical-primary: #0F4C75;
-            --medical-secondary: #1E6BA8;
-            --medical-accent: #2E8BC0;
-            --medical-teal: #16A5A5;
-            --medical-cyan: #0EA5E9;
-            --medical-blue: #3B82F6;
-            --medical-green: #10B981;
-            --medical-white: #FFFFFF;
-            --medical-gray: #F8FAFC;
-            --medical-dark: #0F172A;
-            --medical-light: #F1F5F9;
+                :root {
+            /* Dark and Creamy Yellow Color Palette */
+            --primary-dark: #1a1a1a;
+            --creamy-yellow: #FFF8DC;
+            --accent-gold: #FFD700;
+            --secondary-dark: #2d2d2d;
+            --light-cream: #FAF0E6;
+            --dark-accent: #B8860B;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray-medium: #D3D3D3;
+            --gray-dark: #696969;
             
-            /* Medical 3D Color Variations */
-            --primary-3d: #0F4C75;
-            --secondary-3d: #1E6BA8;
-            --accent-3d: #2E8BC0;
-            --success-3d: #10B981;
-            --warning-3d: #F59E0B;
-            --danger-3d: #EF4444;
-            --info-3d: #06B6D4;
-            --dark-3d: #0F172A;
-            --light-3d: #F1F5F9;
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
             
-            /* Mind-Blowing 3D Gradients */
-            --gradient-3d-hero: linear-gradient(135deg, #0F4C75 0%, #1E6BA8 25%, #2E8BC0 50%, #16A5A5 75%, #0EA5E9 100%);
-            --gradient-3d-primary: linear-gradient(135deg, #0F4C75 0%, #1E6BA8 50%, #2E8BC0 100%);
-            --gradient-3d-luxury: linear-gradient(135deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%);
-            --gradient-3d-clean: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #FFFFFF 100%);
-            --gradient-3d-success: linear-gradient(135deg, #10B981 0%, #34D399 100%);
-            --gradient-3d-warning: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
+            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
+            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
+            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
+            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
             
-            /* Professional 3D Shadows */
-            --shadow-3d-sm: 0 2px 4px rgba(15, 76, 117, 0.1), 0 1px 2px rgba(15, 76, 117, 0.06);
-            --shadow-3d-md: 0 4px 8px rgba(15, 76, 117, 0.15), 0 2px 4px rgba(15, 76, 117, 0.08);
-            --shadow-3d-lg: 0 8px 16px rgba(15, 76, 117, 0.2), 0 4px 8px rgba(15, 76, 117, 0.1);
-            --shadow-3d-xl: 0 20px 40px rgba(15, 76, 117, 0.25), 0 10px 20px rgba(15, 76, 117, 0.15);
-            --shadow-3d-neon: 0 0 20px rgba(15, 76, 117, 0.3), 0 0 40px rgba(30, 107, 168, 0.2);
+            /* Borders */
+            --border-light: var(--gray-medium);
+            --border-medium: var(--gray-dark);
+            --border-dark: var(--primary-dark);
+        }
+            --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
             
-            /* 3D Border Colors */
-            --border-3d-light: #E2E8F0;
-            --border-3d-medium: #CBD5E1;
-            --border-3d-dark: #94A3B8;
+            /* Alignment & Spacing Defaults */
+            --card-padding: 1.5rem;
         }
 
         body {
             font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: var(--gradient-3d-clean);
+            background: var(--gradient-clean);
             min-height: 100vh;
-            color: var(--medical-dark);
+            color: var(--primary-dark);
             line-height: 1.6;
             position: relative;
             transform-style: preserve-3d;
@@ -96,12 +88,11 @@ if (session_status() === PHP_SESSION_NONE) {
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(15, 76, 117, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(30, 107, 168, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 20%, rgba(46, 139, 192, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(22, 165, 165, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 30% 70%, rgba(14, 165, 233, 0.06) 0%, transparent 50%);
-            animation: medicalAurora 20s ease-in-out infinite;
+                radial-gradient(circle at 20% 50%, rgba(26, 26, 26, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(45, 45, 45, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(255, 248, 220, 0.08) 0%, transparent 50%);
+            animation: aurora 20s ease-in-out infinite;
             pointer-events: none;
             z-index: -1;
         }
@@ -114,8 +105,8 @@ if (session_status() === PHP_SESSION_NONE) {
             width: 100%;
             height: 100%;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical-3d-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="rgba(15,76,117,0.1)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(30,107,168,0.15)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23medical-3d-pattern)"/></svg>'),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="medical-3d-grid" width="60" height="60" patternUnits="userSpaceOnUse"><rect x="15" y="15" width="30" height="30" fill="none" stroke="rgba(46,139,192,0.1)" stroke-width="2"/><circle cx="30" cy="30" r="8" fill="rgba(22,165,165,0.15)"/></pattern></defs><rect width="200" height="200" fill="url(%23medical-3d-grid)"/></svg>');
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="gold-3d-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1.5" fill="rgba(212,175,55,0.1)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(184,134,11,0.05)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23gold-3d-pattern)"/></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="gold-3d-grid" width="100" height="100" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="80" height="80" fill="none" stroke="rgba(212,175,55,0.03)" stroke-width="1"/></pattern></defs><rect width="200" height="200" fill="url(%23gold-3d-grid)"/></svg>');
             background-size: 40px 40px, 120px 120px;
             animation: medical3DFloat 30s linear infinite;
             pointer-events: none;
@@ -123,14 +114,13 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .organogram-header {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            background: var(--luxury-white);
             color: white;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem;
             text-align: center;
             position: relative;
-            box-shadow: var(--shadow-xl);
-            border-bottom: 4px solid var(--golden-yellow);
+            box-shadow: var(--shadow-luxury);
+            border-bottom: 3px solid var(--luxury-gold);
             overflow: hidden;
         }
 
@@ -142,11 +132,11 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="header-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="white" opacity="0.1"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="white" stroke-width="1" fill="none" opacity="0.15"/></pattern></defs><rect width="200" height="200" fill="url(%23header-pattern)"/></svg>'),
-                linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(251,191,36,0.1) 100%);
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="header-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23D4AF37" opacity="0.1"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="%23D4AF37" stroke-width="0.5" fill="none" opacity="0.1"/></pattern></defs><rect width="200" height="200" fill="url(%23header-pattern)"/></svg>'),
+                linear-gradient(135deg, var(--luxury-cream) 0%, var(--luxury-white) 100%);
             background-size: 80px 80px, cover;
             background-position: 0 0, center;
-            animation: headerPatternFloat 10s ease-in-out infinite;
+            animation: headerPatternFloat 15s ease-in-out infinite;
         }
 
         .header-content {
@@ -168,8 +158,8 @@ if (session_status() === PHP_SESSION_NONE) {
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            border: 3px solid var(--golden-yellow);
-            box-shadow: var(--shadow-xl), 0 0 20px rgba(251,191,36,0.4);
+            border: 2px solid var(--luxury-gold);
+            box-shadow: var(--shadow-luxury), 0 0 30px rgba(212,175,55,0.2);
             animation: logoFloat 3s ease-in-out infinite;
         }
 
@@ -182,12 +172,12 @@ if (session_status() === PHP_SESSION_NONE) {
             font-size: 2rem;
             font-weight: 900;
             margin: 0;
-            background: linear-gradient(135deg, var(--white) 0%, var(--creamy-yellow) 50%, var(--golden-yellow) 100%);
+            background: var(--gradient-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            letter-spacing: 0.03em;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            letter-spacing: 0.05em;
             text-transform: uppercase;
         }
 
@@ -196,15 +186,17 @@ if (session_status() === PHP_SESSION_NONE) {
             font-size: 1.1rem;
             font-weight: 700;
             margin: 0.5rem 0 0 0;
-            opacity: 0.9;
-            letter-spacing: 0.05em;
+            color: var(--luxury-gold-deep);
+            letter-spacing: 0.1em;
             text-transform: uppercase;
         }
 
         .organogram-container {
-            background: linear-gradient(135deg, var(--cream-white), var(--white));
+            background: var(--luxury-cream);
             min-height: 100vh;
-            padding: 3rem 2rem;
+            padding: 5rem 2rem;
+            display: flex;
+            justify-content: center;
             position: relative;
             overflow-x: auto;
         }
@@ -217,8 +209,8 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><pattern id="container-pattern" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="30" cy="30" r="2" fill="var(--primary-blue)" opacity="0.05"/><path d="M15 30 Q30 15, 45 30 T75 30" stroke="var(--light-green)" stroke-width="1" fill="none" opacity="0.08"/></pattern></defs><rect width="400" height="400" fill="url(%23container-pattern)"/></svg>'),
-                linear-gradient(135deg, rgba(255,255,255,0.8) 0%, transparent 50%, rgba(251,191,36,0.05) 100%);
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><pattern id="container-pattern" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="30" cy="30" r="1.5" fill="%23D4AF37" opacity="0.05"/></pattern></defs><rect width="400" height="400" fill="url(%23container-pattern)"/></svg>'),
+                linear-gradient(135deg, var(--luxury-white) 0%, var(--luxury-cream-alt) 100%);
             background-size: 120px 120px, cover;
             background-position: 0 0, center;
             pointer-events: none;
@@ -319,7 +311,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .org-box {
-            background: var(--medical-white);
+            background: var(--luxury-white);
             border: 1px solid var(--border-3d-light);
             border-radius: 12px;
             padding: 0.8rem;
@@ -396,7 +388,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .org-box:hover {
-            transform: translateY(-2px);
+            transform: translateY(-5px);
             box-shadow: var(--shadow-clean-md);
             border-color: var(--school-primary);
         }
@@ -417,10 +409,10 @@ if (session_status() === PHP_SESSION_NONE) {
             align-items: center;
             justify-content: center;
             font-size: 1.8rem;
-            margin: 0 auto 1.5rem;
-            color: var(--primary-blue);
-            background: linear-gradient(145deg, var(--creamy-yellow), var(--golden-yellow));
-            box-shadow: var(--shadow-gold), var(--shadow-inset);
+            margin: 0 auto 1rem;
+            color: var(--luxury-gold-deep);
+            background: var(--gradient-cream);
+            box-shadow: var(--shadow-glass);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
@@ -453,7 +445,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .org-box:hover .org-icon {
-            transform: scale(1.15) rotateY(10deg) rotateX(5deg) translateZ(10px);
+            transform: scale(1.1);
             box-shadow: var(--shadow-xl), 0 0 25px rgba(251, 191, 36, 0.4);
         }
 
@@ -467,23 +459,24 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .org-box.root .org-icon {
-            background: linear-gradient(145deg, var(--golden-yellow), var(--warm-yellow));
-            color: var(--primary-blue);
-            animation: glowPulse 2s ease-in-out infinite;
-            box-shadow: var(--shadow-xl), 0 0 20px rgba(251,191,36,0.4);
-            transform: scale(1.1) translateZ(5px);
+            background: var(--gradient-gold);
+            color: var(--luxury-white);
         }
 
         .org-title {
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: var(--primary-blue);
-            margin-bottom: 0.8rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--luxury-text);
+            margin-bottom: 0.4rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            position: relative;
+            letter-spacing: 0.02em;
+        }
+
+        .org-subtitle {
+            font-size: 0.75rem;
+            color: var(--luxury-text-muted);
+            font-weight: 500;
         }
 
         .org-description {
@@ -577,12 +570,12 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 50%;
             transform: translateX(-50%);
             width: 3px;
-            height: 60px;
+            height: 40px;
         }
 
         .director-to-principal::after {
-            bottom: -12px;
-            left: -6.5px;
+            bottom: -10px;
+            left: -5.5px;
         }
 
         .principal-to-deputy {
@@ -590,12 +583,12 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 50%;
             transform: translateX(-50%);
             width: 3px;
-            height: 60px;
+            height: 40px;
         }
 
         .principal-to-deputy::after {
-            bottom: -12px;
-            left: -6.5px;
+            bottom: -10px;
+            left: -5.5px;
         }
 
         .deputy-to-hr {
@@ -674,15 +667,15 @@ if (session_status() === PHP_SESSION_NONE) {
             transform: translateX(-50%);
             background: var(--gradient-primary);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-size: 0.8rem;
-            font-weight: 700;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
             white-space: nowrap;
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-luxury);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border: 1px solid rgba(255,255,255,0.2);
+            letter-spacing: 0.1em;
+            border: 1px solid var(--luxury-gold-light);
             transition: all 0.3s ease;
         }
 
@@ -698,23 +691,22 @@ if (session_status() === PHP_SESSION_NONE) {
             justify-content: center;
             gap: 2.5rem;
             margin: 4rem 0 2rem;
-            padding: 2rem;
-            background: linear-gradient(145deg, var(--cream-white), var(--white));
-            border-radius: 20px;
-            box-shadow: var(--shadow-xl);
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            border: 1px solid var(--luxury-gold-light);
+            box-shadow: var(--shadow-luxury);
             position: relative;
             overflow: hidden;
-            border: 2px solid var(--soft-gray);
         }
 
         .org-legend::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--golden-yellow), var(--primary-blue), var(--light-green));
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--gradient-gold);
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
@@ -1331,29 +1323,26 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .auth-button {
-            padding: 2.5rem 3rem;
-            background: linear-gradient(145deg, var(--white), var(--cream-white));
-            color: var(--primary-blue);
-            border: 4px solid var(--golden-yellow);
-            border-radius: 25px;
-            font-weight: 900;
-            font-size: 1.3rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            color: var(--luxury-text);
+            border: 1px solid var(--luxury-gold-light);
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             box-shadow: 
-                var(--shadow-2xl), 
-                0 0 40px rgba(251, 191, 36, 0.3),
-                inset 0 2px 4px rgba(255, 255, 255, 0.8),
-                inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+                var(--shadow-luxury), 
+                inset 0 2px 4px rgba(255, 255, 255, 0.5);
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.75rem;
             position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
             transform: translateZ(0);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -1421,7 +1410,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .auth-button-icon {
-            font-size: 3rem;
+            font-size: 2.2rem;
             background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -1439,13 +1428,12 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .auth-button-text {
-            font-size: 1.1rem;
-            font-weight: 900;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-size: 0.9rem;
+            font-weight: 700;
         }
 
         .auth-button-subtext {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             opacity: 0.8;
             font-weight: 600;
         }
@@ -1477,15 +1465,15 @@ if (session_status() === PHP_SESSION_NONE) {
 
         /* Department Portal Section */
         .department-portals {
-            background: linear-gradient(145deg, var(--cream-white), var(--white));
+            background: var(--luxury-cream);
             border-radius: 30px;
             padding: 3rem;
             margin: 3rem auto;
             max-width: 1400px;
-            box-shadow: var(--shadow-2xl);
+            box-shadow: var(--shadow-luxury);
             position: relative;
             overflow: hidden;
-            border: 2px solid var(--light-green);
+            border: 1px solid var(--luxury-gold-light);
         }
 
         .department-portals::before {
@@ -1517,12 +1505,13 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .department-title {
             font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 900;
-            color: var(--primary-blue);
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             text-align: center;
-            margin-bottom: 1rem;
-            position: relative;
+            margin-bottom: 0.5rem;
             z-index: 1;
         }
 
@@ -1530,7 +1519,7 @@ if (session_status() === PHP_SESSION_NONE) {
             text-align: center;
             color: var(--text-secondary);
             font-size: 1.2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             position: relative;
             z-index: 1;
         }
@@ -1544,10 +1533,12 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .department-card {
-            background: linear-gradient(145deg, var(--white), var(--cream-white));
-            border: 2px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
@@ -1556,7 +1547,8 @@ if (session_status() === PHP_SESSION_NONE) {
             transform-style: preserve-3d;
             transform: translateZ(0);
             text-decoration: none;
-            color: var(--text-primary);
+            color: var(--luxury-text);
+            box-shadow: 0 8px 32px 0 rgba(15, 76, 117, 0.05);
         }
 
         .department-card::before {
@@ -1589,32 +1581,26 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .department-card:hover {
-            transform: translateY(-10px) scale(1.05) rotateX(2deg) translateZ(15px);
-            box-shadow: var(--shadow-xl), 0 0 30px rgba(37, 99, 235, 0.3);
-            border-color: var(--primary-blue);
-            background: linear-gradient(145deg, var(--light-green), var(--creamy-yellow));
-        }
-
-        .department-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .department-card:hover::after {
-            transform: translateX(100%);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 45px rgba(212, 175, 55, 0.2);
+            border-color: var(--luxury-gold);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
         }
 
         .department-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(145deg, var(--primary-blue), var(--secondary-blue));
-            border-radius: 20px;
+            width: 55px;
+            height: 55px;
+            background: var(--gradient-cream);
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: white;
-            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            color: var(--luxury-gold-deep);
+            margin: 0 auto 1rem;
             transition: all 0.4s ease;
+            box-shadow: var(--shadow-glass);
             position: relative;
             overflow: hidden;
         }
@@ -3332,3 +3318,5 @@ if (session_status() === PHP_SESSION_NONE) {
     </script>
 </body>
 </html>
+
+

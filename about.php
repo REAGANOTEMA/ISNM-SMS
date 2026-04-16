@@ -22,6 +22,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>About Us - Iganga School of Nursing and Midwifery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/modern-theme.css">
     <style>
         * {
             margin: 0;
@@ -29,24 +30,37 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-        :root {
-            /* Hospital-Quality Professional Color Palette */
-            --medical-primary: #0F4C75;
-            --medical-secondary: #1E6BA8;
-            --medical-accent: #2E8BC0;
-            --medical-teal: #16A5A5;
-            --medical-cyan: #0EA5E9;
-            --medical-blue: #3B82F6;
-            --medical-green: #10B981;
-            --medical-white: #FFFFFF;
-            --medical-gray: #F8FAFC;
-            --medical-dark: #0F172A;
-            --medical-light: #F1F5F9;
+                :root {
+            /* Dark and Creamy Yellow Color Palette */
+            --primary-dark: #1a1a1a;
+            --creamy-yellow: #FFF8DC;
+            --accent-gold: #FFD700;
+            --secondary-dark: #2d2d2d;
+            --light-cream: #FAF0E6;
+            --dark-accent: #B8860B;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray-medium: #D3D3D3;
+            --gray-dark: #696969;
             
-            /* Medical 3D Color Variations */
-            --primary-3d: #0F4C75;
-            --secondary-3d: #1E6BA8;
-            --accent-3d: #2E8BC0;
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
+            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
+            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
+            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
+            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
+            
+            /* Borders */
+            --border-light: var(--gray-medium);
+            --border-medium: var(--gray-dark);
+            --border-dark: var(--primary-dark);
+        }
             --success-3d: #10B981;
             --warning-3d: #F59E0B;
             --danger-3d: #EF4444;
@@ -903,3 +917,5 @@ if (session_status() === PHP_SESSION_NONE) {
     </script>
 </body>
 </html>
+
+

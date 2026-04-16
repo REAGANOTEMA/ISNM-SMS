@@ -28,27 +28,36 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-blue: #2563eb;
-            --secondary-blue: #3b82f6;
-            --accent-blue: #60a5fa;
-            --light-green: #86efac;
-            --soft-green: #4ade80;
-            --mint-green: #10b981;
-            --creamy-yellow: #fef3c7;
-            --golden-yellow: #fbbf24;
-            --warm-yellow: #f59e0b;
-            --white: #ffffff;
-            --text-dark: #1e293b;
-            --text-light: #64748b;
-            --text-muted: #94a3b8;
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.15);
-            --shadow-lg: 0 16px 32px rgba(0, 0, 0, 0.2);
-            --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.25);
-            --gradient-primary: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue), var(--accent-blue));
-            --gradient-secondary: linear-gradient(135deg, var(--light-green), var(--soft-green), var(--mint-green));
-            --gradient-tertiary: linear-gradient(135deg, var(--creamy-yellow), var(--golden-yellow), var(--warm-yellow));
+                :root {
+            /* Dark and Creamy Yellow Color Palette */
+            --primary-dark: #1a1a1a;
+            --creamy-yellow: #FFF8DC;
+            --accent-gold: #FFD700;
+            --secondary-dark: #2d2d2d;
+            --light-cream: #FAF0E6;
+            --dark-accent: #B8860B;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray-medium: #D3D3D3;
+            --gray-dark: #696969;
+            
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
+            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
+            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
+            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
+            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
+            
+            /* Borders */
+            --border-light: var(--gray-medium);
+            --border-medium: var(--gray-dark);
+            --border-dark: var(--primary-dark);
         }
 
         body {
@@ -850,3 +859,5 @@ if (session_status() === PHP_SESSION_NONE) {
     </script>
 </body>
 </html>
+
+

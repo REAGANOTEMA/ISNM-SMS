@@ -114,35 +114,38 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Rockwell:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Rockwell:wght@400;700;900&display=swap" rel="stylesheet">`n    <link rel="stylesheet" href="assets/modern-theme.css">`n    <link rel="stylesheet" href="assets/modern-theme.css">
     <style>
-        :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3730a3;
-            --ocean-blue: #0ea5e9;
-            --golden-yellow: #fbbf24;
-            --warm-yellow: #f59e0b;
-            --creamy-yellow: #fef3c7;
-            --light-green: #86efac;
-            --success-green: #22c55e;
-            --danger-red: #ef4444;
-            --warning-orange: #f97316;
-            --white: #ffffff;
-            --cream-white: #fefaf3;
-            --light-gray: #f3f4f6;
-            --soft-gray: #e5e7eb;
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
-            --text-muted: #9ca3af;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-            --shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
-            --shadow-3d: 0 25px 50px -12px rgba(0,0,0,0.25);
-            --gradient-primary: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-            --gradient-hero: linear-gradient(135deg, var(--primary-blue), var(--ocean-blue));
-            --gradient-gold: linear-gradient(135deg, var(--golden-yellow), var(--warm-yellow));
-            --gradient-success: linear-gradient(135deg, var(--success-green), var(--light-green));
+                :root {
+            /* Dark and Creamy Yellow Color Palette */
+            --primary-dark: #1a1a1a;
+            --creamy-yellow: #FFF8DC;
+            --accent-gold: #FFD700;
+            --secondary-dark: #2d2d2d;
+            --light-cream: #FAF0E6;
+            --dark-accent: #B8860B;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray-medium: #D3D3D3;
+            --gray-dark: #696969;
+            
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
+            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
+            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
+            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
+            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
+            
+            /* Borders */
+            --border-light: var(--gray-medium);
+            --border-medium: var(--gray-dark);
+            --border-dark: var(--primary-dark);
         }
 
         * {
@@ -377,19 +380,22 @@ try {
         }
 
         .department-card {
-            background: var(--white);
-            border: 1px solid var(--soft-gray);
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(251, 191, 36, 0.2);
             border-radius: 12px;
             padding: 1rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             cursor: pointer;
         }
 
         .department-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary-blue);
+            transform: translateY(-5px);
+            background: rgba(254, 243, 199, 0.5); /* Creamy tint on hover */
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.1);
+            border-color: var(--golden-yellow);
         }
 
         .department-name {
@@ -797,3 +803,5 @@ try {
     </script>
 </body>
 </html>
+
+

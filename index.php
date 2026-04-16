@@ -22,6 +22,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>Iganga School of Nursing and Midwifery - Excellence in Healthcare Education</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/modern-theme.css">
     <style>
         * {
             margin: 0;
@@ -29,56 +30,42 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-        :root {
-            /* Hospital-Quality Professional Color Palette */
-            --medical-primary: #0F4C75;
-            --medical-secondary: #1E6BA8;
-            --medical-accent: #2E8BC0;
-            --medical-teal: #16A5A5;
-            --medical-cyan: #0EA5E9;
-            --medical-blue: #3B82F6;
-            --medical-green: #10B981;
-            --medical-white: #FFFFFF;
-            --medical-gray: #F8FAFC;
-            --medical-dark: #0F172A;
-            --medical-light: #F1F5F9;
+                :root {
+            /* Dark and Creamy Yellow Color Palette */
+            --primary-dark: #1a1a1a;
+            --creamy-yellow: #FFF8DC;
+            --accent-gold: #FFD700;
+            --secondary-dark: #2d2d2d;
+            --light-cream: #FAF0E6;
+            --dark-accent: #B8860B;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray-medium: #D3D3D3;
+            --gray-dark: #696969;
             
-            /* Medical 3D Color Variations */
-            --primary-3d: #0F4C75;
-            --secondary-3d: #1E6BA8;
-            --accent-3d: #2E8BC0;
-            --success-3d: #10B981;
-            --warning-3d: #F59E0B;
-            --danger-3d: #EF4444;
-            --info-3d: #06B6D4;
-            --dark-3d: #0F172A;
-            --light-3d: #F1F5F9;
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
             
-            /* Mind-Blowing 3D Gradients */
-            --gradient-3d-hero: linear-gradient(135deg, #0F4C75 0%, #1E6BA8 25%, #2E8BC0 50%, #16A5A5 75%, #0EA5E9 100%);
-            --gradient-3d-primary: linear-gradient(135deg, #0F4C75 0%, #1E6BA8 50%, #2E8BC0 100%);
-            --gradient-3d-luxury: linear-gradient(135deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%);
-            --gradient-3d-clean: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #FFFFFF 100%);
-            --gradient-3d-success: linear-gradient(135deg, #10B981 0%, #34D399 100%);
-            --gradient-3d-warning: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+            /* Shadows */
+            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
+            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
+            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
+            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
+            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
             
-            /* Professional 3D Shadows */
-            --shadow-3d-sm: 0 2px 4px rgba(15, 76, 117, 0.1), 0 1px 2px rgba(15, 76, 117, 0.06);
-            --shadow-3d-md: 0 4px 8px rgba(15, 76, 117, 0.15), 0 2px 4px rgba(15, 76, 117, 0.08);
-            --shadow-3d-lg: 0 8px 16px rgba(15, 76, 117, 0.2), 0 4px 8px rgba(15, 76, 117, 0.1);
-            --shadow-3d-xl: 0 20px 40px rgba(15, 76, 117, 0.25), 0 10px 20px rgba(15, 76, 117, 0.15);
-            --shadow-3d-neon: 0 0 20px rgba(15, 76, 117, 0.3), 0 0 40px rgba(30, 107, 168, 0.2);
-            
-            /* 3D Border Colors */
-            --border-3d-light: #E2E8F0;
-            --border-3d-medium: #CBD5E1;
-            --border-3d-dark: #94A3B8;
+            /* Borders */
+            --border-light: var(--gray-medium);
+            --border-medium: var(--gray-dark);
+            --border-dark: var(--primary-dark);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--gradient-3d-clean);
-            color: var(--medical-dark);
+            background: var(--gradient-clean);
+            color: var(--primary-dark);
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
@@ -94,11 +81,11 @@ if (session_status() === PHP_SESSION_NONE) {
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(15, 76, 117, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(30, 107, 168, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 20%, rgba(46, 139, 192, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(22, 165, 165, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 30% 70%, rgba(14, 165, 233, 0.06) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(26, 26, 26, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(45, 45, 45, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(255, 248, 220, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(184, 134, 11, 0.06) 0%, transparent 50%);
             animation: medicalAurora 20s ease-in-out infinite;
             pointer-events: none;
             z-index: -1;
@@ -112,8 +99,8 @@ if (session_status() === PHP_SESSION_NONE) {
             width: 100%;
             height: 100%;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical-3d-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="rgba(15,76,117,0.1)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(30,107,168,0.15)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23medical-3d-pattern)"/></svg>'),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="medical-3d-grid" width="60" height="60" patternUnits="userSpaceOnUse"><rect x="15" y="15" width="30" height="30" fill="none" stroke="rgba(46,139,192,0.1)" stroke-width="2"/><circle cx="30" cy="30" r="8" fill="rgba(22,165,165,0.15)"/></pattern></defs><rect width="200" height="200" fill="url(%23medical-3d-grid)"/></svg>');
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical-3d-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="rgba(26,26,26,0.1)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(45,45,45,0.15)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23medical-3d-pattern)"/></svg>'),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="medical-3d-grid" width="60" height="60" patternUnits="userSpaceOnUse"><rect x="15" y="15" width="30" height="30" fill="none" stroke="rgba(255,215,0,0.1)" stroke-width="2"/><circle cx="30" cy="30" r="8" fill="rgba(255,248,220,0.15)"/></pattern></defs><rect width="200" height="200" fill="url(%23medical-3d-grid)"/></svg>');
             background-size: 40px 40px, 120px 120px;
             animation: medical3DFloat 30s linear infinite;
             pointer-events: none;
@@ -126,11 +113,11 @@ if (session_status() === PHP_SESSION_NONE) {
             top: 0;
             left: 0;
             right: 0;
-            background: var(--medical-white);
-            border-bottom: 3px solid var(--border-3d-light);
+            background: var(--white);
+            border-bottom: 3px solid var(--border-light);
             z-index: 1000;
             padding: 1.2rem 0;
-            box-shadow: var(--shadow-3d-xl);
+            box-shadow: var(--shadow-xl);
             transform-style: preserve-3d;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(15px);
@@ -144,7 +131,7 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             height: 2px;
-            background: var(--gradient-3d-primary);
+            background: var(--gradient-primary);
             opacity: 0.8;
         }
 
@@ -269,7 +256,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .nav-link {
-            color: var(--medical-dark);
+            color: var(--primary-dark);
             text-decoration: none;
             font-weight: 800;
             font-size: 1rem;
@@ -277,8 +264,8 @@ if (session_status() === PHP_SESSION_NONE) {
             position: relative;
             padding: 0.9rem 1.6rem;
             border-radius: 18px;
-            background: transparent;
-            border: 2px solid var(--border-3d-light);
+            background: var(--white);
+            border: 2px solid var(--border-light);
             font-family: 'Inter', sans-serif;
             transform-style: preserve-3d;
             transform: translateZ(0);
@@ -286,7 +273,7 @@ if (session_status() === PHP_SESSION_NONE) {
             text-transform: uppercase;
             white-space: nowrap;
             animation: cinemaLinkPulse 4s ease-in-out infinite;
-            text-shadow: 0 2px 4px rgba(15, 76, 117, 0.1);
+            text-shadow: 0 2px 4px rgba(26, 26, 26, 0.1);
         }
 
         .nav-link::before {
@@ -318,11 +305,11 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .nav-link:hover {
-            color: var(--medical-white);
+            color: var(--white);
             transform: translateY(-6px) translateZ(20px) rotateX(3deg) scale(1.08);
-            box-shadow: var(--shadow-3d-xl);
-            border-color: var(--medical-accent);
-            background: var(--gradient-3d-primary);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent-gold);
+            background: var(--gradient-primary);
         }
 
         .nav-link:hover::before {
@@ -333,12 +320,9 @@ if (session_status() === PHP_SESSION_NONE) {
             opacity: 1;
         }
 
-        /* Hospital-Quality 3D Hero Section */
+        /* Hero Section with Slider */
         .hero-section {
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            background: var(--gradient-3d-hero);
+            min-height: 100vh;
             position: relative;
             overflow: hidden;
             margin-top: 70px;
@@ -346,58 +330,131 @@ if (session_status() === PHP_SESSION_NONE) {
             perspective: 1000px;
         }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(15, 76, 117, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(30, 107, 168, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 50% 20%, rgba(46, 139, 192, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(22, 165, 165, 0.2) 0%, transparent 50%);
-            animation: hero3DAurora 15s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hero-3d-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="4" fill="rgba(15,76,117,0.2)"/><path d="M15 25 Q25 15, 35 25 T55 25" stroke="rgba(30,107,168,0.3)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23hero-3d-pattern)"/></svg>'),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="hero-3d-grid" width="80" height="80" patternUnits="userSpaceOnUse"><rect x="20" y="20" width="40" height="40" fill="none" stroke="rgba(46,139,192,0.2)" stroke-width="3"/><circle cx="40" cy="40" r="10" fill="rgba(22,165,165,0.25)"/></pattern></defs><rect width="200" height="200" fill="url(%23hero-3d-grid)"/></svg>');
-            background-size: 50px 50px, 160px 160px;
-            animation: hero3DFloat 25s linear infinite;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .hero-content {
+        .hero-slider {
             position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
             align-items: center;
-            transform-style: preserve-3d;
+            justify-content: center;
         }
 
-        .hero-text {
-            animation: fadeInUp 1s ease-out;
-            transform-style: preserve-3d;
+        .slide.active {
+            opacity: 1;
         }
 
-        .hero-badge {
+        .slide-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide-content {
+            text-align: center;
+            color: var(--creamy-yellow);
+            z-index: 2;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .slide-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        .slide-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .slide-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--gradient-primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .slide-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .slider-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .slider-btn:hover {
+            background: var(--creamy-yellow);
+            transform: scale(1.1);
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--creamy-yellow);
+            transform: scale(1.2);
+        }
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -1602,6 +1659,26 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         }
 
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px var(--accent-gold);
+            }
+            to {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-gold), 0 0 30px var(--accent-gold);
+            }
+        }
+
         /* Cinema-Like Medical 3D Animations */
         @keyframes cinemaNavFloat {
             0%, 100% {
@@ -1869,6 +1946,51 @@ if (session_status() === PHP_SESSION_NONE) {
                 gap: 1rem;
             }
         }
+
+        @media (max-width: 768px) {
+            .hero-slider {
+                height: 70vh;
+            }
+
+            .slide-title {
+                font-size: 2.5rem;
+            }
+
+            .slide-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .slider-controls {
+                display: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .navbar {
+                padding: 1rem 0;
+            }
+
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide-title {
+                font-size: 2rem;
+            }
+
+            .slide-subtitle {
+                font-size: 1rem;
+            }
+
+            .slide-btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1898,91 +2020,88 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Slider -->
     <section class="hero-section" id="home">
-        <div class="hero-background"></div>
-        <div class="hero-particles"></div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="hero-badge">
-                    <i class="fas fa-award"></i>
-                    <span>Excellence in Healthcare Education Since 2009</span>
-                </div>
-                <h1 class="hero-title">Welcome to</h1>
-                <h2 class="hero-subtitle" style="font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif; font-size: 2.5rem; font-weight: 900; color: white; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-                    IGANGA SCHOOL OF NURSING AND MIDWIFERY
-                </h2>
-                <h3 class="hero-title" style="font-size: 3rem; margin-top: 1rem;">Chosen to Serve</h3>
-                <p class="hero-subtitle" style="margin-top: 2rem;">
-                    Join us for world-class education, hands-on training, and a rewarding career in healthcare.
-                </p>
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <span class="hero-stat-number">5000+</span>
-                        <span class="hero-stat-label">Graduates</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="hero-stat-number">95%</span>
-                        <span class="hero-stat-label">Employment Rate</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="hero-stat-number">15+</span>
-                        <span class="hero-stat-label">Years Experience</span>
-                    </div>
-                </div>
-                <div class="hero-buttons">
-                    <a href="programs.php" class="btn btn-primary">
-                        <i class="fas fa-graduation-cap"></i>
-                        Explore Programs
-                    </a>
-                    <a href="login-portal.php" class="btn btn-portal">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Go to Portal
-                    </a>
-                    <a href="about.php" class="btn btn-secondary">
-                        <i class="fas fa-info-circle"></i>
-                        Learn More
-                    </a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="hero-card">
-                    <div class="hero-card-icon">
-                        <i class="fas fa-heart-pulse"></i>
-                    </div>
-                    <h3 class="hero-card-title">Start Your Healthcare Journey</h3>
-                    <p class="hero-card-description">
-                        Take the first step towards a fulfilling career in nursing and midwifery. 
-                        Our comprehensive programs prepare you for excellence in healthcare.
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="programs.php" class="btn btn-primary">
-                            <i class="fas fa-arrow-right"></i>
-                            Get Started
-                        </a>
+        <div class="hero-slider">
+            <div class="slide active" style="background-image: url('assets/classroom-building.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Welcome to ISNM</h1>
+                        <p class="slide-subtitle">Excellence in Healthcare Education</p>
+                        <a href="programs.php" class="slide-btn">Explore Programs</a>
                     </div>
                 </div>
             </div>
+            <div class="slide" style="background-image: url('assets/dinnin-hall-or-main-hall.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Modern Facilities</h1>
+                        <p class="slide-subtitle">State-of-the-art learning environment</p>
+                        <a href="infrastructure.php" class="slide-btn">View Infrastructure</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/diploma-hostel.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Comfortable Accommodation</h1>
+                        <p class="slide-subtitle">Safe and conducive living spaces</p>
+                        <a href="admissions.php" class="slide-btn">Apply Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/girls-hostel.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Holistic Development</h1>
+                        <p class="slide-subtitle">Nurturing mind, body, and spirit</p>
+                        <a href="activities.php" class="slide-btn">Our Activities</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/school-kitchen.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Quality Nutrition</h1>
+                        <p class="slide-subtitle">Healthy meals for optimal learning</p>
+                        <a href="about.php" class="slide-btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <button class="slider-btn prev" onclick="prevSlide()">&#10094;</button>
+            <button class="slider-btn next" onclick="nextSlide()">&#10095;</button>
+        </div>
+        <div class="slider-dots">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
         </div>
     </section>
 
     <!-- School Showcase Section -->
     <section class="showcase-section">
+        <div class="decorative-circle" style="top: 10%; left: 10%;"></div>
+        <div class="decorative-square" style="top: 20%; right: 15%;"></div>
+        <div class="decorative-triangle" style="bottom: 15%; left: 20%;"></div>
         <div class="section-container">
             <div class="section-header">
-                <div class="section-badge">
-                    <i class="fas fa-star"></i>
+                <div class="section-badge bounce-in">
+                    <i class="fas fa-star spin"></i>
                     <span>Discover ISNM</span>
                 </div>
-                <h2 class="section-title">Why Choose Iganga School of Nursing & Midwifery</h2>
-                <p class="section-subtitle">
+                <h2 class="section-title slide-up">Why Choose Iganga School of Nursing & Midwifery</h2>
+                <p class="section-subtitle slide-up">
                     Experience excellence in healthcare education with our comprehensive programs, 
                     modern facilities, and commitment to student success.
                 </p>
             </div>
             <div class="showcase-grid">
-                <div class="showcase-card">
-                    <div class="showcase-icon">
+                <div class="showcase-card rotate-in">
+                    <div class="showcase-icon pulse">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
                     <h3 class="showcase-title">Academic Excellence</h3>
@@ -1995,8 +2114,8 @@ if (session_status() === PHP_SESSION_NONE) {
                     </a>
                 </div>
                 
-                <div class="showcase-card">
-                    <div class="showcase-icon">
+                <div class="showcase-card rotate-in">
+                    <div class="showcase-icon float">
                         <i class="fas fa-building"></i>
                     </div>
                     <h3 class="showcase-title">Modern Infrastructure</h3>
@@ -2220,6 +2339,36 @@ if (session_status() === PHP_SESSION_NONE) {
             });
         }
 
+        // Slider functionality
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlideIndex = index;
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            showSlide(currentSlideIndex);
+        }
+
+        function prevSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(index) {
+            showSlide(index);
+        }
+
+        // Auto slide
+        setInterval(nextSlide, 5000);
+
         // Parallax effect for hero section
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
@@ -2234,3 +2383,5 @@ if (session_status() === PHP_SESSION_NONE) {
     </script>
 </body>
 </html>
+
+
