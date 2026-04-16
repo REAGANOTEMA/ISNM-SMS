@@ -1292,7 +1292,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="principal-card">
                     <div style="text-align: center; margin-bottom: 2rem; position: relative;">
                         <div class="principal-avatar" title="Sr. Edith Mwebaza - Principal of Iganga School of Nursing and Midwifery">
-                            <img src="assets/sr-edith-mwebaza-principal-of-the-school.jpg" alt="Sr. Edith Mwebaza - Principal of Iganga School of Nursing and Midwifery">
+                            <img src="assets/principle.jpeg" alt="Sr. Edith Mwebaza - Principal of Iganga School of Nursing and Midwifery">
                             <div class="principal-rank">PRINCIPAL</div>
                         </div>
                     </div>
