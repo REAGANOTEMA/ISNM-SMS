@@ -570,12 +570,14 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .history-image {
             width: 100%;
-            height: 250px;
+            height: 280px;
             object-fit: cover;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             transform-style: preserve-3d;
             transform: translateZ(0);
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
         }
 
         .history-image::before {
@@ -585,18 +587,37 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
-            transform: translateX(-100%);
-            transition: transform 0.8s ease;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.4) 50%, rgba(255,215,0,0.2) 60%, transparent 70%);
+            transform: translateX(-100%) skewX(-15deg);
+            transition: transform 1s ease;
             pointer-events: none;
+            border-radius: 15px;
+        }
+
+        .history-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            border-radius: 15px;
         }
 
         .history-card:hover .history-image {
-            transform: scale(1.05) rotateX(2deg) translateZ(10px);
+            transform: scale(1.08) rotateX(3deg) rotateY(2deg) translateZ(20px);
+            box-shadow: var(--shadow-xl);
         }
 
         .history-card:hover .history-image::before {
-            transform: translateX(100%);
+            transform: translateX(100%) skewX(-15deg);
+        }
+
+        .history-card:hover .history-image::after {
+            opacity: 1;
         }
 
         .history-card-content {

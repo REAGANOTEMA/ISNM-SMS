@@ -344,15 +344,29 @@ if (session_status() === PHP_SESSION_NONE) {
             height: 100%;
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             justify-content: center;
+            transform: scale(1.1) rotateX(5deg);
         }
 
         .slide.active {
             opacity: 1;
+            transform: scale(1) rotateX(0deg);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(26, 26, 26, 0.7) 0%, rgba(45, 45, 45, 0.5) 50%, rgba(255, 215, 0, 0.1) 100%);
+            animation: heroOverlayPulse 4s ease-in-out infinite;
         }
 
         .slide-overlay {
@@ -361,48 +375,79 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 26, 26, 0.6);
+            background: rgba(26, 26, 26, 0.4);
             display: flex;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(2px);
         }
 
         .slide-content {
             text-align: center;
-            color: var(--creamy-yellow);
+            color: var(--white);
             z-index: 2;
-            animation: slideInUp 1s ease-out;
+            max-width: 800px;
+            padding: 2rem;
+            animation: slideInUp 1.2s ease-out;
+            transform-style: preserve-3d;
         }
 
         .slide-title {
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 900;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            animation: textGlow 2s ease-in-out infinite alternate;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+            animation: textGlow 3s ease-in-out infinite alternate;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -1px;
+            line-height: 1.1;
         }
 
         .slide-subtitle {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
             margin-bottom: 2rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 400;
+            line-height: 1.4;
+            opacity: 0.95;
         }
 
         .slide-btn {
             display: inline-block;
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             background: var(--gradient-primary);
             color: var(--white);
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: var(--shadow-lg);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .slide-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
         }
 
         .slide-btn:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.05);
             box-shadow: var(--shadow-xl);
+            border-color: var(--accent-gold);
+        }
+
+        .slide-btn:hover::before {
+            left: 100%;
         }
 
         .slider-controls {
@@ -413,47 +458,179 @@ if (session_status() === PHP_SESSION_NONE) {
             justify-content: space-between;
             transform: translateY(-50%);
             z-index: 10;
+            padding: 0 2rem;
         }
 
         .slider-btn {
-            background: rgba(255, 255, 255, 0.8);
-            border: none;
-            width: 50px;
-            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--accent-gold);
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
         }
 
         .slider-btn:hover {
-            background: var(--creamy-yellow);
-            transform: scale(1.1);
+            background: var(--accent-gold);
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: var(--shadow-xl);
+            color: var(--white);
         }
 
         .slider-dots {
             position: absolute;
-            bottom: 20px;
+            bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 10px;
+            gap: 15px;
             z-index: 10;
         }
 
         .dot {
-            width: 15px;
-            height: 15px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.6);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid var(--accent-gold);
+            position: relative;
+        }
+
+        .dot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .dot.active {
-            background: var(--creamy-yellow);
+            background: var(--accent-gold);
+            transform: scale(1.3);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .dot.active::before {
+            opacity: 1;
+        }
+
+        .dot:hover {
             transform: scale(1.2);
+            background: rgba(255, 215, 0, 0.8);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .hero-section {
+                margin-top: 60px;
+                min-height: 90vh;
+            }
+
+            .hero-slider {
+                height: 90vh;
+            }
+
+            .slide-content {
+                padding: 1rem;
+            }
+
+            .slide-title {
+                font-size: 2.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .slide-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .slide-btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+
+            .slider-controls {
+                padding: 0 1rem;
+            }
+
+            .slider-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .slider-dots {
+                bottom: 20px;
+                gap: 10px;
+            }
+
+            .dot {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide-title {
+                font-size: 1.8rem;
+            }
+
+            .slide-subtitle {
+                font-size: 1rem;
+            }
+
+            .slide-btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .slider-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes heroOverlayPulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.9; }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.3);
+            }
+            to {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 215, 0, 0.4);
+            }
         }
             display: inline-flex;
             align-items: center;
@@ -2023,7 +2200,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- Hero Section with Slider -->
     <section class="hero-section" id="home">
         <div class="hero-slider">
-            <div class="slide active" style="background-image: url('assets/classroom-building.jpg');">
+            <div class="slide active" style="background-image: url('assets/hero1-students-in-group-picture-in-skills-lab.jpeg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
                         <h1 class="slide-title">Welcome to ISNM</h1>
@@ -2032,39 +2209,48 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image: url('assets/dinnin-hall-or-main-hall.jpg');">
+            <div class="slide" style="background-image: url('assets/hero2-students-in-skills-lab.jpeg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
-                        <h1 class="slide-title">Modern Facilities</h1>
-                        <p class="slide-subtitle">State-of-the-art learning environment</p>
-                        <a href="infrastructure.php" class="slide-btn">View Infrastructure</a>
+                        <h1 class="slide-title">State-of-the-Art Skills Lab</h1>
+                        <p class="slide-subtitle">Hands-on training for future nurses</p>
+                        <a href="infrastructure.php" class="slide-btn">View Facilities</a>
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image: url('assets/diploma-hostel.jpg');">
+            <div class="slide" style="background-image: url('assets/hero3-student-girls-nurses.jpeg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
-                        <h1 class="slide-title">Comfortable Accommodation</h1>
-                        <p class="slide-subtitle">Safe and conducive living spaces</p>
+                        <h1 class="slide-title">Empowering Future Nurses</h1>
+                        <p class="slide-subtitle">Comprehensive nursing education</p>
                         <a href="admissions.php" class="slide-btn">Apply Now</a>
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image: url('assets/girls-hostel.jpg');">
+            <div class="slide" style="background-image: url('assets/hero4-students-in-skills-lab.jpeg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
-                        <h1 class="slide-title">Holistic Development</h1>
-                        <p class="slide-subtitle">Nurturing mind, body, and spirit</p>
+                        <h1 class="slide-title">Practical Training</h1>
+                        <p class="slide-subtitle">Real-world healthcare experience</p>
                         <a href="activities.php" class="slide-btn">Our Activities</a>
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image: url('assets/school-kitchen.jpg');">
+            <div class="slide" style="background-image: url('assets/hero5-students-bandaging-their-fellow.jpeg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
-                        <h1 class="slide-title">Quality Nutrition</h1>
-                        <p class="slide-subtitle">Healthy meals for optimal learning</p>
+                        <h1 class="slide-title">Clinical Excellence</h1>
+                        <p class="slide-subtitle">Mastering essential nursing skills</p>
                         <a href="about.php" class="slide-btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/hero6-.jpeg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Holistic Healthcare Education</h1>
+                        <p class="slide-subtitle">Nurturing compassionate caregivers</p>
+                        <a href="contact.php" class="slide-btn">Contact Us</a>
                     </div>
                 </div>
             </div>
@@ -2079,6 +2265,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <span class="dot" onclick="currentSlide(2)"></span>
             <span class="dot" onclick="currentSlide(3)"></span>
             <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
         </div>
     </section>
 

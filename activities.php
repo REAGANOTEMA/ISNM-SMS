@@ -300,8 +300,43 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .activity-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.02);
             box-shadow: var(--shadow-xl);
+        }
+
+        .activity-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            transform-style: preserve-3d;
+            box-shadow: var(--shadow-md);
+        }
+
+        .activity-image:hover {
+            transform: scale(1.05) rotateX(2deg) translateZ(10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .activity-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+            border-radius: 12px;
+        }
+
+        .activity-card:hover .activity-image::before {
+            transform: translateX(100%);
         }
 
         .activity-icon {
@@ -738,7 +773,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     
                     <div class="activity-card" style="position: relative;">
-                        <img src="assets/students-in-skill-laboratory-in-practical-training.jpg" alt="Practical Training" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px;">
+                        <img src="assets/students-in-skill-laboratory-in-practical-training.jpg" alt="Practical Training" class="activity-image">
                         <div class="activity-icon" style="position: absolute; top: 10px; right: 10px; background: var(--gradient-luxury);">
                             <i class="fas fa-flask"></i>
                         </div>
@@ -772,7 +807,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     
                     <div class="activity-card">
-                        <img src="assets/certificate-in-nursing-students-in-examamination-room.jpg" alt="Students in Examination" style="width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 1rem;">
+                        <img src="assets/certificate-in-nursing-students-in-examamination-room.jpg" alt="Students in Examination" class="activity-image">
                         <div class="activity-icon" style="position: absolute; top: 10px; right: 10px; background: var(--gradient-luxury);">
                             <i class="fas fa-clipboard-check"></i>
                         </div>

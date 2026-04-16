@@ -326,6 +326,23 @@ if (session_status() === PHP_SESSION_NONE) {
             opacity: 0.9;
         }
 
+        .program-image {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+
+        .program-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .program-card:hover .program-img {
+            transform: scale(1.1) rotate(1deg);
+        }
+
         .program-content {
             padding: 2rem;
         }
@@ -631,6 +648,9 @@ if (session_status() === PHP_SESSION_NONE) {
                         <h3 class="program-title">Certificate in Nursing</h3>
                         <p class="program-type">Certificate Program</p>
                     </div>
+                    <div class="program-image">
+                        <img src="assets/certificate-in-nursing-students-in-examamination-room.jpg" alt="Certificate in Nursing Students in Examination Room" class="program-img">
+                    </div>
                     <div class="program-content">
                         <p class="program-description">
                             Comprehensive nursing education focusing on fundamental nursing skills, patient care, 
@@ -687,6 +707,9 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <h3 class="program-title">Certificate in Midwifery</h3>
                         <p class="program-type">Certificate Program</p>
+                    </div>
+                    <div class="program-image">
+                        <img src="assets/midwifery-students-checking-mothers-womb-during-skill-lab-practical-training.jpeg" alt="Midwifery Students in Practical Training" class="program-img">
                     </div>
                     <div class="program-content">
                         <p class="program-description">
@@ -745,6 +768,9 @@ if (session_status() === PHP_SESSION_NONE) {
                         <h3 class="program-title">Diploma in Nursing</h3>
                         <p class="program-type">Extension Program</p>
                     </div>
+                    <div class="program-image">
+                        <img src="assets/diploma-in-nursing-and-midwifery-extension-images-for-students.jpg" alt="Diploma in Nursing Extension Program Students" class="program-img">
+                    </div>
                     <div class="program-content">
                         <p class="program-description">
                             Advanced nursing education for certificate holders seeking to upgrade their qualifications. 
@@ -800,6 +826,9 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <h3 class="program-title">Diploma in Midwifery</h3>
                         <p class="program-type">Extension Program</p>
+                    </div>
+                    <div class="program-image">
+                        <img src="assets/groups-of-students-in-skills-lab.jpeg" alt="Students in Skills Lab Training" class="program-img">
                     </div>
                     <div class="program-content">
                         <p class="program-description">

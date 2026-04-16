@@ -388,6 +388,65 @@ if (session_status() === PHP_SESSION_NONE) {
             box-shadow: var(--shadow-3d-md);
         }
 
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .intro-image-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-3d-lg);
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .intro-image-card:hover {
+            transform: translateY(-10px) rotateX(3deg) scale(1.02);
+            box-shadow: var(--shadow-3d-xl);
+        }
+
+        .intro-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: all 0.6s ease;
+        }
+
+        .intro-image-card:hover .intro-image {
+            transform: scale(1.05);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .intro-image-card:hover .image-overlay {
+            transform: translateY(0);
+        }
+
+        .image-overlay h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .image-overlay p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
         /* Vision Mission Section */
         .vm-grid {
             display: grid;
@@ -677,6 +736,15 @@ if (session_status() === PHP_SESSION_NONE) {
             .vm-grid {
                 grid-template-columns: 1fr;
             }
+
+            .intro-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .intro-image {
+                height: 250px;
+            }
         }
     </style>
 </head>
@@ -722,23 +790,33 @@ if (session_status() === PHP_SESSION_NONE) {
                 <p class="section-subtitle">Learn about our prestigious institution and commitment to excellence</p>
             </div>
             
-            <div class="intro-card">
-                <div class="intro-content">
-                    <p>Iganga School of Nursing and Midwifery is a private Nursing School registered by the Registrar of Companies as a Limited Liability Company. The school is also registered with the Ministry of Education & Sports (MOES) and Uganda Nurses and Midwives Council (UNMC).</p>
+            <div class="intro-grid">
+                <div class="intro-card">
+                    <div class="intro-content">
+                        <p>Iganga School of Nursing and Midwifery is a private Nursing School registered by the Registrar of Companies as a Limited Liability Company. The school is also registered with the Ministry of Education & Sports (MOES) and Uganda Nurses and Midwives Council (UNMC).</p>
+                    </div>
+                    
+                    <div class="registration-badges">
+                        <div class="badge">
+                            <i class="fas fa-building"></i>
+                            <span>Limited Liability Company</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Ministry of Education & Sports</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-user-nurse"></i>
+                            <span>Uganda Nurses & Midwives Council</span>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="registration-badges">
-                    <div class="badge">
-                        <i class="fas fa-building"></i>
-                        <span>Limited Liability Company</span>
-                    </div>
-                    <div class="badge">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>Ministry of Education & Sports</span>
-                    </div>
-                    <div class="badge">
-                        <i class="fas fa-user-nurse"></i>
-                        <span>Uganda Nurses & Midwives Council</span>
+                <div class="intro-image-card">
+                    <img src="assets/general-overview.jpeg" alt="ISNM General Overview - Modern Campus Facilities" class="intro-image">
+                    <div class="image-overlay">
+                        <h4>Modern Campus Facilities</h4>
+                        <p>State-of-the-art learning environment</p>
                     </div>
                 </div>
             </div>

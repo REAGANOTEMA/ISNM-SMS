@@ -312,7 +312,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .facility-image {
-            height: 200px;
+            height: 250px;
             background: var(--gradient-primary);
             display: flex;
             align-items: center;
@@ -321,6 +321,16 @@ if (session_status() === PHP_SESSION_NONE) {
             font-size: 3rem;
             position: relative;
             overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-lg);
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .facility-image:hover {
+            transform: translateY(-10px) rotateX(5deg) scale(1.02);
+            box-shadow: var(--shadow-xl);
         }
 
         .facility-image::before {
@@ -330,13 +340,30 @@ if (session_status() === PHP_SESSION_NONE) {
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 15s linear infinite;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,215,0,0.1) 50%, transparent 70%);
+            animation: rotateShimmer 20s linear infinite;
+            opacity: 0.8;
         }
 
-        @keyframes rotate {
+        .facility-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: lightSweep 4s ease-in-out infinite;
+        }
+
+        @keyframes rotateShimmer {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+        }
+
+        @keyframes lightSweep {
+            0%, 100% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+            50% { transform: translateX(100%) skewX(-15deg); opacity: 1; }
         }
 
         .facility-content {
