@@ -116,10 +116,11 @@ if (session_status() === PHP_SESSION_NONE) {
             background: rgba(255,255,255,0.96);
             border-bottom: 1px solid rgba(220,220,220,0.9);
             z-index: 1001;
-            padding: 0.75rem 0;
+            padding: 0.5rem 0;
             box-shadow: 0 14px 34px rgba(0,0,0,0.08);
             backdrop-filter: blur(16px);
             transition: all 0.35s ease;
+            height: auto;
         }
 
         .navbar::before {
@@ -174,11 +175,21 @@ if (session_status() === PHP_SESSION_NONE) {
             color: var(--white);
             font-size: 0.95rem;
             transform: perspective(1000px) rotateX(0deg);
+            line-height: 1;
+            margin: 0;
+            padding: 0;
         }
 
         @keyframes marquee {
             0% { transform: translateX(0) perspective(1000px) rotateX(2deg); }
             100% { transform: translateX(-100%) perspective(1000px) rotateX(2deg); }
+        }
+
+        /* Fixed Header Container */
+        .fixed-header {
+            position: relative;
+            z-index: 1000;
+            width: 100%;
         }
 
         .navbar.scrolled {
@@ -198,6 +209,7 @@ if (session_status() === PHP_SESSION_NONE) {
             align-items: center;
             position: relative;
             z-index: 2;
+            min-height: auto;
         }
 
         .nav-logo {
@@ -213,6 +225,8 @@ if (session_status() === PHP_SESSION_NONE) {
             transition: all 0.35s ease;
             position: relative;
             z-index: 5;
+            padding: 0;
+            margin: 0;
         }
 
         .nav-logo::before {
@@ -349,12 +363,13 @@ if (session_status() === PHP_SESSION_NONE) {
 
         /* Hero Section with Slider */
         .hero-section {
-            min-height: calc(100vh - 100px);
+            min-height: calc(100vh - 60px);
             position: relative;
             overflow: hidden;
-            margin-top: 100px;
+            margin-top: 0;
             transform-style: preserve-3d;
             perspective: 1000px;
+            padding-top: 60px;
         }
 
         .hero-slider {
@@ -394,7 +409,7 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(20, 22, 30, 0.6) 0%, rgba(10, 12, 18, 0.75) 100%);
+            background: linear-gradient(45deg, rgba(20, 22, 30, 0.15) 0%, rgba(10, 12, 18, 0.2) 100%);
         }
 
         .slide-overlay {
@@ -403,11 +418,11 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 26, 26, 0.4);
+            background: rgba(26, 26, 26, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(2px);
+            backdrop-filter: none;
         }
 
         .slide-content {
@@ -418,6 +433,7 @@ if (session_status() === PHP_SESSION_NONE) {
             padding: 2rem;
             animation: slideInUp 1.2s ease-out;
             transform-style: preserve-3d;
+            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
         }
 
         .slide-title {
@@ -427,6 +443,7 @@ if (session_status() === PHP_SESSION_NONE) {
             font-family: 'Playfair Display', serif;
             letter-spacing: -0.5px;
             line-height: 1.05;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
         }
 
         .slide-subtitle {
@@ -434,23 +451,27 @@ if (session_status() === PHP_SESSION_NONE) {
             margin-bottom: 1.75rem;
             font-weight: 400;
             line-height: 1.6;
-            opacity: 0.9;
+            opacity: 0.95;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
         }
 
         .slide-btn {
             display: inline-block;
             padding: 1rem 2.5rem;
-            background: var(--primary-dark);
-            color: var(--white);
+            background: var(--accent-gold);
+            color: var(--primary-dark);
             text-decoration: none;
             border-radius: 50px;
             font-weight: 700;
             font-size: 1.05rem;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.25);
+            border: 2px solid var(--accent-gold);
             position: relative;
             overflow: hidden;
             transform-style: preserve-3d;
+            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .slide-btn::before {
@@ -465,10 +486,11 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .slide-btn:hover {
-            transform: translateY(-3px);
-            background: var(--accent-gold);
+            transform: translateY(-5px) scale(1.05);
+            background: var(--white);
             color: var(--primary-dark);
-            border-color: rgba(255,255,255,0.2);
+            border-color: var(--white);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
         }
 
         .slide-btn:hover::before {
@@ -563,7 +585,8 @@ if (session_status() === PHP_SESSION_NONE) {
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .hero-section {
-                margin-top: 100px;
+                margin-top: 0;
+                padding-top: 60px;
                 min-height: 85vh;
             }
 
@@ -1661,7 +1684,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
             .hero-section {
                 min-height: 50vh;
-                margin-top: 60px;
+                margin-top: 0;
+                padding-top: 60px;
             }
 
             .hero-content {
@@ -2139,17 +2163,17 @@ if (session_status() === PHP_SESSION_NONE) {
                     <a href="#home" class="nav-link">Home</a>
                     <a href="about.php" class="nav-link">About</a>
                     <a href="governance.php" class="nav-link">Governance</a>
-                <a href="programs.php" class="nav-link">Programs</a>
-                <a href="admissions.php" class="nav-link">Admissions</a>
-                <a href="activities.php" class="nav-link">Activities</a>
-                <a href="infrastructure.php" class="nav-link">Infrastructure</a>
-                <a href="achievements.php" class="nav-link">Achievements</a>
-                <a href="history.php" class="nav-link">History</a>
-                <a href="contact.php" class="nav-link">Contact</a>
-                <a href="login-portal.php" class="nav-link">Portal</a>
+                    <a href="programs.php" class="nav-link">Programs</a>
+                    <a href="admissions.php" class="nav-link">Admissions</a>
+                    <a href="activities.php" class="nav-link">Activities</a>
+                    <a href="infrastructure.php" class="nav-link">Infrastructure</a>
+                    <a href="achievements.php" class="nav-link">Achievements</a>
+                    <a href="history.php" class="nav-link">History</a>
+                    <a href="contact.php" class="nav-link">Contact</a>
+                    <a href="login-portal.php" class="nav-link">Portal</a>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
     </div>
 
     <!-- Hero Section with Slider -->
