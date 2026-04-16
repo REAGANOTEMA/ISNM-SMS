@@ -456,7 +456,10 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     <div class="contact-details">
                         <h3>Phone Numbers</h3>
-                        <p>Main: +256 XXX XXX XXX<br>Admissions: +256 XXX XXX XXX</p>
+                       <p><i class="fas fa-map-marker-alt"></i> Iganga, Uganda</p>
+                        <p><i class="fas fa-phone"></i> +256 782633253</p>
+                         <p><i class="fas fa-phone"></i> +256 703999796</p>
+                          <p><i class="fas fa-phone"></i> +256 753393340</p>
                     </div>
                 </div>
                 
@@ -466,7 +469,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     <div class="contact-details">
                         <h3>Email Addresses</h3>
-                        <p>General: info@isnm.ac.ug<br>Admissions: admissions@isnm.ac.ug</p>
+                        <p>General: info@isnm.ug.edu<br>Admissions: admissions@isnm.ug.edu</p>
                     </div>
                 </div>
                 

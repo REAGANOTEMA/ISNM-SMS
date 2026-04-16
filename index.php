@@ -2405,8 +2405,10 @@ if (session_status() === PHP_SESSION_NONE) {
                     <h3 class="footer-title">Contact Info</h3>
                     <div class="contact-info">
                         <p><i class="fas fa-map-marker-alt"></i> Iganga, Uganda</p>
-                        <p><i class="fas fa-phone"></i> +256 XXX XXX XXX</p>
-                        <p><i class="fas fa-envelope"></i> info@isnm.ac.ug</p>
+                        <p><i class="fas fa-phone"></i> +256 782633253</p>
+                         <p><i class="fas fa-phone"></i> +256 703999796</p>
+                          <p><i class="fas fa-phone"></i> +256 753393340</p>
+                        <p><i class="fas fa-envelope"></i> info@isnm.ug.edu</p>
                     </div>
                 </div>
             </div>
@@ -2424,7 +2426,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </a>
                 </div>
                 <div class="copyright">
-                    <p>&copy; 2024 Iganga School of Nursing and Midwifery. All rights reserved.</p>
+                    <p>&copy; 2026 Iganga School of Nursing and Midwifery. All rights reserved.</p>
                 </div>
             </div>
         </div>
@@ -2442,11 +2444,20 @@ if (session_status() === PHP_SESSION_NONE) {
         });
 
         // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
+                const hash = this.getAttribute('href');
+                if (!hash || hash === '#') return;
+
+                let target = null;
+                try {
+                    target = document.querySelector(hash);
+                } catch (error) {
+                    console.warn('Invalid anchor hash:', hash, error);
+                }
+
+                if (target instanceof Element) {
                     target.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
@@ -2483,19 +2494,26 @@ if (session_status() === PHP_SESSION_NONE) {
         const dots = document.querySelectorAll('.dot');
 
         function showSlide(index) {
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
+            if (!slides.length || !dots.length) return;
+            const slide = slides[index];
+            const dot = dots[index];
+            if (!slide || !dot) return;
+
+            slides.forEach(slideItem => slideItem.classList.remove('active'));
+            dots.forEach(dotItem => dotItem.classList.remove('active'));
+            slide.classList.add('active');
+            dot.classList.add('active');
             currentSlideIndex = index;
         }
 
         function nextSlide() {
+            if (!slides.length) return;
             currentSlideIndex = (currentSlideIndex + 1) % slides.length;
             showSlide(currentSlideIndex);
         }
 
         function prevSlide() {
+            if (!slides.length) return;
             currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
             showSlide(currentSlideIndex);
         }
@@ -2505,7 +2523,10 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         // Auto slide
-        setInterval(nextSlide, 5000);
+        if (slides.length && dots.length) {
+            setInterval(nextSlide, 5000);
+            showSlide(0);
+        }
 
         // Parallax effect for hero section
         window.addEventListener('scroll', () => {

@@ -42,6 +42,15 @@ if (session_status() === PHP_SESSION_NONE) {
             --gray-medium: #D3D3D3;
             --gray-dark: #696969;
             
+            /* Additional colors for form */
+            --primary-blue: #2563eb;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --border-color: #e2e8f0;
+            --cream-white: #fefefe;
+            --clean-white: #ffffff;
+            --light-green: #10b981;
+            
             /* Gradients */
             --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
             --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
@@ -439,6 +448,11 @@ if (session_status() === PHP_SESSION_NONE) {
             margin-bottom: 1.5rem;
         }
 
+        .fee-table-container {
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+
         .fee-table th,
         .fee-table td {
             padding: 1rem;
@@ -634,6 +648,174 @@ if (session_status() === PHP_SESSION_NONE) {
                 align-items: center;
             }
         }
+
+        /* Application Form Styles */
+        .application-form-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            margin-bottom: 3rem;
+        }
+
+        .application-form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .form-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .form-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .application-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+        .form-group.full-width {
+            width: 100%;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            background: var(--gray-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 60px;
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--primary-blue);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .file-upload-label i {
+            margin-right: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .file-name {
+            margin-left: 0.5rem;
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+            margin-top: 2rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -728,7 +910,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             <div class="requirement-text">
                                 <div class="requirement-title">Age Requirement</div>
                                 <div class="requirement-description">
-                                    Minimum age of 17 years at the time of admission
+                                    No age restriction, at the time of admission
                                 </div>
                             </div>
                         </li>
@@ -751,9 +933,9 @@ if (session_status() === PHP_SESSION_NONE) {
                         <div class="detail-icon">
                             <i class="fas fa-clock"></i>
                         </div>
-                        <h3 class="detail-title">Program Duration</h3>
+                         <h3 class="detail-title">Program Duration</h3>
                         <p class="detail-description">
-                            3 years full-time program with comprehensive theoretical and practical training
+                            3 semesters (1.5 years) extension program with comprehensive theoretical and practical training
                         </p>
                     </div>
                     <div class="detail-card">
@@ -762,7 +944,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <h3 class="detail-title">Award</h3>
                         <p class="detail-description">
-                            Diploma in Nursing or Diploma in Midwifery recognized by Uganda Nursing and Midwifery Council
+                            Diploma in Midwifery recognized by Uganda Nursing and Midwifery Council
                         </p>
                     </div>
                     <div class="detail-card">
@@ -771,44 +953,156 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <h3 class="detail-title">Clinical Practice</h3>
                         <p class="detail-description">
-                            Extensive clinical rotations in partner hospitals and healthcare facilities
+                            Extensive clinical rotations in partner hospitals and healthcare facilities with specialized midwifery focus
                         </p>
                     </div>
                 </div>
 
                 <div class="fee-structure">
-                    <h3 class="fee-title">Diploma Program Fee Structure</h3>
-                    <table class="fee-table">
+                    <h3 class="fee-title">Diploma Midwifery Extension Program Fee Structure</h3>
+                    <div class="fee-table-container">
+                        <table class="fee-table">
                         <thead>
                             <tr>
-                                <th>Fee Item</th>
-                                <th>Amount (UGX)</th>
-                                <th>Payment Schedule</th>
+                                <th>Particular Item</th>
+                                <th>1st Semester (UGX)</th>
+                                <th>2nd Semester (UGX)</th>
+                                <th>3rd Semester (UGX)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Admission Fee</td>
-                                <td class="fee-amount">95,000</td>
-                                <td>One-time payment</td>
+                                <td>Tuition</td>
+                                <td class="fee-amount">670,000</td>
+                                <td class="fee-amount">750,000</td>
+                                <td class="fee-amount">750,000</td>
                             </tr>
                             <tr>
-                                <td>Tuition Fee (Per Semester)</td>
-                                <td class="fee-amount">850,000</td>
-                                <td>6 installments</td>
+                                <td>Accommodation</td>
+                                <td class="fee-amount">450,000</td>
+                                <td class="fee-amount">450,000</td>
+                                <td class="fee-amount">490,000</td>
                             </tr>
                             <tr>
-                                <td>Practical Fee (Per Semester)</td>
-                                <td class="fee-amount">200,000</td>
-                                <td>6 installments</td>
+                                <td>Students welfare/Feeding</td>
+                                <td class="fee-amount">455,000</td>
+                                <td class="fee-amount">455,000</td>
+                                <td class="fee-amount">465,000</td>
                             </tr>
                             <tr>
-                                <td>Development Fee</td>
+                                <td>External Examination</td>
+                                <td class="fee-amount">230,000</td>
+                                <td class="fee-amount">230,000</td>
+                                <td class="fee-amount">230,000</td>
+                            </tr>
+                            <tr>
+                                <td>Practicum/field experience</td>
+                                <td class="fee-amount">350,000</td>
+                                <td class="fee-amount">450,000</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>Domiciliary Practice</td>
+                                <td class="fee-amount">50,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>Medical Care</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">20,000</td>
+                            </tr>
+                            <tr>
+                                <td>Research Fees</td>
                                 <td class="fee-amount">150,000</td>
-                                <td>One-time payment</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>Professional Uniform while in Hospital</td>
+                                <td class="fee-amount">150,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>Uniform while at School</td>
+                                <td class="fee-amount">95,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>Identity Card</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="font-weight: bold; text-align: center; background: #f8f9fa;">STUDENTS' ASSOCIATIONS</td>
+                            </tr>
+                            <tr>
+                                <td>Guild fees</td>
+                                <td class="fee-amount">10,000</td>
+                                <td class="fee-amount">10,000</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>UNSA</td>
+                                <td class="fee-amount">2,000</td>
+                                <td class="fee-amount">2,000</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>NCHE</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>UNASNM</td>
+                                <td class="fee-amount">25,000</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">20,000</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="font-weight: bold; text-align: center; background: #f8f9fa;">PROFESSIONAL REQUIREMENTS</td>
+                            </tr>
+                            <tr>
+                                <td>Midwifery Logbook</td>
+                                <td class="fee-amount">30,000</td>
+                                <td class="fee-amount">15,000</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>Research guideline</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>HTIN Number (TVET)</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>Marking of Logbooks</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr style="font-weight: bold; background: #e9ecef;">
+                                <td>GRAND TOTAL</td>
+                                <td class="fee-amount">2,612,000</td>
+                                <td class="fee-amount">2,475,000</td>
+                                <td class="fee-amount">2,477,000</td>
                             </tr>
                         </tbody>
                     </table>
+                    </div>
+                    <p style="text-align: center; font-style: italic; margin-top: 1rem; color: #6c757d;">
+                        N.B THE FEES STRUCTURE IS SUBJECT TO CHANGES
+                    </p>
                 </div>
             </div>
 
@@ -849,7 +1143,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             <div class="requirement-text">
                                 <div class="requirement-title">Age Requirement</div>
                                 <div class="requirement-description">
-                                    Minimum age of 16 years at the time of admission
+                                    Minimum age of 18 years at the time of admission
                                 </div>
                             </div>
                         </li>
@@ -874,7 +1168,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <h3 class="detail-title">Program Duration</h3>
                         <p class="detail-description">
-                            2 years full-time program with focused theoretical and practical training
+                            2.5 years (5 semesters) full-time program with comprehensive theoretical and practical training
                         </p>
                     </div>
                     <div class="detail-card">
@@ -883,7 +1177,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                         <h3 class="detail-title">Award</h3>
                         <p class="detail-description">
-                            Certificate in Nursing or Certificate in Midwifery recognized by Uganda Nursing and Midwifery Council
+                            Certificate in Nursing recognized by Uganda Nursing and Midwifery Council
                         </p>
                     </div>
                     <div class="detail-card">
@@ -898,38 +1192,175 @@ if (session_status() === PHP_SESSION_NONE) {
                 </div>
 
                 <div class="fee-structure">
-                    <h3 class="fee-title">Certificate Program Fee Structure</h3>
-                    <table class="fee-table">
+                    <h3 class="fee-title">Certificate in Nursing Fee Structure</h3>
+                    <div class="fee-table-container">
+                        <table class="fee-table">
                         <thead>
                             <tr>
-                                <th>Fee Item</th>
-                                <th>Amount (UGX)</th>
-                                <th>Payment Schedule</th>
+                                <th>Particular Item</th>
+                                <th>1st Semester (UGX)</th>
+                                <th>2nd Semester (UGX)</th>
+                                <th>3rd Semester (UGX)</th>
+                                <th>4th Semester (UGX)</th>
+                                <th>5th Semester (UGX)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Admission Fee</td>
-                                <td class="fee-amount">90,000</td>
-                                <td>One-time payment</td>
-                            </tr>
-                            <tr>
-                                <td>Tuition Fee (Per Semester)</td>
+                                <td>Tuition</td>
+                                <td class="fee-amount">600,000</td>
                                 <td class="fee-amount">650,000</td>
-                                <td>4 installments</td>
+                                <td class="fee-amount">650,000</td>
+                                <td class="fee-amount">650,000</td>
+                                <td class="fee-amount">650,000</td>
                             </tr>
                             <tr>
-                                <td>Practical Fee (Per Semester)</td>
-                                <td class="fee-amount">150,000</td>
-                                <td>4 installments</td>
+                                <td>Accommodation/Boarding</td>
+                                <td class="fee-amount">420,000</td>
+                                <td class="fee-amount">420,000</td>
+                                <td class="fee-amount">420,000</td>
+                                <td class="fee-amount">420,000</td>
+                                <td class="fee-amount">420,000</td>
                             </tr>
                             <tr>
-                                <td>Development Fee</td>
-                                <td class="fee-amount">100,000</td>
-                                <td>One-time payment</td>
+                                <td>Feeding Meals</td>
+                                <td class="fee-amount">450,000</td>
+                                <td class="fee-amount">475,000</td>
+                                <td class="fee-amount">475,000</td>
+                                <td class="fee-amount">475,000</td>
+                                <td class="fee-amount">475,000</td>
+                            </tr>
+                            <tr>
+                                <td>Practicum/Field Experience</td>
+                                <td class="fee-amount">180,000</td>
+                                <td class="fee-amount">255,000</td>
+                                <td class="fee-amount">255,000</td>
+                                <td class="fee-amount">255,000</td>
+                                <td class="fee-amount">185,000</td>
+                            </tr>
+                            <tr>
+                                <td>External Examination</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>ICT/Computer</td>
+                                <td class="fee-amount">80,000</td>
+                                <td class="fee-amount">80,000</td>
+                                <td class="fee-amount">80,000</td>
+                                <td class="fee-amount">80,000</td>
+                                <td class="fee-amount">80,000</td>
+                            </tr>
+                            <tr>
+                                <td>Medical Health Care</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">20,000</td>
+                            </tr>
+                            <tr>
+                                <td>Guild Fee</td>
+                                <td class="fee-amount">10,000</td>
+                                <td class="fee-amount">10,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">10,000</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td colspan="6" style="font-weight: bold; text-align: center; background: #f8f9fa;">OTHER REQUIREMENTS</td>
+                            </tr>
+                            <tr>
+                                <td>Identity Card/Name Tag</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>Uniforms (2) while in Hospital</td>
+                                <td class="fee-amount">130,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>Uniforms while at School</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>Nurses Logbook</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>UNSA</td>
+                                <td class="fee-amount">2,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>HTIN Number (TVET)</td>
+                                <td class="fee-amount">2,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>UNASNM</td>
+                                <td class="fee-amount">25,000</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">20,000</td>
+                                <td class="fee-amount">20,000</td>
+                            </tr>
+                            <tr>
+                                <td>WORKSHOPS (IMCI & IYCF)</td>
+                                <td class="fee-amount">50,000</td>
+                                <td class="fee-amount">35,000</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                            </tr>
+                            <tr>
+                                <td>Marking of students Logbooks</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
+                                <td class="fee-amount">-</td>
                             </tr>
                         </tbody>
                     </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 10px;">
+                        <h4 style="margin-bottom: 0.5rem; color: #1a202c;">GRAND TOTAL PER SEMESTER</h4>
+                        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                            <div><strong>1st Semester:</strong> 2,277,000 UGX</div>
+                            <div><strong>2nd Semester:</strong> 2,120,000 UGX</div>
+                            <div><strong>3rd Semester:</strong> 2,130,000 UGX</div>
+                            <div><strong>4th Semester:</strong> 2,120,000 UGX</div>
+                            <div><strong>5th Semester:</strong> 2,245,000 UGX</div>
+                        </div>
+                    </div>
+                    </div>
+                    <p style="text-align: center; font-style: italic; margin-top: 1rem; color: #6c757d;">
+                        NB: THE FEES STRUCTURE IS SUBJECT TO CHANGE
+                    </p>
                 </div>
             </div>
         </section>
@@ -996,15 +1427,92 @@ if (session_status() === PHP_SESSION_NONE) {
                 <p class="cta-description">
                     Join thousands of successful healthcare professionals who started their careers at ISNM
                 </p>
-                <div class="cta-buttons">
-                    <a href="#" class="cta-btn cta-btn-primary">
-                        <i class="fas fa-download"></i> Download Application Form
-                    </a>
                     <a href="contact.php" class="cta-btn cta-btn-secondary">
                         <i class="fas fa-phone"></i> Contact Admissions Office
                     </a>
                 </div>
             </div>
+        </section>
+
+        <!-- Online Application Form -->
+        <section class="application-form-section">
+            <div class="form-header">
+                <h2 class="form-title">Online Application Form</h2>
+                <p class="form-description">
+                    Apply online for admission to Iganga School of Nursing and Midwifery. Fill in all required information carefully.
+                </p>
+            </div>
+            <form class="application-form" action="submit-application.php" method="POST" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name" class="form-label">First Name <span class="required">*</span></label>
+                        <input type="text" id="first_name" name="first_name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="surname" class="form-label">Surname <span class="required">*</span></label>
+                        <input type="text" id="surname" name="surname" class="form-input" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="date_of_birth" class="form-label">Date of Birth <span class="required">*</span></label>
+                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contacts" class="form-label">Contact Number <span class="required">*</span></label>
+                        <input type="tel" id="contacts" name="contacts" class="form-input" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="level" class="form-label">Level Applying For <span class="required">*</span></label>
+                        <select id="level" name="level" class="form-select" required>
+                            <option value="">Select Level</option>
+                            <option value="Certificate">Certificate</option>
+                            <option value="Diploma">Diploma</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="course" class="form-label">Course <span class="required">*</span></label>
+                        <select id="course" name="course" class="form-select" required>
+                            <option value="">Select Course</option>
+                            <option value="Diploma in Nursing"> Nursing</option>
+                            <option value="Diploma in Midwifery">Midwifery</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="address" class="form-label">Location Address <span class="required">*</span></label>
+                    <textarea id="address" name="address" class="form-textarea" placeholder="Enter your full address" required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Upload Academic Document (PDF, JPEG, PNG, DOC) <span class="required">*</span></label>
+                        <div class="file-upload">
+                            <input type="file" id="document" name="document" accept=".pdf,.jpeg,.jpg,.png,.doc,.docx" required>
+                            <label for="document" class="file-upload-label">
+                                <i class="fas fa-upload"></i>
+                                <span>Choose file...</span>
+                                <span id="document-name" class="file-name"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Upload Your Photo <span class="required">*</span></label>
+                        <div class="file-upload">
+                            <input type="file" id="image" name="image" accept=".jpeg,.jpg,.png" required>
+                            <label for="image" class="file-upload-label">
+                                <i class="fas fa-camera"></i>
+                                <span>Choose image...</span>
+                                <span id="image-name" class="file-name"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Submit Application
+                </button>
+            </form>
         </section>
     </main>
 
@@ -1048,6 +1556,17 @@ if (session_status() === PHP_SESSION_NONE) {
             if (header) {
                 header.style.transform = `translateY(${scrolled * 0.5}px)`;
             }
+        });
+
+        // File upload display
+        document.getElementById('document').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : '';
+            document.getElementById('document-name').textContent = fileName;
+        });
+
+        document.getElementById('image').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : '';
+            document.getElementById('image-name').textContent = fileName;
         });
     </script>
 </body>
