@@ -110,17 +110,16 @@ if (session_status() === PHP_SESSION_NONE) {
         /* Cinema-Quality 3D Navigation - No Space Above */
         .navbar {
             position: fixed;
-            top: 38px;
+            top: 40px;
             left: 0;
             right: 0;
             background: rgba(255,255,255,0.96);
             border-bottom: 1px solid rgba(220,220,220,0.9);
             z-index: 1001;
-            padding: 0.85rem 0;
+            padding: 0.75rem 0;
             box-shadow: 0 14px 34px rgba(0,0,0,0.08);
-            transform-style: preserve-3d;
-            transition: all 0.35s ease;
             backdrop-filter: blur(16px);
+            transition: all 0.35s ease;
         }
 
         .navbar::before {
@@ -153,8 +152,8 @@ if (session_status() === PHP_SESSION_NONE) {
             top: 0;
             left: 0;
             right: 0;
-            height: 38px;
-            background: #ffffff;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
             border-bottom: 1px solid rgba(220,220,220,0.9);
             z-index: 1002;
             display: flex;
@@ -172,9 +171,9 @@ if (session_status() === PHP_SESSION_NONE) {
             animation: marquee 18s linear infinite;
             font-weight: 700;
             letter-spacing: 1px;
-            color: var(--primary-dark);
+            color: var(--white);
             font-size: 0.95rem;
-            transform: perspective(1000px) rotateX(2deg);
+            transform: perspective(1000px) rotateX(0deg);
         }
 
         @keyframes marquee {
@@ -350,10 +349,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
         /* Hero Section with Slider */
         .hero-section {
-            min-height: calc(100vh - 98px);
+            min-height: calc(100vh - 100px);
             position: relative;
             overflow: hidden;
-            margin-top: 98px;
+            margin-top: 100px;
             transform-style: preserve-3d;
             perspective: 1000px;
         }
@@ -372,6 +371,9 @@ if (session_status() === PHP_SESSION_NONE) {
             height: 100%;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
             opacity: 0;
             transition: opacity 1s ease, transform 1s ease;
             display: flex;
@@ -561,7 +563,7 @@ if (session_status() === PHP_SESSION_NONE) {
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
             .hero-section {
-                margin-top: 98px;
+                margin-top: 100px;
                 min-height: 85vh;
             }
 
@@ -2115,27 +2117,28 @@ if (session_status() === PHP_SESSION_NONE) {
     </style>
 </head>
 <body>
-    <div class="brand-banner">
-        <div class="brand-marquee">
-            <span>Iganga School of Nursing & Midwifery</span>
-            <span>Practical Skills Lab | Modern Healthcare Training | Student Success</span>
-            <span>Academic Excellence | Compassionate Care | Career Ready Nurses</span>
+    <div class="fixed-header">
+        <div class="brand-banner">
+            <div class="brand-marquee">
+                <span>Iganga School of Nursing & Midwifery</span>
+                <span>Practical Skills Lab | Modern Healthcare Training | Student Success</span>
+                <span>Academic Excellence | Compassionate Care | Career Ready Nurses</span>
+            </div>
         </div>
-    </div>
-    <!-- Professional Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <img src="assets/school-logo.png" alt="ISNM Logo" style="width: 75px; height: 75px;">
-                <div class="nav-logo-text">
-                    <span style="font-weight: 900; font-size: 1.2rem;">ISNM</span>
-                    <span style="font-size: 0.75rem; opacity: 0.95;">Iganga School of Nursing & Midwifery</span>
-                </div>
-            </a>
-            <div class="nav-links">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="about.php" class="nav-link">About</a>
-                <a href="governance.php" class="nav-link">Governance</a>
+        <!-- Professional Navigation -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <a href="#" class="nav-logo">
+                    <img src="assets/school-logo.png" alt="ISNM Logo" style="width: 75px; height: 75px;">
+                    <div class="nav-logo-text">
+                        <span style="font-weight: 900; font-size: 1.2rem;">ISNM</span>
+                        <span style="font-size: 0.75rem; opacity: 0.95;">Iganga School of Nursing & Midwifery</span>
+                    </div>
+                </a>
+                <div class="nav-links">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="about.php" class="nav-link">About</a>
+                    <a href="governance.php" class="nav-link">Governance</a>
                 <a href="programs.php" class="nav-link">Programs</a>
                 <a href="admissions.php" class="nav-link">Admissions</a>
                 <a href="activities.php" class="nav-link">Activities</a>
@@ -2147,6 +2150,7 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
         </div>
     </nav>
+    </div>
 
     <!-- Hero Section with Slider -->
     <section class="hero-section" id="home">
