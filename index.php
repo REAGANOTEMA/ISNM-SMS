@@ -2155,9 +2155,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="#" class="nav-logo">
                     <img src="assets/school-logo.png" alt="ISNM Logo" style="width: 75px; height: 75px;">
                     <div class="nav-logo-text">
-                        <span style="font-weight: 900; font-size: 1.2rem;">ISNM</span>
-                        <span style="font-size: 0.75rem; opacity: 0.95;">Iganga School of Nursing & Midwifery</span>
-                    </div>
+                         </div>
                 </a>
                 <div class="nav-links">
                     <a href="#home" class="nav-link">Home</a>
