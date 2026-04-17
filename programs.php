@@ -575,6 +575,140 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         }
     </style>
+
+    /* Footer Styling */
+    .footer {
+        background: var(--primary-dark);
+        color: white;
+        padding: 3rem 2rem 2rem;
+        margin-top: 4rem;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-section h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--accent-gold);
+    }
+
+    .footer-links {
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .footer-links a:hover {
+        color: var(--accent-gold);
+        transform: translateX(5px);
+    }
+
+    .contact-info p {
+        margin-bottom: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .contact-info i {
+        color: var(--accent-gold);
+        width: 20px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .footer-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+    .footer-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+    }
+
+    .whatsapp-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #25d366;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .whatsapp-btn:hover {
+        background: #128c7e;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    }
+
+    .copyright {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    @media (max-width: 768px) {
+        .footer {
+            padding: 2rem 1rem;
+        }
+
+        .footer-grid {
+            gap: 2rem;
+        }
+
+        .footer-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .whatsapp-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
 </head>
 <body>
     <!-- Luxury Header -->
@@ -591,8 +725,13 @@ if (session_status() === PHP_SESSION_NONE) {
                 <ul class="nav-links">
                     <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="about.php"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="governance.php"><i class="fas fa-users"></i> Governance</a></li>
                     <li><a href="programs.php"><i class="fas fa-graduation-cap"></i> Programs</a></li>
                     <li><a href="admissions.php"><i class="fas fa-user-plus"></i> Admissions</a></li>
+                    <li><a href="activities.php"><i class="fas fa-running"></i> Activities</a></li>
+                    <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
+                    <li><a href="achievements.php"><i class="fas fa-trophy"></i> Achievements</a></li>
+                    <li><a href="history.php"><i class="fas fa-history"></i> History</a></li>
                     <li><a href="contact.php"><i class="fas fa-envelope"></i> Contact</a></li>
                     <li><a href="login-portal.php"><i class="fas fa-sign-in-alt"></i> Portal</a></li>
                 </ul>

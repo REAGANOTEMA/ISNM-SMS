@@ -339,9 +339,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .directors-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2.5rem;
             margin-bottom: 3rem;
+            align-items: stretch;
         }
 
         .director-card {
@@ -356,6 +357,9 @@ if (session_status() === PHP_SESSION_NONE) {
             box-shadow: var(--shadow-3d-md);
             transform-style: preserve-3d;
             transform: translateZ(0);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .director-card::before {
@@ -402,9 +406,9 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .director-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
+            width: 160px;
+            height: 160px;
+            border-radius: 20px;
             margin: 0 auto 2rem;
             overflow: hidden;
             position: relative;
@@ -447,7 +451,7 @@ if (session_status() === PHP_SESSION_NONE) {
             transform: translateX(-100%);
             transition: transform 0.8s ease;
             pointer-events: none;
-            border-radius: 50%;
+            border-radius: 20px;
         }
 
         .director-avatar:hover::before {
@@ -772,9 +776,9 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .principal-avatar {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
             margin: 0 auto 2.5rem;
             overflow: hidden;
             position: relative;
@@ -822,7 +826,7 @@ if (session_status() === PHP_SESSION_NONE) {
             transform: translateX(-100%);
             transition: transform 0.8s ease;
             pointer-events: none;
-            border-radius: 50%;
+            border-radius: 20px;
         }
 
         .principal-avatar:hover::before {
@@ -1050,6 +1054,140 @@ if (session_status() === PHP_SESSION_NONE) {
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Footer Styling */
+        .footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 3rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-section h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: var(--accent-gold);
+    }
+
+    .footer-links {
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .footer-links a:hover {
+        color: var(--accent-gold);
+        transform: translateX(5px);
+    }
+
+    .contact-info p {
+        margin-bottom: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .contact-info i {
+        color: var(--accent-gold);
+        width: 20px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .footer-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+    .footer-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 2rem;
+    }
+
+    .whatsapp-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #25d366;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .whatsapp-btn:hover {
+        background: #128c7e;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+    }
+
+    .copyright {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    @media (max-width: 768px) {
+        .footer {
+            padding: 2rem 1rem;
+        }
+
+        .footer-grid {
+            gap: 2rem;
+        }
+
+        .footer-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .whatsapp-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
     </style>
 </head>
 <body>
@@ -1106,7 +1244,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="directors-grid">
                     <div class="director-card">
                         <div class="director-avatar" title="Mr. Baliddawa David Byawaka - Chairman Board of Directors">
-                            <img src="assets/chairman-board-of-director-mr-baliddawa-david-byawaka.jpg" alt="Mr. Baliddawa David Byawaka - Chairman Board of Directors">
+                            <img src="assets/founder-and-executive-director-mr-david-baliddawa.jpeg" alt="Mr. Baliddawa David Byawaka - Chairman Board of Directors">
                             <div class="director-rank">1</div>
                         </div>
                         <h4 class="director-name">Mr. Baliddawa David Byawaka</h4>
@@ -1198,7 +1336,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="chairman-highlight">
                     <div style="text-align: center; margin-bottom: 2rem; position: relative;">
                         <div class="chairman-avatar" title="Mr. Naluwairo David Kigenyi - Chairman Board of Governors">
-                            <img src="assets/chairman-board-of-governors-mr-naluwairo-david-kigenyi,.jpg" alt="Mr. Naluwairo David Kigenyi - Chairman Board of Governors">
+                            <img src="assets/chairman-governing-council-mr-david-kigenyi-naluwayiro.jpeg" alt="Mr. Naluwairo David Kigenyi - Chairman Board of Governors">
                         </div>
                         <div class="director-rank" style="position: absolute; top: -5px; right: calc(50% - 100px);">CHAIR</div>
                     </div>

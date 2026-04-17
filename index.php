@@ -1955,7 +1955,6 @@ if (session_status() === PHP_SESSION_NONE) {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-fill-color: transparent;
         }
 
         .nav-logo-text span:first-child {
@@ -2180,7 +2179,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <div class="slide active" style="background-image: url('assets/hero1-students-in-group-picture-in-skills-lab.jpeg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
-                        <h1 class="slide-title">Welcome to ISNM</h1>
+                        <h1 class="slide-title">WELCOME TO IGANGA SCHOOL OF NURSING AND MIDWIFERY</h1>
                         <p class="slide-subtitle">Excellence in Healthcare Education</p>
                         <a href="programs.php" class="slide-btn">Explore Programs</a>
                     </div>
