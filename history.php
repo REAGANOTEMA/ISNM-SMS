@@ -42,6 +42,11 @@ if (session_status() === PHP_SESSION_NONE) {
             --gray-medium: #D3D3D3;
             --gray-dark: #696969;
             
+            /* Additional missing variables */
+            --pure-white: #FFFFFF;
+            --accent-blue: #3b82f6;
+            --golden-yellow: #fbbf24;
+            
             /* Gradients */
             --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
             --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
@@ -894,7 +899,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <li><a href="about.php"><i class="fas fa-info-circle"></i> About</a></li>
                     <li><a href="governance.php"><i class="fas fa-users"></i> Governance</a></li>
                     <li><a href="programs.php"><i class="fas fa-graduation-cap"></i> Programs</a></li>
-                    <li><a href="admissions.php"><i class="fas fa-user-plus"></i> Admissions</a></li>
+                    <li><a href="application.php"><i class="fas fa-user-plus"></i> Application</a></li>
                     <li><a href="activities.php"><i class="fas fa-running"></i> Activities</a></li>
                     <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
                     <li><a href="achievements.php"><i class="fas fa-trophy"></i> Achievements</a></li>
@@ -941,10 +946,11 @@ if (session_status() === PHP_SESSION_NONE) {
                 </div>
                 
                 <div class="timeline">
-                    <div class="timeline-item">
+                    <div class="timeline-item" style="position: relative;">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
                             <div class="timeline-date">2009</div>
+                            <img src="assets/old-principal-and-new-principal.jpg" alt="School Founding Leadership" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
                             <h4 class="timeline-title">The Beginning</h4>
                             <p class="timeline-description">
                                 ISNM was founded with 13 pioneering students. The school was established by three founding members 
@@ -953,10 +959,11 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                     </div>
                     
-                    <div class="timeline-item">
+                    <div class="timeline-item" style="position: relative;">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
                             <div class="timeline-date">2010-2012</div>
+                            <img src="assets/graduation-day-students-matching-while-playing-trumpets-and-drum.jpg" alt="Early Graduation Celebrations" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
                             <h4 class="timeline-title">Early Growth</h4>
                             <p class="timeline-description">
                                 Rapid expansion of student enrollment and development of basic infrastructure. 

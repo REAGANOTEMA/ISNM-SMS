@@ -43,6 +43,11 @@ if (session_status() === PHP_SESSION_NONE) {
             --gray-medium: #D3D3D3;
             --gray-dark: #696969;
             
+            /* Additional missing variables */
+            --pure-white: #FFFFFF;
+            --accent-blue: #3b82f6;
+            --golden-yellow: #fbbf24;
+            
             /* Gradients */
             --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
             --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
@@ -291,23 +296,22 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .nav-links {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             align-items: center;
             transform-style: preserve-3d;
             position: relative;
             z-index: 2;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
         }
 
         .nav-link {
             color: var(--primary-dark);
             text-decoration: none;
-            font-weight: 700;
-            font-size: 0.98rem;
-            transition: all 0.35s ease;
-            position: relative;
-            padding: 0.85rem 1.5rem;
-            border-radius: 16px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
             background: white;
             border: 1px solid rgba(220, 220, 220, 0.9);
             font-family: 'Inter', sans-serif;
@@ -1674,7 +1678,13 @@ if (session_status() === PHP_SESSION_NONE) {
             }
 
             .nav-links {
-                gap: 0.25rem;
+                gap: 0.3rem;
+                justify-content: center;
+            }
+
+            .nav-link {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
             }
 
             .nav-link {
@@ -2060,7 +2070,13 @@ if (session_status() === PHP_SESSION_NONE) {
         @media (max-width: 1024px) {
             .nav-links {
                 flex-wrap: wrap;
-                gap: 1rem;
+                gap: 0.6rem;
+                justify-content: center;
+            }
+
+            .nav-link {
+                font-size: 0.85rem;
+                padding: 0.35rem 0.7rem;
             }
             
             .nav-link {
@@ -2161,7 +2177,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <a href="about.php" class="nav-link">About</a>
                     <a href="governance.php" class="nav-link">Governance</a>
                     <a href="programs.php" class="nav-link">Programs</a>
-                    <a href="admissions.php" class="nav-link">Admissions</a>
+                    <a href="application.php" class="nav-link">Application</a>
                     <a href="activities.php" class="nav-link">Activities</a>
                     <a href="infrastructure.php" class="nav-link">Infrastructure</a>
                     <a href="achievements.php" class="nav-link">Achievements</a>
@@ -2199,7 +2215,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="slide-content">
                         <h1 class="slide-title">Empowering Future Nurses</h1>
                         <p class="slide-subtitle">Comprehensive nursing education</p>
-                        <a href="admissions.php" class="slide-btn">Apply Now</a>
+                        <a href="application.php" class="slide-btn">Apply Now</a>
                     </div>
                 </div>
             </div>
@@ -2418,9 +2434,9 @@ if (session_status() === PHP_SESSION_NONE) {
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3 class="footer-title">Admissions</h3>
+                    <h3 class="footer-title">Application</h3>
                     <ul class="footer-links">
-                        <li><a href="admissions.php">Apply Now</a></li>
+                        <li><a href="application.php">Apply Now</a></li>
                         <li><a href="programs.php">Program Requirements</a></li>
                         <li><a href="programs.php">Fee Structure</a></li>
                         <li><a href="login-portal.php">Student Portal</a></li>

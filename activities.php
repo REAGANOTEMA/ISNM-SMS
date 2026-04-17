@@ -42,6 +42,16 @@ if (session_status() === PHP_SESSION_NONE) {
             --gray-medium: #D3D3D3;
             --gray-dark: #696969;
             
+            /* Additional Color Variables to Fix Errors */
+            --pure-white: #FFFFFF;
+            --primary-blue: #1e3a8a;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --border-color: #e5e7eb;
+            --light-green: #22c55e;
+            --accent-blue: #3b82f6;
+            --golden-yellow: #fbbf24;
+            
             /* Gradients */
             --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
             --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
@@ -162,6 +172,23 @@ if (session_status() === PHP_SESSION_NONE) {
             display: flex;
             gap: 2rem;
             list-style: none;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .nav-links a {
@@ -683,10 +710,65 @@ if (session_status() === PHP_SESSION_NONE) {
             margin-bottom: 0.5rem;
         }
 
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--gradient-primary);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.5rem;
+                border-radius: 0 0 12px 12px;
+                box-shadow: var(--shadow-lg);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 0.75rem 1rem;
+                border-radius: 8px;
+                text-align: center;
+            }
+            
+            .header-nav {
+                flex-wrap: wrap;
+                position: relative;
+            }
+            
+            .logo-section {
+                flex: 1;
             }
             
             .page-title {
@@ -694,20 +776,119 @@ if (session_status() === PHP_SESSION_NONE) {
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             
             .activities-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .activity-card {
+                padding: 1.5rem;
+            }
+            
+            .activity-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .activity-title {
+                font-size: 1.3rem;
+            }
+            
+            .activity-description {
+                font-size: 1rem;
             }
             
             .practicum-table {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
             }
             
             .practicum-table th,
             .practicum-table td {
                 padding: 0.75rem 0.5rem;
+                min-width: 120px;
+            }
+            
+            .sports-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .sport-card {
+                padding: 1.5rem;
+            }
+            
+            .indoor-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 0.75rem;
+            }
+            
+            .associations-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .community-activities {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .main-content {
+                padding: 2rem 1rem;
+            }
+            
+            .academic-section,
+            .practicum-section,
+            .co-curricular-section,
+            .community-section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .section-header {
+                margin-bottom: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .activity-card,
+            .sport-card,
+            .academic-section,
+            .practicum-section,
+            .co-curricular-section,
+            .community-section {
+                padding: 1rem;
+            }
+            
+            .activity-icon,
+            .sport-icon,
+            .community-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .activity-title,
+            .sport-name,
+            .community-name {
+                font-size: 1.1rem;
+            }
+            
+            .activity-description {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -858,7 +1039,10 @@ if (session_status() === PHP_SESSION_NONE) {
                         <p style="font-size: 0.8rem; opacity: 0.9;">Excellence in Healthcare Education</p>
                     </div>
                 </div>
-                <ul class="nav-links">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
                     <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="about.php"><i class="fas fa-info-circle"></i> About</a></li>
                     <li><a href="governance.php"><i class="fas fa-users"></i> Governance</a></li>
@@ -1201,6 +1385,45 @@ if (session_status() === PHP_SESSION_NONE) {
     </main>
 
     <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        }
+
         // Add smooth scroll behavior
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1215,16 +1438,30 @@ if (session_status() === PHP_SESSION_NONE) {
             });
         });
 
-        // Add parallax effect to header
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const header = document.querySelector('.luxury-header');
-            if (header) {
-                header.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
+        // Add parallax effect to header (disabled on mobile for performance)
+        let isMobile = window.innerWidth <= 768;
+        
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
+        });
+        
+        if (!isMobile) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const header = document.querySelector('.luxury-header');
+                if (header) {
+                    header.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            });
+        }
+
+        // Add error handling for images
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                console.warn('Image failed to load:', this.src);
+            });
         });
     </script>
 </body>
 </html>
-
-

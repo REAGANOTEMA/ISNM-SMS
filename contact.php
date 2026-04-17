@@ -42,6 +42,11 @@ if (session_status() === PHP_SESSION_NONE) {
             --gray-medium: #D3D3D3;
             --gray-dark: #696969;
             
+            /* Additional missing variables */
+            --pure-white: #FFFFFF;
+            --accent-blue: #3b82f6;
+            --golden-yellow: #fbbf24;
+            
             /* Gradients */
             --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
             --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
@@ -59,6 +64,324 @@ if (session_status() === PHP_SESSION_NONE) {
             --border-light: var(--gray-medium);
             --border-medium: var(--gray-dark);
             --border-dark: var(--primary-dark);
+        }
+
+        /* Cinema-Quality 3D Navigation - No Space Above */
+        .navbar {
+            position: fixed;
+            top: 40px;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.96);
+            border-bottom: 1px solid rgba(220,220,220,0.9);
+            z-index: 1001;
+            padding: 0.5rem 0;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.08);
+            backdrop-filter: blur(16px);
+            transition: all 0.35s ease;
+            height: auto;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            opacity: 0.8;
+        }
+
+        .navbar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="nav-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(15,76,117,0.1)"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="rgba(30,107,168,0.15)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23nav-pattern)"/></svg>');
+            opacity: 0.05;
+            pointer-events: none;
+            animation: navPatternFloat 30s linear infinite;
+        }
+
+        .brand-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            border-bottom: 1px solid rgba(220,220,220,0.9);
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+        }
+
+        .brand-marquee {
+            display: inline-flex;
+            align-items: center;
+            gap: 3rem;
+            white-space: nowrap;
+            animation: marquee 18s linear infinite;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--white);
+            font-size: 0.95rem;
+            transform: perspective(1000px) rotateX(0deg);
+            line-height: 1;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0) perspective(1000px) rotateX(2deg); }
+            100% { transform: translateX(-100%) perspective(1000px) rotateX(2deg); }
+        }
+
+        /* Fixed Header Container */
+        .fixed-header {
+            position: relative;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 1);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.1);
+            border-bottom-color: rgba(210,210,210,0.95);
+            transform: translateY(0);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            min-height: auto;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 900;
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+            transform-style: preserve-3d;
+            transition: all 0.35s ease;
+            position: relative;
+            z-index: 5;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: var(--gradient-3d-primary);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-logo:hover::before {
+            opacity: 0.2;
+        }
+
+        .nav-logo img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border: 2px solid rgba(17, 82, 147, 0.2);
+            border-radius: 50%;
+            transition: all 0.35s ease;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+            transform-style: preserve-3d;
+            background: white;
+            position: relative;
+            z-index: 3;
+        }
+
+        .nav-logo img::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(135deg, var(--medical-accent), var(--medical-cyan));
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-logo:hover img {
+            transform: scale(1.03);
+            box-shadow: 0 14px 32px rgba(0,0,0,0.16);
+            border-color: rgba(255, 215, 0, 0.8);
+        }
+
+        .nav-logo:hover img::after {
+            opacity: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            transform-style: preserve-3d;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            background: white;
+            border: 1px solid rgba(220, 220, 220, 0.9);
+            font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            z-index: -1;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover {
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: transparent;
+            background: var(--primary-dark);
+        }
+
+        .nav-link:hover::before {
+            opacity: 1;
+        }
+
+        .nav-link:hover::after {
+            opacity: 0.15;
+        }
+
+        /* Page Header Section */
+        .page-header-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .page-header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="page-header-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="rgba(255,255,255,0.1)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23page-header-pattern)"/></svg>');
+            animation: pageHeaderFloat 25s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pageHeaderFloat {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(10px) translateY(-5px); }
+            50% { transform: translateX(20px) translateY(0); }
+            75% { transform: translateX(10px) translateY(5px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transform-style: preserve-3d;
+            transform: translateZ(10px);
+        }
+
+        .breadcrumb {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
+        }
+
+        @keyframes navPatternFloat {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(10px) translateY(-5px); }
+            50% { transform: translateX(20px) translateY(0); }
+            75% { transform: translateX(10px) translateY(5px); }
+            100% { transform: translateX(0) translateY(0); }
         }
 
         body {
@@ -385,8 +708,67 @@ if (session_status() === PHP_SESSION_NONE) {
             box-shadow: var(--shadow-sm);
         }
 
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--gradient-primary);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.5rem;
+                border-radius: 0 0 12px 12px;
+                box-shadow: var(--shadow-lg);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 0.75rem 1rem;
+                border-radius: 8px;
+                text-align: center;
+            }
+            
+            .header-nav {
+                flex-wrap: wrap;
+                position: relative;
+            }
+            
+            .logo-section {
+                flex: 1;
+            }
             .nav-links {
                 display: none;
             }
@@ -541,54 +923,112 @@ if (session_status() === PHP_SESSION_NONE) {
     </style>
 </head>
 <body>
-    <!-- Luxury Header -->
-    <header class="luxury-header">
-        <div class="header-content">
-            <nav class="header-nav">
-                <div class="logo-section">
-                    <img src="assets/school-logo.png" alt="ISNM Logo" class="logo">
-                    <div>
-                        <h1 style="font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif; font-size: 1.2rem; font-weight: 900;">ISNM</h1>
-                        <p style="font-size: 0.8rem; opacity: 0.9;">Excellence in Healthcare Education</p>
-                    </div>
+    <div class="fixed-header">
+        <div class="brand-banner">
+            <div class="brand-marquee">
+                <span>Iganga School of Nursing & Midwifery</span>
+                <span>Practical Skills Lab | Modern Healthcare Training | Student Success</span>
+                <span>Academic Excellence | Compassionate Care | Career Ready Nurses</span>
+            </div>
+        </div>
+        <!-- Professional Navigation -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <a href="index.php" class="nav-logo">
+                    <img src="assets/school-logo.png" alt="ISNM Logo" style="width: 75px; height: 75px;">
+                    <div class="nav-logo-text">
+                         </div>
+                </a>
+                <div class="nav-links">
+                    <a href="index.php" class="nav-link">Home</a>
+                    <a href="about.php" class="nav-link">About</a>
+                    <a href="governance.php" class="nav-link">Governance</a>
+                    <a href="programs.php" class="nav-link">Programs</a>
+                    <a href="application.php" class="nav-link">Application</a>
+                    <a href="activities.php" class="nav-link">Activities</a>
+                    <a href="infrastructure.php" class="nav-link">Infrastructure</a>
+                    <a href="achievements.php" class="nav-link">Achievements</a>
+                    <a href="history.php" class="nav-link">History</a>
+                    <a href="contact.php" class="nav-link">Contact</a>
+                    <a href="login-portal.php" class="nav-link">Portal</a>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="about.php"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="governance.php"><i class="fas fa-users"></i> Governance</a></li>
-                    <li><a href="programs.php"><i class="fas fa-graduation-cap"></i> Programs</a></li>
-                    <li><a href="admissions.php"><i class="fas fa-user-plus"></i> Admissions</a></li>
-                    <li><a href="activities.php"><i class="fas fa-running"></i> Activities</a></li>
-                    <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
-                    <li><a href="achievements.php"><i class="fas fa-trophy"></i> Achievements</a></li>
-                    <li><a href="history.php"><i class="fas fa-history"></i> History</a></li>
-                    <li><a href="contact.php"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="login-portal.php"><i class="fas fa-sign-in-alt"></i> Portal</a></li>
-                </ul>
-            </nav>
-            <div class="page-title">Contact Us</div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Page Title Section -->
+    <div class="page-header-section">
+        <div class="page-header-content">
+            <h1 class="page-title">Contact Us</h1>
             <div class="breadcrumb">
                 <p>Home / Contact</p>
             </div>
         </div>
-    </header>
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
         <!-- Contact Section -->
         <div class="contact-section">
-            <div class="contact-info">
+            <div class="contact-intro">
                 <h2 class="section-title">Get in Touch</h2>
-                
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h3>Location</h3>
-                        <p>Iganga Town, Iganga District<br>Eastern Region, Uganda</p>
+                <p class="section-subtitle">We're here to help you start your healthcare career journey</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-image-card">
+                    <img src="assets/administration-block.jpg" alt="ISNM Administration Block" style="width: 100%; height: 250px; object-fit: cover; border-radius: 15px;">
+                    <div class="image-overlay">
+                        <h4>Visit Our Campus</h4>
+                        <p>Experience our modern facilities and meet our dedicated staff</p>
                     </div>
                 </div>
+                
+                <div class="contact-info-card">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Location</h3>
+                            <p>Iganga Town, Iganga District<br>Eastern Region, Uganda</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Phone Numbers</h3>
+                           <p><i class="fas fa-map-marker-alt"></i> Iganga, Uganda</p>
+                           <p><i class="fas fa-phone"></i> +256 782633253</p>
+                            <p><i class="fas fa-phone"></i> +256 703999796</p>
+                            <p><i class="fas fa-phone"></i> +256 753393340</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Email Addresses</h3>
+                            <p>General: info@isnm.ug.edu<br>Application: application@isnm.ug.edu</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>Office Hours</h3>
+                            <p>Monday - Friday: 8:00 AM - 5:00 PM<br>Saturday: 8:00 AM - 1:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 
                 <div class="contact-item">
                     <div class="contact-icon">
@@ -609,7 +1049,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     <div class="contact-details">
                         <h3>Email Addresses</h3>
-                        <p>General: info@isnm.ug.edu<br>Admissions: admissions@isnm.ug.edu</p>
+                        <p>General: info@isnm.ug.edu<br>Application: application@isnm.ug.edu</p>
                     </div>
                 </div>
                 
@@ -679,9 +1119,9 @@ if (session_status() === PHP_SESSION_NONE) {
                         <div class="quick-link-icon">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
-                        <h3 class="quick-link-title">Admissions</h3>
+                        <h3 class="quick-link-title">Application</h3>
                         <p class="quick-link-description">Apply now and join our healthcare programs</p>
-                        <a href="admissions.php" class="quick-link-btn">Apply Now</a>
+                        <a href="application.php" class="quick-link-btn">Apply Now</a>
                     </div>
                     
                     <div class="quick-link-item">
@@ -723,9 +1163,9 @@ if (session_status() === PHP_SESSION_NONE) {
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3 class="footer-title">Admissions</h3>
+                    <h3 class="footer-title">Application</h3>
                     <ul class="footer-links">
-                        <li><a href="admissions.php">Apply Now</a></li>
+                        <li><a href="application.php">Apply Now</a></li>
                         <li><a href="programs.php">Program Requirements</a></li>
                         <li><a href="programs.php">Fee Structure</a></li>
                         <li><a href="login-portal.php">Student Portal</a></li>
@@ -763,6 +1203,45 @@ if (session_status() === PHP_SESSION_NONE) {
     </footer>
 
     <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        }
+
         // Add smooth scroll behavior
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -777,22 +1256,47 @@ if (session_status() === PHP_SESSION_NONE) {
             });
         });
 
-        // Add parallax effect to header
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const header = document.querySelector('.luxury-header');
-            if (header) {
-                header.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
+        // Add parallax effect to header (disabled on mobile for performance)
+        let isMobile = window.innerWidth <= 768;
+        
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
+        });
+        
+        if (!isMobile) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const header = document.querySelector('.luxury-header');
+                if (header) {
+                    header.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            });
+        }
+
+        // Add error handling for images
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                console.warn('Image failed to load:', this.src);
+            });
         });
 
-        // Form submission handler
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
-            this.reset();
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
         });
     </script>
+    // Form submission handler
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your message! We will get back to you soon.');
+        this.reset();
+    });
 </body>
 </html>
 

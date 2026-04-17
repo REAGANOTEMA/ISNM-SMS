@@ -42,6 +42,11 @@ if (session_status() === PHP_SESSION_NONE) {
             --gray-medium: #D3D3D3;
             --gray-dark: #696969;
             
+            /* Additional missing variables */
+            --pure-white: #FFFFFF;
+            --accent-blue: #3b82f6;
+            --golden-yellow: #fbbf24;
+            
             /* Gradients */
             --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
             --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
@@ -59,6 +64,355 @@ if (session_status() === PHP_SESSION_NONE) {
             --border-light: var(--gray-medium);
             --border-medium: var(--gray-dark);
             --border-dark: var(--primary-dark);
+        }
+
+        /* Cinema-Quality 3D Navigation - No Space Above */
+        .navbar {
+            position: fixed;
+            top: 40px;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.96);
+            border-bottom: 1px solid rgba(220,220,220,0.9);
+            z-index: 1001;
+            padding: 0.5rem 0;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.08);
+            backdrop-filter: blur(16px);
+            transition: all 0.35s ease;
+            height: auto;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            opacity: 0.8;
+        }
+
+        .navbar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="nav-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(15,76,117,0.1)"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="rgba(30,107,168,0.15)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23nav-pattern)"/></svg>');
+            opacity: 0.05;
+            pointer-events: none;
+            animation: navPatternFloat 30s linear infinite;
+        }
+
+        .brand-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            border-bottom: 1px solid rgba(220,220,220,0.9);
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+        }
+
+        .brand-marquee {
+            display: inline-flex;
+            align-items: center;
+            gap: 3rem;
+            white-space: nowrap;
+            animation: marquee 18s linear infinite;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--white);
+            font-size: 0.95rem;
+            transform: perspective(1000px) rotateX(0deg);
+            line-height: 1;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0) perspective(1000px) rotateX(2deg); }
+            100% { transform: translateX(-100%) perspective(1000px) rotateX(2deg); }
+        }
+
+        /* Fixed Header Container */
+        .fixed-header {
+            position: relative;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 1);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.1);
+            border-bottom-color: rgba(210,210,210,0.95);
+            transform: translateY(0);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            min-height: auto;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 900;
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+            transform-style: preserve-3d;
+            transition: all 0.35s ease;
+            position: relative;
+            z-index: 5;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-logo:hover::before {
+            opacity: 0.2;
+        }
+
+        .nav-logo img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border: 2px solid rgba(17, 82, 147, 0.2);
+            border-radius: 50%;
+            transition: all 0.35s ease;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+            transform-style: preserve-3d;
+            background: white;
+            position: relative;
+            z-index: 3;
+        }
+
+        .nav-logo img::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--golden-yellow));
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-logo:hover img {
+            transform: scale(1.03);
+            box-shadow: 0 14px 32px rgba(0,0,0,0.16);
+            border-color: rgba(255, 215, 0, 0.8);
+        }
+
+        .nav-logo:hover img::after {
+            opacity: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            transform-style: preserve-3d;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: white;
+            border: 1px solid rgba(220, 220, 220, 0.9);
+            font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-primary);
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            z-index: -1;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+            border-radius: 12px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover {
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: transparent;
+            background: var(--primary-dark);
+        }
+
+        .nav-link:hover::before {
+            opacity: 1;
+        }
+
+        .nav-link:hover::after {
+            opacity: 0.15;
+        }
+
+        .home-link {
+            background: var(--gradient-primary);
+            color: var(--white);
+            font-weight: 700;
+            border-color: var(--accent-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .home-link:hover {
+            background: var(--gradient-luxury);
+            color: var(--primary-dark);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(255,215,0,0.3);
+        }
+
+        .home-link:hover::before {
+            left: 100%;
+        }
+
+        /* Page Header Section */
+        .page-header-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .page-header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="page-header-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="rgba(255,255,255,0.1)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23page-header-pattern)"/></svg>');
+            animation: pageHeaderFloat 25s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pageHeaderFloat {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(10px) translateY(-5px); }
+            50% { transform: translateX(20px) translateY(0); }
+            75% { transform: translateX(10px) translateY(5px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transform-style: preserve-3d;
+            transform: translateZ(10px);
+        }
+
+        .breadcrumb {
+            opacity: 0.9;
+            font-size: 1.1rem;
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
+        }
+
+        @keyframes navPatternFloat {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(10px) translateY(-5px); }
+            50% { transform: translateX(20px) translateY(0); }
+            75% { transform: translateX(10px) translateY(5px); }
+            100% { transform: translateX(0) translateY(0); }
         }
 
         body {
@@ -292,14 +646,19 @@ if (session_status() === PHP_SESSION_NONE) {
 
         /* Board of Directors - Hospital-Quality 3D */
         .board-section {
-            background: var(--medical-white);
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: var(--shadow-3d-md);
-            border: 1px solid var(--border-3d-light);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,248,255,0.9));
+            border-radius: 30px;
+            padding: 3.5rem;
+            box-shadow: 
+                0 15px 40px rgba(26,26,26,0.15),
+                0 30px 80px rgba(26,26,26,0.1),
+                inset 0 2px 0 rgba(255,215,0,0.1);
+            border: 2px solid rgba(26,26,26,0.08);
             margin-bottom: 3rem;
             transform-style: preserve-3d;
             position: relative;
+            backdrop-filter: blur(15px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .board-section::before {
@@ -308,10 +667,50 @@ if (session_status() === PHP_SESSION_NONE) {
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: var(--gradient-3d-primary);
-            border-radius: 20px 20px 0 0;
-            opacity: 0.8;
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--primary-dark), var(--accent-gold));
+            border-radius: 30px 30px 0 0;
+            opacity: 0.9;
+            animation: boardGlow 4s ease-in-out infinite;
+        }
+
+        .board-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="board-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="rgba(26,26,26,0.05)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(255,215,0,0.08)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23board-pattern)"/></svg>'),
+                radial-gradient(circle at 20% 80%, rgba(255,215,0,0.02) 0%, transparent 50%);
+            background-size: 80px 80px, cover;
+            background-position: 0 0, center;
+            transform: translateX(-100%) translateY(-100%);
+            transition: transform 1.5s ease;
+            pointer-events: none;
+            opacity: 0.4;
+            border-radius: 30px;
+        }
+
+        .board-section:hover {
+            transform: translateY(-5px) translateZ(15px) rotateX(1deg);
+            box-shadow: 
+                0 25px 60px rgba(26,26,26,0.2),
+                0 50px 120px rgba(26,26,26,0.15),
+                inset 0 3px 0 rgba(255,215,0,0.2);
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,248,220,0.95));
+        }
+
+        .board-section:hover::after {
+            transform: translateX(100%) translateY(100%);
+            opacity: 0.6;
+        }
+
+        @keyframes boardGlow {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
 
         .board-header {
@@ -340,26 +739,30 @@ if (session_status() === PHP_SESSION_NONE) {
         .directors-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
+            gap: 1.5rem;
             margin-bottom: 3rem;
             align-items: stretch;
         }
 
         .director-card {
-            background: var(--medical-white);
-            border-radius: 20px;
-            padding: 2.5rem;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,248,255,0.9));
+            border-radius: 25px;
+            padding: 3rem;
             text-align: center;
-            border: 2px solid var(--border-3d-light);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(26,26,26,0.08);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-3d-md);
+            box-shadow: 
+                0 10px 30px rgba(26,26,26,0.15),
+                0 20px 60px rgba(26,26,26,0.1),
+                inset 0 1px 0 rgba(255,255,255,0.8);
             transform-style: preserve-3d;
-            transform: translateZ(0);
+            transform: translateZ(0) rotateX(0deg);
             display: flex;
             flex-direction: column;
             align-items: center;
+            backdrop-filter: blur(10px);
         }
 
         .director-card::before {
@@ -368,10 +771,12 @@ if (session_status() === PHP_SESSION_NONE) {
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: var(--gradient-3d-primary);
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--primary-dark), var(--accent-gold));
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform 0.6s ease;
+            border-radius: 25px 25px 0 0;
+            animation: directorGlow 3s ease-in-out infinite;
         }
 
         .director-card::after {
@@ -382,62 +787,76 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical-director-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(15,76,117,0.1)"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="rgba(30,107,168,0.1)" stroke-width="0.5" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23medical-director-pattern)"/></svg>'),
-                linear-gradient(135deg, transparent 40%, rgba(15,76,117,0.05) 50%, transparent 60%);
-            background-size: 40px 40px, cover;
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="medical-director-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="2" fill="rgba(26,26,26,0.08)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(255,215,0,0.15)" stroke-width="1" fill="none"/><circle cx="30" cy="0" r="1" fill="rgba(255,215,0,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23medical-director-pattern)"/></svg>'),
+                radial-gradient(circle at 50% 50%, rgba(255,215,0,0.03) 0%, transparent 70%);
+            background-size: 60px 60px, cover;
             background-position: 0 0, center;
-            transform: translateX(-100%);
-            transition: transform 0.8s ease;
+            transform: translateX(-100%) translateY(-100%);
+            transition: transform 1.2s ease;
             pointer-events: none;
+            opacity: 0.6;
         }
 
         .director-card:hover {
-            transform: translateY(-8px) translateZ(15px) rotateX(2deg);
-            box-shadow: var(--shadow-3d-lg);
-            border-color: var(--medical-primary);
+            transform: translateY(-12px) translateZ(25px) rotateX(3deg) rotateY(2deg);
+            box-shadow: 
+                0 20px 50px rgba(26,26,26,0.25),
+                0 40px 80px rgba(26,26,26,0.15),
+                inset 0 2px 0 rgba(255,215,0,0.2);
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,248,220,0.95));
         }
 
         .director-card:hover::before {
             transform: scaleX(1);
+            animation: directorPulse 2s ease-in-out infinite;
         }
 
         .director-card:hover::after {
-            transform: translateX(100%);
+            transform: translateX(100%) translateY(100%);
+            opacity: 0.8;
         }
 
         .director-avatar {
-            width: 160px;
-            height: 160px;
-            border-radius: 20px;
-            margin: 0 auto 2rem;
+            width: 220px;
+            height: 220px;
+            border-radius: 30px;
+            margin: 0 auto 3rem;
             overflow: hidden;
             position: relative;
-            box-shadow: var(--shadow-3d-lg);
-            animation: director3DFloat 4s ease-in-out infinite;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 4px solid transparent;
-            background: linear-gradient(var(--medical-white), var(--medical-white)) padding-box,
-                        var(--gradient-3d-primary) border-box;
+            box-shadow: 
+                0 20px 50px rgba(26,26,26,0.25),
+                0 40px 100px rgba(26,26,26,0.15),
+                0 60px 150px rgba(26,26,26,0.1),
+                inset 0 0 40px rgba(255,215,0,0.4);
+            animation: director3DFloat 6s ease-in-out infinite;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 6px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, var(--accent-gold), var(--primary-dark), var(--accent-gold)) border-box;
             transform-style: preserve-3d;
         }
 
         .director-avatar:hover {
-            transform: scale(1.05) rotateY(8deg) translateZ(20px);
-            box-shadow: var(--shadow-3d-xl);
-            border-color: var(--medical-cyan);
+            transform: scale(1.08) rotateY(12deg) translateZ(30px);
+            box-shadow: 
+                0 25px 60px rgba(26,26,26,0.3),
+                0 50px 100px rgba(26,26,26,0.2),
+                inset 0 0 40px rgba(255,215,0,0.4);
+            border-color: var(--accent-gold);
         }
 
         .director-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            filter: brightness(1.05) contrast(1.05);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(1.08) contrast(1.08) saturate(1.1);
         }
 
         .director-avatar:hover img {
-            transform: scale(1.05) rotateY(-5deg);
-            filter: brightness(1.1) contrast(1.1);
+            transform: scale(1.08) rotateY(-8deg);
+            filter: brightness(1.15) contrast(1.15) saturate(1.2);
         }
 
         .director-avatar::before {
@@ -447,48 +866,72 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
-            transform: translateX(-100%);
-            transition: transform 0.8s ease;
+            background: linear-gradient(135deg, transparent 30%, rgba(255,215,0,0.4) 50%, transparent 70%);
+            transform: translateX(-100%) translateY(-100%);
+            transition: transform 1.2s ease;
             pointer-events: none;
-            border-radius: 20px;
+            border-radius: 25px;
+            opacity: 0.8;
         }
 
         .director-avatar:hover::before {
-            transform: translateX(100%);
+            transform: translateX(100%) translateY(100%);
         }
 
         .director-rank {
             position: absolute;
-            top: -10px;
-            right: -10px;
-            background: var(--gradient-luxury);
+            top: -15px;
+            right: -15px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--primary-dark));
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.4);
-            border: 3px solid white;
+            font-weight: 900;
+            font-size: 1.4rem;
+            box-shadow: 
+                0 8px 25px rgba(255,215,0,0.5),
+                0 15px 40px rgba(26,26,26,0.2);
+            border: 4px solid white;
             z-index: 10;
+            animation: rankFloat 3s ease-in-out infinite;
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+        }
+
+        @keyframes directorGlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes directorPulse {
+            0%, 100% { transform: scaleX(1); }
+            50% { transform: scaleX(1.05); }
+        }
+
+        @keyframes rankFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-3px) scale(1.05); }
         }
 
         @keyframes directorFloat {
             0%, 100% { 
-                transform: translateY(0px) translateZ(0px) rotateY(0deg); 
+                transform: translateY(0px) translateZ(0px) rotateY(0deg) scale(1); 
+                filter: brightness(1) contrast(1);
             }
             25% { 
-                transform: translateY(-8px) translateZ(10px) rotateY(2deg); 
+                transform: translateY(-10px) translateZ(15px) rotateY(3deg) scale(1.02); 
+                filter: brightness(1.05) contrast(1.05);
             }
             50% { 
-                transform: translateY(-12px) translateZ(20px) rotateY(0deg); 
+                transform: translateY(-18px) translateZ(30px) rotateY(0deg) scale(1.05); 
+                filter: brightness(1.1) contrast(1.1);
             }
             75% { 
-                transform: translateY(-8px) translateZ(10px) rotateY(-2deg); 
+                transform: translateY(-10px) translateZ(15px) rotateY(-3deg) scale(1.02); 
+                filter: brightness(1.05) contrast(1.05);
             }
         }
 
@@ -552,6 +995,123 @@ if (session_status() === PHP_SESSION_NONE) {
             box-shadow: var(--shadow-3d-sm);
             transform-style: preserve-3d;
             transform: translateZ(3px);
+        }
+
+        /* Classroom Photo Section - Perfect Design */
+        .classroom-photo-section {
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            animation: photoSectionFloat 6s ease-in-out infinite;
+        }
+
+        .classroom-photo-container {
+            position: relative;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 
+                0 20px 50px rgba(26,26,26,0.2),
+                0 40px 100px rgba(26,26,26,0.15),
+                0 60px 150px rgba(26,26,26,0.1);
+            transform-style: preserve-3d;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .classroom-photo {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 30px;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(1.05) contrast(1.05) saturate(1.1);
+        }
+
+        .classroom-photo-container:hover .classroom-photo {
+            transform: scale(1.02) translateY(-5px);
+            filter: brightness(1.1) contrast(1.1) saturate(1.2);
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(26,26,26,0.9) 0%, transparent 100%);
+            padding: 3rem 2rem 2rem;
+            border-radius: 0 0 30px 30px;
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .classroom-photo-container:hover .photo-overlay {
+            transform: translateY(0);
+        }
+
+        .photo-content {
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            z-index: 2;
+        }
+
+        .photo-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            transform-style: preserve-3d;
+            transform: translateZ(10px);
+        }
+
+        .photo-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
+        }
+
+        .classroom-photo-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="classroom-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="rgba(255,215,0,0.1)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(255,215,0,0.15)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23classroom-pattern)"/></svg>'),
+                radial-gradient(circle at 30% 70%, rgba(255,215,0,0.05) 0%, transparent 50%);
+            background-size: 80px 80px, cover;
+            background-position: 0 0, center;
+            transform: translateX(-100%) translateY(-100%);
+            transition: transform 1.5s ease;
+            pointer-events: none;
+            opacity: 0.6;
+            border-radius: 30px;
+        }
+
+        .classroom-photo-container:hover::before {
+            transform: translateX(100%) translateY(100%);
+            opacity: 0.8;
+        }
+
+        @keyframes photoSectionFloat {
+            0%, 100% { 
+                transform: translateY(0px) translateZ(0px); 
+            }
+            25% { 
+                transform: translateY(-5px) translateZ(10px); 
+            }
+            50% { 
+                transform: translateY(-10px) translateZ(20px); 
+            }
+            75% { 
+                transform: translateY(-5px) translateZ(10px); 
+            }
         }
 
         /* Board Functions - Hospital-Quality */
@@ -776,16 +1336,16 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .principal-avatar {
-            width: 200px;
-            height: 200px;
+            width: 240px;
+            height: 240px;
             border-radius: 20px;
             margin: 0 auto 2.5rem;
             overflow: hidden;
             position: relative;
             box-shadow: 
-                0 0 40px rgba(30, 58, 138, 0.5),
-                0 15px 30px rgba(30, 58, 138, 0.3),
-                inset 0 0 30px rgba(255, 255, 255, 0.2);
+                0 0 50px rgba(30, 58, 138, 0.5),
+                0 20px 40px rgba(30, 58, 138, 0.3),
+                inset 0 0 40px rgba(255, 255, 255, 0.2);
             animation: principalGlow 4s ease-in-out infinite;
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             border: 5px solid transparent;
@@ -895,8 +1455,8 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .chairman-avatar {
-            width: 120px;
-            height: 120px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             overflow: hidden;
             position: relative;
@@ -1032,26 +1592,325 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         }
 
+        /* Mobile Menu Toggle */
+        .mobile-menu-btn {
+            display: none;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .nav-links.mobile-active {
+            display: flex !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            flex-direction: column;
+            padding: 1rem;
+            box-shadow: var(--shadow-lg);
+            border-radius: 0 0 15px 15px;
+            gap: 0.5rem;
+            animation: mobileMenuSlide 0.3s ease;
+        }
+
+        @keyframes mobileMenuSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-lg);
+                border-radius: 0 0 15px 15px;
+                gap: 0.5rem;
+                z-index: 1000;
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .nav-links {
+                gap: 0.2rem;
+            }
+            
+            .nav-link {
+                font-size: 0.65rem;
+                padding: 0.25rem 0.5rem;
+            }
+            
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+            
+            .nav-logo img {
+                width: 50px;
+                height: 50px;
             }
             
             .page-title {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
             }
             
             .directors-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .director-card {
+                padding: 2rem;
+            }
+            
+            .director-avatar {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .director-name {
+                font-size: 1.4rem;
             }
             
             .members-list {
                 grid-template-columns: 1fr;
+            }
+            
+            .board-section {
+                padding: 2rem;
+            }
+            
+            .governors-section {
+                padding: 2rem;
+            }
+            
+            .management-section {
+                padding: 2rem;
+            }
+            
+            .principal-card {
+                padding: 2rem;
+            }
+            
+            .principal-avatar {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .classroom-photo {
+                height: 300px;
+            }
+            
+            .photo-title {
+                font-size: 1.6rem;
+            }
+            
+            .photo-description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 0.5rem;
+            }
+            
+            .nav-links {
+                gap: 0.15rem;
+            }
+            
+            .nav-link {
+                font-size: 0.6rem;
+                padding: 0.2rem 0.4rem;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .director-card {
+                padding: 1.5rem;
+            }
+            
+            .director-avatar {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .board-section,
+            .governors-section,
+            .management-section {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Floating About Button - Perfect Design */
+        .floating-about-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: aboutButtonFloat 4s ease-in-out infinite;
+        }
+
+        .about-btn-content {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--primary-dark));
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 
+                0 10px 30px rgba(26,26,26,0.3),
+                0 20px 60px rgba(26,26,26,0.2),
+                inset 0 0 20px rgba(255,215,0,0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            transform: translateZ(0) rotateX(0deg);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            backdrop-filter: blur(10px);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .about-btn-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+            border-radius: 50px;
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        .about-btn-content::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="about-btn-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.1)"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="rgba(255,215,0,0.2)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23about-btn-pattern)"/></svg>'),
+                radial-gradient(circle at 30% 70%, rgba(255,215,0,0.05) 0%, transparent 50%);
+            background-size: 40px 40px, cover;
+            background-position: 0 0, center;
+            transform: translateX(-100%) translateY(-100%);
+            transition: transform 1.2s ease;
+            pointer-events: none;
+            opacity: 0.6;
+            border-radius: 50px;
+        }
+
+        .about-btn-content:hover {
+            transform: translateY(-8px) translateZ(20px) rotateX(5deg) scale(1.05);
+            box-shadow: 
+                0 20px 50px rgba(26,26,26,0.4),
+                0 40px 80px rgba(26,26,26,0.3),
+                inset 0 0 30px rgba(255,215,0,0.4);
+            background: linear-gradient(135deg, var(--primary-dark), var(--accent-gold));
+            border-color: var(--accent-gold);
+        }
+
+        .about-btn-content:hover::before {
+            transform: translateX(100%);
+        }
+
+        .about-btn-content:hover::after {
+            transform: translateX(100%) translateY(100%);
+            opacity: 0.8;
+        }
+
+        .about-btn-content i {
+            font-size: 1.2rem;
+            animation: aboutIconPulse 2s ease-in-out infinite;
+        }
+
+        .about-btn-content span {
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes aboutButtonFloat {
+            0%, 100% { 
+                transform: translateY(0px) scale(1); 
+            }
+            25% { 
+                transform: translateY(-5px) scale(1.02); 
+            }
+            50% { 
+                transform: translateY(-8px) scale(1.05); 
+            }
+            75% { 
+                transform: translateY(-5px) scale(1.02); 
+            }
+        }
+
+        @keyframes aboutIconPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                color: var(--white);
+            }
+            50% { 
+                transform: scale(1.1); 
+                color: var(--accent-gold);
             }
         }
 
@@ -1191,37 +2050,51 @@ if (session_status() === PHP_SESSION_NONE) {
     </style>
 </head>
 <body>
-    <!-- Luxury Header -->
-    <header class="luxury-header">
-        <div class="header-content">
-            <nav class="header-nav">
-                <div class="logo-section">
-                    <img src="assets/school-logo.png" alt="ISNM Logo" class="logo">
-                    <div>
-                        <h1 style="font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif; font-size: 1.2rem; font-weight: 900;">ISNM</h1>
-                        <p style="font-size: 0.8rem; opacity: 0.9;">Excellence in Healthcare Education</p>
-                    </div>
+    <div class="fixed-header">
+        <div class="brand-banner">
+            <div class="brand-marquee">
+                <span>Iganga School of Nursing & Midwifery</span>
+                <span>Practical Skills Lab | Modern Healthcare Training | Student Success</span>
+                <span>Academic Excellence | Compassionate Care | Career Ready Nurses</span>
+            </div>
+        </div>
+        <!-- Professional Navigation -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <a href="index.php" class="nav-logo">
+                    <img src="assets/school-logo.png" alt="ISNM Logo" style="width: 75px; height: 75px;">
+                    <div class="nav-logo-text">
+                         </div>
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="nav-links" id="navLinks">
+                    <a href="about.php" class="nav-link">About</a>
+                    <a href="governance.php" class="nav-link">Governance</a>
+                    <a href="programs.php" class="nav-link">Programs</a>
+                    <a href="application.php" class="nav-link">Application</a>
+                    <a href="activities.php" class="nav-link">Activities</a>
+                    <a href="infrastructure.php" class="nav-link">Infrastructure</a>
+                    <a href="achievements.php" class="nav-link">Achievements</a>
+                    <a href="history.php" class="nav-link">History</a>
+                    <a href="contact.php" class="nav-link">Contact</a>
+                    <a href="login-portal.php" class="nav-link">Portal</a>
+                    <a href="index.php" class="nav-link home-link">🏠 Go Back</a>
                 </div>
-                <ul class="nav-links">
-                    <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="about.php"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="governance.php"><i class="fas fa-users"></i> Governance</a></li>
-                    <li><a href="programs.php"><i class="fas fa-graduation-cap"></i> Programs</a></li>
-                    <li><a href="admissions.php"><i class="fas fa-user-plus"></i> Admissions</a></li>
-                    <li><a href="activities.php"><i class="fas fa-running"></i> Activities</a></li>
-                    <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
-                    <li><a href="achievements.php"><i class="fas fa-trophy"></i> Achievements</a></li>
-                    <li><a href="history.php"><i class="fas fa-history"></i> History</a></li>
-                    <li><a href="contact.php"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="login-portal.php"><i class="fas fa-sign-in-alt"></i> Portal</a></li>
-                </ul>
-            </nav>
-            <div class="page-title">School Governance</div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Page Title Section -->
+    <div class="page-header-section">
+        <div class="page-header-content">
+            <h1 class="page-title">School Governance</h1>
             <div class="breadcrumb">
                 <p>Home / About / Governance</p>
             </div>
         </div>
-    </header>
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -1244,7 +2117,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="directors-grid">
                     <div class="director-card">
                         <div class="director-avatar" title="Mr. Baliddawa David Byawaka - Chairman Board of Directors">
-                            <img src="assets/founder-and-executive-director-mr-david-baliddawa.jpeg" alt="Mr. Baliddawa David Byawaka - Chairman Board of Directors">
+                            <img src="assets/chairman-board-of-director-mr-baliddawa-david-byawaka.jpg" alt="Mr. Baliddawa David Byawaka - Chairman Board of Directors">
                             <div class="director-rank">1</div>
                         </div>
                         <h4 class="director-name">Mr. Baliddawa David Byawaka</h4>
@@ -1253,20 +2126,6 @@ if (session_status() === PHP_SESSION_NONE) {
                         <div class="director-badges">
                             <span class="director-badge">Founder</span>
                             <span class="director-badge">Chairman</span>
-                        </div>
-                    </div>
-                    
-                    <div class="director-card">
-                        <div class="director-avatar" title="Dr. Banonya Stephen - Member Board of Directors">
-                            <img src="assets/member-board-of-directors-dr-banonya-stephen.jpg" alt="Dr. Banonya Stephen - Member Board of Directors">
-                            <div class="director-rank">2</div>
-                        </div>
-                        <h4 class="director-name">Dr. Banonya Stephen</h4>
-                        <p class="director-title">MEMBER</p>
-                        <p class="director-role">Board of Directors</p>
-                        <div class="director-badges">
-                            <span class="director-badge">Founder</span>
-                            <span class="director-badge">Medical</span>
                         </div>
                     </div>
                     
@@ -1281,6 +2140,35 @@ if (session_status() === PHP_SESSION_NONE) {
                         <div class="director-badges">
                             <span class="director-badge">Founder</span>
                             <span class="director-badge">Admin</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="director-card">
+                        <div class="director-avatar" title="Dr. Banonya Stephen - Member Board of Directors">
+                            <img src="assets/academic-director-stephen.jpg" alt="Dr. Banonya Stephen - Member Board of Directors">
+                            <div class="director-rank">2</div>
+                        </div>
+                        <h4 class="director-name">Dr. Banonya Stephen</h4>
+                        <p class="director-title">MEMBER</p>
+                        <p class="director-role">Board of Directors</p>
+                        <div class="director-badges">
+                            <span class="director-badge">Founder</span>
+                            <span class="director-badge">Medical</span>
+                        </div>
+                    </div>
+                <!-- Classroom Photo Section -->
+                <div class="classroom-photo-section">
+                    <div class="classroom-photo-container">
+                        <img src="assets/classroom-photo-certificates-in-nurses-and-diploma.jpeg" alt="Classroom with Certificates in Nursing and Diploma" class="classroom-photo">
+                        <div class="photo-overlay">
+                            <div class="photo-content">
+                                <h3 class="photo-title">Excellence in Healthcare Education</h3>
+                                <p class="photo-description">
+                                    Our state-of-the-art classrooms and certified programs provide students with hands-on training 
+                                    and internationally recognized qualifications in nursing and midwifery. Every graduate receives 
+                                    comprehensive certificates and diplomas that open doors to global healthcare opportunities.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1430,7 +2318,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="principal-card">
                     <div style="text-align: center; margin-bottom: 2rem; position: relative;">
                         <div class="principal-avatar" title="Sr. Edith Mwebaza - Principal of Iganga School of Nursing and Midwifery">
-                            <img src="assets/principle.jpeg" alt="Sr. Edith Mwebaza - Principal of Iganga School of Nursing and Midwifery">
+                            <img src="assets/current-principal.jpg" alt="Sr. Edith Mwebaza - Principal of Iganga School of Nursing and Midwifery">
                             <div class="principal-rank">PRINCIPAL</div>
                         </div>
                     </div>
@@ -1452,6 +2340,14 @@ if (session_status() === PHP_SESSION_NONE) {
         </section>
     </main>
 
+    <!-- Floating About Button -->
+    <div class="floating-about-btn" id="floatingAboutBtn">
+        <a href="about.php" class="about-btn-content">
+            <i class="fas fa-info-circle"></i>
+            <span>About</span>
+        </a>
+    </div>
+
     <script>
         // Add smooth scroll behavior
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1467,12 +2363,40 @@ if (session_status() === PHP_SESSION_NONE) {
             });
         });
 
-        // Add parallax effect to header
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const header = document.querySelector('.luxury-header');
-            if (header) {
-                header.style.transform = `translateY(${scrolled * 0.5}px)`;
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Add error handling for images
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                console.warn('Image failed to load:', this.src);
+            });
+        });
+
+        // Mobile menu toggle functionality
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('mobile-active');
+            });
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (mobileMenuBtn && navLinks && 
+                !navLinks.contains(event.target) && 
+                !mobileMenuBtn.contains(event.target)) {
+                navLinks.classList.remove('mobile-active');
             }
         });
     </script>

@@ -19,7 +19,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admissions - Iganga School of Nursing and Midwifery</title>
+    <title>Application - Iganga School of Nursing and Midwifery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
     <style>
@@ -50,6 +50,11 @@ if (session_status() === PHP_SESSION_NONE) {
             --cream-white: #fefefe;
             --clean-white: #ffffff;
             --light-green: #10b981;
+            
+            /* Additional missing variables */
+            --pure-white: #FFFFFF;
+            --accent-blue: #3b82f6;
+            --golden-yellow: #fbbf24;
             
             /* Gradients */
             --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
@@ -621,8 +626,47 @@ if (session_status() === PHP_SESSION_NONE) {
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--gradient-primary);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.5rem;
+                border-radius: 0 0 12px 12px;
+                box-shadow: var(--shadow-lg);
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 0.75rem 1rem;
+                border-radius: 8px;
+                text-align: center;
+            }
+            
+            .header-nav {
+                flex-wrap: wrap;
+                position: relative;
+            }
+            
+            .logo-section {
+                flex: 1;
             }
             
             .page-title {
@@ -646,6 +690,31 @@ if (session_status() === PHP_SESSION_NONE) {
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .main-content {
+                padding: 2rem 1rem;
+            }
+            
+            .admission-overview,
+            .application-form-section {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.5rem;
+            }
+            
+            .overview-title,
+            .form-title {
+                font-size: 2rem;
+            }
+            
+            .admission-overview,
+            .application-form-section {
+                padding: 1.5rem 1rem;
             }
         }
 
@@ -964,12 +1033,15 @@ if (session_status() === PHP_SESSION_NONE) {
                         <p style="font-size: 0.8rem; opacity: 0.9;">Excellence in Healthcare Education</p>
                     </div>
                 </div>
-                <ul class="nav-links">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
                     <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="about.php"><i class="fas fa-info-circle"></i> About</a></li>
                     <li><a href="governance.php"><i class="fas fa-users"></i> Governance</a></li>
                     <li><a href="programs.php"><i class="fas fa-graduation-cap"></i> Programs</a></li>
-                    <li><a href="admissions.php" style="background: rgba(255, 255, 255, 0.2);"><i class="fas fa-user-plus"></i> Admissions</a></li>
+                    <li><a href="application.php" style="background: rgba(255, 255, 255, 0.2);"><i class="fas fa-user-plus"></i> Application</a></li>
                     <li><a href="activities.php"><i class="fas fa-running"></i> Activities</a></li>
                     <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
                     <li><a href="achievements.php"><i class="fas fa-trophy"></i> Achievements</a></li>
@@ -978,16 +1050,16 @@ if (session_status() === PHP_SESSION_NONE) {
                     <li><a href="login-portal.php"><i class="fas fa-sign-in-alt"></i> Portal</a></li>
                 </ul>
             </nav>
-            <div class="page-title">Admissions</div>
+            <div class="page-title">Application</div>
             <div class="breadcrumb">
-                <p>Home / Admissions</p>
+                <p>Home / Application</p>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Admission Overview -->
+        <!-- Application Overview -->
         <section class="admission-overview">
             <div class="overview-header">
                 <h2 class="overview-title">Join Our Healthcare Community</h2>
@@ -1012,7 +1084,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="admission-requirements">
                     <h3 class="requirements-title">
                         <i class="fas fa-clipboard-check"></i>
-                        Diploma Admission Requirements
+                        Diploma Application Requirements
                     </h3>
                     <ul class="requirements-list">
                         <li class="requirement-item">
@@ -1091,153 +1163,6 @@ if (session_status() === PHP_SESSION_NONE) {
                         </p>
                     </div>
                 </div>
-
-                <div class="fee-structure">
-                    <h3 class="fee-title">Diploma Midwifery Extension Program Fee Structure</h3>
-                    <div class="fee-table-container">
-                        <table class="fee-table">
-                        <thead>
-                            <tr>
-                                <th>Particular Item</th>
-                                <th>1st Semester (UGX)</th>
-                                <th>2nd Semester (UGX)</th>
-                                <th>3rd Semester (UGX)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Tuition</td>
-                                <td class="fee-amount">670,000</td>
-                                <td class="fee-amount">750,000</td>
-                                <td class="fee-amount">750,000</td>
-                            </tr>
-                            <tr>
-                                <td>Accommodation</td>
-                                <td class="fee-amount">450,000</td>
-                                <td class="fee-amount">450,000</td>
-                                <td class="fee-amount">490,000</td>
-                            </tr>
-                            <tr>
-                                <td>Students welfare/Feeding</td>
-                                <td class="fee-amount">455,000</td>
-                                <td class="fee-amount">455,000</td>
-                                <td class="fee-amount">465,000</td>
-                            </tr>
-                            <tr>
-                                <td>External Examination</td>
-                                <td class="fee-amount">230,000</td>
-                                <td class="fee-amount">230,000</td>
-                                <td class="fee-amount">230,000</td>
-                            </tr>
-                            <tr>
-                                <td>Practicum/field experience</td>
-                                <td class="fee-amount">350,000</td>
-                                <td class="fee-amount">450,000</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>Domiciliary Practice</td>
-                                <td class="fee-amount">50,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>Medical Care</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">20,000</td>
-                            </tr>
-                            <tr>
-                                <td>Research Fees</td>
-                                <td class="fee-amount">150,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>Professional Uniform while in Hospital</td>
-                                <td class="fee-amount">150,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>Uniform while at School</td>
-                                <td class="fee-amount">95,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>Identity Card</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="font-weight: bold; text-align: center; background: #f8f9fa;">STUDENTS' ASSOCIATIONS</td>
-                            </tr>
-                            <tr>
-                                <td>Guild fees</td>
-                                <td class="fee-amount">10,000</td>
-                                <td class="fee-amount">10,000</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>UNSA</td>
-                                <td class="fee-amount">2,000</td>
-                                <td class="fee-amount">2,000</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>NCHE</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>UNASNM</td>
-                                <td class="fee-amount">25,000</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">20,000</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4" style="font-weight: bold; text-align: center; background: #f8f9fa;">PROFESSIONAL REQUIREMENTS</td>
-                            </tr>
-                            <tr>
-                                <td>Midwifery Logbook</td>
-                                <td class="fee-amount">30,000</td>
-                                <td class="fee-amount">15,000</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>Research guideline</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>HTIN Number (TVET)</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>Marking of Logbooks</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr style="font-weight: bold; background: #e9ecef;">
-                                <td>GRAND TOTAL</td>
-                                <td class="fee-amount">2,612,000</td>
-                                <td class="fee-amount">2,475,000</td>
-                                <td class="fee-amount">2,477,000</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    <p style="text-align: center; font-style: italic; margin-top: 1rem; color: #6c757d;">
-                        N.B THE FEES STRUCTURE IS SUBJECT TO CHANGES
-                    </p>
-                </div>
             </div>
 
             <!-- Certificate Program Content -->
@@ -1245,7 +1170,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="admission-requirements">
                     <h3 class="requirements-title">
                         <i class="fas fa-clipboard-check"></i>
-                        Certificate Admission Requirements
+                        Certificate Application Requirements
                     </h3>
                     <ul class="requirements-list">
                         <li class="requirement-item">
@@ -1324,178 +1249,6 @@ if (session_status() === PHP_SESSION_NONE) {
                         </p>
                     </div>
                 </div>
-
-                <div class="fee-structure">
-                    <h3 class="fee-title">Certificate in Nursing Fee Structure</h3>
-                    <div class="fee-table-container">
-                        <table class="fee-table">
-                        <thead>
-                            <tr>
-                                <th>Particular Item</th>
-                                <th>1st Semester (UGX)</th>
-                                <th>2nd Semester (UGX)</th>
-                                <th>3rd Semester (UGX)</th>
-                                <th>4th Semester (UGX)</th>
-                                <th>5th Semester (UGX)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Tuition</td>
-                                <td class="fee-amount">600,000</td>
-                                <td class="fee-amount">650,000</td>
-                                <td class="fee-amount">650,000</td>
-                                <td class="fee-amount">650,000</td>
-                                <td class="fee-amount">650,000</td>
-                            </tr>
-                            <tr>
-                                <td>Accommodation/Boarding</td>
-                                <td class="fee-amount">420,000</td>
-                                <td class="fee-amount">420,000</td>
-                                <td class="fee-amount">420,000</td>
-                                <td class="fee-amount">420,000</td>
-                                <td class="fee-amount">420,000</td>
-                            </tr>
-                            <tr>
-                                <td>Feeding Meals</td>
-                                <td class="fee-amount">450,000</td>
-                                <td class="fee-amount">475,000</td>
-                                <td class="fee-amount">475,000</td>
-                                <td class="fee-amount">475,000</td>
-                                <td class="fee-amount">475,000</td>
-                            </tr>
-                            <tr>
-                                <td>Practicum/Field Experience</td>
-                                <td class="fee-amount">180,000</td>
-                                <td class="fee-amount">255,000</td>
-                                <td class="fee-amount">255,000</td>
-                                <td class="fee-amount">255,000</td>
-                                <td class="fee-amount">185,000</td>
-                            </tr>
-                            <tr>
-                                <td>External Examination</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>ICT/Computer</td>
-                                <td class="fee-amount">80,000</td>
-                                <td class="fee-amount">80,000</td>
-                                <td class="fee-amount">80,000</td>
-                                <td class="fee-amount">80,000</td>
-                                <td class="fee-amount">80,000</td>
-                            </tr>
-                            <tr>
-                                <td>Medical Health Care</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">20,000</td>
-                            </tr>
-                            <tr>
-                                <td>Guild Fee</td>
-                                <td class="fee-amount">10,000</td>
-                                <td class="fee-amount">10,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">10,000</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td colspan="6" style="font-weight: bold; text-align: center; background: #f8f9fa;">OTHER REQUIREMENTS</td>
-                            </tr>
-                            <tr>
-                                <td>Identity Card/Name Tag</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>Uniforms (2) while in Hospital</td>
-                                <td class="fee-amount">130,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>Uniforms while at School</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>Nurses Logbook</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>UNSA</td>
-                                <td class="fee-amount">2,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>HTIN Number (TVET)</td>
-                                <td class="fee-amount">2,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>UNASNM</td>
-                                <td class="fee-amount">25,000</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">20,000</td>
-                                <td class="fee-amount">20,000</td>
-                            </tr>
-                            <tr>
-                                <td>WORKSHOPS (IMCI & IYCF)</td>
-                                <td class="fee-amount">50,000</td>
-                                <td class="fee-amount">35,000</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                            <tr>
-                                <td>Marking of students Logbooks</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                                <td class="fee-amount">-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 10px;">
-                        <h4 style="margin-bottom: 0.5rem; color: #1a202c;">GRAND TOTAL PER SEMESTER</h4>
-                        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-                            <div><strong>1st Semester:</strong> 2,277,000 UGX</div>
-                            <div><strong>2nd Semester:</strong> 2,120,000 UGX</div>
-                            <div><strong>3rd Semester:</strong> 2,130,000 UGX</div>
-                            <div><strong>4th Semester:</strong> 2,120,000 UGX</div>
-                            <div><strong>5th Semester:</strong> 2,245,000 UGX</div>
-                        </div>
-                    </div>
-                    </div>
-                    <p style="text-align: center; font-style: italic; margin-top: 1rem; color: #6c757d;">
-                        NB: THE FEES STRUCTURE IS SUBJECT TO CHANGE
-                    </p>
-                </div>
             </div>
         </section>
 
@@ -1529,7 +1282,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="step-content">
                         <h4 class="step-title">Submit Application</h4>
                         <p class="step-description">
-                            Submit completed application form with required documents and pay admission fee
+                            Submit completed application form with required documents and pay application fee
                         </p>
                     </div>
                 </div>
@@ -1545,9 +1298,9 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="process-step">
                     <div class="step-number">5</div>
                     <div class="step-content">
-                        <h4 class="step-title">Admission Confirmation</h4>
+                        <h4 class="step-title">Application Confirmation</h4>
                         <p class="step-description">
-                            Receive admission letter and complete registration process
+                            Receive application letter and complete registration process
                         </p>
                     </div>
                 </div>
@@ -1562,7 +1315,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     Join thousands of successful healthcare professionals who started their careers at ISNM
                 </p>
                     <a href="contact.php" class="cta-btn cta-btn-secondary">
-                        <i class="fas fa-phone"></i> Contact Admissions Office
+                        <i class="fas fa-phone"></i> Contact Application Office
                     </a>
                 </div>
             </div>
@@ -1573,7 +1326,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <div class="form-header">
                 <h2 class="form-title">Online Application Form</h2>
                 <p class="form-description">
-                    Apply online for admission to Iganga School of Nursing and Midwifery. Fill in all required information carefully.
+                    Apply online for application to Iganga School of Nursing and Midwifery. Fill in all required information carefully.
                 </p>
             </div>
             <form class="application-form" action="submit-application.php" method="POST" enctype="multipart/form-data">
@@ -1651,6 +1404,45 @@ if (session_status() === PHP_SESSION_NONE) {
     </main>
 
     <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (icon) {
+                    icon.classList.toggle('fa-bars');
+                    icon.classList.toggle('fa-times');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        }
+
         function showProgram(programType) {
             // Hide all program contents
             document.querySelectorAll('.program-content').forEach(content => {
@@ -1663,10 +1455,15 @@ if (session_status() === PHP_SESSION_NONE) {
             });
             
             // Show selected program content
-            document.getElementById(programType).classList.add('active');
+            const selectedProgram = document.getElementById(programType);
+            if (selectedProgram) {
+                selectedProgram.classList.add('active');
+            }
             
             // Add active class to clicked tab
-            event.target.classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
         }
 
         // Add smooth scroll behavior
@@ -1683,24 +1480,53 @@ if (session_status() === PHP_SESSION_NONE) {
             });
         });
 
-        // Add parallax effect to header
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const header = document.querySelector('.luxury-header');
-            if (header) {
-                header.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
+        // Add parallax effect to header (disabled on mobile for performance)
+        let isMobile = window.innerWidth <= 768;
+        
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
         });
+        
+        if (!isMobile) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const header = document.querySelector('.luxury-header');
+                if (header) {
+                    header.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            });
+        }
 
         // File upload display
-        document.getElementById('document').addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : '';
-            document.getElementById('document-name').textContent = fileName;
-        });
+        const documentInput = document.getElementById('document');
+        const imageInput = document.getElementById('image');
+        
+        if (documentInput) {
+            documentInput.addEventListener('change', function(e) {
+                const fileName = e.target.files[0] ? e.target.files[0].name : '';
+                const fileNameElement = document.getElementById('document-name');
+                if (fileNameElement) {
+                    fileNameElement.textContent = fileName;
+                }
+            });
+        }
+        
+        if (imageInput) {
+            imageInput.addEventListener('change', function(e) {
+                const fileName = e.target.files[0] ? e.target.files[0].name : '';
+                const fileNameElement = document.getElementById('image-name');
+                if (fileNameElement) {
+                    fileNameElement.textContent = fileName;
+                }
+            });
+        }
 
-        document.getElementById('image').addEventListener('change', function(e) {
-            const fileName = e.target.files[0] ? e.target.files[0].name : '';
-            document.getElementById('image-name').textContent = fileName;
+        // Add error handling for images
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                console.warn('Image failed to load:', this.src);
+            });
         });
     </script>
 </body>
