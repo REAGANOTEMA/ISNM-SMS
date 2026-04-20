@@ -19,12 +19,11 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iganga School of Nursing and Midwifery - Organizational Structure</title>
+    <title>Student Portal - Iganga School of Nursing and Midwifery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Rockwell:wght@400;700;900&display=swap" rel="stylesheet">`n    <link rel="stylesheet" href="assets/modern-theme.css">`n    <link rel="stylesheet" href="assets/modern-theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/modern-theme.css">
+    <link rel="stylesheet" href="assets/css/image-animations.css">
     <style>
         * {
             margin: 0;
@@ -32,99 +31,150 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-                :root {
-            /* Dark and Creamy Yellow Color Palette */
-            --primary-dark: #1a1a1a;
-            --creamy-yellow: #FFF8DC;
+        /* Premium Design System Variables */
+        :root {
+            /* Professional Color Palette */
+            --primary-dark: #0a1628;
+            --secondary-dark: #1e3a5f;
+            --accent-blue: #2563eb;
+            --accent-cyan: #06b6d4;
+            --accent-light-blue: #3b82f6;
+            --accent-dark-blue: #1e40af;
             --accent-gold: #FFD700;
-            --secondary-dark: #2d2d2d;
-            --light-cream: #FAF0E6;
-            --dark-accent: #B8860B;
-            --white: #FFFFFF;
-            --gray-light: #F5F5F5;
-            --gray-medium: #D3D3D3;
-            --gray-dark: #696969;
+            --accent-gold-light: #fbbf24;
+            --medical-blue: #0066cc;
+            --medical-cyan: #00bcd4;
+            --success-green: #22c55e;
+            --error-red: #ef4444;
+            --warning-orange: #f97316;
             
-            /* Gradients */
-            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
-            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
-            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
-            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
+            /* Neutral Colors */
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
             
-            /* Shadows */
-            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
-            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
-            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
-            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
-            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
+            /* Text Colors */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-600);
+            --text-muted: var(--gray-500);
+            --text-inverse: var(--white);
             
-            /* Borders */
-            --border-light: var(--gray-medium);
-            --border-medium: var(--gray-dark);
-            --border-dark: var(--primary-dark);
-        }
-            --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            /* Background Colors */
+            --bg-primary: var(--white);
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
             
-            /* Alignment & Spacing Defaults */
-            --card-padding: 1.5rem;
+            /* Border Colors */
+            --border-light: var(--gray-200);
+            --border-medium: var(--gray-300);
+            --border-dark: var(--gray-400);
+            
+            /* Premium Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-blue) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+            --gradient-gold: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
+            --gradient-success: linear-gradient(135deg, var(--success-green) 0%, #16a34a 100%);
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-blue) 100%);
+            
+            /* Advanced Shadows */
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.3);
+            --shadow-glow-gold: 0 0 30px rgba(255, 215, 0, 0.4);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Professional Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            
+            /* Typography */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+            --text-5xl: 3rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
         }
 
         body {
-            font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: var(--gradient-clean);
-            min-height: 100vh;
-            color: var(--primary-dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: var(--text-base);
             line-height: 1.6;
-            position: relative;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 50%, var(--bg-secondary) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Professional Navigation System */
+        .navbar {
+            position: fixed;
+            top: 40px;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1001;
+            padding: var(--space-4) 0;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-normal);
             transform-style: preserve-3d;
             perspective: 1000px;
         }
 
-        body::before {
+        .navbar::before {
             content: '';
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(26, 26, 26, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(45, 45, 45, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(255, 248, 220, 0.08) 0%, transparent 50%);
-            animation: aurora 20s ease-in-out infinite;
-            pointer-events: none;
-            z-index: -1;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            animation: navbarShine 4s ease-in-out infinite;
         }
 
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="gold-3d-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1.5" fill="rgba(212,175,55,0.1)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(184,134,11,0.05)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23gold-3d-pattern)"/></svg>'),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="gold-3d-grid" width="100" height="100" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="80" height="80" fill="none" stroke="rgba(212,175,55,0.03)" stroke-width="1"/></pattern></defs><rect width="200" height="200" fill="url(%23gold-3d-grid)"/></svg>');
-            background-size: 40px 40px, 120px 120px;
-            animation: medical3DFloat 30s linear infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .organogram-header {
-            background: var(--luxury-white);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-            position: relative;
-            box-shadow: var(--shadow-luxury);
-            border-bottom: 3px solid var(--luxury-gold);
-            overflow: hidden;
-        }
-
-        .organogram-header::before {
+        .navbar::after {
             content: '';
             position: absolute;
             top: 0;
@@ -132,170 +182,626 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="header-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23D4AF37" opacity="0.1"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="%23D4AF37" stroke-width="0.5" fill="none" opacity="0.1"/></pattern></defs><rect width="200" height="200" fill="url(%23header-pattern)"/></svg>'),
-                linear-gradient(135deg, var(--luxury-cream) 0%, var(--luxury-white) 100%);
-            background-size: 80px 80px, cover;
-            background-position: 0 0, center;
-            animation: headerPatternFloat 15s ease-in-out infinite;
+                radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+            opacity: 0.6;
+            pointer-events: none;
         }
 
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
+        .brand-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            border-bottom: 1px solid rgba(220,220,220,0.9);
+            z-index: 1002;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+        }
+
+        .brand-marquee {
+            display: inline-flex;
+            align-items: center;
             gap: 3rem;
+            white-space: nowrap;
+            animation: marquee 18s linear infinite;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--white);
+            font-size: 0.95rem;
+            transform: perspective(1000px) rotateX(0deg);
+            line-height: 1;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0) perspective(1000px) rotateX(2deg); }
+            100% { transform: translateX(-100%) perspective(1000px) rotateX(2deg); }
+        }
+
+        /* Fixed Header Container */
+        .fixed-header {
+            position: relative;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 1);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.1);
+            border-bottom-color: rgba(210,210,210,0.95);
+            transform: translateY(0);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            min-height: auto;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            font-weight: 900;
+            font-size: var(--text-2xl);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+            transform-style: preserve-3d;
+            transition: all var(--transition-normal);
+            position: relative;
+            z-index: 5;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: -1;
+            filter: blur(8px);
+        }
+
+        .nav-logo:hover::before {
+            opacity: 0.15;
+        }
+
+        .nav-logo img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border: 3px solid var(--border-light);
+            border-radius: var(--radius-full);
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-lg);
+            transform-style: preserve-3d;
+            background: var(--bg-primary);
+            position: relative;
+            z-index: 3;
+        }
+
+        .nav-logo:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .nav-logo:hover img {
+            transform: scale(1.05) rotateZ(2deg);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-2);
+            align-items: center;
+            transform-style: preserve-3d;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
+        }
+
+        /* Navigation Dropdown */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid #000000;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all var(--transition-normal);
+            z-index: 1000;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-menu,
+        .nav-dropdown.active .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-dropdown-menu a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-dropdown-menu a:hover {
+            background: #000000;
+            color: #FFFFFF;
+            padding-left: var(--space-6);
+            border-bottom-color: transparent;
+        }
+
+        .nav-dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .nav-link {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000000;
+            font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: relative;
             z-index: 1;
         }
 
-        .logo-section {
-            flex-shrink: 0;
+        .nav-link:hover {
+            color: #FFFFFF;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            border-color: #000000;
+            background: #000000;
         }
 
-        .organogram-logo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 2px solid var(--luxury-gold);
-            box-shadow: var(--shadow-luxury), 0 0 30px rgba(212,175,55,0.2);
-            animation: logoFloat 3s ease-in-out infinite;
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: #000000;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: var(--space-2);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            position: relative;
+            z-index: 10;
         }
 
-        .title-section {
-            text-align: left;
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #FFFFFF;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-normal);
         }
 
-        .organogram-title {
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            font-size: 2rem;
-            font-weight: 900;
-            margin: 0;
+        .mobile-menu-toggle:hover {
+            background: #333333;
+            transform: scale(1.05);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        /* Portal Login Section */
+        .portal-login-section {
+            padding: var(--space-20) 0;
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-8);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-12);
+            position: relative;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
             background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: var(--text-primary);
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: var(--text-sm);
+            text-transform: uppercase;
             letter-spacing: 0.05em;
-            text-transform: uppercase;
+            box-shadow: var(--shadow-glow-gold);
+            margin-bottom: var(--space-4);
+            animation: badgePulse 2s ease-in-out infinite;
         }
 
-        .organogram-subtitle {
-            font-family: 'Bernard MT Condensed', 'Arial Narrow', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin: 0.5rem 0 0 0;
-            color: var(--luxury-gold-deep);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        .organogram-container {
-            background: var(--luxury-cream);
-            min-height: 100vh;
-            padding: 5rem 2rem;
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: var(--text-4xl);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+            position: relative;
+            display: inline-block;
+            transform: translateZ(10px);
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: var(--text-lg);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+            transform: translateZ(5px);
+        }
+
+        /* Login Form Container */
+        .login-form-container {
             display: flex;
             justify-content: center;
-            position: relative;
-            overflow-x: auto;
+            align-items: center;
+            padding: var(--space-8) 0;
         }
 
-        .organogram-container::before {
+        .login-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            transition: all var(--transition-normal);
+        }
+
+        .login-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><pattern id="container-pattern" width="60" height="60" patternUnits="userSpaceOnUse"><circle cx="30" cy="30" r="1.5" fill="%23D4AF37" opacity="0.05"/></pattern></defs><rect width="400" height="400" fill="url(%23container-pattern)"/></svg>'),
-                linear-gradient(135deg, var(--luxury-white) 0%, var(--luxury-cream-alt) 100%);
-            background-size: 120px 120px, cover;
-            background-position: 0 0, center;
-            pointer-events: none;
-            animation: containerPatternFloat 15s ease-in-out infinite;
+            height: 4px;
+            background: var(--gradient-primary);
+            box-shadow: var(--shadow-glow);
         }
 
-        .organogram-wrapper {
-            max-width: 1600px;
-            margin: 0 auto;
+        .login-card:hover {
+            transform: translateY(-8px) translateZ(20px);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .login-header {
+            text-align: center;
+            padding: var(--space-8) var(--space-6) var(--space-6);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            border-bottom: 1px solid var(--border-light);
             position: relative;
-            min-width: 1400px;
         }
 
-        .organogram-chart {
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-4);
+            color: var(--white);
+            font-size: 2rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: iconShine 3s ease-in-out infinite;
+        }
+
+        @keyframes iconShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .login-title {
+            font-family: 'Playfair Display', serif;
+            font-size: var(--text-2xl);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .login-subtitle {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            margin-bottom: 0;
+        }
+
+        /* Login Form Elements */
+        .login-form {
+            padding: var(--space-8) var(--space-6);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-6);
+            position: relative;
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-2);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-label i {
+            color: var(--accent-blue);
+            font-size: var(--text-base);
+            width: 20px;
+            text-align: center;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-4) var(--space-4) var(--space-4) calc(var(--space-4) + 24px);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            font-size: var(--text-base);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: var(--shadow-glow), var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .password-input-container {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: var(--space-3);
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: var(--text-lg);
+            transition: all var(--transition-fast);
+            padding: var(--space-1);
+        }
+
+        .password-toggle:hover {
+            color: var(--accent-blue);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: var(--space-4);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            font-size: var(--text-base);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: var(--shadow-glow), var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .form-actions {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            position: relative;
-            padding: 2rem 0;
+            gap: var(--space-4);
+            margin-top: var(--space-8);
         }
 
-        .org-level {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2.5rem;
+        .login-button {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-lg);
+            padding: var(--space-4) var(--space-6);
+            font-size: var(--text-lg);
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-lg);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .login-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
-            position: relative;
-            margin: 2rem 0;
-            padding: 1rem 0;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left var(--transition-slow);
         }
 
-        .org-level-1 { 
-            justify-content: center; 
-            gap: 2.5rem; 
-            position: relative;
+        .login-button:hover {
+            transform: translateY(-3px) translateZ(10px);
+            box-shadow: var(--shadow-xl), var(--shadow-glow);
+            background: var(--gradient-secondary);
         }
-        
-        .org-level-2 { 
-            justify-content: center; 
-            margin-top: 3rem;
+
+        .login-button:hover::before {
+            left: 100%;
         }
-        
-        .org-level-3 { 
-            justify-content: center; 
-            margin-top: 3rem;
+
+        .login-button:active {
+            transform: translateY(-1px) translateZ(5px);
         }
-        
-        .org-level-4 { 
-            justify-content: center; 
-            gap: 2rem; 
-            margin-top: 3rem;
+
+        .forgot-password {
+            text-align: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: var(--text-sm);
+            transition: all var(--transition-fast);
+            padding: var(--space-2);
+            border-radius: var(--radius-md);
         }
-        
-        .org-level-5 { 
-            justify-content: center; 
-            gap: 1.8rem; 
-            flex-wrap: wrap; 
-            margin-top: 3rem;
-            max-width: 1400px;
+
+        .forgot-password:hover {
+            color: var(--accent-blue);
+            background: var(--bg-secondary);
+            transform: translateX(4px);
         }
-        
-        .org-level-6 { 
-            justify-content: center; 
-            gap: 1.8rem; 
-            flex-wrap: wrap; 
-            margin-top: 3rem;
-            max-width: 1400px;
+
+        .login-footer {
+            padding: var(--space-6) var(--space-8);
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-light);
         }
-        
-        .org-level-7 { 
-            justify-content: center; 
-            gap: 1.5rem; 
-            flex-wrap: wrap; 
-            margin-top: 3rem;
-            max-width: 1400px;
+
+        .login-help {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            margin-bottom: var(--space-4);
+            font-weight: 500;
         }
-        
-        .org-level-8 { 
-            justify-content: center; 
-            gap: 1.5rem; 
-            flex-wrap: wrap; 
-            margin-top: 3rem;
-            max-width: 1200px;
+
+        .login-help i {
+            color: var(--accent-gold);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            margin: 0;
+        }
+
+        .contact-info i {
+            color: var(--accent-blue);
+            width: 16px;
+            text-align: center;
         }
 
         .more-staff-indicator {
@@ -458,68 +964,96 @@ if (session_status() === PHP_SESSION_NONE) {
             height: 100%;
         }
 
-        .org-box.root .org-icon {
-            background: var(--gradient-gold);
-            color: var(--luxury-white);
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 40px;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: var(--space-8);
+                gap: var(--space-4);
+                box-shadow: var(--shadow-xl);
+                transform: translateY(-100%);
+                transition: transform var(--transition-normal);
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                box-shadow: none;
+                border: none;
+                background: transparent;
+                padding-left: var(--space-8);
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .page-header-section {
+                padding: calc(var(--space-20) + 80px) 0 var(--space-12);
+            }
+
+            .page-title {
+                font-size: var(--text-3xl);
+            }
+
+            .section-title {
+                font-size: var(--text-2xl);
+            }
+
+            .login-form-container {
+                padding: var(--space-4) 0;
+            }
+
+            .login-card {
+                max-width: 100%;
+                margin: 0 var(--space-4);
+            }
+
+            .form-input {
+                padding: var(--space-3) var(--space-4) var(--space-3) calc(var(--space-4) + 24px);
+            }
         }
 
-        .org-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--luxury-text);
-            margin-bottom: 0.4rem;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-        }
+        @media (max-width: 480px) {
+            .nav-logo {
+                font-size: var(--text-xl);
+            }
 
-        .org-subtitle {
-            font-size: 0.75rem;
-            color: var(--luxury-text-muted);
-            font-weight: 500;
-        }
+            .nav-logo img {
+                width: 48px;
+                height: 48px;
+            }
 
-        .org-description {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-bottom: 1.2rem;
-            font-weight: 500;
-            line-height: 1.4;
-        }
+            .page-title {
+                font-size: var(--text-2xl);
+            }
 
-        .org-roles {
-            text-align: left;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
+            .section-title {
+                font-size: var(--text-xl);
+            }
 
-        .org-role-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
+            .login-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
 
-        .org-role-item:hover {
-            color: var(--primary-blue);
-            transform: translateX(3px);
-        }
-
-        .org-role-item:last-child {
-            border-bottom: none;
-        }
-
-        .org-role-icon {
-            font-size: 1rem;
-            color: var(--light-green);
-            transition: all 0.3s ease;
-        }
-
-        .org-role-item:hover .org-role-icon {
-            color: var(--golden-yellow);
-            transform: scale(1.2);
+            .form-input {
+                font-size: var(--text-sm);
+            }
         }
 
         .connection-lines {
@@ -726,91 +1260,30 @@ if (session_status() === PHP_SESSION_NONE) {
             animation: legendPatternFloat 8s ease-in-out infinite;
         }
 
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1rem;
-            font-weight: 700;
-            padding: 0.5rem 1rem;
-            background: linear-gradient(145deg, var(--white), var(--cream-white));
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
+        /* Footer Styling */
+        .footer {
+            background: var(--gradient-primary);
+            color: var(--text-inverse);
+            padding: var(--space-16) var(--space-8) var(--space-8);
+            margin-top: var(--space-24);
             position: relative;
-            z-index: 1;
-        }
-
-        .legend-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .legend-color {
-            width: 24px;
-            height: 24px;
-            border-radius: 8px;
-            border: 2px solid;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-        }
-
-        .legend-item:hover .legend-color {
-            transform: scale(1.2);
-            box-shadow: var(--shadow-gold);
-        }
-
-        .legend-color.root { 
-            border-color: var(--golden-yellow); 
-            background: linear-gradient(145deg, var(--creamy-yellow), var(--golden-yellow));
-        }
-        
-        .legend-color.executive { 
-            border-color: var(--primary-blue); 
-            background: linear-gradient(145deg, var(--light-gray), var(--primary-blue));
-        }
-        
-        .legend-color.management { 
-            border-color: var(--light-green); 
-            background: linear-gradient(145deg, var(--soft-gray), var(--light-green));
-        }
-        
-        .legend-color.operational { 
-            border-color: var(--text-muted); 
-            background: linear-gradient(145deg, var(--light-gray), var(--text-muted));
-        }
-
-        .medical-tools-showcase {
-            background: var(--cream-white);
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: var(--shadow-3d);
-            position: relative;
-            overflow: hidden;
             transform-style: preserve-3d;
-            transform: rotateX(2deg);
-            border: 2px solid var(--light-green);
-            transition: all 0.4s ease;
+            box-shadow: var(--shadow-2xl);
+            border-top: 4px solid var(--accent-gold);
         }
 
-        .medical-tools-showcase:hover {
-            transform: rotateX(0deg) translateY(-10px);
-            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.3), 0 16px 32px rgba(0, 0, 0, 0.2);
-        }
-
-        .medical-tools-showcase::before {
+        .footer::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 6px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--light-green), var(--golden-yellow));
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: var(--gradient-gold);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .medical-tools-showcase::after {
+        .footer::after {
             content: '';
             position: absolute;
             top: 0;
@@ -818,189 +1291,113 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="real-stethoscope" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M10 25 Q25 10, 40 25 T70 25" stroke="var(--primary-blue)" stroke-width="2" fill="none" opacity="0.3"/><circle cx="10" cy="25" r="4" fill="var(--primary-blue)" opacity="0.4"/><circle cx="70" cy="25" r="4" fill="var(--primary-blue)" opacity="0.4"/></pattern></defs><rect width="200" height="200" fill="url(%23real-stethoscope)"/></svg>'),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><defs><pattern id="real-syringe" width="30" height="30" patternUnits="userSpaceOnUse"><rect x="5" y="10" width="20" height="4" fill="var(--secondary-blue)" opacity="0.3"/><rect x="22" y="9" width="6" height="6" fill="var(--secondary-blue)" opacity="0.4"/><rect x="4" y="9" width="6" height="6" fill="var(--secondary-blue)" opacity="0.4"/><path d="M26 12 L28 14" stroke="var(--secondary-blue)" stroke-width="1" opacity="0.5"/></pattern></defs><rect width="150" height="150" fill="url(%23real-syringe)"/></svg>'),
-                linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(251,191,36,0.1) 100%);
-            background-size: 100px 100px, 75px 75px, cover;
-            background-position: 0 0, 25px 25px, center;
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="footer-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M10 20 Q20 10, 30 20 T50 20" stroke="white" stroke-width="2" fill="none" opacity="0.15"/><circle cx="10" cy="20" r="4" fill="white" opacity="0.2"/><circle cx="50" cy="20" r="4" fill="white" opacity="0.2"/></pattern></defs><rect width="200" height="200" fill="url(%23footer-pattern)"/></svg>'),
+                linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%, rgba(251,191,36,0.05) 100%);
+            background-size: 80px 80px, cover;
+            background-position: 0 0, center;
             pointer-events: none;
-            animation: medicalToolsFloat 6s ease-in-out infinite;
+            animation: footerPatternFloat 8s ease-in-out infinite;
         }
 
-        .tools-title {
+        @keyframes footerPatternFloat {
+            0%, 100% {
+                transform: translateY(0px);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-3px);
+                opacity: 0.6;
+            }
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
             text-align: center;
-            font-size: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-title {
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+            font-size: var(--text-2xl);
+            font-weight: 900;
+            margin-bottom: var(--space-4);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .footer-subtitle {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-8);
+            opacity: 0.9;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-8);
+        }
+
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: linear-gradient(145deg, #25d366, #128c7e);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: var(--radius-xl);
             font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 2rem;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .tool-item {
-            text-align: center;
-            padding: 2rem;
-            background: linear-gradient(145deg, var(--white), var(--cream-white));
-            border-radius: 20px;
-            box-shadow: var(--shadow-md), var(--shadow-inset);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
+            font-size: var(--text-base);
+            padding: var(--space-4) var(--space-6);
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-lg);
             position: relative;
             overflow: hidden;
             transform-style: preserve-3d;
             transform: translateZ(0);
-            border: 2px solid transparent;
+            border: 2px solid #25d366;
         }
 
-        .tool-item::before {
+        .whatsapp-button::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="tool-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="var(--golden-yellow)" opacity="0.3"/><path d="M5 5 L15 15 M15 5 L5 15" stroke="var(--light-green)" stroke-width="1" opacity="0.4"/></pattern></defs><rect width="100" height="100" fill="url(%23tool-pattern)"/></svg>'),
-                linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
-            background-size: 40px 40px, cover;
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .tool-item:hover {
-            transform: translateY(-15px) scale(1.08) rotateX(5deg);
-            box-shadow: var(--shadow-xl), 0 0 20px rgba(251, 191, 36, 0.3);
-            background: linear-gradient(145deg, var(--light-green), var(--creamy-yellow));
-            border-color: var(--golden-yellow);
-        }
-
-        .tool-item:hover::before {
-            transform: translateX(100%);
-        }
-
-        .tool-item:active {
-            transform: translateY(-5px) scale(1.05) rotateX(2deg);
-            transition: all 0.1s ease;
-        }
-
-        .tool-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: pulse 2s ease-in-out infinite;
-            position: relative;
-        }
-
-        .tool-icon::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 120%;
-            height: 120%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="toolGlow"><stop offset="0%" stop-color="var(--golden-yellow)" stop-opacity="0.4"/><stop offset="100%" stop-color="var(--golden-yellow)" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="40" fill="url(%23toolGlow)"/></svg>');
-            background-size: contain;
-            transform: translate(-50%, -50%);
-            animation: toolIconGlow 3s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        .tool-name {
-            font-weight: 600;
-            color: var(--text-dark);
-            font-size: 0.9rem;
-        }
-
-        .tool-item:hover .tool-icon {
-            animation: rotate 1s ease-in-out;
-        }
-
-        .injection-animation {
-            position: relative;
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
-        }
-
-        .syringe {
+            left: -100%;
             width: 100%;
             height: 100%;
-            position: relative;
-            animation: inject 3s ease-in-out infinite;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left var(--transition-slow);
         }
 
-        .heartbeat-monitor {
-            width: 100%;
-            height: 60px;
-            margin: 0 auto 1rem;
-            position: relative;
-            overflow: hidden;
+        .whatsapp-button:hover {
+            transform: translateY(-6px) translateZ(20px);
+            box-shadow: var(--shadow-xl), 0 0 30px rgba(37, 211, 102, 0.4);
+            background: linear-gradient(145deg, #128c7e, #0e5f54);
+            border-color: #128c7e;
         }
 
-        .heartbeat-line {
-            position: absolute;
-            width: 200%;
-            height: 2px;
-            background: var(--primary-blue);
-            top: 50%;
-            left: -100%;
-            animation: heartbeat 2s linear infinite;
+        .whatsapp-button:hover::before {
+            left: 100%;
         }
 
-        .structure-grid {
-            display: grid;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            position: relative;
+        .whatsapp-button:active {
+            transform: translateY(-3px) translateZ(10px);
         }
+
         
-        .hierarchy-line {
-            position: absolute;
-            left: 50%;
-            width: 2px;
-            background: linear-gradient(180deg, var(--primary-blue), var(--light-green));
-            transform: translateX(-50%);
-            z-index: -1;
-            box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
-        }
         
-        .level-indicator {
-            position: absolute;
-            left: -60px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--gradient-primary);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            box-shadow: var(--shadow-md);
-            animation: pulse 2s ease-in-out infinite;
-            z-index: 10;
-        }
         
-        .root-level {
-            border: 3px solid var(--golden-yellow);
-            background: linear-gradient(145deg, var(--white), var(--creamy-yellow));
-            transform: scale(1.05);
-            box-shadow: var(--shadow-xl), 0 0 30px rgba(251, 191, 36, 0.4);
-        }
         
-        .root-level .section-icon {
-            background: linear-gradient(145deg, var(--golden-yellow), var(--warm-yellow));
-            color: var(--primary-blue);
-            animation: glowPulse 2s ease-in-out infinite;
-        }
         
+        
+        
+        
+        
+                
+                
         .executive-level {
             border: 2px solid var(--primary-blue);
             background: linear-gradient(145deg, var(--white), var(--light-gray));
@@ -1010,11 +1407,6 @@ if (session_status() === PHP_SESSION_NONE) {
         .management-level {
             border: 2px solid var(--light-green);
             background: linear-gradient(145deg, var(--white), var(--soft-gray));
-        }
-        
-        .operational-level {
-            border: 1px solid var(--text-muted);
-            background: linear-gradient(145deg, var(--white), var(--light-gray));
         }
 
         .structure-section {
@@ -1030,383 +1422,6 @@ if (session_status() === PHP_SESSION_NONE) {
             border: 2px solid transparent;
             transform-style: preserve-3d;
             transform: translateZ(0);
-        }
-
-        .structure-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--light-green), var(--golden-yellow));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .structure-section::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150"><defs><pattern id="section-medical" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M5 15 Q15 5, 25 15 T45 15" stroke="var(--primary-blue)" stroke-width="1.5" fill="none" opacity="0.2"/><circle cx="5" cy="15" r="3" fill="var(--light-green)" opacity="0.3"/><circle cx="45" cy="15" r="3" fill="var(--light-green)" opacity="0.3"/></pattern></defs><rect width="150" height="150" fill="url(%23section-medical)"/></svg>'),
-                linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
-            background-size: 60px 60px, cover;
-            background-position: 0 0, center;
-            transform: translateX(-100%);
-            transition: transform 0.8s ease;
-            pointer-events: none;
-        }
-
-        .structure-section:hover {
-            transform: translateY(-12px) scale(1.03) rotateX(3deg);
-            box-shadow: var(--shadow-xl), 0 0 30px rgba(37, 99, 235, 0.2);
-            border-color: var(--light-green);
-            background: linear-gradient(145deg, var(--white), var(--creamy-yellow));
-        }
-
-        .structure-section:hover::before {
-            transform: scaleX(1);
-        }
-
-        .structure-section:hover::after {
-            transform: translateX(100%);
-        }
-
-        .structure-section:active {
-            transform: translateY(-6px) scale(1.01) rotateX(1deg);
-            transition: all 0.1s ease;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            gap: 1rem;
-        }
-
-        .section-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: var(--primary-blue);
-            background: linear-gradient(145deg, var(--creamy-yellow), var(--golden-yellow));
-            box-shadow: var(--shadow-gold), var(--shadow-inset);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-        }
-
-        .section-icon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .section-icon::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            transition: all 0.4s ease;
-            border-radius: 50%;
-        }
-
-        .structure-section:hover .section-icon {
-            transform: scale(1.15) rotateY(10deg) rotateX(5deg);
-            box-shadow: var(--shadow-xl), 0 0 25px rgba(251, 191, 36, 0.4);
-        }
-
-        .structure-section:hover .section-icon::before {
-            left: 100%;
-        }
-
-        .structure-section:hover .section-icon::after {
-            width: 100%;
-            height: 100%;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .section-description {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
-
-        .role-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 0.75rem;
-            margin-top: 0.75rem;
-        }
-
-        .role-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem;
-            background: linear-gradient(145deg, var(--white), var(--cream-white));
-            border-radius: 10px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-            box-shadow: var(--shadow-sm), var(--shadow-inset);
-        }
-
-        .role-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--light-green), transparent);
-            transition: left 0.6s ease;
-            opacity: 0.4;
-        }
-
-        .role-item::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="role-medical" width="20" height="20" patternUnits="userSpaceOnUse"><rect x="8" y="8" width="4" height="4" fill="var(--golden-yellow)" opacity="0.2"/><circle cx="10" cy="10" r="6" stroke="var(--light-green)" stroke-width="1" fill="none" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23role-medical)"/></svg>'),
-                linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
-            background-size: 40px 40px, cover;
-            background-position: 0 0, center;
-            transform: translateX(-100%);
-            transition: transform 0.8s ease;
-            pointer-events: none;
-        }
-
-        .role-item:hover {
-            background: linear-gradient(145deg, var(--light-green), var(--creamy-yellow));
-            color: var(--primary-blue);
-            transform: translateX(12px) scale(1.08) rotateY(5deg);
-            box-shadow: var(--shadow-gold), 0 0 20px rgba(74, 222, 128, 0.3);
-            border-color: var(--golden-yellow);
-        }
-
-        .role-item:hover::before {
-            left: 100%;
-        }
-
-        .role-item:hover::after {
-            transform: translateX(100%);
-        }
-
-        .role-item:active {
-            transform: translateX(6px) scale(1.04) rotateY(2deg);
-            transition: all 0.1s ease;
-        }
-
-        .role-icon {
-            font-size: 1.1rem;
-            opacity: 0.8;
-        }
-
-        .role-name {
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        .arrow-indicator {
-            text-align: center;
-            margin: 0.5rem 0;
-            font-size: 1.5rem;
-            color: var(--primary-blue);
-            animation: bounce 2s infinite;
-        }
-
-        .system-entry-concept {
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-green), var(--creamy-yellow));
-            color: var(--white);
-            border-radius: 24px;
-            padding: 3rem 2rem;
-            margin-top: 3rem;
-            text-align: center;
-            box-shadow: var(--shadow-2xl);
-            animation: fadeIn 1s ease-out 0.5s both;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-
-        .system-entry-concept::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="hearts" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M20 12 C20 8, 16 4, 12 4 C8 4, 4 8, 4 12 C4 16, 8 20, 20 32 C32 20, 36 16, 36 12 C36 8, 32 4, 28 4 C24 4, 20 8, 20 12 Z" fill="white" opacity="0.15"/></pattern></defs><rect width="200" height="200" fill="url(%23hearts)"/></svg>'),
-                linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(251,191,36,0.1) 100%);
-            background-size: 80px 80px, cover;
-            background-position: 0 0, center;
-            animation: systemEntryFloat 12s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        .system-entry-concept::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--golden-yellow), var(--primary-blue), var(--light-green));
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .concept-title {
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 2rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
-            animation: titleGlow 3s ease-in-out infinite;
-        }
-
-        .concept-description {
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            opacity: 0.95;
-            line-height: 1.6;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .auth-gateway {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .auth-button {
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            color: var(--luxury-text);
-            border: 1px solid var(--luxury-gold-light);
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            box-shadow: 
-                var(--shadow-luxury), 
-                inset 0 2px 4px rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            position: relative;
-            transform: translateZ(0);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            animation: authButtonFloat 4s ease-in-out infinite;
-        }
-
-        .auth-button:nth-child(1) { animation-delay: 0s; }
-        .auth-button:nth-child(2) { animation-delay: 0.5s; }
-        .auth-button:nth-child(3) { animation-delay: 1s; }
-        .auth-button:nth-child(4) { animation-delay: 1.5s; }
-
-        .auth-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-            transition: left 0.8s ease;
-        }
-
-        .auth-button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="auth-medical" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M5 10 Q10 5, 15 10 T25 10" stroke="var(--primary-blue)" stroke-width="1.5" fill="none" opacity="0.3"/><circle cx="5" cy="10" r="3" fill="var(--golden-yellow)" opacity="0.4"/><circle cx="25" cy="10" r="3" fill="var(--golden-yellow)" opacity="0.4"/></pattern></defs><rect width="100" height="100" fill="url(%23auth-medical)"/></svg>'),
-                linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
-            background-size: 40px 40px, cover;
-            background-position: 0 0, center;
-            transform: translateX(-100%);
-            transition: transform 1s ease;
-            pointer-events: none;
-        }
-
-        .auth-button:hover {
-            transform: translateY(-12px) scale(1.15) rotateX(-5deg) rotateY(5deg) translateZ(20px);
-            box-shadow: 
-                var(--shadow-2xl), 
-                0 0 60px rgba(251, 191, 36, 0.6),
-                0 0 80px rgba(37, 99, 235, 0.4),
-                inset 0 2px 4px rgba(255, 255, 255, 0.9),
-                inset 0 -2px 4px rgba(0, 0, 0, 0.2);
-            background: linear-gradient(145deg, var(--light-green), var(--creamy-yellow));
-            color: var(--primary-blue);
-            border-color: var(--primary-blue);
-        }
-
-        .auth-button:hover::before {
-            left: 100%;
-        }
-
-        .auth-button:hover::after {
-            transform: translateX(100%);
-        }
-
-        .auth-button:active {
-            transform: translateY(-6px) scale(1.08) rotateX(-2deg) rotateY(2deg) translateZ(10px);
-            transition: all 0.1s ease;
         }
 
         .auth-button-icon {
@@ -1616,84 +1631,6 @@ if (session_status() === PHP_SESSION_NONE) {
             transition: left 0.6s ease;
         }
 
-        .department-card:hover .department-icon {
-            transform: scale(1.1) rotateY(10deg);
-            background: linear-gradient(145deg, var(--golden-yellow), var(--warm-yellow));
-        }
-
-        .department-card:hover .department-icon::before {
-            left: 100%;
-        }
-
-        .department-name {
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .department-role {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .department-access {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-top: 1rem;
-        }
-
-        @keyframes deptPatternFloat {
-            0%, 100% { transform: translateY(0px); opacity: 0.3; }
-            50% { transform: translateY(-5px); opacity: 0.6; }
-        }
-
-        .footer {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 3rem 2rem 2rem;
-            text-align: center;
-            position: relative;
-            margin-top: 4rem;
-            transform-style: preserve-3d;
-            box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.2);
-            border-top: 4px solid var(--golden-yellow);
-        }
-
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--soft-green), var(--accent-blue), var(--golden-yellow));
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .footer::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="footer-medical" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M10 20 Q20 10, 30 20 T50 20" stroke="white" stroke-width="2" fill="none" opacity="0.15"/><circle cx="10" cy="20" r="4" fill="white" opacity="0.2"/><circle cx="50" cy="20" r="4" fill="white" opacity="0.2"/></pattern></defs><rect width="200" height="200" fill="url(%23footer-medical)"/></svg>'),
-                linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%, rgba(251,191,36,0.05) 100%);
-            background-size: 80px 80px, cover;
-            background-position: 0 0, center;
-            pointer-events: none;
-            animation: footerMedicalFloat 8s ease-in-out infinite;
-        }
-
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -1875,275 +1812,16 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         }
 
-        @keyframes logoFloat {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @keyframes medicalGlow {
-            0%, 100% {
-                opacity: 0.3;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.6;
-                transform: scale(1.1);
-            }
-        }
-
-        @keyframes medicalToolsFloat {
-            0%, 100% {
-                transform: translateY(0px);
-                opacity: 0.5;
-            }
-            50% {
-                transform: translateY(-5px);
-                opacity: 0.8;
-            }
-        }
-
-        @keyframes footerMedicalFloat {
-            0%, 100% {
-                transform: translateY(0px);
-                opacity: 0.3;
-            }
-            50% {
-                transform: translateY(-3px);
-                opacity: 0.6;
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes shimmer {
-            0% {
-                background-position: -1000px 0;
-            }
-            100% {
-                background-position: 1000px 0;
-            }
-        }
-
-        @keyframes glowPulse {
-            0%, 100% {
-                box-shadow: 0 0 5px rgba(37, 99, 235, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 20px rgba(37, 99, 235, 0.8), 0 0 30px rgba(37, 99, 235, 0.4);
-            }
-        }
-
-        @keyframes textShimmer {
-            0% {
-                background-position: -200% center;
-            }
-            100% {
-                background-position: 200% center;
-            }
-        }
-
-        @keyframes textGlow3D {
-            0%, 100% {
-                text-shadow: 
-                    0 0 10px rgba(251,191,36,0.8),
-                    0 0 20px rgba(251,191,36,0.6),
-                    0 0 30px rgba(251,191,36,0.4),
-                    2px 2px 4px rgba(0,0,0,0.3);
-            }
-            50% {
-                text-shadow: 
-                    0 0 20px rgba(251,191,36,1),
-                    0 0 30px rgba(251,191,36,0.8),
-                    0 0 40px rgba(251,191,36,0.6),
-                    3px 3px 6px rgba(0,0,0,0.4);
-            }
-        }
-
-        @keyframes headerPatternFloat {
-            0%, 100% {
-                transform: translateY(0px);
-                opacity: 0.5;
-            }
-            50% {
-                transform: translateY(-5px);
-                opacity: 0.8;
-            }
-        }
-
-        @keyframes containerPatternFloat {
-            0%, 100% {
-                transform: translateX(0px);
-                opacity: 0.3;
-            }
-            50% {
-                transform: translateX(10px);
-                opacity: 0.6;
-            }
-        }
-
-        @keyframes legendPatternFloat {
-            0%, 100% {
-                transform: translateY(0px);
-                opacity: 0.4;
-            }
-            50% {
-                transform: translateY(-3px);
-                opacity: 0.7;
-            }
-        }
-
-        @keyframes navLogo3D {
-            0%, 100% {
-                transform: translateY(0) rotateX(0) rotateY(0);
-                text-shadow: 
-                    0 2px 4px rgba(0,0,0,0.3),
-                    0 0 10px rgba(37,99,235,0.4);
-            }
-            50% {
-                transform: translateY(-2px) rotateX(2deg) rotateY(2deg);
-                text-shadow: 
-                    0 4px 8px rgba(0,0,0,0.4),
-                    0 0 20px rgba(37,99,235,0.6);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .institution-title {
-                font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-                font-size: 1.8rem;
-                font-weight: 900;
-                line-height: 1.2;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            
+                        
+                        
+                            padding: 1.5rem;
             }
             
-            .subtitle {
-                font-family: 'Bernard MT Condensed', 'Arial Narrow', sans-serif;
-                font-size: 1.1rem;
-                font-weight: 700;
-                text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-            }
-            
-            .main-container {
-                padding: 2rem 1rem 6rem;
-            }
-            
-            .structure-section {
-                padding: 1.2rem;
-                margin-bottom: 1rem;
-            }
-            
-            .section-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.4rem;
-            }
-            
-            .section-title {
-                font-size: 1.2rem;
-            }
-            
-            .section-description {
-                font-size: 0.85rem;
-            }
-            
-            .role-list {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-            
-            .role-item {
-                padding: 0.6rem;
-                font-size: 0.9rem;
-            }
-            
-            .auth-gateway {
-                grid-template-columns: 1fr;
-                gap: 0.8rem;
-            }
-            
-            .auth-button {
-                padding: 1.2rem 1.8rem;
-                font-size: 1rem;
-            }
-            
-            .contact-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .official-logo {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .hero-section {
-                padding: 3rem 1.5rem;
-            }
-            
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
-            }
-            
-            .tool-item {
-                padding: 1.5rem;
-            }
-            
-            .tool-icon {
-                font-size: 2.2rem;
-            }
-            
-            .nav-container {
-                padding: 0 1rem;
-            }
-            
+                        
             .nav-logo span {
                 font-family: 'Rockwell Extra Bold', 'Rockwell', serif;
                 font-size: 0.9rem;
-                font-weight: 900;
-            }
-            
-            .nav-link {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
-            }
-        }
-
         @media (max-width: 480px) {
             .institution-title {
                 font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
@@ -2237,23 +1915,31 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: var(--gradient-primary);
-            color: white;
+            color: #000000;
             text-decoration: none;
             font-weight: 600;
-            border-radius: 25px;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             transition: all 0.3s ease;
-            box-shadow: var(--shadow-sm);
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000000;
+            font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
         }
 
         .nav-link:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            background: var(--gradient-secondary);
+            color: #FFFFFF;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            border-color: #000000;
+            background: #000000;
         }
 
         /* Mobile Responsiveness */
@@ -2363,86 +2049,9 @@ if (session_status() === PHP_SESSION_NONE) {
                 padding: 0.4rem 0.8rem;
                 font-size: 0.8rem;
             }
-
-            .org-box {
-                min-width: 140px;
-                max-width: 160px;
-                padding: 0.8rem;
-            }
-
-            .org-level {
-                gap: 0.5rem;
-            }
-
-            .org-title {
-                font-size: 0.9rem;
-            }
-
-            .org-subtitle {
-                font-size: 0.8rem;
-            }
-
-            .org-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
-            }
-
-            .organogram-header {
-                padding: 1.5rem 1rem;
-            }
-
-            .organogram-header h1 {
-                font-size: 1.5rem;
-            }
-
-            .organogram-header p {
-                font-size: 0.9rem;
-            }
         }
 
-        @media (max-width: 480px) {
-            .nav-links {
-                display: none;
-            }
-
-            .org-box {
-                min-width: 120px;
-                max-width: 140px;
-                padding: 0.6rem;
-            }
-
-            .org-title {
-                font-size: 0.8rem;
-            }
-
-            .org-subtitle {
-                font-size: 0.7rem;
-            }
-
-            .org-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 0.9rem;
-            }
-
-            .organogram-header {
-                padding: 1rem 0.5rem;
-            }
-
-            .organogram-header h1 {
-                font-size: 1.2rem;
-            }
-
-            .organogram-header p {
-                font-size: 0.8rem;
-            }
-
-            .org-level {
-                gap: 0.3rem;
-            }
-        }
-
+        
         /* Mind-Blowing Medical 3D Animations */
         @keyframes medicalAurora {
             0%, 100% {
@@ -2480,736 +2089,663 @@ if (session_status() === PHP_SESSION_NONE) {
                 transform: translateX(0) translateY(0) rotate(0deg);
             }
         }
+
+        /* Organogram Section Styling */
+        .organogram-section {
+            background: linear-gradient(135deg, var(--cream-white), var(--white));
+            border-radius: 30px;
+            padding: 4rem 2rem;
+            margin: 4rem auto;
+            box-shadow: var(--shadow-xl), 0 0 40px rgba(37, 99, 235, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--light-green);
+        }
+
+        .organogram-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--light-green), var(--golden-yellow));
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .organogram-level {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .org-box {
+            min-width: 180px;
+            max-width: 220px;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, var(--white), var(--cream-white));
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg), var(--shadow-inset);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .org-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--light-green), var(--golden-yellow));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .org-box:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: var(--shadow-xl), 0 0 30px rgba(37, 99, 235, 0.2);
+            border-color: var(--light-green);
+            background: linear-gradient(145deg, var(--white), var(--creamy-yellow));
+        }
+
+        .org-box:hover::before {
+            transform: scaleX(1);
+        }
+
+        .org-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--white);
+            background: linear-gradient(145deg, var(--primary-blue), var(--secondary-blue));
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .org-content {
+            text-align: center;
+        }
+
+        .org-title {
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .org-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .org-roles {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+        }
+
+        .org-role {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: linear-gradient(145deg, var(--cream-white), var(--white));
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .org-role:hover {
+            transform: translateX(5px) scale(1.05);
+            background: linear-gradient(145deg, var(--light-green), var(--creamy-yellow));
+            border-color: var(--light-green);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .org-role i {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .org-role span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .org-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .legend-item span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 768px) {
+            .organogram-section {
+                padding: 2rem 1rem;
+                margin: 2rem 1rem;
+            }
+
+            .organogram-level {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .org-box {
+                min-width: 140px;
+                max-width: 160px;
+                padding: 1rem;
+            }
+
+            .org-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .org-title {
+                font-size: 1.1rem;
+            }
+
+            .org-roles {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .org-legend {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .legend-item {
+                padding: 0.8rem 1rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.php" class="nav-logo">
-                <img src="assets/school-logo.png" alt="ISNM">
-                <span>IGANGA SCHOOL OF NURSING AND MIDWIFERY</span>
-            </a>
-            <!-- Mobile Menu Toggle -->
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <span></span>
-                <span></span>
-            </button>
-            
-            <div class="nav-links" id="navLinks">
-                <a href="#home" class="nav-link">Home</a>
-                
-                <!-- Academics Dropdown -->
-                <div class="nav-dropdown">
-                    <div class="nav-dropdown-toggle">
-                        <a href="#" class="nav-link">Academics</a>
-                    </div>
-                    <div class="nav-dropdown-menu">
-                        <a href="programs.php">Programs</a>
-                        <a href="activities.php#academic-activities">Academic Activities</a>
-                        <a href="activities.php#sports-activities">Sports & Recreation</a>
-                        <a href="activities.php#community-service">Community Service</a>
-                        <a href="activities.php#cultural-activities">Cultural Activities</a>
-                    </div>
-                </div>
-                
-                <!-- About Dropdown -->
-                <div class="nav-dropdown">
-                    <div class="nav-dropdown-toggle">
-                        <a href="#" class="nav-link">About</a>
-                    </div>
-                    <div class="nav-dropdown-menu">
-                        <a href="about.php">Our School</a>
-                        <a href="governance.php">Governance</a>
-                        <a href="history.php">History</a>
-                        <a href="achievements.php">Achievements</a>
-                    </div>
-                </div>
-                
-                <!-- Admissions Dropdown -->
-                <div class="nav-dropdown">
-                    <div class="nav-dropdown-toggle">
-                        <a href="#" class="nav-link">Admissions</a>
-                    </div>
-                    <div class="nav-dropdown-menu">
-                        <a href="application.php">Apply Now</a>
-                        <a href="programs.php#requirements">Requirements</a>
-                        <a href="programs.php#fees">Fee Structure</a>
-                    </div>
-                </div>
-                
-                <!-- Campus Dropdown -->
-                <div class="nav-dropdown">
-                    <div class="nav-dropdown-toggle">
-                        <a href="#" class="nav-link">Campus</a>
-                    </div>
-                    <div class="nav-dropdown-menu">
-                        <a href="infrastructure.php">Infrastructure</a>
-                        <a href="activities.php">Student Life</a>
-                    </div>
-                </div>
-                
-                <a href="contact.php" class="nav-link">Contact</a>
-                <a href="login-portal.php" class="nav-link">Portal</a>
+    <div class="fixed-header">
+        <div class="brand-banner">
+            <div class="brand-marquee">
+                <span>Iganga School of Nursing & Midwifery</span>
+                <span>Practical Skills Lab | Modern Healthcare Training | Student Success</span>
+                <span>Academic Excellence | Compassionate Care | Career Ready Nurses</span>
             </div>
         </div>
-    </nav>
-
-    <header class="organogram-header">
-        <div class="header-content">
-            <div class="logo-section">
-                <img src="assets/school-logo.png" alt="ISNM Official Logo" class="organogram-logo">
+        <!-- Professional Navigation -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <a href="index.php" class="nav-logo">
+                    <img src="assets/school-logo.png" alt="ISNM Logo">
+                </a>
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <div class="nav-links" id="navLinks">
+                    <a href="index.php" class="nav-link">Home</a>
+                    
+                    <!-- Academics Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">Academics</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="programs.php">Programs</a>
+                            <a href="activities.php#academic-activities">Academic Activities</a>
+                            <a href="activities.php#sports-activities">Sports & Recreation</a>
+                            <a href="activities.php#community-service">Community Service</a>
+                            <a href="activities.php#cultural-activities">Cultural Activities</a>
+                        </div>
+                    </div>
+                    
+                    <!-- About Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">About</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="about.php">Our School</a>
+                            <a href="governance.php">Governance</a>
+                            <a href="history.php">History</a>
+                            <a href="achievements.php">Achievements</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Admissions Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">Admissions</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="application.php">Apply Now</a>
+                            <a href="programs.php#requirements">Requirements</a>
+                            <a href="programs.php#fees">Fee Structure</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Campus Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">Campus</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="infrastructure.php">Infrastructure</a>
+                            <a href="activities.php">Student Life</a>
+                        </div>
+                    </div>
+                    
+                    <a href="contact.php" class="nav-link">Contact</a>
+                    <a href="login-portal.php" class="nav-link">Portal</a>
+                </div>
             </div>
-            <div class="title-section">
-                <h1 class="organogram-title">IGANGA SCHOOL OF NURSING AND MIDWIFERY</h1>
-                <p class="organogram-subtitle">ORGANIZATIONAL STRUCTURE & COMMUNICATION CHANNELS</p>
+        </nav>
+    </div>
+
+    <!-- Page Title Section -->
+    <div class="page-header-section">
+        <div class="page-header-content">
+            <h1 class="page-title">Student Portal</h1>
+            <div class="breadcrumb">
+                <p>Home / Student Portal</p>
             </div>
         </div>
-    </header>
+    </div>
 
-    <main class="organogram-container">
-        <div class="organogram-wrapper">
-            <div class="organogram-chart">
-            <!-- Level 1: Directors (4 Individual Directors) -->
-            <div class="org-level org-level-1">
-                <div class="org-box root" onclick="handleSectionClick('director-overall')">
-                    <div class="org-icon">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">Director Overall</h3>
-                        <p class="org-subtitle">Chief Executive Officer</p>
-                                            </div>
-                </div>
-                <div class="org-box root" onclick="handleSectionClick('director-academic')">
-                    <div class="org-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">Director Academic</h3>
-                        <p class="org-subtitle">Academic Affairs</p>
-                                            </div>
-                </div>
-                <div class="org-box root" onclick="handleSectionClick('director-ict-sports')">
-                    <div class="org-icon">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">Director ICT & Sports</h3>
-                        <p class="org-subtitle">Technology & Sports</p>
-                                            </div>
-                </div>
-                <div class="org-box root" onclick="handleSectionClick('director-requirements')">
-                    <div class="org-icon">
-                        <i class="fas fa-clipboard-list"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">Director Requirements & Admission</h3>
-                        <p class="org-subtitle">Admissions & Requirements</p>
-                                            </div>
-                </div>
-            </div>
 
-            <!-- Connection Lines from Directors to Principal -->
-            <div class="connection-lines level-1-to-2">
-                <div class="arrow-line director-to-principal"></div>
-            </div>
-
-            <!-- Level 2: Principal -->
-            <div class="org-level org-level-2">
-                <div class="org-box executive" onclick="handleSectionClick('principal')">
-                    <div class="org-icon">
-                        <i class="fas fa-user-tie"></i>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Portal Login Section -->
+        <section class="portal-login-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="section-badge">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Student Portal Access</span>
                     </div>
-                    <h3 class="org-title">PRINCIPAL</h3>
-                    <p class="org-description">School Administration</p>
-                    <div class="communication-flow">SCHOOL LEADERSHIP</div>
+                    <h2 class="section-title">Welcome to Student Portal</h2>
+                    <p class="section-subtitle">Access your academic records, grades, and campus resources</p>
                 </div>
-            </div>
-
-            <!-- Connection Lines from Principal to Deputy Principal -->
-            <div class="connection-lines level-2-to-3">
-                <div class="arrow-line principal-to-deputy"></div>
-            </div>
-
-            <!-- Level 3: Deputy Principal -->
-            <div class="org-level org-level-3">
-                <div class="org-box executive" onclick="handleSectionClick('deputy-principal')">
-                    <div class="org-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">DEPUTY PRINCIPAL</h3>
-                        <p class="org-subtitle">Academic Administration</p>
-                                            </div>
-                </div>
-            </div>
-
-            <!-- Connection Lines from Deputy Principal to Administrative Staff -->
-            <div class="connection-lines level-3-to-4">
-                <div class="arrow-line deputy-to-hr"></div>
-                <div class="arrow-line deputy-to-academic"></div>
-                <div class="arrow-line deputy-to-bursar"></div>
-                <div class="arrow-line deputy-to-secretary"></div>
-            </div>
-
-            <!-- Level 4: Key Administrative Staff (Individual Boxes) -->
-            <div class="org-level org-level-4">
-                <div class="org-box management" onclick="handleSectionClick('hr-manager')">
-                    <div class="org-icon">
-                        <i class="fas fa-users-cog"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">HR Manager</h3>
-                        <p class="org-subtitle">Human Resources</p>
-                                            </div>
-                </div>
-                <div class="org-box management" onclick="handleSectionClick('academic-registrar')">
-                    <div class="org-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">Academic Registrar</h3>
-                        <p class="org-subtitle">Academic Records</p>
-                                            </div>
-                </div>
-                <div class="org-box management" onclick="handleSectionClick('school-bursar')">
-                    <div class="org-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">School Bursar</h3>
-                        <p class="org-subtitle">Financial Management</p>
-                                            </div>
-                </div>
-                <div class="org-box management" onclick="handleSectionClick('secretary')">
-                    <div class="org-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">Secretary</h3>
-                        <p class="org-subtitle">Administrative Support</p>
-                                            </div>
-                </div>
-            </div>
-
-            <!-- Connection Lines to Level 5 -->
-            <div class="connection-lines">
-                <div class="vertical-line" style="top: 560px; height: 40px;"></div>
-                <div class="horizontal-line" style="top: 600px; left: 100px; width: 1200px;"></div>
-                <div class="vertical-line" style="top: 600px; left: 100px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 600px; left: 300px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 600px; left: 500px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 600px; left: 700px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 600px; left: 900px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 600px; left: 1100px; height: 40px;"></div>
-            </div>
-
-            <!-- Level 5: Department Heads & Key Staff (Individual Boxes) -->
-            <div class="org-level org-level-5">
-                <!-- Medical Department -->
-                <div class="org-box operational" onclick="handleSectionClick('sick-bay')">
-                    <div class="org-icon">
-                        <i class="fas fa-hospital"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">SICK BAY</h3>
-                        <p class="org-subtitle">Medical Services</p>
-                                            </div>
-                </div>
-
-                <!-- ICT Department -->
-                <div class="org-box operational" onclick="handleSectionClick('ict-director')">
-                    <div class="org-icon">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">ICT DIRECTOR</h3>
-                        <p class="org-subtitle">Technology Management</p>
-                                            </div>
-                </div>
-                
-                <!-- Computer Lab Attendants -->
-                <div class="org-box operational" onclick="handleSectionClick('computer-lab-1')">
-                    <div class="org-icon">
-                        <i class="fas fa-desktop"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">LAB ATTENDANT 1</h3>
-                        <p class="org-subtitle">Computer Lab</p>
-                                            </div>
-                </div>
-                
-                <div class="org-box operational" onclick="handleSectionClick('computer-lab-2')">
-                    <div class="org-icon">
-                        <i class="fas fa-desktop"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">LAB ATTENDANT 2</h3>
-                        <p class="org-subtitle">Computer Lab</p>
-                                            </div>
-                </div>
-
-                <!-- Library -->
-                <div class="org-box operational" onclick="handleSectionClick('librarian')">
-                    <div class="org-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">LIBRARIAN</h3>
-                        <p class="org-subtitle">Library Services</p>
-                                            </div>
-                </div>
-
-                <!-- Skills Lab Attendants -->
-                <div class="org-box operational" onclick="handleSectionClick('skills-lab-1')">
-                    <div class="org-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">SKILLS LAB 1</h3>
-                        <p class="org-subtitle">Nursing Skills</p>
-                                            </div>
-                </div>
-                
-                <div class="org-box operational" onclick="handleSectionClick('skills-lab-2')">
-                    <div class="org-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">SKILLS LAB 2</h3>
-                        <p class="org-subtitle">Midwifery Skills</p>
-                                            </div>
-                </div>
-            </div>
-
-            <!-- Connection Lines to Level 6 -->
-            <div class="connection-lines">
-                <div class="vertical-line" style="top: 720px; height: 40px;"></div>
-                <div class="horizontal-line" style="top: 760px; left: 100px; width: 1200px;"></div>
-                <div class="vertical-line" style="top: 760px; left: 100px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 760px; left: 300px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 760px; left: 500px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 760px; left: 700px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 760px; left: 900px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 760px; left: 1100px; height: 40px;"></div>
-            </div>
-
-            <!-- Level 6: Student Services & Support Staff (Individual Boxes) -->
-            <div class="org-level org-level-6">
-                <!-- Matrons (3 Individual) -->
-                <div class="org-box operational" onclick="handleSectionClick('matron-1')">
-                    <div class="org-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">MATRON 1</h3>
-                        <p class="org-subtitle">Girls Hostel A</p>
-                                            </div>
-                </div>
-                
-                <div class="org-box operational" onclick="handleSectionClick('matron-2')">
-                    <div class="org-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">MATRON 2</h3>
-                        <p class="org-subtitle">Girls Hostel B</p>
-                                            </div>
-                </div>
-                
-                <div class="org-box operational" onclick="handleSectionClick('matron-3')">
-                    <div class="org-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">MATRON 3</h3>
-                        <p class="org-subtitle">Girls Hostel C</p>
-                                            </div>
-                </div>
-
-                <!-- Warden/Area Manager -->
-                <div class="org-box operational" onclick="handleSectionClick('warden')">
-                    <div class="org-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">WARDEN</h3>
-                        <p class="org-subtitle">Boys Affairs & Area Manager</p>
-                                            </div>
-                </div>
-
-                <!-- Academic Heads (2 Individual) -->
-                <div class="org-box operational" onclick="handleSectionClick('head-nursing')">
-                    <div class="org-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">HEAD NURSING</h3>
-                        <p class="org-subtitle">Nursing Department</p>
-                                            </div>
-                </div>
-                
-                <div class="org-box operational" onclick="handleSectionClick('head-midwifery')">
-                    <div class="org-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">HEAD MIDWIFERY</h3>
-                        <p class="org-subtitle">Midwifery Department</p>
-                                            </div>
-                </div>
-            </div>
-
-            <!-- Connection Lines to Level 7 (Teaching Staff) -->
-            <div class="connection-lines">
-                <div class="vertical-line" style="top: 880px; height: 40px;"></div>
-                <div class="horizontal-line" style="top: 920px; left: 50px; width: 1300px;"></div>
-                <div class="vertical-line" style="top: 920px; left: 50px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 920px; left: 250px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 920px; left: 450px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 920px; left: 650px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 920px; left: 850px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 920px; left: 1050px; height: 40px;"></div>
-                <div class="vertical-line" style="top: 920px; left: 1250px; height: 40px;"></div>
-            </div>
-
-            <!-- Level 7: Teaching Staff, Clinical Instructors, and Tutors (Individual Boxes) -->
-            <div class="org-level org-level-7">
-                <!-- Teaching Staff (Sample - 17 total) -->
-                <div class="org-box operational" onclick="handleSectionClick('teaching-staff-1')">
-                    <div class="org-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">TEACHER 1</h3>
-                        <p class="org-subtitle">Teaching Staff</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> teacher1@isnm.ac.ug
+                <!-- Login Form -->
+                <div class="login-form-container">
+                    <div class="login-card">
+                        <div class="login-header">
+                            <div class="login-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <h3 class="login-title">Student Login</h3>
+                            <p class="login-subtitle">Enter your credentials to access the portal</p>
+                        </div>
+                        
+                        <form class="login-form" method="POST" action="login-process.php">
+                            <div class="form-group">
+                                <label for="student-id" class="form-label">
+                                    <i class="fas fa-id-card"></i>
+                                    Student ID / Registration Number
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="student-id" 
+                                    name="student_id" 
+                                    class="form-input" 
+                                    placeholder="Enter your Student ID" 
+                                    required
+                                    autocomplete="username"
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="password" class="form-label">
+                                    <i class="fas fa-lock"></i>
+                                    Password
+                                </label>
+                                <div class="password-input-container">
+                                    <input 
+                                        type="password" 
+                                        id="password" 
+                                        name="password" 
+                                        class="form-input" 
+                                        placeholder="Enter your password" 
+                                        required
+                                        autocomplete="current-password"
+                                    >
+                                    <button type="button" class="password-toggle" id="passwordToggle">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="user-type" class="form-label">
+                                    <i class="fas fa-user-tag"></i>
+                                    User Type
+                                </label>
+                                <select id="user-type" name="user_type" class="form-select" required>
+                                    <option value="">Select User Type</option>
+                                    <option value="student">Student</option>
+                                    <option value="lecturer">Lecturer</option>
+                                    <option value="admin">Administrator</option>
+                                    <option value="support">Support Staff</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="login-button">
+                                    <i class="fas fa-sign-in-alt"></i>
+                                    Sign In
+                                </button>
+                                <a href="forgot-password.php" class="forgot-password">
+                                    <i class="fas fa-question-circle"></i>
+                                    Forgot Password?
+                                </a>
+                            </div>
+                        </form>
+                        
+                        <div class="login-footer">
+                            <p class="login-help">
+                                <i class="fas fa-info-circle"></i>
+                                For login assistance, contact the IT Department
+                            </p>
+                            <div class="contact-info">
+                                <p><i class="fas fa-phone"></i> +256 772 514 889</p>
+                                <p><i class="fas fa-envelope"></i> support@isnm.ac.ug</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="org-box operational" onclick="handleSectionClick('teaching-staff-2')">
-                    <div class="org-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">TEACHER 2</h3>
-                        <p class="org-subtitle">Teaching Staff</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> teacher2@isnm.ac.ug
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Clinical Instructors - Nursing (3) -->
-                <div class="org-box operational" onclick="handleSectionClick('clinical-nursing-1')">
-                    <div class="org-icon">
-                        <i class="fas fa-stethoscope"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">CLINICAL N1</h3>
-                        <p class="org-subtitle">Nursing Clinical</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> clinicaln1@isnm.ac.ug
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="org-box operational" onclick="handleSectionClick('clinical-nursing-2')">
-                    <div class="org-icon">
-                        <i class="fas fa-stethoscope"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">CLINICAL N2</h3>
-                        <p class="org-subtitle">Nursing Clinical</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> clinicaln2@isnm.ac.ug
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="org-box operational" onclick="handleSectionClick('clinical-nursing-3')">
-                    <div class="org-icon">
-                        <i class="fas fa-stethoscope"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">CLINICAL N3</h3>
-                        <p class="org-subtitle">Nursing Clinical</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> clinicaln3@isnm.ac.ug
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Clinical Instructors - Midwifery (3) -->
-                <div class="org-box operational" onclick="handleSectionClick('clinical-midwifery-1')">
-                    <div class="org-icon">
-                        <i class="fas fa-baby"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">CLINICAL M1</h3>
-                        <p class="org-subtitle">Midwifery Clinical</p>
-                        <div class="org-contact">
-                            <i class="fas fa-envelope"></i> clinicalm1@isnm.ac.ug
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Tutors (Sample - 9 total) -->
-                <div class="org-box operational" onclick="handleSectionClick('tutor-1')">
-                    <div class="org-icon">
-                        <i class="fas fa-user-graduate"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">TUTOR 1</h3>
-                        <p class="org-subtitle">Academic Tutor</p>
-                                            </div>
-                </div>
             </div>
+        </section>
 
-            <!-- Additional Teaching Staff Indicator -->
-            <div class="more-staff-indicator">
-                <p><i class="fas fa-ellipsis-h"></i> Additional Staff: 15 more Teachers, 2 more Clinical Midwifery, 8 more Tutors <i class="fas fa-ellipsis-h"></i></p>
-            </div>
+    </main>
 
-            <!-- Support Departments (Individual Boxes) -->
-            <div class="org-level org-level-8">
-                <div class="org-box operational" onclick="handleSectionClick('drivers')">
-                    <div class="org-icon">
-                        <i class="fas fa-bus"></i>
+
+
+    </main>
+        
+        <!-- Organogram Section -->
+        <section class="organogram-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="section-badge">
+                        <i class="fas fa-sitemap"></i>
+                        <span>Institutional Structure</span>
                     </div>
-                    <div class="org-content">
-                        <h3 class="org-title">DRIVERS</h3>
-                        <p class="org-subtitle">Transportation</p>
-                                            </div>
+                    <h2 class="section-title">ISNM Organizational Structure</h2>
+                    <p class="section-subtitle">Complete hierarchy of staff and student roles with dashboard access</p>
                 </div>
                 
-                <div class="org-box operational" onclick="handleSectionClick('cooks')">
-                    <div class="org-icon">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">COOKS</h3>
-                        <p class="org-subtitle">Kitchen Services</p>
-                                            </div>
-                </div>
-                
-                <div class="org-box operational" onclick="handleSectionClick('cleaners')">
-                    <div class="org-icon">
-                        <i class="fas fa-broom"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">CLEANERS</h3>
-                        <p class="org-subtitle">Cleaning Services</p>
-                                            </div>
-                </div>
-                
-                <div class="org-box operational" onclick="handleSectionClick('security')">
-                    <div class="org-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">SECURITY</h3>
-                        <p class="org-subtitle">Campus Security</p>
-                                            </div>
-                </div>
-                
-                <div class="org-box operational" onclick="handleSectionClick('tailors')">
-                    <div class="org-icon">
-                        <i class="fas fa-cut"></i>
-                    </div>
-                    <div class="org-content">
-                        <h3 class="org-title">TAILORS</h3>
-                        <p class="org-subtitle">Uniform Services</p>
-                                            </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Organogram Legend -->
-        <div class="org-legend">
-            <div class="legend-item">
-                <div class="legend-color root"></div>
-                <span>Root Level (Director)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color executive"></div>
-                <span>Executive Level</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color management"></div>
-                <span>Management Level</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color operational"></div>
-                <span>Operational Level</span>
-            </div>
-        </div>
-
-        <!-- System Entry Concept -->
-        <section class="system-entry-concept">
-            <h2 class="concept-title">
-                <i class="fas fa-sign-in-alt"></i> SYSTEM ENTRY CONCEPT
-            </h2>
-            <p class="concept-description">
-                This structure represents the ROOT ENTRY VIEW of the system. Users will first see this organizational hierarchy landing page. 
-                Clicking any section will lead to authentication (login). After login, users will be routed based on role.
-            </p>
-            <div class="auth-gateway">
-                <a href="login.php?role=admin" class="auth-button">
-                    <div class="auth-button-icon">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <div class="auth-button-text">ADMIN</div>
-                    <div class="auth-button-subtext">System Administrator</div>
-                </a>
-                <a href="login.php?role=lecturer" class="auth-button">
-                    <div class="auth-button-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <div class="auth-button-text">LECTURER</div>
-                    <div class="auth-button-subtext">Teaching Staff</div>
-                </a>
-                <a href="login.php?role=student" class="auth-button">
-                    <div class="auth-button-icon">
-                        <i class="fas fa-user-graduate"></i>
-                    </div>
-                    <div class="auth-button-text">STUDENT</div>
-                    <div class="auth-button-subtext">Nursing & Midwifery</div>
-                </a>
-                <a href="login.php?role=support" class="auth-button">
-                    <div class="auth-button-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="auth-button-text">SUPPORT</div>
-                    <div class="auth-button-subtext">Support Staff</div>
-                </a>
-            </div>
-
-            <!-- Department Portals Section -->
-            <section class="department-portals">
-                <h2 class="department-title">
-                    <i class="fas fa-building"></i> DEPARTMENT PORTALS
-                </h2>
-                <p class="department-subtitle">
-                    Access specific department portals and management systems
-                </p>
-                <div class="department-grid">
-                    <!-- Administrative Portals -->
-                    <a href="dashboard-director.php" class="department-card">
-                        <div class="department-icon">
+                <!-- Top Management Level -->
+                <div class="organogram-level">
+                    <div class="org-box executive-level" onclick="handleOrgClick('director')">
+                        <div class="org-icon">
                             <i class="fas fa-crown"></i>
                         </div>
-                        <h3 class="department-name">Director Portal</h3>
-                        <p class="department-role">Executive Management</p>
-                        <span class="department-access">Admin Access</span>
-                    </a>
-
-                    <a href="dashboard-principal.php" class="department-card">
-                        <div class="department-icon">
-                            <i class="fas fa-user-tie"></i>
+                        <div class="org-content">
+                            <h3 class="org-title">Director</h3>
+                            <p class="org-subtitle">Overall Management</p>
+                            <div class="org-roles">
+                                <div class="org-role">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>Director General</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>Director Academics</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>Director ICT</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="department-name">Principal Portal</h3>
-                        <p class="department-role">School Administration</p>
-                        <span class="department-access">Admin Access</span>
-                    </a>
-
-                    <a href="dashboard-hr-manager.php" class="department-card">
-                        <div class="department-icon">
-                            <i class="fas fa-users-cog"></i>
-                        </div>
-                        <h3 class="department-name">HR Portal</h3>
-                        <p class="department-role">Human Resources</p>
-                        <span class="department-access">Admin Access</span>
-                    </a>
-
-                    <!-- Academic Portals -->
-                    <a href="dashboard-academic.php" class="department-card">
-                        <div class="department-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h3 class="department-name">Academic Portal</h3>
-                        <p class="department-role">Academic Management</p>
-                        <span class="department-access">Lecturer Access</span>
-                    </a>
-
-                    <a href="dashboard-nursing.php" class="department-card">
-                        <div class="department-icon">
-                            <i class="fas fa-stethoscope"></i>
-                        </div>
-                        <h3 class="department-name">Nursing Dept</h3>
-                        <p class="department-role">Nursing Department</p>
-                        <span class="department-access">Lecturer Access</span>
-                    </a>
-
-                    <a href="dashboard-midwifery.php" class="department-card">
-                        <div class="department-icon">
-                            <i class="fas fa-baby"></i>
-                        </div>
-                        <h3 class="department-name">Midwifery Dept</h3>
-                        <p class="department-role">Midwifery Department</p>
-                        <span class="department-access">Lecturer Access</span>
-                    </a>
-
-                    <!-- Student Services Portals -->
-                    <a href="dashboard-student.php" class="department-card">
-                        <div class="department-icon">
+                    </div>
+                </div>
+                
+                <!-- Principal Level -->
+                <div class="organogram-level">
+                    <div class="org-box executive-level" onclick="handleOrgClick('principal')">
+                        <div class="org-icon">
                             <i class="fas fa-user-graduate"></i>
                         </div>
-                        <h3 class="department-name">Student Portal</h3>
-                        <p class="department-role">Student Services</p>
-                        <span class="department-access">Student Access</span>
-                    </a>
-
-                    <a href="dashboard-library.php" class="department-card">
-                        <div class="department-icon">
-                            <i class="fas fa-book"></i>
+                        <div class="org-content">
+                            <h3 class="org-title">Principal</h3>
+                            <p class="org-subtitle">Chief Executive</p>
+                            <div class="org-roles">
+                                <div class="org-role">
+                                    <i class="fas fa-user-graduate"></i>
+                                    <span>Principal</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-graduate"></i>
+                                    <span>Deputy Principal</span>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="department-name">Library Portal</h3>
-                        <p class="department-role">Library Services</p>
-                        <span class="department-access">Support Access</span>
-                    </a>
-
-                    <!-- Support Services Portals -->
-                    <a href="dashboard-ict.php" class="department-card">
-                        <div class="department-icon">
-                            <i class="fas fa-laptop"></i>
-                        </div>
-                        <h3 class="department-name">ICT Portal</h3>
-                        <p class="department-role">IT Services</p>
-                        <span class="department-access">Support Access</span>
-                    </a>
-
-                    <a href="dashboard-finance.php" class="department-card">
-                        <div class="department-icon">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <h3 class="department-name">Finance Portal</h3>
-                        <p class="department-role">Financial Services</p>
-                        <span class="department-access">Admin Access</span>
-                    </a>
-
-                    <a href="dashboard-hostel.php" class="department-card">
-                        <div class="department-icon">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <h3 class="department-name">Hostel Portal</h3>
-                        <p class="department-role">Student Housing</p>
-                        <span class="department-access">Support Access</span>
-                    </a>
-
-                    <a href="dashboard-clinical.php" class="department-card">
-                        <div class="department-icon">
-                            <i class="fas fa-hospital"></i>
-                        </div>
-                        <h3 class="department-name">Clinical Portal</h3>
-                        <p class="department-role">Clinical Training</p>
-                        <span class="department-access">Lecturer Access</span>
-                    </a>
+                    </div>
                 </div>
-            </section>
+                
+                <!-- Administrative Staff -->
+                <div class="organogram-level">
+                    <div class="org-box management-level" onclick="handleOrgClick('admin')">
+                        <div class="org-icon">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <div class="org-content">
+                            <h3 class="org-title">Administrative Staff</h3>
+                            <p class="org-subtitle">Management & Support</p>
+                            <div class="org-roles">
+                                <div class="org-role">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>Academic Registrar</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>School Bursar</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>HR Manager</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>Secretary</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>Librarian</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Academic Staff -->
+                <div class="organogram-level">
+                    <div class="org-box management-level" onclick="handleOrgClick('lecturer')">
+                        <div class="org-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="org-content">
+                            <h3 class="org-title">Academic Staff</h3>
+                            <p class="org-subtitle">Teaching & Clinical</p>
+                            <div class="org-roles">
+                                <div class="org-role">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <span>Head Nursing</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <span>Head Midwifery</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <span>Senior Lecturers</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <span>Lecturers</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <span>Clinical Instructors</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-chalkboard-teacher"></i>
+                                    <span>Tutors</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Support Staff -->
+                <div class="organogram-level">
+                    <div class="org-box operational-level" onclick="handleOrgClick('support')">
+                        <div class="org-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <div class="org-content">
+                            <h3 class="org-title">Support Staff</h3>
+                            <p class="org-subtitle">Student Services</p>
+                            <div class="org-roles">
+                                <div class="org-role">
+                                    <i class="fas fa-user-nurse"></i>
+                                    <span>Matron 1</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-nurse"></i>
+                                    <span>Matron 2</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-nurse"></i>
+                                    <span>Matron 3</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-shield"></i>
+                                    <span>Warden</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-tools"></i>
+                                    <span>Lab Technicians</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-tools"></i>
+                                    <span>Drivers</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-tools"></i>
+                                    <span>Cooks</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-broom"></i>
+                                    <span>Cleaners</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>Tailors</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-shield"></i>
+                                    <span>Security</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Student Body -->
+                <div class="organogram-level">
+                    <div class="org-box operational-level" onclick="handleOrgClick('student')">
+                        <div class="org-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="org-content">
+                            <h3 class="org-title">Student Body</h3>
+                            <p class="org-subtitle">Student Leadership</p>
+                            <div class="org-roles">
+                                <div class="org-role">
+                                    <i class="fas fa-user-graduate"></i>
+                                    <span>Guild President</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-graduate"></i>
+                                    <span>Guild Vice President</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-graduate"></i>
+                                    <span>Class Representatives</span>
+                                </div>
+                                <div class="org-role">
+                                    <i class="fas fa-user-graduate"></i>
+                                    <span>Club Leaders</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Legend -->
+                <div class="org-legend">
+                    <div class="legend-item">
+                        <div class="legend-color executive-level"></div>
+                        <span>Executive Level - Director Dashboard</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color management-level"></div>
+                        <span>Management Level - Admin Dashboard</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color operational-level"></div>
+                        <span>Operational Level - Support Dashboard</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color operational-level"></div>
+                        <span>Student Level - Student Dashboard</span>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -3298,192 +2834,105 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         });
 
-        <?php
-        // Add any dynamic PHP variables if needed
-        $base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-        $base_url .= "://".$_SERVER['HTTP_HOST'];
-        ?>
+        // Password toggle functionality
+        const passwordToggle = document.getElementById('passwordToggle');
+        const passwordInput = document.getElementById('password');
         
-        function handleSectionClick(section) {
-            // Define department to role mapping for individual positions
-            const departmentRoles = {
-                // Directors (ROOT Level)
-                'director-overall': 'admin',
-                'director-academic': 'admin',
-                'director-ict': 'admin',
-                'director-admission': 'admin',
+        if (passwordToggle && passwordInput) {
+            passwordToggle.addEventListener('click', () => {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                passwordToggle.classList.toggle('active');
                 
-                // Top Management
-                'principal': 'admin',
-                'deputy-principal': 'admin',
-                
-                // Key Administrative Staff
-                'hr-manager': 'admin',
-                'academic-registrar': 'lecturer',
-                'school-bursar': 'admin',
-                'secretary': 'admin',
-                
-                // Department Heads & Key Staff
-                'sick-bay': 'lecturer',
-                'ict-director': 'admin',
-                'computer-lab-1': 'support',
-                'computer-lab-2': 'support',
-                'librarian': 'support',
-                'skills-lab-1': 'support',
-                'skills-lab-2': 'support',
-                
-                // Student Services
-                'matron-1': 'support',
-                'matron-2': 'support',
-                'matron-3': 'support',
-                'warden': 'support',
-                
-                // Academic Heads
-                'head-nursing': 'lecturer',
-                'head-midwifery': 'lecturer',
-                
-                // Teaching Staff (Sample - will expand)
-                'teaching-staff-1': 'lecturer',
-                'teaching-staff-2': 'lecturer',
-                'teaching-staff-3': 'lecturer',
-                'teaching-staff-4': 'lecturer',
-                'teaching-staff-5': 'lecturer',
-                'teaching-staff-6': 'lecturer',
-                'teaching-staff-7': 'lecturer',
-                'teaching-staff-8': 'lecturer',
-                'teaching-staff-9': 'lecturer',
-                'teaching-staff-10': 'lecturer',
-                'teaching-staff-11': 'lecturer',
-                'teaching-staff-12': 'lecturer',
-                'teaching-staff-13': 'lecturer',
-                'teaching-staff-14': 'lecturer',
-                'teaching-staff-15': 'lecturer',
-                'teaching-staff-16': 'lecturer',
-                'teaching-staff-17': 'lecturer',
-                
-                // Clinical Instructors
-                'clinical-nursing-1': 'lecturer',
-                'clinical-nursing-2': 'lecturer',
-                'clinical-nursing-3': 'lecturer',
-                'clinical-midwifery-1': 'lecturer',
-                'clinical-midwifery-2': 'lecturer',
-                'clinical-midwifery-3': 'lecturer',
-                
-                // Tutors
-                'tutor-1': 'lecturer',
-                'tutor-2': 'lecturer',
-                'tutor-3': 'lecturer',
-                'tutor-4': 'lecturer',
-                'tutor-5': 'lecturer',
-                'tutor-6': 'lecturer',
-                'tutor-7': 'lecturer',
-                'tutor-8': 'lecturer',
-                'tutor-9': 'lecturer',
-                
-                // Support Departments
-                'drivers': 'support',
-                'cooks': 'support',
-                'cleaners': 'support',
-                'security': 'support',
-                'tailors': 'support'
-            };
-            
-            // Get role for this department
-            const role = departmentRoles[section] || 'admin';
-            
-            // Redirect to login page with specific role and department
-            window.location.href = `login.php?role=${role}&department=${section}`;
-        }
-
-        function animateTool(element, toolType) {
-            // Remove existing animations
-            element.style.animation = 'none';
-            element.offsetHeight; // Trigger reflow
-            
-            // Add specific animations based on tool type
-            switch(toolType) {
-                case 'syringe':
-                    element.style.animation = 'inject 1s ease-in-out 3';
-                    break;
-                case 'heartbeat':
-                    const heartbeatLine = element.querySelector('.heartbeat-line');
-                    if (heartbeatLine) {
-                        heartbeatLine.style.animation = 'heartbeat 0.5s linear 6';
-                    }
-                    element.style.animation = 'pulse 1s ease-in-out 3';
-                    break;
-                case 'stethoscope':
-                    element.style.animation = 'pulse 0.5s ease-in-out 6';
-                    break;
-                case 'pills':
-                    element.style.animation = 'rotate 2s ease-in-out';
-                    break;
-                case 'thermometer':
-                    element.style.animation = 'pulse 0.8s ease-in-out 4';
-                    break;
-                case 'bandage':
-                    element.style.animation = 'pulse 1.2s ease-in-out 3';
-                    break;
-                case 'blood':
-                    element.style.animation = 'pulse 0.6s ease-in-out 5';
-                    break;
-                case 'baby':
-                    element.style.animation = 'bounce 1s ease-in-out 3';
-                    break;
-                default:
-                    element.style.animation = 'pulse 1s ease-in-out 3';
-            }
-            
-            // Add glow effect
-            element.style.boxShadow = '0 0 20px rgba(251, 191, 36, 0.6)';
-            setTimeout(() => {
-                element.style.boxShadow = '';
-            }, 2000);
-        }
-
-        // Add entrance animations on scroll
-        if ('IntersectionObserver' in window) {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.animation = 'fadeIn 0.8s ease-out';
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            // Observe all sections
-            const sections = document.querySelectorAll('.structure-section');
-            sections.forEach(section => {
-                observer.observe(section);
+                // Update icon
+                const icon = passwordToggle.querySelector('i');
+                if (type === 'text') {
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
             });
         }
-
-        // Add interactive hover effects
-        const roleItems = document.querySelectorAll('.role-item');
-        roleItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(8px) scale(1.02)';
+        
+        // Form validation and submission
+        const loginForm = document.querySelector('.login-form');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const studentId = document.getElementById('student-id').value;
+                const password = passwordInput.value;
+                const userType = document.getElementById('user-type').value;
+                
+                // Basic validation
+                if (!studentId || !password || !userType) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                
+                // Show loading state
+                const submitButton = loginForm.querySelector('.login-button');
+                const originalText = submitButton.innerHTML;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+                submitButton.disabled = true;
+                
+                // Simulate login process (replace with actual authentication)
+                setTimeout(() => {
+                    // Reset button
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                    
+                    // For demo purposes, show success message
+                    alert(`Login successful! User Type: ${userType}`);
+                    // In production, redirect to appropriate dashboard
+                    // window.location.href = `dashboard-${userType}.php`;
+                }, 2000);
+            });
+        }
+        
+        // Add input focus effects
+        const formInputs = document.querySelectorAll('.form-input, .form-select');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('focused');
             });
             
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0) scale(1)';
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('focused');
             });
         });
 
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero-section');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        // Organogram Click Handler
+        function handleOrgClick(role) {
+            // Map roles to dashboard URLs
+            const dashboardMap = {
+                'director': 'dashboard-director.php',
+                'principal': 'dashboard-principal.php', 
+                'admin': 'dashboard-admin.php',
+                'lecturer': 'dashboard-lecturer.php',
+                'support': 'dashboard-support.php',
+                'student': 'dashboard-student.php'
+            };
+
+            const dashboardUrl = dashboardMap[role];
+            if (dashboardUrl) {
+                // Show loading state
+                const clickedBox = event.currentTarget;
+                clickedBox.style.transform = 'scale(0.95)';
+                clickedBox.style.opacity = '0.7';
+                
+                // Simulate navigation delay
+                setTimeout(() => {
+                    clickedBox.style.transform = '';
+                    clickedBox.style.opacity = '';
+                    // In production, redirect to actual dashboard
+                    // window.location.href = dashboardUrl;
+                    alert(`Navigating to ${role} dashboard: ${dashboardUrl}`);
+                }, 300);
             }
-        });
+        }
     </script>
 </body>
 </html>

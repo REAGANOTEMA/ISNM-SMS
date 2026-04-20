@@ -23,6 +23,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/modern-theme.css">
+    <link rel="stylesheet" href="assets/css/image-animations.css">
     <style>
         * {
             margin: 0;
@@ -434,17 +435,31 @@ if (session_status() === PHP_SESSION_NONE) {
         /* Mobile Menu Toggle */
         .mobile-menu-toggle {
             display: none;
-            background: var(--accent-dark-blue);
-            border: 2px solid var(--accent-blue);
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+            background: #000000;
+            border: 2px solid #000000;
+            color: #FFFFFF;
+            font-size: 1.5rem;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-            transform: translateZ(0);
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-toggle:hover {
+            background: #333333;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #FFFFFF;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
         }
 
         .mobile-menu-toggle::before {
@@ -500,28 +515,29 @@ if (session_status() === PHP_SESSION_NONE) {
             content: '▼';
             font-size: 0.7rem;
             transition: transform 0.3s ease;
-            color: var(--text-secondary);
+            color: #000000;
         }
 
         .nav-dropdown:hover .nav-dropdown-toggle::after {
             transform: rotate(180deg);
-            color: var(--accent-blue);
+            color: #FFFFFF;
         }
 
         .nav-dropdown-menu {
             position: absolute;
             top: 100%;
             left: 0;
-            background: var(--white);
-            border: 2px solid var(--accent-blue);
-            border-radius: 12px;
-            box-shadow: 0 12px 24px rgba(10, 22, 40, 0.2);
+            background: rgba(255, 255, 255, 0.98);
+            border: 2px solid #000000;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-10px) translateZ(-20px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
             min-width: 180px;
             z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         .nav-dropdown:hover .nav-dropdown-menu {
@@ -532,22 +548,21 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .nav-dropdown-menu a {
             display: block;
-            padding: 0.6rem 0.8rem;
-            color: var(--text-primary);
+            padding: 0.8rem 1rem;
+            color: #000000;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.85rem;
+            font-weight: 600;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
-            border-bottom: 1px solid transparent;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .nav-dropdown-menu a:hover {
-            background: var(--accent-light-blue);
-            color: var(--white);
-            transform: translateX(5px) translateZ(5px);
-            border-bottom-color: var(--accent-blue);
+            background: #000000;
+            color: #FFFFFF;
+            transform: translateX(5px);
         }
 
         .nav-dropdown-menu a:first-child {
@@ -559,24 +574,23 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .nav-link {
-            color: var(--text-primary);
+            color: #000000;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.85rem;
-            padding: 0.5rem 0.8rem;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
             border-radius: 8px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000000;
             font-family: 'Inter', sans-serif;
             transform-style: preserve-3d;
             transform: translateZ(0);
-            letter-spacing: 0.6px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: relative;
-            overflow: hidden;
-            white-space: nowrap;
+            z-index: 1;
         }
 
         .nav-link::before {
@@ -586,8 +600,8 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: var(--gradient-primary);
-            border-radius: 16px;
+            background: linear-gradient(135deg, #000000 0%, var(--primary-dark) 100%);
+            border-radius: 8px;
             opacity: 0;
             transition: opacity 0.35s ease;
             z-index: -1;
@@ -600,31 +614,32 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+            border-radius: 8px;
             opacity: 0;
             transition: opacity 0.4s ease;
             z-index: -1;
         }
 
         .nav-link:hover {
-            color: var(--white);
-            transform: translateY(-5px) translateZ(15px) rotateX(-3deg) rotateY(4deg);
-            box-shadow: 
-                0 12px 24px rgba(10, 22, 40, 0.3),
-                0 0 30px rgba(37, 99, 235, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            border-color: rgba(37, 99, 235, 0.6);
-            background: rgba(37, 99, 235, 0.9);
+            color: #FFFFFF;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            border-color: #000000;
+            background: #000000;
         }
 
         .nav-link:hover::before {
             opacity: 1;
-            transform: scaleY(1);
         }
 
         .nav-link:hover::after {
-            opacity: 0.2;
+            opacity: 0.3;
+        }
+
+        .nav-link:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         /* Hero Section with Slider */
@@ -942,28 +957,46 @@ if (session_status() === PHP_SESSION_NONE) {
                 top: 100px;
                 left: 0;
                 right: 0;
-                background: var(--white);
+                background: rgba(255, 255, 255, 0.98);
                 flex-direction: column;
                 gap: 0;
                 padding: 1rem;
-                box-shadow: 0 20px 40px rgba(10, 22, 40, 0.2);
-                border-top: 2px solid var(--accent-blue);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+                border-top: 3px solid #000000;
                 z-index: 999;
                 transform: translateY(-100%);
                 transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                backdrop-filter: blur(10px);
             }
 
             .nav-links.active {
+                display: flex;
                 transform: translateY(0);
             }
 
-            .nav-link {
+            .nav-links .nav-link {
                 width: 100%;
-                padding: 1rem;
+                padding: 1.2rem;
                 border-radius: 0;
-                border-bottom: 1px solid var(--border-light);
+                border-bottom: 2px solid rgba(0, 0, 0, 0.1);
                 text-align: center;
-                font-size: 1rem;
+                font-size: 1.1rem;
+                color: #000000;
+                background: rgba(255, 255, 255, 0.9);
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                transition: all 0.3s ease;
+            }
+
+            .nav-links .nav-link:hover {
+                background: #000000;
+                color: #FFFFFF;
+                border-left-color: #000000;
+                border-right-color: #000000;
+                transform: translateX(0);
             }
 
             .nav-link:last-child {
@@ -2946,6 +2979,250 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         }
 
+        /* Premium Gallery Section Styles */
+        .premium-gallery-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 50%, var(--gray-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-gallery-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.03) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="gallery-bg-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="2" fill="rgba(37, 99, 235, 0.08)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(6, 182, 212, 0.06)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23gallery-bg-pattern)"/></svg>');
+            background-size: cover, cover, 80px 80px;
+            background-position: center, center, 0 0;
+            animation: galleryFloat 40s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes galleryFloat {
+            0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+            25% { transform: translateX(15px) translateY(-8px) rotate(0.5deg); }
+            50% { transform: translateX(30px) translateY(0) rotate(0deg); }
+            75% { transform: translateX(15px) translateY(8px) rotate(-0.5deg); }
+        }
+
+        .premium-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-auto-rows: 250px;
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            background: var(--white);
+        }
+
+        .gallery-item-large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item-wide {
+            grid-column: span 2;
+        }
+
+        .gallery-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1);
+            filter: brightness(1) contrast(1) saturate(1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 40%,
+                rgba(10, 22, 40, 0.7) 70%,
+                rgba(10, 22, 40, 0.9) 100%
+            );
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+        }
+
+        .gallery-content {
+            color: var(--white);
+            transform: translateZ(10px);
+        }
+
+        .gallery-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .gallery-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .gallery-badge {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Gallery Hover Effects */
+        .gallery-item:hover {
+            transform: translateY(-15px) translateZ(30px) rotateX(3deg) rotateY(-2deg);
+            box-shadow: 
+                var(--shadow-xl),
+                0 0 50px rgba(37, 99, 235, 0.3),
+                0 0 100px rgba(6, 182, 212, 0.2);
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1) rotateX(2deg) rotateY(-2deg);
+            filter: brightness(1.1) contrast(1.05) saturate(1.1);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+            transform: translateY(0);
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 30%,
+                rgba(10, 22, 40, 0.6) 60%,
+                rgba(10, 22, 40, 0.8) 100%
+            );
+        }
+
+        /* Gallery Item Animations */
+        .gallery-item:nth-child(1) { animation: gallerySlideIn 0.8s ease-out 0.1s both; }
+        .gallery-item:nth-child(2) { animation: gallerySlideIn 0.8s ease-out 0.2s both; }
+        .gallery-item:nth-child(3) { animation: gallerySlideIn 0.8s ease-out 0.3s both; }
+        .gallery-item:nth-child(4) { animation: gallerySlideIn 0.8s ease-out 0.4s both; }
+        .gallery-item:nth-child(5) { animation: gallerySlideIn 0.8s ease-out 0.5s both; }
+        .gallery-item:nth-child(6) { animation: gallerySlideIn 0.8s ease-out 0.6s both; }
+        .gallery-item:nth-child(7) { animation: gallerySlideIn 0.8s ease-out 0.7s both; }
+        .gallery-item:nth-child(8) { animation: gallerySlideIn 0.8s ease-out 0.8s both; }
+        .gallery-item:nth-child(9) { animation: gallerySlideIn 0.8s ease-out 0.9s both; }
+        .gallery-item:nth-child(10) { animation: gallerySlideIn 0.8s ease-out 1.0s both; }
+
+        @keyframes gallerySlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+                filter: blur(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Responsive Gallery */
+        @media (max-width: 1024px) {
+            .premium-gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                grid-auto-rows: 200px;
+                gap: 1rem;
+            }
+
+            .gallery-item-large {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .gallery-item-wide {
+                grid-column: span 1;
+            }
+
+            .gallery-title {
+                font-size: 1.2rem;
+            }
+
+            .gallery-description {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .premium-gallery-section {
+                padding: 4rem 1rem;
+            }
+
+            .premium-gallery-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 250px;
+                gap: 1rem;
+            }
+
+            .gallery-item-large,
+            .gallery-item-wide {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .gallery-overlay {
+                padding: 1.5rem;
+            }
+
+            .gallery-title {
+                font-size: 1.3rem;
+            }
+
+            .gallery-description {
+                font-size: 0.95rem;
+            }
+        }
+
         @media (max-width: 480px) {
             .slide-title {
                 font-size: 2rem;
@@ -3004,7 +3281,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <!-- Professional Navigation -->
         <nav class="navbar" id="navbar">
             <div class="nav-container">
-                <a href="#" class="nav-logo">
+                <a href="index.php" class="nav-logo">
                     <img src="assets/school-logo.png" alt="ISNM Logo">
                 </a>
                 
@@ -3015,7 +3292,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 </button>
                 
                 <div class="nav-links" id="navLinks">
-                    <a href="#home" class="nav-link">Home</a>
+                    <a href="index.php" class="nav-link">Home</a>
                     
                     <!-- Academics Dropdown -->
                     <div class="nav-dropdown">
@@ -3077,7 +3354,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- Hero Section with Slider -->
     <section class="hero-section" id="home">
         <div class="hero-slider">
-            <div class="slide active" style="background-image: url('assets/hero1-students-in-group-picture-in-skills-lab.jpeg');">
+            <div class="slide active" style="background-image: url('assets/images/hero/hero1-students-in-group-picture-in-skills-lab.jpeg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
                         <h1 class="slide-title">WELCOME TO IGANGA SCHOOL OF NURSING AND MIDWIFERY</h1>
@@ -3086,7 +3363,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image: url('assets/hero2-students-in-skills-lab.jpeg');">
+            <div class="slide" style="background-image: url('assets/images/hero/hero2-students-in-skills-lab.jpeg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
                         <h1 class="slide-title">State-of-the-Art Skills Lab</h1>
@@ -3095,7 +3372,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image: url('assets/hero3-student-girls-nurses.jpeg');">
+            <div class="slide" style="background-image: url('assets/images/hero/hero3-student-girls-nurses.jpeg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
                         <h1 class="slide-title">Empowering Future Nurses</h1>
@@ -3104,25 +3381,97 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image: url('assets/hero4-students-in-skills-lab.jpeg');">
+            <div class="slide" style="background-image: url('assets/images/academic/students-in-skill-laboratory-in-practical-training.jpg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
-                        <h1 class="slide-title">Practical Training</h1>
-                        <p class="slide-subtitle">Real-world healthcare experience</p>
-                        <a href="activities.php" class="slide-btn">Our Activities</a>
+                        <h1 class="slide-title">Advanced Practical Training</h1>
+                        <p class="slide-subtitle">Master cutting-edge healthcare skills in our modern skills laboratory</p>
+                        <a href="activities.php" class="slide-btn">Explore Training</a>
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image: url('assets/hero5-students-bandaging-their-fellow.jpeg');">
+            <div class="slide" style="background-image: url('assets/images/academic/certificate-in-nursing-students-in-examamination-room.jpg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
-                        <h1 class="slide-title">Clinical Excellence</h1>
-                        <p class="slide-subtitle">Mastering essential nursing skills</p>
+                        <h1 class="slide-title">Academic Excellence</h1>
+                        <p class="slide-subtitle">Rigorous assessment ensuring professional competency and excellence</p>
+                        <a href="programs.php" class="slide-btn">View Programs</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/images/hero/hero6.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Professional Healthcare Training</h1>
+                        <p class="slide-subtitle">Preparing compassionate healthcare providers for global service</p>
                         <a href="about.php" class="slide-btn">Learn More</a>
                     </div>
                 </div>
             </div>
-            <div class="slide" style="background-image: url('assets/hero6-.jpeg');">
+            <div class="slide" style="background-image: url('assets/images/hero/hero-graduations.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Celebrating Success</h1>
+                        <p class="slide-subtitle">Honoring outstanding achievements in nursing and midwifery</p>
+                        <a href="achievements.php" class="slide-btn">Our Achievements</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/images/hero/graduations-hero.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Graduation Excellence</h1>
+                        <p class="slide-subtitle">Recognizing our accomplished healthcare professionals</p>
+                        <a href="achievements.php" class="slide-btn">View Success Stories</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/images/hero/students-sitting-in-the-graduation-use-it-in-hero-and-pages.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Academic Achievement</h1>
+                        <p class="slide-subtitle">Excellence in nursing and midwifery education since 2009</p>
+                        <a href="history.php" class="slide-btn">Our Legacy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/images/facilities/classroom-building.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Modern Learning Facilities</h1>
+                        <p class="slide-subtitle">State-of-the-art classrooms equipped for optimal learning</p>
+                        <a href="infrastructure.php" class="slide-btn">Explore Campus</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/images/facilities/administration-block.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Administrative Excellence</h1>
+                        <p class="slide-subtitle">Professional management ensuring institutional success</p>
+                        <a href="governance.php" class="slide-btn">Meet Leadership</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/images/hero/students-standing-upstairs-of-their-classroom-in-breaktime.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Vibrant Student Life</h1>
+                        <p class="slide-subtitle">Dynamic campus community fostering growth and friendship</p>
+                        <a href="activities.php" class="slide-btn">Student Activities</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/images/hero/students-in-class.jpg');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <h1 class="slide-title">Interactive Learning</h1>
+                        <p class="slide-subtitle">Engaging classroom experiences with expert faculty</p>
+                        <a href="programs.php" class="slide-btn">Academic Programs</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url('assets/images/hero/hero6-.jpeg');">
                 <div class="slide-overlay">
                     <div class="slide-content">
                         <h1 class="slide-title">Holistic Healthcare Education</h1>
@@ -3246,6 +3595,163 @@ if (session_status() === PHP_SESSION_NONE) {
                         <i class="fas fa-arrow-right"></i>
                         Our History
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Image Gallery Section -->
+    <section class="premium-gallery-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-images"></i>
+                    <span>Campus Showcase</span>
+                </div>
+                <h2 class="section-title">Experience Our World-Class Facilities</h2>
+                <p class="section-subtitle">
+                    Explore our modern campus infrastructure, state-of-the-art laboratories, 
+                    and vibrant learning environments designed for excellence.
+                </p>
+            </div>
+            
+            <div class="premium-gallery-grid">
+                <div class="gallery-item gallery-item-large">
+                    <div class="gallery-image-wrapper">
+                        <img src="assets/images/hero/graduations-hero.jpg" alt="ISNM Graduation Ceremony - Academic Excellence" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h3 class="gallery-title">Graduation Excellence</h3>
+                                <p class="gallery-description">Celebrating academic achievement and professional success</p>
+                                <div class="gallery-badges">
+                                    <span class="gallery-badge">Achievement</span>
+                                    <span class="gallery-badge">Success</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="assets/images/academic/students-in-skill-laboratory-in-practical-training.jpg" alt="ISNM Skills Laboratory - Practical Training" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h3 class="gallery-title">Skills Laboratory</h3>
+                                <p class="gallery-description">Advanced practical training facilities</p>
+                                <div class="gallery-badges">
+                                    <span class="gallery-badge">Training</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="assets/images/facilities/administration-block.jpg" alt="ISNM Administration Block - Professional Management" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h3 class="gallery-title">Administration Block</h3>
+                                <p class="gallery-description">Professional management hub</p>
+                                <div class="gallery-badges">
+                                    <span class="gallery-badge">Management</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="assets/images/facilities/classroom-building.jpg" alt="ISNM Modern Classrooms - Learning Environment" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h3 class="gallery-title">Modern Classrooms</h3>
+                                <p class="gallery-description">State-of-the-art learning spaces</p>
+                                <div class="gallery-badges">
+                                    <span class="gallery-badge">Learning</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item gallery-item-wide">
+                    <div class="gallery-image-wrapper">
+                        <img src="assets/images/hero/students-in-class.jpg" alt="ISNM Interactive Learning - Student Engagement" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h3 class="gallery-title">Interactive Learning</h3>
+                                <p class="gallery-description">Engaging classroom experiences with expert faculty</p>
+                                <div class="gallery-badges">
+                                    <span class="gallery-badge">Education</span>
+                                    <span class="gallery-badge">Excellence</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="assets/images/facilities/diploma-hostel.jpg" alt="ISNM Diploma Hostel - Student Accommodation" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h3 class="gallery-title">Diploma Hostel</h3>
+                                <p class="gallery-description">Comfortable student accommodation</p>
+                                <div class="gallery-badges">
+                                    <span class="gallery-badge">Housing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="assets/images/facilities/girls-hostel.jpg" alt="ISNM Girls Hostel - Safe Living Environment" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h3 class="gallery-title">Girls Hostel</h3>
+                                <p class="gallery-description">Safe and comfortable living spaces</p>
+                                <div class="gallery-badges">
+                                    <span class="gallery-badge">Safety</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <div class="gallery-image-wrapper">
+                        <img src="assets/images/facilities/school-kitchen.jpg" alt="ISNM School Kitchen - Nutrition Services" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h3 class="gallery-title">School Kitchen</h3>
+                                <p class="gallery-description">Nutritious meal preparation facilities</p>
+                                <div class="gallery-badges">
+                                    <span class="gallery-badge">Nutrition</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item gallery-item-large">
+                    <div class="gallery-image-wrapper">
+                        <img src="assets/images/achievements/graduation-ceremony.jpg" alt="ISNM Graduation Ceremony - Student Success" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-content">
+                                <h3 class="gallery-title">Graduation Ceremony</h3>
+                                <p class="gallery-description">Celebrating student success and professional achievement</p>
+                                <div class="gallery-badges">
+                                    <span class="gallery-badge">Success</span>
+                                    <span class="gallery-badge">Excellence</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

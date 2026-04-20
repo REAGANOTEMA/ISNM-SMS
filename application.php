@@ -22,6 +22,8 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>Application - Iganga School of Nursing and Midwifery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/modern-theme.css">
+    <link rel="stylesheet" href="assets/css/image-animations.css">
     <style>
         * {
             margin: 0;
@@ -29,9 +31,9 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-                :root {
-            /* Dark and Creamy Yellow Color Palette */
-            --primary-dark: #1a1a1a;
+        :root {
+            /* Dark Blue Professional Color Palette - Matching index.php */
+            --primary-dark: #0a1628;
             --creamy-yellow: #FFF8DC;
             --accent-gold: #FFD700;
             --secondary-dark: #2d2d2d;
@@ -179,17 +181,31 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .nav-links a {
-            color: white;
+            color: #000000;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
             padding: 0.5rem 1rem;
             border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000000;
+            font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
         }
 
         .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            color: #FFFFFF;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            border-color: #000000;
+            background: #000000;
         }
 
         .page-title {
@@ -1223,7 +1239,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 </button>
                 
                 <div class="nav-links" id="navLinks">
-                    <a href="#home" class="nav-link">Home</a>
+                    <a href="index.php" class="nav-link">Home</a>
                     
                     <!-- Academics Dropdown -->
                     <div class="nav-dropdown">

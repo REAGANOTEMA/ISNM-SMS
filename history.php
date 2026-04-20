@@ -22,6 +22,8 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>School History - Iganga School of Nursing and Midwifery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/modern-theme.css">
+    <link rel="stylesheet" href="assets/css/image-animations.css">
     <style>
         * {
             margin: 0;
@@ -29,236 +31,498 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-                :root {
-            /* Dark and Creamy Yellow Color Palette */
-            --primary-dark: #1a1a1a;
-            --creamy-yellow: #FFF8DC;
+        /* Premium Design System Variables */
+        :root {
+            /* Professional Color Palette */
+            --primary-dark: #0a1628;
+            --secondary-dark: #1e3a5f;
+            --accent-blue: #2563eb;
+            --accent-cyan: #06b6d4;
+            --accent-light-blue: #3b82f6;
+            --accent-dark-blue: #1e40af;
             --accent-gold: #FFD700;
-            --secondary-dark: #2d2d2d;
-            --light-cream: #FAF0E6;
-            --dark-accent: #B8860B;
-            --white: #FFFFFF;
-            --gray-light: #F5F5F5;
-            --gray-medium: #D3D3D3;
-            --gray-dark: #696969;
+            --accent-gold-light: #fbbf24;
+            --medical-blue: #0066cc;
+            --medical-cyan: #00bcd4;
+            --success-green: #22c55e;
+            --error-red: #ef4444;
+            --warning-orange: #f97316;
             
-            /* Additional missing variables */
-            --pure-white: #FFFFFF;
-            --accent-blue: #3b82f6;
-            --golden-yellow: #fbbf24;
+            /* Neutral Colors */
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
             
-            /* Gradients */
-            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
-            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
-            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
-            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
+            /* Text Colors */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-600);
+            --text-muted: var(--gray-500);
+            --text-inverse: var(--white);
             
-            /* Shadows */
-            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
-            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
-            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
-            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
-            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
+            /* Background Colors */
+            --bg-primary: var(--white);
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
             
-            /* Borders */
-            --border-light: var(--gray-medium);
-            --border-medium: var(--gray-dark);
-            --border-dark: var(--primary-dark);
+            /* Border Colors */
+            --border-light: var(--gray-200);
+            --border-medium: var(--gray-300);
+            --border-dark: var(--gray-400);
+            
+            /* Premium Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-blue) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+            --gradient-gold: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
+            --gradient-success: linear-gradient(135deg, var(--success-green) 0%, #16a34a 100%);
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-blue) 100%);
+            
+            /* Advanced Shadows */
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.3);
+            --shadow-glow-gold: 0 0 30px rgba(255, 215, 0, 0.4);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Professional Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            
+            /* Typography */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+            --text-5xl: 3rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
-            color: var(--pure-white);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: var(--text-base);
             line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 50%, var(--bg-secondary) 100%);
+            min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        body::before {
-            content: '';
+        /* Professional Navigation System */
+        .navbar {
             position: fixed;
+            top: 40px;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1001;
+            padding: var(--space-4) 0;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-normal);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 50% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
-            animation: modernAurora 15s ease-in-out infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="modern-history-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(139,92,246,0.3)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(59,130,246,0.4)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23modern-history-pattern)"/></svg>'),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="vibrant-history-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(236,72,153,0.3)" stroke-width="2"/><circle cx="25" cy="25" r="6" fill="rgba(249,115,22,0.4)"/></pattern></defs><rect width="200" height="200" fill="url(%23vibrant-history-pattern)"/></svg>');
-            background-size: 30px 30px, 100px 100px;
-            animation: modernPatternFloat 25s linear infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* Luxury Header */
-        .luxury-header {
+            right: 0;
+            height: 3px;
             background: var(--gradient-primary);
-            color: white;
-            padding: 2rem 0;
-            position: relative;
-            overflow: hidden;
+            animation: navbarShine 4s ease-in-out infinite;
         }
 
-        .luxury-header::before {
+        .navbar::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            animation: floatPattern 20s ease-in-out infinite;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+            opacity: 0.6;
+            pointer-events: none;
         }
 
-        @keyframes floatPattern {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(10px, 10px); }
+        .brand-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
+            border-bottom: 1px solid rgba(220,220,220,0.9);
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
         }
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        .brand-marquee {
+            display: inline-flex;
+            align-items: center;
+            gap: 3rem;
+            white-space: nowrap;
+            animation: marquee 18s linear infinite;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--white);
+            font-size: 0.95rem;
+            transform: perspective(1000px) rotateX(0deg);
+            line-height: 1;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0) perspective(1000px) rotateX(2deg); }
+            100% { transform: translateX(-100%) perspective(1000px) rotateX(2deg); }
+        }
+
+        /* Fixed Header Container */
+        .fixed-header {
             position: relative;
-            z-index: 1;
+            z-index: 1000;
+            width: 100%;
         }
 
-        .header-nav {
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 1);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 18px 50px rgba(0,0,0,0.1);
+            border-bottom-color: rgba(210,210,210,0.95);
+            transform: translateY(0);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-8);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+            min-height: auto;
         }
 
-        .logo-section {
+        .nav-logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: var(--space-4);
+            font-weight: 900;
+            font-size: var(--text-2xl);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
+            transform-style: preserve-3d;
+            transition: all var(--transition-normal);
+            position: relative;
+            z-index: 5;
+            padding: 0;
+            margin: 0;
         }
 
-        .logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 3px solid var(--golden-yellow);
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: -1;
+            filter: blur(8px);
+        }
+
+        .nav-logo:hover::before {
+            opacity: 0.15;
+        }
+
+        .nav-logo img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border: 3px solid var(--border-light);
+            border-radius: var(--radius-full);
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-lg);
+            transform-style: preserve-3d;
+            background: var(--bg-primary);
+            position: relative;
+            z-index: 3;
+        }
+
+        .nav-logo:hover {
+            transform: translateY(-4px) scale(1.02);
+        }
+
+        .nav-logo:hover img {
+            transform: scale(1.05) rotateZ(2deg);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--accent-gold);
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
-            list-style: none;
+            gap: var(--space-2);
+            align-items: center;
+            transform-style: preserve-3d;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
         }
 
-        .nav-links a {
-            color: white;
+        /* Navigation Dropdown */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid #000000;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all var(--transition-normal);
+            z-index: 1000;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-menu,
+        .nav-dropdown.active .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-dropdown-menu a {
+            display: block;
+            padding: var(--space-3) var(--space-4);
+            color: #000000;
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            transition: all var(--transition-fast);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .nav-dropdown-menu a:hover {
+            background: #000000;
+            color: #FFFFFF;
+            padding-left: var(--space-6);
+            border-bottom-color: transparent;
+        }
+
+        .nav-dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .nav-link {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
             padding: 0.5rem 1rem;
             border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000000;
+            font-family: 'Inter', sans-serif;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
         }
 
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+        .nav-link:hover {
+            color: #FFFFFF;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            border-color: #000000;
+            background: #000000;
         }
 
-        .page-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: #000000;
+            border: none;
+            border-radius: var(--radius-md);
+            padding: var(--space-2);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            position: relative;
+            z-index: 10;
         }
 
-        .breadcrumb {
-            text-align: center;
-            opacity: 0.9;
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #FFFFFF;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition-normal);
         }
 
-        /* Main Content */
+        .mobile-menu-toggle:hover {
+            background: #333333;
+            transform: scale(1.05);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        /* Premium Main Content */
         .main-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: var(--space-20) var(--space-8);
+            position: relative;
+            z-index: 1;
         }
 
-        /* Section Styles */
+        /* Premium Section Styles */
         .section {
-            margin-bottom: 4rem;
+            margin-bottom: var(--space-24);
             opacity: 0;
-            animation: fadeInUp 0.8s ease forwards;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            transform-style: preserve-3d;
         }
 
         .section:nth-child(1) { animation-delay: 0.1s; }
         .section:nth-child(2) { animation-delay: 0.2s; }
         .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px) translateZ(-20px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) translateZ(0);
             }
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: var(--space-12);
+            position: relative;
         }
 
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
+            font-size: var(--text-4xl);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
             position: relative;
             display: inline-block;
+            transform: translateZ(10px);
         }
 
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: 100px;
             height: 4px;
-            background: var(--gradient-luxury);
-            border-radius: 2px;
+            background: var(--gradient-gold);
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-glow-gold);
+            animation: titleUnderline 3s ease-in-out infinite;
+        }
+
+        @keyframes titleUnderline {
+            0%, 100% { width: 100px; }
+            50% { width: 120px; }
         }
 
         .section-subtitle {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: var(--text-lg);
             max-width: 600px;
             margin: 0 auto;
+            line-height: 1.7;
+            transform: translateZ(5px);
         }
+
 
         /* History Introduction */
         .history-intro {
@@ -832,154 +1096,280 @@ if (session_status() === PHP_SESSION_NONE) {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-    </style>
 
-    /* Footer Styling */
-    .footer {
-        background: var(--primary-dark);
-        color: white;
-        padding: 3rem 2rem 2rem;
-        margin-top: 4rem;
-    }
-
-    .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .footer-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 3rem;
-        margin-bottom: 3rem;
-    }
-
-    .footer-section h3 {
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        color: var(--accent-gold);
-    }
-
-    .footer-links {
-        list-style: none;
-    }
-
-    .footer-links li {
-        margin-bottom: 0.8rem;
-    }
-
-    .footer-links a {
-        color: rgba(255, 255, 255, 0.8);
-        text-decoration: none;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .footer-links a:hover {
-        color: var(--accent-gold);
-        transform: translateX(5px);
-    }
-
-    .contact-info p {
-        margin-bottom: 1rem;
-        color: rgba(255, 255, 255, 0.8);
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-    }
-
-    .contact-info i {
-        color: var(--accent-gold);
-        width: 20px;
-    }
-
-    .footer-bottom {
-        text-align: center;
-        padding-top: 2rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .footer-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-    }
-
-    .footer-subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-        opacity: 0.9;
-    }
-
-    .footer-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-        margin-bottom: 2rem;
-    }
-
-    .whatsapp-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: #25d366;
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .whatsapp-btn:hover {
-        background: #128c7e;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-    }
-
-    .copyright {
-        margin-top: 2rem;
-        padding-top: 2rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.6);
-    }
-
-    @media (max-width: 768px) {
-        .footer {
-            padding: 2rem 1rem;
+        /* Premium History Gallery Section Styles */
+        .history-gallery-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 50%, var(--gray-light) 100%);
+            position: relative;
+            overflow: hidden;
         }
 
-        .footer-grid {
-            gap: 2rem;
+        .history-gallery-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 42% 42%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 58% 58%, rgba(6, 182, 212, 0.03) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="history-bg-pattern" width="52" height="52" patternUnits="userSpaceOnUse"><circle cx="26" cy="26" r="3.5" fill="rgba(37, 99, 235, 0.06)"/><path d="M16 26 Q26 16, 36 26 T56 26" stroke="rgba(6, 182, 212, 0.04)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23history-bg-pattern)"/></svg>');
+            background-size: cover, cover, 104px 104px;
+            background-position: center, center, 0 0;
+            animation: historyFloat 70s ease-in-out infinite;
+            pointer-events: none;
         }
 
-        .footer-buttons {
-            flex-direction: column;
-            align-items: center;
+        @keyframes historyFloat {
+            0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+            25% { transform: translateX(24px) translateY(-15px) rotate(0.8deg); }
+            50% { transform: translateX(48px) translateY(0) rotate(0deg); }
+            75% { transform: translateX(24px) translateY(15px) rotate(-0.8deg); }
         }
 
-        .whatsapp-btn {
+        .history-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+            grid-auto-rows: 350px;
+            gap: 2.9rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .history-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 33px;
+            box-shadow: var(--shadow-xl);
+            transition: all 1.05s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            background: var(--white);
+        }
+
+        .history-item-large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .history-item-wide {
+            grid-column: span 2;
+        }
+
+        .history-image-wrapper {
+            position: relative;
             width: 100%;
-            justify-content: center;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 33px;
         }
-    }
+
+        .history-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 1.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1);
+            filter: brightness(1) contrast(1) saturate(1);
+        }
+
+        .history-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 37%,
+                rgba(10, 22, 40, 0.86) 76%,
+                rgba(10, 22, 40, 0.97) 100%
+            );
+            display: flex;
+            align-items: flex-end;
+            padding: 4.2rem;
+            opacity: 0;
+            transition: all 1.05s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(42px);
+        }
+
+        .history-content {
+            color: var(--white);
+            transform: translateZ(32px);
+        }
+
+        .history-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.05rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 4px 4px 14px rgba(0, 0, 0, 0.92);
+        }
+
+        .history-description {
+            font-size: 1.22rem;
+            line-height: 1.95;
+            margin-bottom: 2.1rem;
+            opacity: 0.94;
+        }
+
+        .history-badges {
+            display: flex;
+            gap: 1.3rem;
+            flex-wrap: wrap;
+        }
+
+        .history-badge {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+            color: var(--white);
+            padding: 0.85rem 1.7rem;
+            border-radius: 42px;
+            font-size: 0.97rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            box-shadow: 0 14px 32px rgba(37, 99, 235, 0.75);
+        }
+
+        /* History Gallery Hover Effects */
+        .history-item:hover {
+            transform: translateY(-38px) translateZ(75px) rotateX(7.5deg) rotateY(-6.5deg);
+            box-shadow: 
+                var(--shadow-2xl),
+                0 0 140px rgba(37, 99, 235, 0.75),
+                0 0 280px rgba(6, 182, 212, 0.65);
+        }
+
+        .history-item:hover .history-image {
+            transform: scale(1.23) rotateX(6.5deg) rotateY(-6.5deg);
+            filter: brightness(1.32) contrast(1.22) saturate(1.32);
+        }
+
+        .history-item:hover .history-overlay {
+            opacity: 1;
+            transform: translateY(0);
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 27%,
+                rgba(10, 22, 40, 0.78) 67%,
+                rgba(10, 22, 40, 0.91) 100%
+            );
+        }
+
+        /* History Item Animations */
+        .history-item:nth-child(1) { animation: historySlideIn 1.25s ease-out 0.1s both; }
+        .history-item:nth-child(2) { animation: historySlideIn 1.25s ease-out 0.2s both; }
+        .history-item:nth-child(3) { animation: historySlideIn 1.25s ease-out 0.3s both; }
+        .history-item:nth-child(4) { animation: historySlideIn 1.25s ease-out 0.4s both; }
+        .history-item:nth-child(5) { animation: historySlideIn 1.25s ease-out 0.5s both; }
+        .history-item:nth-child(6) { animation: historySlideIn 1.25s ease-out 0.6s both; }
+        .history-item:nth-child(7) { animation: historySlideIn 1.25s ease-out 0.7s both; }
+        .history-item:nth-child(8) { animation: historySlideIn 1.25s ease-out 0.8s both; }
+
+        @keyframes historySlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(75px) scale(0.68);
+                filter: blur(28px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Responsive History Gallery */
+        @media (max-width: 1024px) {
+            .history-gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+                grid-auto-rows: 310px;
+                gap: 2.4rem;
+            }
+
+            .history-item-large {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .history-item-wide {
+                grid-column: span 1;
+            }
+
+            .history-title {
+                font-size: 1.75rem;
+            }
+
+            .history-description {
+                font-size: 1.12rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .history-gallery-section {
+                padding: 4rem 1rem;
+            }
+
+            .history-gallery-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 350px;
+                gap: 2.1rem;
+            }
+
+            .history-item-large,
+            .history-item-wide {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .history-overlay {
+                padding: 3.8rem;
+            }
+
+            .history-title {
+                font-size: 1.85rem;
+            }
+
+            .history-description {
+                font-size: 1.17rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .history-title {
+                font-size: 1.65rem;
+            }
+
+            .history-description {
+                font-size: 1.08rem;
+            }
+
+            .history-badge {
+                font-size: 0.87rem;
+                padding: 0.75rem 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Luxury Header -->
-    <header class="luxury-header">
-        <div class="header-content">
-            <nav class="header-nav">
-                <div class="logo-section">
-                    <img src="assets/school-logo.png" alt="ISNM Logo" class="logo">
-                    <div>
-                        <h1 style="font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif; font-size: 1.2rem; font-weight: 900;">ISNM</h1>
-                        <p style="font-size: 0.8rem; opacity: 0.9;">Excellence in Healthcare Education</p>
-                    </div>
-                </div>
+    <div class="fixed-header">
+        <div class="brand-banner">
+            <div class="brand-marquee">
+                <span>Iganga School of Nursing & Midwifery</span>
+                <span>Practical Skills Lab | Modern Healthcare Training | Student Success</span>
+                <span>Academic Excellence | Compassionate Care | Career Ready Nurses</span>
+            </div>
+        </div>
+        <!-- Professional Navigation -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <a href="index.php" class="nav-logo">
+                    <img src="assets/school-logo.png" alt="ISNM Logo">
+                </a>
                 <!-- Mobile Menu Toggle -->
                 <button class="mobile-menu-toggle" id="mobileMenuToggle">
                     <span></span>
@@ -987,7 +1377,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 </button>
                 
                 <div class="nav-links" id="navLinks">
-                    <a href="#home" class="nav-link">Home</a>
+                    <a href="index.php" class="nav-link">Home</a>
                     
                     <!-- Academics Dropdown -->
                     <div class="nav-dropdown">
@@ -1042,16 +1432,149 @@ if (session_status() === PHP_SESSION_NONE) {
                     <a href="contact.php" class="nav-link">Contact</a>
                     <a href="login-portal.php" class="nav-link">Portal</a>
                 </div>
-            </nav>
-            <div class="page-title">School History</div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Page Title Section -->
+    <div class="page-header-section">
+        <div class="page-header-content">
+            <h1 class="page-title">School History</h1>
             <div class="breadcrumb">
                 <p>Home / About / Our History</p>
             </div>
         </div>
-    </header>
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
+        <!-- Premium History Gallery Section -->
+        <section class="history-gallery-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="section-badge">
+                        <i class="fas fa-history"></i>
+                        <span>Historical Journey</span>
+                    </div>
+                    <h2 class="section-title">Experience Our Remarkable Evolution</h2>
+                    <p class="section-subtitle">
+                        Witness our transformation from humble beginnings to a leading healthcare 
+                        education institution through our historical milestones and achievements.
+                    </p>
+                </div>
+                
+                <div class="history-gallery-grid">
+                    <div class="history-item history-item-large">
+                        <div class="history-image-wrapper">
+                            <img src="assets/images/staff/old-principal-and-new-principal.jpg" alt="ISNM Founding Leadership - Historical Beginnings" class="history-image">
+                            <div class="history-overlay">
+                                <div class="history-content">
+                                    <h3 class="history-title">Founding Vision</h3>
+                                    <p class="history-description">Our founding leadership establishing the foundation for healthcare excellence in 2009</p>
+                                    <div class="history-badges">
+                                        <span class="history-badge">Foundation</span>
+                                        <span class="history-badge">Leadership</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="history-item">
+                        <div class="history-image-wrapper">
+                            <img src="assets/images/achievements/graduation-day-students-matching-while-playing-trumpets-and-drum.jpg" alt="ISNM Early Graduation Celebrations - Student Success" class="history-image">
+                            <div class="history-overlay">
+                                <div class="history-content">
+                                    <h3 class="history-title">Early Success</h3>
+                                    <p class="history-description">Celebrating our first graduation with musical performances and achievements</p>
+                                    <div class="history-badges">
+                                        <span class="history-badge">Celebration</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="history-item">
+                        <div class="history-image-wrapper">
+                            <img src="assets/images/facilities/administration-block.jpg" alt="ISNM Administrative Excellence - Institutional Growth" class="history-image">
+                            <div class="history-overlay">
+                                <div class="history-content">
+                                    <h3 class="history-title">Institutional Growth</h3>
+                                    <p class="history-description">Professional administration supporting our expanding educational mission</p>
+                                    <div class="history-badges">
+                                        <span class="history-badge">Growth</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="history-item history-item-wide">
+                        <div class="history-image-wrapper">
+                            <img src="assets/images/hero/graduations-hero.jpg" alt="ISNM Graduation Excellence - Academic Achievement" class="history-image">
+                            <div class="history-overlay">
+                                <div class="history-content">
+                                    <h3 class="history-title">Academic Excellence</h3>
+                                    <p class="history-description">Celebrating graduation excellence and professional achievement of our students</p>
+                                    <div class="history-badges">
+                                        <span class="history-badge">Excellence</span>
+                                        <span class="history-badge">Achievement</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="history-item">
+                        <div class="history-image-wrapper">
+                            <img src="assets/images/facilities/classroom-building.jpg" alt="ISNM Modern Infrastructure - Educational Facilities" class="history-image">
+                            <div class="history-overlay">
+                                <div class="history-content">
+                                    <h3 class="history-title">Modern Infrastructure</h3>
+                                    <p class="history-description">State-of-the-art facilities supporting advanced healthcare education</p>
+                                    <div class="history-badges">
+                                        <span class="history-badge">Infrastructure</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="history-item">
+                        <div class="history-image-wrapper">
+                            <img src="assets/images/academic/students-in-skill-laboratory-in-practical-training.jpg" alt="ISNM Advanced Training - Practical Skills Development" class="history-image">
+                            <div class="history-overlay">
+                                <div class="history-content">
+                                    <h3 class="history-title">Advanced Training</h3>
+                                    <p class="history-description">Modern practical training facilities with cutting-edge medical equipment</p>
+                                    <div class="history-badges">
+                                        <span class="history-badge">Training</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="history-item history-item-large">
+                        <div class="history-image-wrapper">
+                            <img src="assets/images/hero/students-in-class.jpg" alt="ISNM Educational Journey - Learning Excellence" class="history-image">
+                            <div class="history-overlay">
+                                <div class="history-content">
+                                    <h3 class="history-title">Educational Journey</h3>
+                                    <p class="history-description">Interactive learning experiences fostering professional development and excellence</p>
+                                    <div class="history-badges">
+                                        <span class="history-badge">Learning</span>
+                                        <span class="history-badge">Development</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- History Introduction -->
         <section class="section">
             <div class="section-header">
@@ -1085,7 +1608,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
                             <div class="timeline-date">2009</div>
-                            <img src="assets/old-principal-and-new-principal.jpg" alt="School Founding Leadership" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                            <img src="assets/images/staff/old-principal-and-new-principal.jpg" alt="School Founding Leadership" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
                             <h4 class="timeline-title">The Beginning</h4>
                             <p class="timeline-description">
                                 ISNM was founded with 13 pioneering students. The school was established by three founding members 
@@ -1098,7 +1621,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
                             <div class="timeline-date">2010-2012</div>
-                            <img src="assets/graduation-day-students-matching-while-playing-trumpets-and-drum.jpg" alt="Early Graduation Celebrations" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+                            <img src="assets/images/achievements/graduation-day-students-matching-while-playing-trumpets-and-drum.jpg" alt="Early Graduation Celebrations" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
                             <h4 class="timeline-title">Early Growth</h4>
                             <p class="timeline-description">
                                 Rapid expansion of student enrollment and development of basic infrastructure. 
@@ -1287,7 +1810,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="history-gallery">
                     <!-- Football Team Images -->
                     <div class="history-card">
-                        <img src="assets/footbal-team-student-images1.jpg" alt="ISNM Football Team - Student Sports Activities" title="ISNM Football Team - Building Team Spirit and Physical Fitness" class="history-image">
+                        <img src="assets/images/activities/footbal-team-student-images1.jpg" alt="ISNM Football Team - Student Sports Activities" title="ISNM Football Team - Building Team Spirit and Physical Fitness" class="history-image">
                         <div class="history-card-content">
                             <h3 class="history-card-title">Football Team</h3>
                             <p class="history-card-description">
@@ -1301,7 +1824,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
 
                     <div class="history-card">
-                        <img src="assets/footbal-team-student-images2.jpg" alt="ISNM Football Team in Action - Competitive Sports" title="ISNM Football Team - Competitive Sports and Team Building" class="history-image">
+                        <img src="assets/images/activities/footbal-team-student-images2.jpg" alt="ISNM Football Team in Action - Competitive Sports" title="ISNM Football Team - Competitive Sports and Team Building" class="history-image">
                         <div class="history-card-content">
                             <h3 class="history-card-title">Team Competition</h3>
                             <p class="history-card-description">
@@ -1315,7 +1838,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
 
                     <div class="history-card">
-                        <img src="assets/footbal-team-student-images3.jpg" alt="ISNM Football Team Training - Sports Development" title="ISNM Football Team - Training and Skills Development" class="history-image">
+                        <img src="assets/images/activities/footbal-team-student-images3.jpg" alt="ISNM Football Team Training - Sports Development" title="ISNM Football Team - Training and Skills Development" class="history-image">
                         <div class="history-card-content">
                             <h3 class="history-card-title">Training Sessions</h3>
                             <p class="history-card-description">
@@ -1330,7 +1853,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                     <!-- Practicum Site Images -->
                     <div class="history-card">
-                        <img src="assets/student-st-practicum-sites1.jpg" alt="ISNM Students at Practicum Site - Clinical Training" title="ISNM Students - Hands-on Clinical Training at Practicum Sites" class="history-image">
+                        <img src="assets/images/academic/student-st-practicum-sites1.jpg" alt="ISNM Students at Practicum Site - Clinical Training" title="ISNM Students - Hands-on Clinical Training at Practicum Sites" class="history-image">
                         <div class="history-card-content">
                             <h3 class="history-card-title">Clinical Practicum</h3>
                             <p class="history-card-description">
@@ -1344,7 +1867,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
 
                     <div class="history-card">
-                        <img src="assets/student-at-practicum-site2.jpg" alt="ISNM Students at Practicum Site - Healthcare Experience" title="ISNM Students - Real-world Healthcare Experience" class="history-image">
+                        <img src="assets/images/academic/student-at-practicum-site2.jpg" alt="ISNM Students at Practicum Site - Healthcare Experience" title="ISNM Students - Real-world Healthcare Experience" class="history-image">
                         <div class="history-card-content">
                             <h3 class="history-card-title">Healthcare Experience</h3>
                             <p class="history-card-description">
@@ -1359,7 +1882,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                     <!-- School Infrastructure Images -->
                     <div class="history-card">
-                        <img src="assets/school-borehole-a-student-is-fetching-water.jpg" alt="ISNM School Borehole - Water Supply System" title="ISNM Water Supply - Student Fetching Water from School Borehole" class="history-image">
+                        <img src="assets/images/facilities/school-borehole-a-student-is-fetching-water.jpg" alt="ISNM School Borehole - Water Supply System" title="ISNM Water Supply - Student Fetching Water from School Borehole" class="history-image">
                         <div class="history-card-content">
                             <h3 class="history-card-title">Water Supply</h3>
                             <p class="history-card-description">
@@ -1373,7 +1896,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
 
                     <div class="history-card">
-                        <img src="assets/school-mini-buses-2-costers.jpg" alt="ISNM School Transport - Two Coaster Buses" title="ISNM School Transport - Two Coaster Buses for Student Transportation" class="history-image">
+                        <img src="assets/images/facilities/school-mini-buses-2-costers.jpg" alt="ISNM School Transport - Two Coaster Buses" title="ISNM School Transport - Two Coaster Buses for Student Transportation" class="history-image">
                         <div class="history-card-content">
                             <h3 class="history-card-title">School Transport</h3>
                             <p class="history-card-description">
@@ -1388,7 +1911,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                     <!-- Leadership Images -->
                     <div class="history-card">
-                        <img src="assets/principle.jpeg" alt="Sr. Edith Mwebaza - ISNM School Principal" title="Sr. Edith Mwebaza - Principal of Iganga School of Nursing and Midwifery" class="history-image">
+                        <img src="assets/images/staff/principle.jpeg" alt="Sr. Edith Mwebaza - ISNM School Principal" title="Sr. Edith Mwebaza - Principal of Iganga School of Nursing and Midwifery" class="history-image">
                         <div class="history-card-content">
                             <h3 class="history-card-title">School Leadership</h3>
                             <p class="history-card-description">

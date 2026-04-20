@@ -22,6 +22,8 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>Achievements & Future Plans - Iganga School of Nursing and Midwifery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/modern-theme.css">
+    <link rel="stylesheet" href="assets/css/image-animations.css">
     <style>
         * {
             margin: 0;
@@ -29,57 +31,92 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-                :root {
-            /* Dark and Creamy Yellow Color Palette */
-            --primary-dark: #1a1a1a;
-            --creamy-yellow: #FFF8DC;
-            --accent-gold: #FFD700;
-            --secondary-dark: #2d2d2d;
-            --light-cream: #FAF0E6;
-            --dark-accent: #B8860B;
+        :root {
+            /* Dark Blue Professional Color Palette - Matching index.php */
+            --primary-dark: #0a1628;
+            --secondary-dark: #1e3a5f;
+            --accent-blue: #2563eb;
+            --accent-cyan: #06b6d4;
+            --accent-light-blue: #3b82f6;
+            --accent-dark-blue: #1e40af;
+            --medical-blue: #0066cc;
+            --medical-cyan: #00bcd4;
             --white: #FFFFFF;
-            --gray-light: #F5F5F5;
-            --gray-medium: #D3D3D3;
-            --gray-dark: #696969;
-            
-            /* Additional missing variables */
-            --pure-white: #FFFFFF;
-            --accent-blue: #3b82f6;
-            --golden-yellow: #fbbf24;
+            --gray-light: #f8fafc;
+            --gray-medium: #e2e8f0;
+            --gray-dark: #475569;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
             
             /* Gradients */
-            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
-            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
-            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
-            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-blue) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-blue) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%);
             
             /* Shadows */
-            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
-            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
-            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
-            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
-            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
+            --shadow-sm: 0 2px 4px rgba(10, 22, 40, 0.1);
+            --shadow-md: 0 4px 8px rgba(10, 22, 40, 0.15);
+            --shadow-lg: 0 8px 16px rgba(10, 22, 40, 0.2);
+            --shadow-xl: 0 20px 40px rgba(10, 22, 40, 0.25);
+            --shadow-2xl: 0 40px 80px rgba(10, 22, 40, 0.3);
+            --shadow-glow: 0 0 40px rgba(37, 99, 235, 0.4);
+            --shadow-gold: 0 0 60px rgba(255, 215, 0, 0.3);
+            
+            /* Advanced Gradients */
+            --gradient-luxury: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #06b6d4 100%);
+            --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+            --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+            --gradient-purple: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
+            --gradient-aurora: linear-gradient(45deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #fecfef 75%, #fecfef 100%);
+            
+            /* Image Effects */
+            --image-filter-hover: brightness(1.1) contrast(1.05) saturate(1.2);
+            --image-shadow-hover: 0 25px 50px rgba(0, 0, 0, 0.3);
+            --image-border-glow: 0 0 30px rgba(37, 99, 235, 0.6);
+            --image-transform-3d: perspective(1000px) rotateX(2deg) rotateY(-2deg) scale(1.05);
+            
+            /* Animation Durations */
+            --animation-fast: 0.3s;
+            --animation-normal: 0.6s;
+            --animation-slow: 1.2s;
+            --animation-ultra-slow: 2.4s;
             
             /* Borders */
             --border-light: var(--gray-medium);
             --border-medium: var(--gray-dark);
             --border-dark: var(--primary-dark);
+            --border-color: var(--gray-medium);
         }
 
-        /* Cinema-Quality 3D Navigation - No Space Above */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 45%, var(--gray-light) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Premium 3D Navigation - Matching index.php */
         .navbar {
             position: fixed;
             top: 40px;
             left: 0;
             right: 0;
-            background: rgba(255,255,255,0.96);
-            border-bottom: 1px solid rgba(220,220,220,0.9);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
             z-index: 1001;
-            padding: 0.5rem 0;
-            box-shadow: 0 14px 34px rgba(0,0,0,0.08);
-            backdrop-filter: blur(16px);
-            transition: all 0.35s ease;
-            height: auto;
+            padding: 1rem 0;
+            box-shadow: 
+                0 8px 32px rgba(10, 22, 40, 0.1),
+                0 2px 8px rgba(10, 22, 40, 0.05),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .navbar::before {
@@ -88,9 +125,9 @@ if (session_status() === PHP_SESSION_NONE) {
             top: 0;
             left: 0;
             right: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            opacity: 0.8;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-dark-blue) 0%, var(--accent-blue) 50%, var(--accent-cyan) 100%);
+            animation: navbarShine 4s ease-in-out infinite;
         }
 
         .navbar::after {
@@ -101,62 +138,19 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="nav-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(15,76,117,0.1)"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="rgba(30,107,168,0.15)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23nav-pattern)"/></svg>');
-            opacity: 0.05;
+                radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+            opacity: 0.6;
             pointer-events: none;
-            animation: navPatternFloat 30s linear infinite;
         }
 
-        .brand-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
-            border-bottom: 1px solid rgba(220,220,220,0.9);
-            z-index: 1002;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-        }
-
-        .brand-marquee {
-            display: inline-flex;
-            align-items: center;
-            gap: 3rem;
-            white-space: nowrap;
-            animation: marquee 18s linear infinite;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--white);
-            font-size: 0.95rem;
-            transform: perspective(1000px) rotateX(0deg);
-            line-height: 1;
-            margin: 0;
-            padding: 0;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0) perspective(1000px) rotateX(2deg); }
-            100% { transform: translateX(-100%) perspective(1000px) rotateX(2deg); }
-        }
-
-        /* Fixed Header Container */
-        .fixed-header {
-            position: relative;
-            z-index: 1000;
-            width: 100%;
-        }
-
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 1);
-            backdrop-filter: blur(16px);
-            box-shadow: 0 18px 50px rgba(0,0,0,0.1);
-            border-bottom-color: rgba(210,210,210,0.95);
-            transform: translateY(0);
+        @keyframes navbarShine {
+            0%, 100% {
+                transform: translateX(-100%);
+            }
+            50% {
+                transform: translateX(100%);
+            }
         }
 
         .nav-container {
@@ -188,24 +182,6 @@ if (session_status() === PHP_SESSION_NONE) {
             margin: 0;
         }
 
-        .nav-logo::before {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            background: var(--gradient-3d-primary);
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
-        .nav-logo:hover::before {
-            opacity: 0.2;
-        }
-
         .nav-logo img {
             width: 64px;
             height: 64px;
@@ -214,38 +190,12 @@ if (session_status() === PHP_SESSION_NONE) {
             border-radius: 50%;
             transition: all 0.35s ease;
             box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-            transform-style: preserve-3d;
-            background: white;
-            position: relative;
-            z-index: 3;
-        }
-
-        .nav-logo img::after {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            background: linear-gradient(135deg, var(--medical-accent), var(--medical-cyan));
-            border-radius: 50%;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
-        .nav-logo:hover {
-            transform: translateY(-2px);
         }
 
         .nav-logo:hover img {
             transform: scale(1.03);
             box-shadow: 0 14px 32px rgba(0,0,0,0.16);
             border-color: rgba(255, 215, 0, 0.8);
-        }
-
-        .nav-logo:hover img::after {
-            opacity: 0;
         }
 
         .nav-links {
@@ -289,20 +239,6 @@ if (session_status() === PHP_SESSION_NONE) {
             z-index: -1;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
-            border-radius: 12px;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
         .nav-link:hover {
             color: var(--white);
             transform: translateY(-2px);
@@ -315,8 +251,130 @@ if (session_status() === PHP_SESSION_NONE) {
             opacity: 1;
         }
 
-        .nav-link:hover::after {
-            opacity: 0.15;
+        /* Navigation Dropdown */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
+        }
+
+        .nav-dropdown-toggle::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .nav-dropdown:hover .nav-dropdown-toggle::after {
+            transform: rotate(180deg);
+            color: var(--accent-blue);
+        }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            min-width: 180px;
+            z-index: 1000;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-dropdown-menu a {
+            display: block;
+            padding: 0.6rem 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-dropdown-menu a:hover {
+            background: var(--accent-light-blue);
+            color: var(--white);
+            transform: translateX(5px);
+        }
+
+        .nav-dropdown-menu a:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+
+        .nav-dropdown-menu a:last-child {
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Brand Banner */
+        .brand-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-dark-blue) 50%, var(--accent-blue) 100%);
+            border-bottom: 1px solid rgba(220,220,220,0.9);
+            z-index: 1002;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+        }
+
+        .brand-marquee {
+            display: inline-flex;
+            align-items: center;
+            gap: 3rem;
+            white-space: nowrap;
+            animation: marquee 18s linear infinite;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--white);
+            font-size: 0.95rem;
+            transform: perspective(1000px) rotateX(0deg);
+            line-height: 1;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0) perspective(1000px) rotateX(2deg); }
+            100% { transform: translateX(-100%) perspective(1000px) rotateX(2deg); }
+        }
+
+        /* Fixed Header Container */
+        .fixed-header {
+            position: relative;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(25px);
+            box-shadow: 
+                0 20px 60px rgba(10, 22, 40, 0.15),
+                0 8px 24px rgba(10, 22, 40, 0.1),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            border-bottom-color: rgba(255,255,255,0.3);
         }
 
         /* Page Header Section */
@@ -376,7 +434,199 @@ if (session_status() === PHP_SESSION_NONE) {
             transform: translateZ(5px);
         }
 
-        @keyframes navPatternFloat {
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 100px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem;
+                box-shadow: 0 20px 40px rgba(10, 22, 40, 0.2);
+                border-top: 2px solid var(--accent-blue);
+                z-index: 999;
+                transform: translateY(-100%);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .nav-links.active {
+                display: flex;
+                transform: translateY(0);
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 1rem;
+                border-radius: 0;
+                border-bottom: 1px solid var(--border-light);
+                text-align: center;
+                font-size: 1rem;
+            }
+
+            .nav-link:last-child {
+                border-bottom: none;
+            }
+
+            .nav-dropdown-menu {
+                position: static;
+                background: var(--gray-light);
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                margin-top: 0;
+                min-width: auto;
+            }
+
+            .nav-dropdown.active .nav-dropdown-menu {
+                display: block;
+            }
+
+            .nav-dropdown-toggle::after {
+                display: none;
+            }
+
+            .nav-dropdown-menu a {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+                border-bottom: 1px solid var(--border-light);
+                background: transparent;
+                color: var(--text-primary);
+            }
+
+            .nav-dropdown-menu a:hover {
+                background: var(--accent-light-blue);
+                color: var(--white);
+                transform: none;
+            }
+
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                position: relative;
+            }
+
+            .nav-logo {
+                font-size: 1.3rem;
+                gap: 1rem;
+            }
+
+            .nav-logo img {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+            
+        /* Premium Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: var(--accent-dark-blue);
+            border: 2px solid var(--accent-blue);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .mobile-menu-toggle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .mobile-menu-toggle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            transform: translate(-50%, -50%) rotate(90deg);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .mobile-menu-toggle:hover {
+            transform: translateY(-2px) translateZ(10px) rotateX(-2deg);
+            box-shadow: 0 8px 20px rgba(10, 22, 40, 0.3);
+        }
+
+        .mobile-menu-toggle.active::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+            background: var(--accent-gold);
+        }
+
+        .mobile-menu-toggle.active::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+            background: var(--accent-gold);
+        }
+
+        
+        /* Page Header Section */
+        .page-header-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .page-header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="page-header-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="rgba(255,255,255,0.1)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23page-header-pattern)"/></svg>');
+            animation: pageHeaderFloat 25s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pageHeaderFloat {
             0% { transform: translateX(0) translateY(0); }
             25% { transform: translateX(10px) translateY(-5px); }
             50% { transform: translateX(20px) translateY(0); }
@@ -384,121 +634,12 @@ if (session_status() === PHP_SESSION_NONE) {
             100% { transform: translateX(0) translateY(0); }
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
-            color: var(--pure-white);
-            line-height: 1.6;
-            overflow-x: hidden;
+        .page-header-content {
             position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 50% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
-            animation: modernAurora 15s ease-in-out infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="modern-achievements-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(139,92,246,0.3)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(59,130,246,0.4)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23modern-achievements-pattern)"/></svg>'),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="vibrant-achievements-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(236,72,153,0.3)" stroke-width="2"/><circle cx="25" cy="25" r="6" fill="rgba(249,115,22,0.4)"/></pattern></defs><rect width="200" height="200" fill="url(%23vibrant-achievements-pattern)"/></svg>');
-            background-size: 30px 30px, 100px 100px;
-            animation: modernPatternFloat 25s linear infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* Luxury Header */
-        .luxury-header {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 2rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .luxury-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            animation: floatPattern 20s ease-in-out infinite;
-        }
-
-        @keyframes floatPattern {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(10px, 10px); }
-        }
-
-        .header-content {
+            z-index: 2;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .header-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 3px solid var(--golden-yellow);
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
         }
 
         .page-title {
@@ -506,20 +647,16 @@ if (session_status() === PHP_SESSION_NONE) {
             font-size: 3rem;
             font-weight: 900;
             margin-bottom: 1rem;
-            text-align: center;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            transform-style: preserve-3d;
+            transform: translateZ(10px);
         }
 
         .breadcrumb {
-            text-align: center;
             opacity: 0.9;
-        }
-
-        /* Main Content */
-        .main-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
+            font-size: 1.1rem;
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
         }
 
         /* Section Styles */
@@ -577,99 +714,6 @@ if (session_status() === PHP_SESSION_NONE) {
             font-size: 1.1rem;
             max-width: 600px;
             margin: 0 auto;
-        }
-
-        /* Achievements Section */
-        .achievements-section {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
-            margin-bottom: 3rem;
-        }
-
-        .achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .achievement-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,248,255,0.9));
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(26,26,26,0.15);
-            border: 1px solid rgba(26,26,26,0.08);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .achievement-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .achievement-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1), rgba(55, 48, 163, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .achievement-card:hover::before {
-            opacity: 1;
-        }
-
-        .achievement-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .achievement-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            background: var(--gradient-luxury);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
-            position: relative;
-            z-index: 1;
-        }
-
-        .achievement-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .achievement-description {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
         }
 
         /* Statistics Section */
@@ -880,21 +924,24 @@ if (session_status() === PHP_SESSION_NONE) {
         /* Enhanced Achievement Gallery */
         .achievement-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
             gap: 2.5rem;
             margin: 3rem 0;
+            perspective: 2000px;
+            transform-style: preserve-3d;
         }
 
         .achievement-card {
-            background: linear-gradient(145deg, var(--white), var(--cream-white));
-            border-radius: 20px;
+            background: linear-gradient(145deg, var(--white), var(--gray-light));
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-xl);
+            transition: all var(--animation-normal) cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             transform-style: preserve-3d;
-            transform: translateZ(0);
-            border: 2px solid transparent;
+            transform: translateZ(0) rotateX(0deg) rotateY(0deg);
+            border: 3px solid transparent;
+            background-clip: padding-box;
         }
 
         .achievement-card::before {
@@ -903,10 +950,12 @@ if (session_status() === PHP_SESSION_NONE) {
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--light-green), var(--golden-yellow));
+            height: 6px;
+            background: var(--gradient-luxury);
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform var(--animation-normal) cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 24px 24px 0 0;
+            z-index: 3;
         }
 
         .achievement-card::after {
@@ -917,37 +966,50 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="achievement-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="var(--golden-yellow)" opacity="0.2"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="var(--light-green)" stroke-width="1" fill="none" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23achievement-pattern)"/></svg>'),
-                linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
-            background-size: 40px 40px, cover;
-            background-position: 0 0, center;
-            transform: translateX(-100%);
-            transition: transform 0.8s ease;
+                radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="achievement-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(37, 99, 235, 0.15)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(6, 182, 212, 0.2)" stroke-width="2" fill="none"/><circle cx="30" cy="30" r="2" fill="rgba(255, 215, 0, 0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23achievement-pattern)"/></svg>');
+            background-size: cover, cover, 60px 60px;
+            background-position: center, center, 0 0;
+            transform: translateX(-100%) rotate(1deg);
+            transition: transform var(--animation-slow) cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none;
+            opacity: 0.7;
+            z-index: 1;
         }
 
         .achievement-card:hover {
-            transform: translateY(-15px) scale(1.02) rotateX(3deg) translateZ(25px);
-            box-shadow: var(--shadow-xl), 0 0 40px rgba(37, 99, 235, 0.3);
-            border-color: var(--primary-blue);
+            transform: translateY(-20px) scale(1.03) rotateX(5deg) rotateY(-3deg) translateZ(30px);
+            box-shadow: var(--shadow-2xl), var(--shadow-glow), var(--image-shadow-hover);
+            border-color: var(--accent-blue);
+            background: linear-gradient(145deg, var(--white), rgba(37, 99, 235, 0.02));
         }
 
         .achievement-card:hover::before {
             transform: scaleX(1);
+            animation: shimmer 2s ease-in-out infinite;
         }
 
         .achievement-card:hover::after {
-            transform: translateX(100%);
+            transform: translateX(100%) rotate(-1deg);
+            opacity: 0.9;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
         }
 
         .achievement-image {
             width: 100%;
-            height: 250px;
+            height: 280px;
             object-fit: cover;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all var(--animation-normal) cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             transform-style: preserve-3d;
             transform: translateZ(0);
+            filter: brightness(1) contrast(1) saturate(1);
+            border-radius: 20px 20px 0 0;
         }
 
         .achievement-image::before {
@@ -957,52 +1019,272 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
-            transform: translateX(-100%);
-            transition: transform 0.8s ease;
+            background: 
+                linear-gradient(135deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%),
+                radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.1) 100%);
+            transform: translateX(-120%) rotate(45deg);
+            transition: transform var(--animation-slow) cubic-bezier(0.4, 0, 0.2, 1);
             pointer-events: none;
+            z-index: 2;
         }
 
         .achievement-card:hover .achievement-image {
-            transform: scale(1.05) rotateX(2deg) translateZ(10px);
+            transform: scale(1.08) rotateX(3deg) rotateY(-2deg) translateZ(15px);
+            filter: var(--image-filter-hover);
+            box-shadow: var(--image-border-glow);
         }
 
         .achievement-card:hover .achievement-image::before {
-            transform: translateX(100%);
+            transform: translateX(120%) rotate(45deg);
         }
 
         .achievement-card-content {
-            padding: 2rem;
+            padding: 2.5rem;
+            position: relative;
+            z-index: 4;
+            background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248,250,252,0.9));
+            backdrop-filter: blur(10px);
         }
 
         .achievement-card-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            color: var(--primary-blue);
+            color: var(--primary-dark);
             margin-bottom: 1rem;
+            position: relative;
+            transform: translateZ(5px);
+            transition: all var(--animation-fast) ease;
+        }
+
+        .achievement-card:hover .achievement-card-title {
+            color: var(--accent-blue);
+            transform: translateZ(10px) translateY(-2px);
         }
 
         .achievement-card-description {
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.7;
             margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            position: relative;
+            transform: translateZ(3px);
+            transition: all var(--animation-fast) ease;
+        }
+
+        .achievement-card:hover .achievement-card-description {
+            color: var(--text-primary);
+            transform: translateZ(8px);
         }
 
         .achievement-badges {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.8rem;
+            position: relative;
+            transform: translateZ(4px);
         }
 
         .achievement-badge {
             display: inline-block;
-            background: var(--gradient-primary);
+            background: var(--gradient-luxury);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
             font-weight: 600;
+            transition: all var(--animation-fast) ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left var(--animation-normal) ease;
+        }
+
+        .achievement-badge:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+        }
+
+        .achievement-badge:hover::before {
+            left: 100%;
+        }
+
+        /* Image Loading Animation */
+        .achievement-image {
+            animation: imageLoadIn var(--animation-slow) ease-out;
+        }
+
+        @keyframes imageLoadIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+                filter: blur(10px);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.02) translateY(-5px);
+                filter: blur(2px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* Parallax Container */
+        .achievement-gallery-section {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 50%, var(--gray-light) 100%);
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            margin: 4rem 0;
+        }
+
+        .achievement-gallery-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="gallery-bg-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="rgba(37, 99, 235, 0.1)"/><path d="M10 25 Q25 10, 40 25 T70 25" stroke="rgba(6, 182, 212, 0.08)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23gallery-bg-pattern)"/></svg>');
+            background-size: cover, cover, 100px 100px;
+            background-position: center, center, 0 0;
+            animation: galleryFloat 30s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes galleryFloat {
+            0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+            25% { transform: translateX(10px) translateY(-5px) rotate(0.5deg); }
+            50% { transform: translateX(20px) translateY(0) rotate(0deg); }
+            75% { transform: translateX(10px) translateY(5px) rotate(-0.5deg); }
+        }
+
+        .section-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-description {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        /* Lightbox Effect */
+        .achievement-image {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .achievement-image::after {
+            content: '🔍';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 2rem;
+            opacity: 0;
+            transition: all var(--animation-fast) ease;
+            z-index: 5;
+            background: rgba(255,255,255,0.9);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .achievement-card:hover .achievement-image::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Staggered Animation */
+        .achievement-card:nth-child(1) { animation-delay: 0.1s; }
+        .achievement-card:nth-child(2) { animation-delay: 0.2s; }
+        .achievement-card:nth-child(3) { animation-delay: 0.3s; }
+        .achievement-card:nth-child(4) { animation-delay: 0.4s; }
+        .achievement-card:nth-child(5) { animation-delay: 0.5s; }
+        .achievement-card:nth-child(6) { animation-delay: 0.6s; }
+        .achievement-card:nth-child(7) { animation-delay: 0.7s; }
+        .achievement-card:nth-child(8) { animation-delay: 0.8s; }
+        .achievement-card:nth-child(9) { animation-delay: 0.9s; }
+        .achievement-card:nth-child(10) { animation-delay: 1.0s; }
+        .achievement-card:nth-child(11) { animation-delay: 1.1s; }
+        .achievement-card:nth-child(12) { animation-delay: 1.2s; }
+        .achievement-card:nth-child(13) { animation-delay: 1.3s; }
+        .achievement-card:nth-child(14) { animation-delay: 1.4s; }
+        .achievement-card:nth-child(15) { animation-delay: 1.5s; }
+        .achievement-card:nth-child(16) { animation-delay: 1.6s; }
+        .achievement-card:nth-child(17) { animation-delay: 1.7s; }
+        .achievement-card:nth-child(18) { animation-delay: 1.8s; }
+        .achievement-card:nth-child(19) { animation-delay: 1.9s; }
+        .achievement-card:nth-child(20) { animation-delay: 2.0s; }
+
+        /* Responsive Design for Gallery */
+        @media (max-width: 768px) {
+            .achievement-gallery {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .achievement-card {
+                border-radius: 20px;
+            }
+
+            .achievement-image {
+                height: 220px;
+            }
+
+            .achievement-card-content {
+                padding: 2rem;
+            }
+
+            .achievement-card-title {
+                font-size: 1.4rem;
+            }
+
+            .achievement-gallery-section {
+                padding: 3rem 2rem;
+                margin: 3rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .achievement-card-title {
+                font-size: 1.3rem;
+            }
+
+            .achievement-card-description {
+                font-size: 1rem;
+            }
+
+            .achievement-badge {
+                font-size: 0.75rem;
+                padding: 0.5rem 1rem;
+            }
         }
 
         @keyframes achievementFloat {
@@ -1081,160 +1363,7 @@ if (session_status() === PHP_SESSION_NONE) {
             margin: 0 auto;
         }
 
-        /* Mobile Menu Button */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 100px;
-                left: 0;
-                right: 0;
-                background: var(--white);
-                flex-direction: column;
-                gap: 0;
-                padding: 1rem;
-                box-shadow: 0 20px 40px rgba(10, 22, 40, 0.2);
-                border-top: 2px solid var(--accent-blue);
-                z-index: 999;
-                transform: translateY(-100%);
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            .nav-links.active {
-                display: flex;
-                transform: translateY(0);
-            }
-
-            .nav-link {
-                width: 100%;
-                padding: 1rem;
-                border-radius: 0;
-                border-bottom: 1px solid var(--border-light);
-                text-align: center;
-                font-size: 1rem;
-            }
-
-            .nav-link:last-child {
-                border-bottom: none;
-            }
-
-            .nav-dropdown-menu {
-                position: static;
-                background: var(--gray-light);
-                box-shadow: none;
-                border: none;
-                border-radius: 0;
-                transform: none;
-                opacity: 1;
-                visibility: visible;
-                display: none;
-                margin-top: 0;
-                min-width: auto;
-            }
-
-            .nav-dropdown.active .nav-dropdown-menu {
-                display: block;
-            }
-
-            .nav-dropdown-toggle::after {
-                display: none;
-            }
-
-            .nav-dropdown-menu a {
-                padding: 0.8rem 1rem;
-                font-size: 0.9rem;
-                border-bottom: 1px solid var(--border-light);
-                background: transparent;
-                color: var(--text-primary);
-            }
-
-            .nav-dropdown-menu a:hover {
-                background: var(--accent-light-blue);
-                color: var(--white);
-                transform: none;
-            }
-
-            .navbar {
-                padding: 1rem;
-            }
-
-            .nav-container {
-                flex-wrap: wrap;
-                position: relative;
-            }
-
-            .nav-logo {
-                font-size: 1.3rem;
-                gap: 1rem;
-            }
-
-            .nav-logo img {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .header-nav {
-                flex-wrap: wrap;
-                position: relative;
-            }
-            
-            .logo-section {
-                flex: 1;
-            }
-            .nav-links {
-                display: none;
-            }
-            
-            .page-title {
-                font-size: 2rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .achievements-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .challenges-list {
-                grid-template-columns: 1fr;
-            }
-            
-            .plans-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-
-    /* Footer Styling */
+        /* Footer Styling */
     .footer {
         background: var(--primary-dark);
         color: white;
@@ -1366,7 +1495,7 @@ if (session_status() === PHP_SESSION_NONE) {
             width: 100%;
             justify-content: center;
         }
-    }
+    </style>
 </head>
 <body>
     <div class="fixed-header">
@@ -1381,10 +1510,9 @@ if (session_status() === PHP_SESSION_NONE) {
         <nav class="navbar" id="navbar">
             <div class="nav-container">
                 <a href="index.php" class="nav-logo">
-                    <img src="assets/school-logo.png" alt="ISNM Logo" style="width: 75px; height: 75px;">
-                    <div class="nav-logo-text">
-                         </div>
+                    <img src="assets/school-logo.png" alt="ISNM Logo">
                 </a>
+                
                 <!-- Mobile Menu Toggle -->
                 <button class="mobile-menu-toggle" id="mobileMenuToggle">
                     <span></span>
@@ -1508,7 +1636,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     
                     <div class="achievement-card" style="position: relative;">
-                        <img src="assets/graduants-celebrating-their-graduation.jpg" alt="Graduates Celebrating" class="achievement-image">
+                        <img src="assets/images/achievements/graduants-celebrating-their-graduation.jpg" alt="Graduates Celebrating" class="achievement-image">
                         <div class="achievement-icon" style="position: absolute; top: 10px; right: 10px; background: var(--gradient-luxury);">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
@@ -1520,7 +1648,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     
                     <div class="achievement-card" style="position: relative;">
-                        <img src="assets/graduants-rejoicing.jpg" alt="Graduates Rejoicing" class="achievement-image">
+                        <img src="assets/images/achievements/graduants-rejoicing.jpg" alt="Graduates Rejoicing" class="achievement-image">
                         <div class="achievement-icon" style="position: absolute; top: 10px; right: 10px; background: var(--gradient-luxury);">
                             <i class="fas fa-trophy"></i>
                         </div>
@@ -1532,7 +1660,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     
                     <div class="achievement-card" style="position: relative;">
-                        <img src="assets/graduation-parad-2023-students-holding-the-banner.jpg" alt="Graduation Banner" class="achievement-image">
+                        <img src="assets/images/achievements/graduation-parad-2023-students-holding-the-banner.jpg" alt="Graduation Banner" class="achievement-image">
                         <div class="achievement-icon" style="position: absolute; top: 10px; right: 10px; background: var(--gradient-luxury);">
                             <i class="fas fa-flag"></i>
                         </div>
@@ -1544,7 +1672,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     
                     <div class="achievement-card" style="position: relative;">
-                        <img src="assets/iganga-school-of-nursing-celebrating-3rd-graduation.jpg" alt="3rd Graduation Celebration" class="achievement-image">
+                        <img src="assets/images/achievements/iganga-school-of-nursing-celebrating-3rd-graduation.jpg" alt="3rd Graduation Celebration" class="achievement-image">
                         <div class="achievement-icon" style="position: absolute; top: 10px; right: 10px; background: var(--gradient-luxury);">
                             <i class="fas fa-medal"></i>
                         </div>
@@ -1823,7 +1951,6 @@ if (session_status() === PHP_SESSION_NONE) {
                                 Appeal to Ministry of Education and Sports (MOES) and Ministry of Health (MOH) to identify donors to support the school
                             </p>
                         </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -1840,7 +1967,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <div class="achievement-gallery">
                         <!-- Administration Block -->
                         <div class="achievement-card">
-                            <img src="assets/administration-block.jpg" alt="ISNM Administration Block - Main Administrative Building" title="ISNM Administration Block - Central Hub of School Management" class="achievement-image">
+                            <img src="assets/images/facilities/administration-block.jpg" alt="ISNM Administration Block - Main Administrative Building" title="ISNM Administration Block - Central Hub of School Management" class="achievement-image">
                             <div class="achievement-card-content">
                                 <h3 class="achievement-card-title">Administration Block</h3>
                                 <p class="achievement-card-description">
@@ -1855,7 +1982,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <!-- Certificate Students in Examination -->
                         <div class="achievement-card">
-                            <img src="assets/certificate-in-nursing-students-in-examamination-room.jpg" alt="ISNM Certificate Nursing Students in Examination Room" title="ISNM Certificate Nursing Students - Academic Assessment in Progress" class="achievement-image">
+                            <img src="assets/images/academic/certificate-in-nursing-students-in-examamination-room.jpg" alt="ISNM Certificate Nursing Students in Examination Room" title="ISNM Certificate Nursing Students - Academic Assessment in Progress" class="achievement-image">
                             <div class="achievement-card-content">
                                 <h3 class="achievement-card-title">Academic Excellence</h3>
                                 <p class="achievement-card-description">
@@ -1870,7 +1997,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <!-- Classroom Building -->
                         <div class="achievement-card">
-                            <img src="assets/classroom-building.jpg" alt="ISNM Classroom Building - Modern Learning Facilities" title="ISNM Classroom Building - State-of-the-Art Learning Environment" class="achievement-image">
+                            <img src="assets/images/facilities/classroom-building.jpg" alt="ISNM Classroom Building - Modern Learning Facilities" title="ISNM Classroom Building - State-of-the-Art Learning Environment" class="achievement-image">
                             <div class="achievement-card-content">
                                 <h3 class="achievement-card-title">Modern Classrooms</h3>
                                 <p class="achievement-card-description">
@@ -1885,7 +2012,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <!-- Dining Hall -->
                         <div class="achievement-card">
-                            <img src="assets/dinnin-hall-or-main-hall.jpg" alt="ISNM Dining Hall - Student Dining Facilities" title="ISNM Main Dining Hall - Student Nutrition and Social Space" class="achievement-image">
+                            <img src="assets/images/facilities/dinnin-hall-or-main-hall.jpg" alt="ISNM Dining Hall - Student Dining Facilities" title="ISNM Main Dining Hall - Student Nutrition and Social Space" class="achievement-image">
                             <div class="achievement-card-content">
                                 <h3 class="achievement-card-title">Dining Hall</h3>
                                 <p class="achievement-card-description">
@@ -1900,7 +2027,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <!-- Diploma Hostel -->
                         <div class="achievement-card">
-                            <img src="assets/diploma-hostel.jpg" alt="ISNM Diploma Hostel - Student Accommodation" title="ISNM Diploma Hostel - Comfortable Student Living Facilities" class="achievement-image">
+                            <img src="assets/images/facilities/diploma-hostel.jpg" alt="ISNM Diploma Hostel - Student Accommodation" title="ISNM Diploma Hostel - Comfortable Student Living Facilities" class="achievement-image">
                             <div class="achievement-card-content">
                                 <h3 class="achievement-card-title">Diploma Hostel</h3>
                                 <p class="achievement-card-description">
@@ -1915,7 +2042,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <!-- Diploma Extension Images -->
                         <div class="achievement-card">
-                            <img src="assets/diploma-in-nursing-and-midwifery-extension-images-for-students.jpg" alt="ISNM Diploma Extension Program - Student Activities" title="ISNM Diploma Extension Program - Enhanced Learning Opportunities" class="achievement-image">
+                            <img src="assets/images/academic/diploma-in-nursing-and-midwifery-extension-images-for-students.jpg" alt="ISNM Diploma Extension Program - Student Activities" title="ISNM Diploma Extension Program - Enhanced Learning Opportunities" class="achievement-image">
                             <div class="achievement-card-content">
                                 <h3 class="achievement-card-title">Extension Programs</h3>
                                 <p class="achievement-card-description">
@@ -1930,7 +2057,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <!-- Girls Hostel -->
                         <div class="achievement-card">
-                            <img src="assets/girls-hostel.jpg" alt="ISNM Girls Hostel - Female Student Accommodation" title="ISNM Girls Hostel - Safe and Comfortable Living Environment" class="achievement-image">
+                            <img src="assets/images/facilities/girls-hostel.jpg" alt="ISNM Girls Hostel - Female Student Accommodation" title="ISNM Girls Hostel - Safe and Comfortable Living Environment" class="achievement-image">
                             <div class="achievement-card-content">
                                 <h3 class="achievement-card-title">Girls Hostel</h3>
                                 <p class="achievement-card-description">
@@ -1945,7 +2072,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <!-- Library Revision Session -->
                         <div class="achievement-card">
-                            <img src="assets/revision-session-at-the-school-library.jpg" alt="ISNM Library Revision Session - Student Study" title="ISNM Library Revision Session - Academic Excellence in Progress" class="achievement-image">
+                            <img src="assets/images/academic/revision-session-at-the-school-library.jpg" alt="ISNM Library Revision Session - Student Study" title="ISNM Library Revision Session - Academic Excellence in Progress" class="achievement-image">
                             <div class="achievement-card-content">
                                 <h3 class="achievement-card-title">Library Studies</h3>
                                 <p class="achievement-card-description">
@@ -1960,7 +2087,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <!-- School Kitchen -->
                         <div class="achievement-card">
-                            <img src="assets/school-kitchen.jpg" alt="ISNM School Kitchen - Food Preparation Facilities" title="ISNM School Kitchen - Modern Food Preparation and Nutrition Center" class="achievement-image">
+                            <img src="assets/images/facilities/school-kitchen.jpg" alt="ISNM School Kitchen - Food Preparation Facilities" title="ISNM School Kitchen - Modern Food Preparation and Nutrition Center" class="achievement-image">
                             <div class="achievement-card-content">
                                 <h3 class="achievement-card-title">School Kitchen</h3>
                                 <p class="achievement-card-description">
@@ -1975,7 +2102,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <!-- Skills Laboratory -->
                         <div class="achievement-card">
-                            <img src="assets/students-in-skill-laboratory-in-practical-training.jpg" alt="ISNM Skills Laboratory - Practical Training Session" title="ISNM Skills Laboratory - Hands-on Practical Training for Students" class="achievement-image">
+                            <img src="assets/images/academic/students-in-skill-laboratory-in-practical-training.jpg" alt="ISNM Skills Laboratory - Practical Training Session" title="ISNM Skills Laboratory - Hands-on Practical Training for Students" class="achievement-image">
                             <div class="achievement-card-content">
                                 <h3 class="achievement-card-title">Skills Laboratory</h3>
                                 <p class="achievement-card-description">
@@ -1984,6 +2111,231 @@ if (session_status() === PHP_SESSION_NONE) {
                                 <div class="achievement-badges">
                                     <span class="achievement-badge">Training</span>
                                     <span class="achievement-badge">Skills</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Graduation Ceremony -->
+                        <div class="achievement-card">
+                            <img src="assets/images/achievements/graduation-ceremony.jpg" alt="ISNM Graduation Ceremony - Students Celebrating Achievement" title="ISNM Graduation Ceremony - Academic Success and Achievement" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Graduation Ceremony</h3>
+                                <p class="achievement-card-description">
+                                    Celebrating the successful graduation of our nursing and midwifery students
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Achievement</span>
+                                    <span class="achievement-badge">Success</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Graduation Parade -->
+                        <div class="achievement-card">
+                            <img src="assets/images/achievements/graduation-parad-2023-students-holding-the-banner.jpg" alt="ISNM Graduation Parade 2023 - Students with Banner" title="ISNM Graduation Parade 2023 - Student Pride and Achievement" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Graduation Parade</h3>
+                                <p class="achievement-card-description">
+                                    Students proudly displaying their achievements during the 2023 graduation parade
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Celebration</span>
+                                    <span class="achievement-badge">Parade</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Graduants Rejoicing -->
+                        <div class="achievement-card">
+                            <img src="assets/images/achievements/graduants-rejoicing.jpg" alt="ISNM Graduates Rejoicing - Celebration Time" title="ISNM Graduates Rejoicing - Joy and Achievement Celebration" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Graduates Celebration</h3>
+                                <p class="achievement-card-description">
+                                    Joyful moments as our graduates celebrate their academic achievements
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Joy</span>
+                                    <span class="achievement-badge">Celebration</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- School Transportation -->
+                        <div class="achievement-card">
+                            <img src="assets/images/facilities/school-mini-buses-2-costers.jpg" alt="ISNM School Transportation - Mini Buses and Coasters" title="ISNM Transportation Fleet - Student and Staff Transport Services" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Transportation Fleet</h3>
+                                <p class="achievement-card-description">
+                                    Our fleet of mini buses and coasters providing reliable transportation for students and staff
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Transport</span>
+                                    <span class="achievement-badge">Logistics</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- School Borehole -->
+                        <div class="achievement-card">
+                            <img src="assets/images/facilities/school-borehole-a-student-is-fetching-water.jpg" alt="ISNM School Borehole - Water Supply System" title="ISNM Water Infrastructure - Student Accessing Clean Water" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Water Infrastructure</h3>
+                                <p class="achievement-card-description">
+                                    School borehole providing clean and reliable water supply for all students
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Infrastructure</span>
+                                    <span class="achievement-badge">Water</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Practicum -->
+                        <div class="achievement-card">
+                            <img src="assets/images/academic/student-st-practicum-sites1.jpg" alt="ISNM Student Practicum - Clinical Training" title="ISNM Student Practicum - Hands-on Clinical Experience" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Clinical Practicum</h3>
+                                <p class="achievement-card-description">
+                                    Students gaining practical experience at clinical practicum sites
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Training</span>
+                                    <span class="achievement-badge">Clinical</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Practicum Training -->
+                        <div class="achievement-card">
+                            <img src="assets/images/academic/student-at-practicum-site2.jpg" alt="ISNM Advanced Practicum Training - Healthcare Experience" title="ISNM Advanced Practicum - Professional Healthcare Training" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Advanced Training</h3>
+                                <p class="achievement-card-description">
+                                    Advanced clinical training at healthcare facilities for professional development
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Advanced</span>
+                                    <span class="achievement-badge">Healthcare</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3rd Graduation Celebration -->
+                        <div class="achievement-card">
+                            <img src="assets/images/achievements/iganga-school-of-nursing-celebrating-3rd-graduation.jpg" alt="ISNM 3rd Graduation Celebration - Milestone Achievement" title="ISNM 3rd Graduation - Institutional Milestone Celebration" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">3rd Graduation</h3>
+                                <p class="achievement-card-description">
+                                    Celebrating our third graduation ceremony - a significant institutional milestone
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Milestone</span>
+                                    <span class="achievement-badge">History</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Graduation Day Parade -->
+                        <div class="achievement-card">
+                            <img src="assets/images/achievements/graduation-day-students-matching-while-playing-trumpets-and-drum.jpg" alt="ISNM Graduation Day Parade - Musical Celebration" title="ISNM Graduation Parade - Students with Musical Instruments" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Musical Parade</h3>
+                                <p class="achievement-card-description">
+                                    Students celebrating graduation day with trumpets and drums in a joyful parade
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Music</span>
+                                    <span class="achievement-badge">Parade</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Girls Graduation -->
+                        <div class="achievement-card">
+                            <img src="assets/images/achievements/girls-in-graduation-ceremony.jpg" alt="ISNM Girls Graduation - Female Student Achievement" title="ISNM Girls Graduation - Empowering Female Healthcare Professionals" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Women in Healthcare</h3>
+                                <p class="achievement-card-description">
+                                    Celebrating our female graduates as they enter the healthcare profession
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Women</span>
+                                    <span class="achievement-badge">Healthcare</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Boys Graduation -->
+                        <div class="achievement-card">
+                            <img src="assets/images/achievements/boys-in-graduation.jpg" alt="ISNM Boys Graduation - Male Student Achievement" title="ISNM Boys Graduation - Male Healthcare Professionals" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Male Graduates</h3>
+                                <p class="achievement-card-description">
+                                    Our male graduates ready to serve as professional healthcare providers
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Men</span>
+                                    <span class="achievement-badge">Healthcare</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mama Baby Graduation -->
+                        <div class="achievement-card">
+                            <img src="assets/images/achievements/mama-baby-in-her-graduation.jpg" alt="ISNM Mama Baby Graduation - Midwifery Achievement" title="ISNM Midwifery Graduation - Mother and Baby Healthcare" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Midwifery Excellence</h3>
+                                <p class="achievement-card-description">
+                                    Celebrating midwifery graduates ready to provide mother and baby healthcare
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Midwifery</span>
+                                    <span class="achievement-badge">Maternal</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Nurses Marching -->
+                        <div class="achievement-card">
+                            <img src="assets/images/achievements/nurses-and-midwifes-students-matching-on-graduation-day.jpg" alt="ISNM Nurses and Midwives Marching - Graduation Day" title="ISNM Graduation March - Nurses and Midwives Procession" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Graduation March</h3>
+                                <p class="achievement-card-description">
+                                    Nurses and midwifery students marching in celebration of their graduation achievement
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Procession</span>
+                                    <span class="achievement-badge">Unity</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hero Students Classroom -->
+                        <div class="achievement-card">
+                            <img src="assets/images/hero/students-in-class.jpg" alt="ISNM Students in Classroom - Learning Environment" title="ISNM Classroom Learning - Students Engaged in Studies" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Classroom Learning</h3>
+                                <p class="achievement-card-description">
+                                    Students actively engaged in classroom learning and academic activities
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Learning</span>
+                                    <span class="achievement-badge">Classroom</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hero Graduation Image -->
+                        <div class="achievement-card">
+                            <img src="assets/images/hero/graduations-hero.jpg" alt="ISNM Graduation Hero - Academic Achievement" title="ISNM Graduation Success - Academic Excellence Celebration" class="achievement-image">
+                            <div class="achievement-card-content">
+                                <h3 class="achievement-card-title">Academic Success</h3>
+                                <p class="achievement-card-description">
+                                    Showcasing academic excellence and success in nursing and midwifery education
+                                </p>
+                                <div class="achievement-badges">
+                                    <span class="achievement-badge">Excellence</span>
+                                    <span class="achievement-badge">Success</span>
                                 </div>
                             </div>
                         </div>
@@ -2233,6 +2585,349 @@ if (session_status() === PHP_SESSION_NONE) {
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // Advanced Image Interactions
+        class ImageGallery {
+            constructor() {
+                this.images = document.querySelectorAll('.achievement-image');
+                this.lightbox = this.createLightbox();
+                this.init();
+            }
+
+            createLightbox() {
+                const lightbox = document.createElement('div');
+                lightbox.className = 'lightbox';
+                lightbox.innerHTML = `
+                    <div class="lightbox-overlay"></div>
+                    <div class="lightbox-content">
+                        <button class="lightbox-close">&times;</button>
+                        <img class="lightbox-image" src="" alt="">
+                        <div class="lightbox-caption"></div>
+                        <div class="lightbox-nav">
+                            <button class="lightbox-prev">&#8249;</button>
+                            <button class="lightbox-next">&#8250;</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(lightbox);
+                return lightbox;
+            }
+
+            init() {
+                this.images.forEach((img, index) => {
+                    img.addEventListener('click', (e) => this.openLightbox(e, index));
+                    img.addEventListener('mouseenter', (e) => this.addHoverEffect(e));
+                    img.addEventListener('mouseleave', (e) => this.removeHoverEffect(e));
+                });
+
+                this.lightbox.addEventListener('click', (e) => {
+                    if (e.target === this.lightbox || e.target.classList.contains('lightbox-overlay') || e.target.classList.contains('lightbox-close')) {
+                        this.closeLightbox();
+                    }
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (this.lightbox.classList.contains('active')) {
+                        if (e.key === 'Escape') this.closeLightbox();
+                        if (e.key === 'ArrowLeft') this.navigate(-1);
+                        if (e.key === 'ArrowRight') this.navigate(1);
+                    }
+                });
+            }
+
+            openLightbox(e, index) {
+                e.preventDefault();
+                const img = e.currentTarget;
+                const lightboxImg = this.lightbox.querySelector('.lightbox-image');
+                const caption = this.lightbox.querySelector('.lightbox-caption');
+                
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                caption.textContent = img.alt || img.title;
+                
+                this.lightbox.classList.add('active');
+                this.currentIndex = index;
+                document.body.style.overflow = 'hidden';
+                
+                // Add entrance animation
+                setTimeout(() => {
+                    this.lightbox.querySelector('.lightbox-content').style.transform = 'scale(1)';
+                }, 10);
+            }
+
+            closeLightbox() {
+                this.lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+                this.lightbox.querySelector('.lightbox-content').style.transform = 'scale(0.8)';
+            }
+
+            navigate(direction) {
+                this.currentIndex += direction;
+                if (this.currentIndex < 0) this.currentIndex = this.images.length - 1;
+                if (this.currentIndex >= this.images.length) this.currentIndex = 0;
+                
+                const img = this.images[this.currentIndex];
+                const lightboxImg = this.lightbox.querySelector('.lightbox-image');
+                const caption = this.lightbox.querySelector('.lightbox-caption');
+                
+                lightboxImg.style.opacity = '0';
+                setTimeout(() => {
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt;
+                    caption.textContent = img.alt || img.title;
+                    lightboxImg.style.opacity = '1';
+                }, 200);
+            }
+
+            addHoverEffect(e) {
+                const img = e.currentTarget;
+                img.style.transform = 'scale(1.05) rotateX(2deg) rotateY(-2deg) translateZ(10px)';
+                img.style.filter = 'brightness(1.1) contrast(1.05) saturate(1.2)';
+            }
+
+            removeHoverEffect(e) {
+                const img = e.currentTarget;
+                img.style.transform = '';
+                img.style.filter = '';
+            }
+        }
+
+        // Parallax Effect for Gallery Section
+        class ParallaxEffect {
+            constructor() {
+                this.gallerySection = document.querySelector('.achievement-gallery-section');
+                this.cards = document.querySelectorAll('.achievement-card');
+                this.init();
+            }
+
+            init() {
+                window.addEventListener('scroll', this.handleScroll.bind(this));
+                window.addEventListener('mousemove', this.handleMouseMove.bind(this));
+            }
+
+            handleScroll() {
+                if (!this.gallerySection) return;
+                
+                const rect = this.gallerySection.getBoundingClientRect();
+                const scrolled = window.pageYOffset;
+                
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const speed = 0.5;
+                    const yPos = -(scrolled * speed);
+                    this.gallerySection.style.backgroundPosition = `center ${yPos}px`;
+                }
+            }
+
+            handleMouseMove(e) {
+                this.cards.forEach((card, index) => {
+                    const rect = card.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    
+                    const angleX = (e.clientY - centerY) / 30;
+                    const angleY = (centerX - e.clientX) / 30;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateZ(10px)`;
+                });
+            }
+        }
+
+        // Intersection Observer for Animations
+        class ScrollAnimations {
+            constructor() {
+                this.observer = new IntersectionObserver(this.handleIntersection.bind(this), {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+                this.init();
+            }
+
+            init() {
+                const elements = document.querySelectorAll('.achievement-card, .stat-item, .challenge-card, .plan-card');
+                elements.forEach(el => this.observer.observe(el));
+            }
+
+            handleIntersection(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                        entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                    }
+                });
+            }
+        }
+
+        // Image Loading Optimization
+        class ImageLoader {
+            constructor() {
+                this.images = document.querySelectorAll('.achievement-image');
+                this.init();
+            }
+
+            init() {
+                this.images.forEach(img => {
+                    if (img.complete) {
+                        this.animateImage(img);
+                    } else {
+                        img.addEventListener('load', () => this.animateImage(img));
+                        img.addEventListener('error', () => this.handleImageError(img));
+                    }
+                });
+            }
+
+            animateImage(img) {
+                img.style.animation = 'imageLoadIn 1.2s ease-out';
+                img.style.opacity = '1';
+            }
+
+            handleImageError(img) {
+                img.style.display = 'none';
+                console.warn('Image failed to load:', img.src);
+                
+                // Create placeholder
+                const placeholder = document.createElement('div');
+                placeholder.className = 'image-placeholder';
+                placeholder.innerHTML = `<i class="fas fa-image"></i><span>Image Not Available</span>`;
+                img.parentNode.insertBefore(placeholder, img);
+            }
+        }
+
+        // Initialize all components
+        document.addEventListener('DOMContentLoaded', () => {
+            new ImageGallery();
+            new ParallaxEffect();
+            new ScrollAnimations();
+            new ImageLoader();
+        });
+
+        // Add lightbox styles dynamically
+        const lightboxStyles = `
+            .lightbox {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.95);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .lightbox.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .lightbox-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle, transparent 0%, rgba(0,0,0,0.4) 100%);
+            }
+
+            .lightbox-content {
+                position: relative;
+                max-width: 90%;
+                max-height: 90%;
+                transform: scale(0.8);
+                transition: transform 0.3s ease;
+                z-index: 1;
+            }
+
+            .lightbox-image {
+                max-width: 100%;
+                max-height: 80vh;\n                border-radius: 12px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+                transition: opacity 0.3s ease;
+            }
+
+            .lightbox-caption {
+                text-align: center;
+                color: white;
+                margin-top: 1rem;
+                font-size: 1.1rem;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            }
+
+            .lightbox-close {
+                position: absolute;
+                top: -40px;
+                right: 0;
+                background: rgba(255,255,255,0.2);
+                border: none;
+                color: white;
+                font-size: 2rem;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .lightbox-close:hover {
+                background: rgba(255,255,255,0.3);
+                transform: scale(1.1);
+            }
+
+            .lightbox-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                padding: 0 20px;
+                pointer-events: none;
+            }
+
+            .lightbox-prev, .lightbox-next {
+                background: rgba(255,255,255,0.2);
+                border: none;
+                color: white;
+                font-size: 2rem;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                pointer-events: all;
+            }
+
+            .lightbox-prev:hover, .lightbox-next:hover {
+                background: rgba(255,255,255,0.3);
+                transform: scale(1.1);
+            }
+
+            .image-placeholder {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 280px;
+                background: linear-gradient(135deg, var(--gray-light), var(--gray-medium));
+                border-radius: 20px 20px 0 0;
+                color: var(--text-secondary);
+                font-size: 1.1rem;
+            }
+
+            .image-placeholder i {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                opacity: 0.5;
+            }
+        `;
+
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = lightboxStyles;
+        document.head.appendChild(styleSheet);
     </script>
 </body>
 </html>

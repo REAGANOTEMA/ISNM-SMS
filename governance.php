@@ -22,6 +22,8 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>Governance - Iganga School of Nursing and Midwifery</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/modern-theme.css">
+    <link rel="stylesheet" href="assets/css/image-animations.css">
     <style>
         * {
             margin: 0;
@@ -29,9 +31,9 @@ if (session_status() === PHP_SESSION_NONE) {
             box-sizing: border-box;
         }
 
-                :root {
-            /* Dark and Creamy Yellow Color Palette */
-            --primary-dark: #1a1a1a;
+        :root {
+            /* Dark Blue Professional Color Palette - Matching index.php */
+            --primary-dark: #0a1628;
             --creamy-yellow: #FFF8DC;
             --accent-gold: #FFD700;
             --secondary-dark: #2d2d2d;
@@ -259,20 +261,23 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .nav-link {
-            color: var(--primary-dark);
+            color: #000000;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.75rem;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
+            font-size: 0.95rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             transition: all 0.3s ease;
-            background: white;
-            border: 1px solid rgba(220, 220, 220, 0.9);
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000000;
             font-family: 'Inter', sans-serif;
             transform-style: preserve-3d;
             transform: translateZ(0);
             letter-spacing: 0.5px;
             text-transform: uppercase;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
         }
 
         .nav-link::before {
@@ -1746,109 +1751,12 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 100px;
-                left: 0;
-                right: 0;
-                background: var(--white);
-                flex-direction: column;
-                gap: 0;
-                padding: 1rem;
-                box-shadow: 0 20px 40px rgba(10, 22, 40, 0.2);
-                border-top: 2px solid var(--accent-blue);
-                z-index: 999;
-                transform: translateY(-100%);
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            .nav-links.active {
-                display: flex;
-                transform: translateY(0);
-            }
-
-            .nav-link {
-                width: 100%;
-                padding: 1rem;
-                border-radius: 0;
-                border-bottom: 1px solid var(--border-light);
-                text-align: center;
-                font-size: 1rem;
-            }
-
-            .nav-link:last-child {
-                border-bottom: none;
-            }
-
-            .nav-dropdown-menu {
-                position: static;
-                background: var(--gray-light);
-                box-shadow: none;
-                border: none;
-                border-radius: 0;
-                transform: none;
-                opacity: 1;
-                visibility: visible;
-                display: none;
-                margin-top: 0;
-                min-width: auto;
-            }
-
-            .nav-dropdown.active .nav-dropdown-menu {
-                display: block;
-            }
-
-            .nav-dropdown-toggle::after {
-                display: none;
-            }
-
-            .nav-dropdown-menu a {
-                padding: 0.8rem 1rem;
-                font-size: 0.9rem;
-                border-bottom: 1px solid var(--border-light);
-                background: transparent;
-                color: var(--text-primary);
-            }
-
-            .nav-dropdown-menu a:hover {
-                background: var(--accent-light-blue);
-                color: var(--white);
-                transform: none;
-            }
-
-            .navbar {
-                padding: 1rem;
-            }
-
-            .nav-container {
-                flex-wrap: wrap;
-                position: relative;
-            }
-
-            .nav-logo {
-                font-size: 1.3rem;
-                gap: 1rem;
-            }
-
-            .nav-logo img {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .nav-container {
-                padding: 0 1rem;
-            }
-            
-            .nav-links {
-                gap: 0.2rem;
+        /* Premium Governance Gallery Section Styles */
+        .governance-gallery-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 50%, var(--gray-light) 100%);
+            position: relative;
+            overflow: hidden;
             }
             
             .nav-link {
@@ -2256,7 +2164,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 </button>
                 
                 <div class="nav-links" id="navLinks">
-                    <a href="#home" class="nav-link">Home</a>
+                    <a href="index.php" class="nav-link">Home</a>
                     
                     <!-- Academics Dropdown -->
                     <div class="nav-dropdown">
@@ -2327,6 +2235,133 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <!-- Main Content -->
     <main class="main-content">
+        <!-- Premium Governance Gallery Section -->
+        <section class="governance-gallery-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <div class="section-badge">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Leadership Excellence</span>
+                    </div>
+                    <h2 class="section-title">Experience Our World-Class Governance</h2>
+                    <p class="section-subtitle">
+                        Discover our distinguished leadership team and administrative facilities 
+                        that ensure institutional excellence and strategic growth.
+                    </p>
+                </div>
+                
+                <div class="governance-gallery-grid">
+                    <div class="governance-item governance-item-large">
+                        <div class="governance-image-wrapper">
+                            <img src="assets/images/facilities/administration-block.jpg" alt="ISNM Administration Block - Professional Management" class="governance-image">
+                            <div class="governance-overlay">
+                                <div class="governance-content">
+                                    <h3 class="governance-title">Administrative Excellence</h3>
+                                    <p class="governance-description">Professional management hub ensuring institutional governance and strategic leadership</p>
+                                    <div class="governance-badges">
+                                        <span class="governance-badge">Leadership</span>
+                                        <span class="governance-badge">Excellence</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="governance-item">
+                        <div class="governance-image-wrapper">
+                            <img src="assets/images/staff/chairman-board-of-director-mr-baliddawa-david-byawaka.jpg" alt="Mr. Baliddawa David Byawaka - Chairman Board of Directors" class="governance-image">
+                            <div class="governance-overlay">
+                                <div class="governance-content">
+                                    <h3 class="governance-title">Board Leadership</h3>
+                                    <p class="governance-description">Visionary leadership guiding institutional success and strategic direction</p>
+                                    <div class="governance-badges">
+                                        <span class="governance-badge">Chairman</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="governance-item">
+                        <div class="governance-image-wrapper">
+                            <img src="assets/images/staff/academic-director-stephen.jpg" alt="Dr. Banonya Stephen - Academic Director" class="governance-image">
+                            <div class="governance-overlay">
+                                <div class="governance-content">
+                                    <h3 class="governance-title">Academic Leadership</h3>
+                                    <p class="governance-description">Expert academic guidance ensuring educational excellence and innovation</p>
+                                    <div class="governance-badges">
+                                        <span class="governance-badge">Academic</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="governance-item governance-item-wide">
+                        <div class="governance-image-wrapper">
+                            <img src="assets/images/academic/classroom-photo-certificates-in-nurses-and-diploma.jpeg" alt="ISNM Academic Excellence - Certified Programs" class="governance-image">
+                            <div class="governance-overlay">
+                                <div class="governance-content">
+                                    <h3 class="governance-title">Academic Excellence</h3>
+                                    <p class="governance-description">Certified programs with internationally recognized qualifications in healthcare education</p>
+                                    <div class="governance-badges">
+                                        <span class="governance-badge">Certification</span>
+                                        <span class="governance-badge">Quality</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="governance-item">
+                        <div class="governance-image-wrapper">
+                            <img src="assets/images/staff/member-board-of-directors-mrs-mercy-byawaka.jpg" alt="Mrs. Mercy Byawaka - Board Member" class="governance-image">
+                            <div class="governance-overlay">
+                                <div class="governance-content">
+                                    <h3 class="governance-title">Administrative Leadership</h3>
+                                    <p class="governance-description">Strategic administrative management supporting institutional operations</p>
+                                    <div class="governance-badges">
+                                        <span class="governance-badge">Management</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="governance-item">
+                        <div class="governance-image-wrapper">
+                            <img src="assets/images/hero/graduations-hero.jpg" alt="ISNM Graduation Success - Achievement Celebration" class="governance-image">
+                            <div class="governance-overlay">
+                                <div class="governance-content">
+                                    <h3 class="governance-title">Success Celebration</h3>
+                                    <p class="governance-description">Celebrating graduation achievements and professional success of our students</p>
+                                    <div class="governance-badges">
+                                        <span class="governance-badge">Achievement</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="governance-item governance-item-large">
+                        <div class="governance-image-wrapper">
+                            <img src="assets/images/hero/students-in-class.jpg" alt="ISNM Interactive Learning - Student Engagement" class="governance-image">
+                            <div class="governance-overlay">
+                                <div class="governance-content">
+                                    <h3 class="governance-title">Interactive Learning Environment</h3>
+                                    <p class="governance-description">Engaging educational experiences fostering professional development and excellence</p>
+                                    <div class="governance-badges">
+                                        <span class="governance-badge">Learning</span>
+                                        <span class="governance-badge">Engagement</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Board of Directors Section -->
         <section class="section">
             <div class="section-header">
@@ -2346,7 +2381,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="directors-grid">
                     <div class="director-card">
                         <div class="director-avatar" title="Mr. Baliddawa David Byawaka - Chairman Board of Directors">
-                            <img src="assets/chairman-board-of-director-mr-baliddawa-david-byawaka.jpg" alt="Mr. Baliddawa David Byawaka - Chairman Board of Directors">
+                            <img src="assets/images/staff/chairman-board-of-director-mr-baliddawa-david-byawaka.jpg" alt="Mr. Baliddawa David Byawaka - Chairman Board of Directors">
                             <div class="director-rank">1</div>
                         </div>
                         <h4 class="director-name">Mr. Baliddawa David Byawaka</h4>
@@ -2360,7 +2395,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     
                     <div class="director-card">
                         <div class="director-avatar" title="Mrs. Mercy Byawaka - Member Board of Directors">
-                            <img src="assets/member-board-of-directors-mrs-mercy-byawaka.jpg" alt="Mrs. Mercy Byawaka - Member Board of Directors">
+                            <img src="assets/images/staff/member-board-of-directors-mrs-mercy-byawaka.jpg" alt="Mrs. Mercy Byawaka - Member Board of Directors">
                             <div class="director-rank">3</div>
                         </div>
                         <h4 class="director-name">Mrs. Mercy Byawaka</h4>
@@ -2374,7 +2409,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 </div>
                 <div class="director-card">
                         <div class="director-avatar" title="Dr. Banonya Stephen - Member Board of Directors">
-                            <img src="assets/academic-director-stephen.jpg" alt="Dr. Banonya Stephen - Member Board of Directors">
+                            <img src="assets/images/staff/academic-director-stephen.jpg" alt="Dr. Banonya Stephen - Member Board of Directors">
                             <div class="director-rank">2</div>
                         </div>
                         <h4 class="director-name">Dr. Banonya Stephen</h4>
@@ -2388,7 +2423,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <!-- Classroom Photo Section -->
                 <div class="classroom-photo-section">
                     <div class="classroom-photo-container">
-                        <img src="assets/classroom-photo-certificates-in-nurses-and-diploma.jpeg" alt="Classroom with Certificates in Nursing and Diploma" class="classroom-photo">
+                        <img src="assets/images/academic/classroom-photo-certificates-in-nurses-and-diploma.jpeg" alt="Classroom with Certificates in Nursing and Diploma" class="classroom-photo">
                         <div class="photo-overlay">
                             <div class="photo-content">
                                 <h3 class="photo-title">Excellence in Healthcare Education</h3>
@@ -2453,7 +2488,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <div class="chairman-highlight">
                     <div style="text-align: center; margin-bottom: 2rem; position: relative;">
                         <div class="chairman-avatar" title="Mr. Naluwairo David Kigenyi - Chairman Board of Governors">
-                            <img src="assets/chairman-governing-council-mr-david-kigenyi-naluwayiro.jpeg" alt="Mr. Naluwairo David Kigenyi - Chairman Board of Governors">
+                            <img src="assets/images/staff/chairman-governing-council-mr-david-kigenyi-naluwayiro.jpeg" alt="Mr. Naluwairo David Kigenyi - Chairman Board of Governors">
                         </div>
                         <div class="director-rank" style="position: absolute; top: -5px; right: calc(50% - 100px);">CHAIR</div>
                     </div>
