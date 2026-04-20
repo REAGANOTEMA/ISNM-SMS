@@ -175,7 +175,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         /* Mobile Menu Button */
-        .mobile-menu-btn {
+        .mobile-menu-toggle {
             display: none;
             background: none;
             border: none;
@@ -187,7 +187,7 @@ if (session_status() === PHP_SESSION_NONE) {
             transition: all 0.3s ease;
         }
 
-        .mobile-menu-btn:hover {
+        .mobile-menu-toggle:hover {
             background: rgba(255, 255, 255, 0.2);
         }
 
@@ -711,7 +711,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         /* Mobile Menu Button */
-        .mobile-menu-btn {
+        .mobile-menu-toggle {
             display: none;
             background: none;
             border: none;
@@ -723,50 +723,98 @@ if (session_status() === PHP_SESSION_NONE) {
             transition: all 0.3s ease;
         }
 
-        .mobile-menu-btn:hover {
+        .mobile-menu-toggle:hover {
             background: rgba(255, 255, 255, 0.2);
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .nav-links {
                 display: none;
-                position: absolute;
-                top: 100%;
+                position: fixed;
+                top: 100px;
                 left: 0;
                 right: 0;
-                background: var(--gradient-primary);
+                background: var(--white);
                 flex-direction: column;
+                gap: 0;
                 padding: 1rem;
-                gap: 0.5rem;
-                border-radius: 0 0 12px 12px;
-                box-shadow: var(--shadow-lg);
+                box-shadow: 0 20px 40px rgba(10, 22, 40, 0.2);
+                border-top: 2px solid var(--accent-blue);
+                z-index: 999;
+                transform: translateY(-100%);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
             .nav-links.active {
                 display: flex;
+                transform: translateY(0);
             }
 
-            .nav-links li {
+            .nav-link {
                 width: 100%;
+                padding: 1rem;
+                border-radius: 0;
+                border-bottom: 1px solid var(--border-light);
+                text-align: center;
+                font-size: 1rem;
             }
 
-            .nav-links a {
-                display: block;
-                padding: 0.75rem 1rem;
-                border-radius: 8px;
-                text-align: center;
+            .nav-link:last-child {
+                border-bottom: none;
             }
-            
-            .header-nav {
+
+            .nav-dropdown-menu {
+                position: static;
+                background: var(--gray-light);
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                margin-top: 0;
+                min-width: auto;
+            }
+
+            .nav-dropdown.active .nav-dropdown-menu {
+                display: block;
+            }
+
+            .nav-dropdown-toggle::after {
+                display: none;
+            }
+
+            .nav-dropdown-menu a {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+                border-bottom: 1px solid var(--border-light);
+                background: transparent;
+                color: var(--text-primary);
+            }
+
+            .nav-dropdown-menu a:hover {
+                background: var(--accent-light-blue);
+                color: var(--white);
+                transform: none;
+            }
+
+            .luxury-header {
+                padding: 1rem;
+            }
+
+            .header-content {
                 flex-wrap: wrap;
                 position: relative;
             }
-            
+
             .logo-section {
                 flex: 1;
             }
@@ -1039,22 +1087,68 @@ if (session_status() === PHP_SESSION_NONE) {
                         <p style="font-size: 0.8rem; opacity: 0.9;">Excellence in Healthcare Education</p>
                     </div>
                 </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-                    <i class="fas fa-bars"></i>
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
                 </button>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="about.php"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="governance.php"><i class="fas fa-users"></i> Governance</a></li>
-                    <li><a href="programs.php"><i class="fas fa-graduation-cap"></i> Programs</a></li>
-                    <li><a href="admissions.php"><i class="fas fa-user-plus"></i> Admissions</a></li>
-                    <li><a href="activities.php"><i class="fas fa-running"></i> Activities</a></li>
-                    <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
-                    <li><a href="achievements.php"><i class="fas fa-trophy"></i> Achievements</a></li>
-                    <li><a href="history.php"><i class="fas fa-history"></i> History</a></li>
-                    <li><a href="contact.php"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="login-portal.php"><i class="fas fa-sign-in-alt"></i> Portal</a></li>
-                </ul>
+                
+                <div class="nav-links" id="navLinks">
+                    <a href="#home" class="nav-link">Home</a>
+                    
+                    <!-- Academics Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">Academics</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="programs.php">Programs</a>
+                            <a href="activities.php#academic-activities">Academic Activities</a>
+                            <a href="activities.php#sports-activities">Sports & Recreation</a>
+                            <a href="activities.php#community-service">Community Service</a>
+                            <a href="activities.php#cultural-activities">Cultural Activities</a>
+                        </div>
+                    </div>
+                    
+                    <!-- About Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">About</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="about.php">Our School</a>
+                            <a href="governance.php">Governance</a>
+                            <a href="history.php">History</a>
+                            <a href="achievements.php">Achievements</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Admissions Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">Admissions</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="application.php">Apply Now</a>
+                            <a href="programs.php#requirements">Requirements</a>
+                            <a href="programs.php#fees">Fee Structure</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Campus Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">Campus</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="infrastructure.php">Infrastructure</a>
+                            <a href="activities.php">Student Life</a>
+                        </div>
+                    </div>
+                    
+                    <a href="contact.php" class="nav-link">Contact</a>
+                    <a href="login-portal.php" class="nav-link">Portal</a>
+                </div>
             </nav>
             <div class="page-title">Institutional Activities</div>
             <div class="breadcrumb">
@@ -1385,9 +1479,132 @@ if (session_status() === PHP_SESSION_NONE) {
     </main>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const navLinks = document.getElementById('navLinks');
+        
+        if (mobileMenuToggle && navLinks) {
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+            
+            // Close menu when clicking on a link
+            navLinks.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        }
+
+        // Mobile Dropdown Toggle
+        const navDropdowns = document.querySelectorAll('.nav-dropdown');
+        
+        navDropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+            const menu = dropdown.querySelector('.nav-dropdown-menu');
+            
+            if (toggle && menu) {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Close other dropdowns
+                    navDropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    dropdown.classList.toggle('active');
+                });
+            }
+        });
+
+        // Handle window resize
+        let isMobile = window.innerWidth <= 768;
+        
+        window.addEventListener('resize', () => {
+            const newIsMobile = window.innerWidth <= 768;
+            if (isMobile !== newIsMobile) {
+                isMobile = newIsMobile;
+                // Reset mobile menu on resize
+                if (!isMobile && navLinks) {
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    navDropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                    });
+                }
+            }
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const hash = this.getAttribute('href');
+                if (!hash || hash === '#') return;
+
+                let target = null;
+                try {
+                    target = document.querySelector(hash);
+                } catch (error) {
+                    console.warn('Invalid anchor hash:', hash, error);
+                }
+
+                if (target instanceof Element) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add error handling for images
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                console.warn('Image failed to load:', this.src);
+            });
+        });
+
+        // Add parallax effect to header (disabled on mobile for performance)
+        let isMobile = window.innerWidth <= 768;
+        
+        window.addEventListener('resize', () => {
+            isMobile = window.innerWidth <= 768;
+        });
+        
+        if (!isMobile) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const header = document.querySelector('.luxury-header');
+                if (header) {
+                    header.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            });
+        }
         
         if (mobileMenuBtn && navLinks) {
             mobileMenuBtn.addEventListener('click', () => {

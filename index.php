@@ -19,7 +19,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iganga School of Nursing and Midwifery - Excellence in Healthcare Education</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/modern-theme.css">
@@ -31,46 +31,62 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
                 :root {
-            /* Dark and Creamy Yellow Color Palette */
-            --primary-dark: #1a1a1a;
-            --creamy-yellow: #FFF8DC;
-            --accent-gold: #FFD700;
-            --secondary-dark: #2d2d2d;
-            --light-cream: #FAF0E6;
-            --dark-accent: #B8860B;
+            /* Dark Blue Professional Color Palette */
+            --primary-dark: #0a1628;
+            --secondary-dark: #1e3a5f;
+            --accent-blue: #2563eb;
+            --accent-cyan: #06b6d4;
+            --accent-light-blue: #3b82f6;
+            --accent-dark-blue: #1e40af;
+            --medical-blue: #0066cc;
+            --medical-cyan: #00bcd4;
             --white: #FFFFFF;
-            --gray-light: #F5F5F5;
-            --gray-medium: #D3D3D3;
-            --gray-dark: #696969;
+            --gray-light: #f8fafc;
+            --gray-medium: #e2e8f0;
+            --gray-dark: #475569;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
             
-            /* Additional missing variables */
-            --pure-white: #FFFFFF;
-            --accent-blue: #3b82f6;
-            --golden-yellow: #fbbf24;
+            /* Professional Gradients */
+            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-blue) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--accent-dark-blue) 0%, var(--accent-blue) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-light-blue) 0%, var(--accent-cyan) 100%);
+            --gradient-clean: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%);
+            --gradient-3d-primary: linear-gradient(135deg, var(--medical-blue), var(--medical-cyan));
+            --gradient-3d-luxury: linear-gradient(135deg, var(--accent-light-blue), var(--accent-cyan));
             
-            /* Gradients */
-            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
-            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
-            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
-            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
+            /* Professional Shadows */
+            --shadow-sm: 0 2px 4px rgba(10, 22, 40, 0.1);
+            --shadow-md: 0 4px 8px rgba(10, 22, 40, 0.15);
+            --shadow-lg: 0 8px 16px rgba(10, 22, 40, 0.2);
+            --shadow-xl: 0 20px 40px rgba(10, 22, 40, 0.25);
+            --shadow-3d-sm: 0 4px 8px rgba(37, 99, 235, 0.3);
+            --shadow-3d-md: 0 8px 16px rgba(37, 99, 235, 0.4);
+            --shadow-3d-lg: 0 12px 24px rgba(37, 99, 235, 0.5);
+            --shadow-3d-xl: 0 20px 40px rgba(37, 99, 235, 0.6);
             
-            /* Shadows */
-            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
-            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
-            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
-            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
-            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
-            
-            /* Borders */
+            /* Professional Borders */
             --border-light: var(--gray-medium);
             --border-medium: var(--gray-dark);
             --border-dark: var(--primary-dark);
+            --border-3d-light: var(--gray-medium);
+            
+            /* Medical Theme Colors */
+            --medical-white: #ffffff;
+            --medical-primary: var(--text-primary);
+            --medical-secondary: var(--text-secondary);
+            --medical-accent: var(--accent-blue);
+            --health-green: #10b981;
+            --light-slate: #f1f5f9;
+            --primary-blue: var(--accent-blue);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #f3efe5 0%, #f7f5ef 45%, #fbfaf8 100%);
-            color: var(--primary-dark);
+            background: linear-gradient(180deg, var(--gray-light) 0%, var(--white) 45%, var(--gray-light) 100%);
+            color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
@@ -86,14 +102,114 @@ if (session_status() === PHP_SESSION_NONE) {
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(26, 26, 26, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(45, 45, 45, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(255, 248, 220, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 30% 70%, rgba(184, 134, 11, 0.06) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(10, 22, 40, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(30, 58, 95, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(37, 99, 235, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(30, 64, 175, 0.04) 0%, transparent 50%);
             animation: medicalAurora 20s ease-in-out infinite;
             pointer-events: none;
             z-index: -1;
+        }
+
+        /* Premium Floating Particles */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan), var(--accent-light-blue));
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            animation: particleFloat 15s infinite ease-in-out;
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+        }
+
+        .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; animation-duration: 12s; }
+        .particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 2s; animation-duration: 15s; }
+        .particle:nth-child(3) { width: 3px; height: 3px; left: 30%; animation-delay: 4s; animation-duration: 10s; }
+        .particle:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: 1s; animation-duration: 18s; }
+        .particle:nth-child(5) { width: 7px; height: 7px; left: 50%; animation-delay: 3s; animation-duration: 14s; }
+        .particle:nth-child(6) { width: 4px; height: 4px; left: 60%; animation-delay: 5s; animation-duration: 16s; }
+        .particle:nth-child(7) { width: 6px; height: 6px; left: 70%; animation-delay: 2s; animation-duration: 13s; }
+        .particle:nth-child(8) { width: 3px; height: 3px; left: 80%; animation-delay: 6s; animation-duration: 11s; }
+        .particle:nth-child(9) { width: 5px; height: 5px; left: 90%; animation-delay: 4s; animation-duration: 17s; }
+
+        /* Advanced 3D Floating Elements */
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.3;
+            animation: float3D 20s infinite ease-in-out;
+            transform-style: preserve-3d;
+        }
+
+        .floating-cube {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            transform-style: preserve-3d;
+            animation: rotateCube 10s infinite linear;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        .floating-sphere {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle at 30% 30%, var(--accent-light-blue), var(--accent-blue));
+            border-radius: 50%;
+            animation: floatSphere 15s infinite ease-in-out;
+            box-shadow: 0 15px 35px rgba(6, 182, 212, 0.5);
+        }
+
+        .floating-pyramid {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 35px solid var(--accent-dark-blue);
+            animation: rotatePyramid 12s infinite linear;
+            filter: drop-shadow(0 10px 25px rgba(30, 64, 175, 0.6));
+        }
+
+        .morphing-shape {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-cyan), var(--accent-light-blue));
+            animation: morphShape 8s infinite ease-in-out;
+            opacity: 0.2;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Medical Cross Particles */
+        .medical-particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            opacity: 0.1;
+            animation: medicalCrossFloat 25s infinite ease-in-out;
+        }
+
+        .medical-particle::before {
+            content: '+';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--accent-blue);
+            font-size: 16px;
+            font-weight: bold;
         }
 
         body::after {
@@ -112,20 +228,24 @@ if (session_status() === PHP_SESSION_NONE) {
             z-index: -1;
         }
 
-        /* Cinema-Quality 3D Navigation - No Space Above */
+        /* Premium 3D Navigation with Dark Blue Theme */
         .navbar {
             position: fixed;
             top: 40px;
             left: 0;
             right: 0;
-            background: rgba(255,255,255,0.96);
-            border-bottom: 1px solid rgba(220,220,220,0.9);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid rgba(37, 99, 235, 0.3);
             z-index: 1001;
-            padding: 0.5rem 0;
-            box-shadow: 0 14px 34px rgba(0,0,0,0.08);
-            backdrop-filter: blur(16px);
-            transition: all 0.35s ease;
+            padding: 0.75rem 0;
+            box-shadow: 
+                0 14px 34px rgba(10, 22, 40, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             height: auto;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .navbar::before {
@@ -134,9 +254,9 @@ if (session_status() === PHP_SESSION_NONE) {
             top: 0;
             left: 0;
             right: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            opacity: 0.8;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-dark-blue) 0%, var(--accent-blue) 50%, var(--accent-cyan) 100%);
+            animation: navbarShine 4s ease-in-out infinite;
         }
 
         .navbar::after {
@@ -147,8 +267,9 @@ if (session_status() === PHP_SESSION_NONE) {
             right: 0;
             bottom: 0;
             background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="nav-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(15,76,117,0.1)"/><path d="M5 10 Q10 5, 15 10 T25 10" stroke="rgba(30,107,168,0.15)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23nav-pattern)"/></svg>');
-            opacity: 0.05;
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="nav-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="10" height="10" fill="none" stroke="rgba(37,99,235,0.1)" stroke-width="2"/><circle cx="15" cy="15" r="3" fill="rgba(6,182,212,0.15)"/></pattern></defs><rect width="100" height="100" fill="url(%23nav-pattern)"/></svg>'),
+                linear-gradient(135deg, rgba(37, 99, 235, 0.02), rgba(6, 182, 212, 0.02));
+            opacity: 0.08;
             pointer-events: none;
             animation: navPatternFloat 30s linear infinite;
         }
@@ -159,14 +280,16 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             right: 0;
             height: 40px;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
-            border-bottom: 1px solid rgba(220,220,220,0.9);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-dark-blue) 50%, var(--accent-blue) 100%);
+            border-bottom: 2px solid var(--accent-blue);
             z-index: 1002;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 16px 40px rgba(10, 22, 40, 0.15);
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .brand-marquee {
@@ -183,6 +306,7 @@ if (session_status() === PHP_SESSION_NONE) {
             line-height: 1;
             margin: 0;
             padding: 0;
+            text-shadow: 0 2px 4px rgba(10, 22, 40, 0.3);
         }
 
         @keyframes marquee {
@@ -198,17 +322,19 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .navbar.scrolled {
-            background: rgba(255, 255, 255, 1);
-            backdrop-filter: blur(16px);
-            box-shadow: 0 18px 50px rgba(0,0,0,0.1);
-            border-bottom-color: rgba(210,210,210,0.95);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(25px);
+            box-shadow: 
+                0 18px 50px rgba(10, 22, 40, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-bottom-color: var(--accent-blue);
             transform: translateY(0);
         }
 
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 3rem;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -223,11 +349,11 @@ if (session_status() === PHP_SESSION_NONE) {
             gap: 1rem;
             font-weight: 900;
             font-size: 1.6rem;
-            color: var(--primary-dark);
+            color: var(--text-primary);
             text-decoration: none;
             font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
             transform-style: preserve-3d;
-            transition: all 0.35s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             z-index: 5;
             padding: 0;
@@ -253,8 +379,8 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .nav-logo img {
-            width: 64px;
-            height: 64px;
+            width: 55px;
+            height: 55px;
             object-fit: cover;
             border: 2px solid rgba(17, 82, 147, 0.2);
             border-radius: 50%;
@@ -281,13 +407,13 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .nav-logo:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px) rotateX(-2deg) rotateY(2deg);
         }
 
         .nav-logo:hover img {
-            transform: scale(1.03);
-            box-shadow: 0 14px 32px rgba(0,0,0,0.16);
-            border-color: rgba(255, 215, 0, 0.8);
+            transform: scale(1.05) rotateX(-1deg) rotateY(1deg);
+            box-shadow: 0 16px 36px rgba(10, 22, 40, 0.25);
+            border-color: var(--accent-blue);
         }
 
         .nav-logo:hover img::after {
@@ -296,29 +422,161 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .nav-links {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.3rem;
             align-items: center;
             transform-style: preserve-3d;
             position: relative;
             z-index: 2;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            justify-content: center;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: var(--accent-dark-blue);
+            border: 2px solid var(--accent-blue);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .mobile-menu-toggle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            transform: translate(-50%, -50%) rotate(90deg);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            transform: translateY(-2px) translateZ(10px) rotateX(-2deg);
+            box-shadow: 0 8px 20px rgba(10, 22, 40, 0.3);
+        }
+
+        .mobile-menu-toggle.active::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .mobile-menu-toggle.active::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        /* Navigation Dropdown */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
+        }
+
+        .nav-dropdown-toggle::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+            color: var(--text-secondary);
+        }
+
+        .nav-dropdown:hover .nav-dropdown-toggle::after {
+            transform: rotate(180deg);
+            color: var(--accent-blue);
+        }
+
+        .nav-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            border: 2px solid var(--accent-blue);
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(10, 22, 40, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) translateZ(-20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 180px;
+            z-index: 1000;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) translateZ(10px);
+        }
+
+        .nav-dropdown-menu a {
+            display: block;
+            padding: 0.6rem 0.8rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .nav-dropdown-menu a:hover {
+            background: var(--accent-light-blue);
+            color: var(--white);
+            transform: translateX(5px) translateZ(5px);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        .nav-dropdown-menu a:first-child {
+            border-radius: 10px 10px 0 0;
+        }
+
+        .nav-dropdown-menu a:last-child {
+            border-radius: 0 0 10px 10px;
         }
 
         .nav-link {
-            color: var(--primary-dark);
+            color: var(--text-primary);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            background: white;
-            border: 1px solid rgba(220, 220, 220, 0.9);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             font-family: 'Inter', sans-serif;
             transform-style: preserve-3d;
             transform: translateZ(0);
-            letter-spacing: 0.8px;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
         }
 
         .nav-link::before {
@@ -351,18 +609,22 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .nav-link:hover {
             color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-            border-color: transparent;
-            background: var(--primary-dark);
+            transform: translateY(-5px) translateZ(15px) rotateX(-3deg) rotateY(4deg);
+            box-shadow: 
+                0 12px 24px rgba(10, 22, 40, 0.3),
+                0 0 30px rgba(37, 99, 235, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-color: rgba(37, 99, 235, 0.6);
+            background: rgba(37, 99, 235, 0.9);
         }
 
         .nav-link:hover::before {
             opacity: 1;
+            transform: scaleY(1);
         }
 
         .nav-link:hover::after {
-            opacity: 0.15;
+            opacity: 0.2;
         }
 
         /* Hero Section with Slider */
@@ -394,16 +656,16 @@ if (session_status() === PHP_SESSION_NONE) {
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
             opacity: 0;
-            transition: opacity 1s ease, transform 1s ease;
+            transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             justify-content: center;
-            transform: scale(1.03);
+            transform: scale(1.05) rotateX(2deg);
         }
 
         .slide.active {
             opacity: 1;
-            transform: scale(1) rotateX(0deg);
+            transform: scale(1) rotateX(0deg) translateZ(0);
         }
 
         .slide::before {
@@ -413,7 +675,11 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(20, 22, 30, 0.15) 0%, rgba(10, 12, 18, 0.2) 100%);
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(10, 22, 40, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(30, 58, 95, 0.1) 0%, transparent 50%),
+                linear-gradient(45deg, rgba(20, 22, 30, 0.05) 0%, rgba(10, 12, 18, 0.1) 100%);
+            animation: heroOverlayPulse 8s ease-in-out infinite;
         }
 
         .slide-overlay {
@@ -422,11 +688,14 @@ if (session_status() === PHP_SESSION_NONE) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 26, 26, 0.08);
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.03) 0%, transparent 70%),
+                rgba(26, 26, 26, 0.02);
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: none;
+            backdrop-filter: blur(0.5px);
+            animation: heroOverlayFloat 15s ease-in-out infinite;
         }
 
         .slide-content {
@@ -435,9 +704,18 @@ if (session_status() === PHP_SESSION_NONE) {
             z-index: 2;
             max-width: 800px;
             padding: 2rem;
-            animation: slideInUp 1.2s ease-out;
+            animation: slideInUp 1.2s ease-out, heroContentGlow 4s ease-in-out infinite;
             transform-style: preserve-3d;
-            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+            text-shadow: 
+                0 4px 12px rgba(0, 0, 0, 0.8),
+                0 0 20px rgba(37, 99, 235, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .slide-title {
@@ -462,18 +740,21 @@ if (session_status() === PHP_SESSION_NONE) {
         .slide-btn {
             display: inline-block;
             padding: 1rem 2.5rem;
-            background: var(--accent-gold);
+            background: rgba(255, 215, 0, 0.9);
+            backdrop-filter: blur(10px);
             color: var(--primary-dark);
             text-decoration: none;
             border-radius: 50px;
             font-weight: 700;
             font-size: 1.05rem;
             transition: all 0.3s ease;
-            border: 2px solid var(--accent-gold);
+            border: 2px solid rgba(255, 215, 0, 0.8);
             position: relative;
             overflow: hidden;
             transform-style: preserve-3d;
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+            box-shadow: 
+                0 6px 20px rgba(255, 215, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
@@ -490,11 +771,14 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .slide-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            background: var(--white);
+            transform: translateY(-8px) translateZ(10px) rotateX(-2deg) rotateY(2deg) scale(1.05);
+            background: rgba(255, 255, 255, 0.95);
             color: var(--primary-dark);
-            border-color: var(--white);
-            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+            border-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 8px 30px rgba(255, 215, 0, 0.6),
+                0 0 40px rgba(255, 215, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
         }
 
         .slide-btn:hover::before {
@@ -513,27 +797,35 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .slider-btn {
-            background: rgba(255, 255, 255, 0.98);
-            border: 1px solid rgba(200,200,200,0.8);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             width: 56px;
             height: 56px;
             border-radius: 50%;
             font-size: 1.6rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 14px 28px rgba(0,0,0,0.12);
+            box-shadow: 
+                0 14px 28px rgba(0,0,0,0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
             color: var(--primary-dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
         }
 
         .slider-btn:hover {
-            background: var(--accent-gold);
-            transform: scale(1.04);
-            box-shadow: 0 16px 32px rgba(0,0,0,0.16);
-            color: var(--white);
+            background: rgba(255, 215, 0, 0.9);
+            transform: translateZ(15px) rotateX(-2deg) rotateY(2deg) scale(1.1);
+            box-shadow: 
+                0 16px 32px rgba(0,0,0,0.16),
+                0 0 30px rgba(255, 215, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            color: var(--primary-dark);
+            border-color: rgba(255, 215, 0, 0.8);
         }
 
         .slider-dots {
@@ -635,6 +927,59 @@ if (session_status() === PHP_SESSION_NONE) {
             .dot {
                 width: 14px;
                 height: 14px;
+            }
+
+            /* Mobile Menu */
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 100px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem;
+                box-shadow: 0 20px 40px rgba(10, 22, 40, 0.2);
+                border-top: 2px solid var(--accent-blue);
+                z-index: 999;
+                transform: translateY(-100%);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 1rem;
+                border-radius: 0;
+                border-bottom: 1px solid var(--border-light);
+                text-align: center;
+                font-size: 1rem;
+            }
+
+            .nav-link:last-child {
+                border-bottom: none;
+            }
+
+            .nav-dropdown-menu {
+                position: static;
+                background: var(--gray-light);
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                min-width: 100%;
             }
         }
 
@@ -1040,16 +1385,45 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .showcase-card {
-            background: var(--medical-white);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 2.5rem;
-            box-shadow: var(--shadow-3d-md);
-            border: 1px solid var(--border-3d-light);
-            transition: all 0.3s ease;
+            box-shadow: 
+                var(--shadow-3d-md),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             transform-style: preserve-3d;
             transform: translateZ(0);
+            cursor: pointer;
+        }
+
+        .showcase-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-3d-primary);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .showcase-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
         }
 
         .showcase-card::before {
@@ -1065,8 +1439,13 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .showcase-card:hover {
-            transform: translateY(-8px) translateZ(15px) rotateX(2deg);
-            box-shadow: var(--shadow-3d-lg);
+            transform: translateY(-12px) translateZ(25px) rotateX(3deg) rotateY(2deg);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                var(--shadow-3d-xl),
+                0 0 50px rgba(37, 99, 235, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            border-color: rgba(37, 99, 235, 0.4);
         }
 
         .showcase-card:hover::before {
@@ -1171,8 +1550,9 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .feature-card {
-            background: var(--medical-white);
-            border: 1px solid var(--border-3d-light);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             padding: 2.5rem;
             transition: all 0.3s ease;
@@ -1195,8 +1575,12 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .feature-card:hover {
-            box-shadow: var(--shadow-3d-lg);
-            transform: translateY(-8px) translateZ(15px) rotateX(2deg);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 
+                var(--shadow-3d-lg),
+                0 0 40px rgba(37, 99, 235, 0.2);
+            transform: translateY(-10px) translateZ(20px) rotateX(2deg) rotateY(1deg);
+            border-color: rgba(37, 99, 235, 0.3);
         }
 
         .feature-card:hover::before {
@@ -1401,11 +1785,49 @@ if (session_status() === PHP_SESSION_NONE) {
             font-size: 1.2rem;
         }
 
-        /* Footer */
+        /* Premium Footer */
         .footer {
-            background: var(--text-primary);
+            background: linear-gradient(135deg, 
+                var(--primary-dark) 0%, 
+                var(--secondary-dark) 25%, 
+                var(--accent-gold) 50%, 
+                var(--dark-accent) 75%, 
+                var(--primary-dark) 100%);
             color: white;
-            padding: 3rem 2rem 2rem;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--accent-gold) 0%, 
+                var(--creamy-yellow) 25%, 
+                var(--white) 50%, 
+                var(--creamy-yellow) 75%, 
+                var(--accent-gold) 100%);
+            animation: footerShine 3s ease-in-out infinite;
+        }
+
+        .footer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 248, 220, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(184, 134, 11, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            animation: footerAurora 15s ease-in-out infinite;
         }
 
         .footer-content {
@@ -1421,10 +1843,28 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .footer-section h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.4rem;
+            font-weight: 800;
             margin-bottom: 1.5rem;
-            color: var(--neon-cyan);
+            color: var(--accent-gold);
+            text-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
+            transform-style: preserve-3d;
+            transform: translateZ(10px);
+            position: relative;
+        }
+
+        .footer-section h3::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -10px;
+            right: -10px;
+            bottom: -5px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--creamy-yellow));
+            border-radius: 8px;
+            opacity: 0.1;
+            z-index: -1;
+            animation: footerTitleGlow 3s ease-in-out infinite;
         }
 
         .footer-links {
@@ -1436,17 +1876,41 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--accent-gold), var(--creamy-yellow));
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
         }
 
         .footer-links a:hover {
-            color: var(--neon-cyan);
-            transform: translateX(5px);
+            color: var(--primary-dark);
+            transform: translateX(8px) translateZ(15px) rotateY(5deg);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
         }
 
         .contact-info p {
@@ -1458,8 +1922,16 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         .contact-info i {
-            color: var(--neon-cyan);
-            width: 20px;
+            color: var(--accent-gold);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 215, 0, 0.2);
+            border-radius: 50%;
+            padding: 4px;
+            animation: contactIconPulse 2s ease-in-out infinite;
         }
 
         .footer-bottom {
@@ -1491,20 +1963,61 @@ if (session_status() === PHP_SESSION_NONE) {
         .whatsapp-btn {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            background: #25d366;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .whatsapp-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .whatsapp-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+            border-radius: 50%;
         }
 
         .whatsapp-btn:hover {
-            background: #128c7e;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            background: linear-gradient(135deg, #128c7e 0%, #25d366 100%);
+            transform: translateY(-8px) translateZ(20px) rotateX(-5deg) rotateY(5deg);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .whatsapp-btn:hover::before {
+            left: 100%;
+        }
+
+        .whatsapp-btn:hover::after {
+            width: 300%;
+            height: 300%;
         }
 
         .copyright {
@@ -1876,6 +2389,110 @@ if (session_status() === PHP_SESSION_NONE) {
             }
         }
 
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes medicalCrossFloat {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.1;
+            }
+            25% {
+                transform: translate(30px, -20px) rotate(90deg);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(-20px, -40px) rotate(180deg);
+                opacity: 0.2;
+            }
+            75% {
+                transform: translate(-40px, -20px) rotate(270deg);
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes footerShine {
+            0%, 100% {
+                transform: translateX(-100%);
+            }
+            50% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes footerAurora {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+                opacity: 0.8;
+            }
+            33% {
+                transform: rotate(120deg) scale(1.1);
+                opacity: 0.6;
+            }
+            66% {
+                transform: rotate(240deg) scale(1.2);
+                opacity: 0.4;
+            }
+        }
+
+        @keyframes footerTitleGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.9);
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes contactIconPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+            }
+        }
+
+        @keyframes showcaseGlow {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(255, 215, 0, 0.7);
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes featurePulse {
+            0%, 100% {
+                box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
         /* Cinema-Like Medical 3D Animations */
 
         @keyframes medicalAurora {
@@ -1945,6 +2562,196 @@ if (session_status() === PHP_SESSION_NONE) {
             }
             100% {
                 transform: translateX(0) translateY(0) translateZ(0) rotate(0deg);
+            }
+        }
+
+        /* Advanced 3D Animations */
+        @keyframes float3D {
+            0%, 100% {
+                transform: translateY(0) translateX(0) translateZ(0) rotateX(0deg) rotateY(0deg);
+            }
+            25% {
+                transform: translateY(-30px) translateX(20px) translateZ(50px) rotateX(5deg) rotateY(10deg);
+            }
+            50% {
+                transform: translateY(-60px) translateX(40px) translateZ(100px) rotateX(10deg) rotateY(20deg);
+            }
+            75% {
+                transform: translateY(-30px) translateX(20px) translateZ(50px) rotateX(5deg) rotateY(10deg);
+            }
+        }
+
+        @keyframes rotateCube {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+
+        @keyframes floatSphere {
+            0%, 100% {
+                transform: translateY(0) translateX(0) scale(1);
+                box-shadow: 0 15px 35px rgba(6, 182, 212, 0.5);
+            }
+            25% {
+                transform: translateY(-40px) translateX(30px) scale(1.1);
+                box-shadow: 0 25px 50px rgba(6, 182, 212, 0.7);
+            }
+            50% {
+                transform: translateY(-80px) translateX(60px) scale(1.2);
+                box-shadow: 0 35px 65px rgba(6, 182, 212, 0.9);
+            }
+            75% {
+                transform: translateY(-40px) translateX(30px) scale(1.1);
+                box-shadow: 0 25px 50px rgba(6, 182, 212, 0.7);
+            }
+        }
+
+        @keyframes rotatePyramid {
+            0% {
+                transform: rotateY(0deg) rotateX(0deg);
+            }
+            100% {
+                transform: rotateY(360deg) rotateX(360deg);
+            }
+        }
+
+        @keyframes morphShape {
+            0%, 100% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+                transform: rotate(90deg) scale(1.1);
+            }
+            50% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: rotate(180deg) scale(1.2);
+            }
+            75% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+                transform: rotate(270deg) scale(1.1);
+            }
+        }
+
+        @keyframes heroOverlayPulse {
+            0%, 100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes heroOverlayFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-10px) translateX(20px);
+            }
+            50% {
+                transform: translateY(-20px) translateX(40px);
+            }
+            75% {
+                transform: translateY(-10px) translateX(20px);
+            }
+        }
+
+        @keyframes heroContentGlow {
+            0%, 100% {
+                box-shadow: 
+                    0 20px 40px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                    0 0 30px rgba(37, 99, 235, 0.2);
+            }
+            50% {
+                box-shadow: 
+                    0 25px 50px rgba(0, 0, 0, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                    0 0 50px rgba(37, 99, 235, 0.4);
+            }
+        }
+        
+        /* Footer 3D Animations */
+        @keyframes footerRotateCube {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+            }
+        }
+        
+        @keyframes footerFloatSphere {
+            0%, 100% {
+                transform: translateY(0) translateX(0) scale(1);
+            }
+            25% {
+                transform: translateY(-20px) translateX(15px) scale(1.1);
+            }
+            50% {
+                transform: translateY(-40px) translateX(30px) scale(1.2);
+            }
+            75% {
+                transform: translateY(-20px) translateX(15px) scale(1.1);
+            }
+        }
+        
+        @keyframes footerRotatePyramid {
+            0% {
+                transform: rotateY(0deg) rotateX(0deg);
+            }
+            100% {
+                transform: rotateY(360deg) rotateX(360deg);
+            }
+        }
+        
+        @keyframes footerMorphShape {
+            0%, 100% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+                transform: rotate(90deg) scale(1.1);
+            }
+            50% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: rotate(180deg) scale(1.2);
+            }
+            75% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+                transform: rotate(270deg) scale(1.1);
+            }
+        }
+        
+        @keyframes footerStripeFloat {
+            0%, 100% {
+                transform: translateX(0) translateY(0);
+            }
+            25% {
+                transform: translateX(10px) translateY(-5px);
+            }
+            50% {
+                transform: translateX(20px) translateY(-10px);
+            }
+            75% {
+                transform: translateX(10px) translateY(-5px);
+            }
+        }
+        
+        @keyframes footerShine {
+            0%, 100% {
+                transform: translateX(-100%);
+            }
+            50% {
+                transform: translateX(100%);
             }
         }
 
@@ -2156,6 +2963,36 @@ if (session_status() === PHP_SESSION_NONE) {
     </style>
 </head>
 <body>
+    <!-- Premium Floating Particles -->
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="medical-particle" style="top: 15%; left: 10%;"></div>
+        <div class="medical-particle" style="top: 25%; left: 85%;"></div>
+        <div class="medical-particle" style="top: 65%; left: 20%;"></div>
+        <div class="medical-particle" style="top: 75%; left: 75%;"></div>
+        
+        <!-- Advanced 3D Floating Elements -->
+        <div class="floating-element floating-cube" style="top: 20%; left: 15%;"></div>
+        <div class="floating-element floating-sphere" style="top: 60%; left: 80%;"></div>
+        <div class="floating-element floating-pyramid" style="top: 40%; left: 70%;"></div>
+        <div class="floating-element floating-cube" style="top: 80%; left: 25%; animation-delay: 2s;"></div>
+        <div class="floating-element floating-sphere" style="top: 30%; left: 50%; animation-delay: 1s;"></div>
+        <div class="floating-element floating-pyramid" style="top: 70%; left: 40%; animation-delay: 3s;"></div>
+        
+        <!-- Morphing Shapes -->
+        <div class="morphing-shape" style="top: 10%; left: 60%; animation-delay: 0s;"></div>
+        <div class="morphing-shape" style="top: 50%; left: 20%; animation-delay: 2s;"></div>
+        <div class="morphing-shape" style="top: 80%; left: 70%; animation-delay: 4s;"></div>
+    </div>
+
     <div class="fixed-header">
         <div class="brand-banner">
             <div class="brand-marquee">
@@ -2168,20 +3005,68 @@ if (session_status() === PHP_SESSION_NONE) {
         <nav class="navbar" id="navbar">
             <div class="nav-container">
                 <a href="#" class="nav-logo">
-                    <img src="assets/school-logo.png" alt="ISNM Logo" style="width: 75px; height: 75px;">
-                    <div class="nav-logo-text">
-                         </div>
+                    <img src="assets/school-logo.png" alt="ISNM Logo">
                 </a>
-                <div class="nav-links">
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <div class="nav-links" id="navLinks">
                     <a href="#home" class="nav-link">Home</a>
-                    <a href="about.php" class="nav-link">About</a>
-                    <a href="governance.php" class="nav-link">Governance</a>
-                    <a href="programs.php" class="nav-link">Programs</a>
-                    <a href="application.php" class="nav-link">Application</a>
-                    <a href="activities.php" class="nav-link">Activities</a>
-                    <a href="infrastructure.php" class="nav-link">Infrastructure</a>
-                    <a href="achievements.php" class="nav-link">Achievements</a>
-                    <a href="history.php" class="nav-link">History</a>
+                    
+                    <!-- Academics Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">Academics</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="programs.php">Programs</a>
+                            <a href="activities.php#academic-activities">Academic Activities</a>
+                            <a href="activities.php#sports-activities">Sports & Recreation</a>
+                            <a href="activities.php#community-service">Community Service</a>
+                            <a href="activities.php#cultural-activities">Cultural Activities</a>
+                        </div>
+                    </div>
+                    
+                    <!-- About Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">About</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="about.php">Our School</a>
+                            <a href="governance.php">Governance</a>
+                            <a href="history.php">History</a>
+                            <a href="achievements.php">Achievements</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Admissions Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">Admissions</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="application.php">Apply Now</a>
+                            <a href="programs.php#requirements">Requirements</a>
+                            <a href="programs.php#fees">Fee Structure</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Campus Dropdown -->
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-toggle">
+                            <a href="#" class="nav-link">Campus</a>
+                        </div>
+                        <div class="nav-dropdown-menu">
+                            <a href="infrastructure.php">Infrastructure</a>
+                            <a href="activities.php">Student Life</a>
+                        </div>
+                    </div>
+                    
                     <a href="contact.php" class="nav-link">Contact</a>
                     <a href="login-portal.php" class="nav-link">Portal</a>
                 </div>
@@ -2417,63 +3302,130 @@ if (session_status() === PHP_SESSION_NONE) {
 
     
     
-    <!-- Footer -->
+    <!-- Enhanced 3D Footer -->
     <footer class="footer" id="contact">
+        <!-- Decorative 3D Elements -->
+        <div class="footer-3d-elements">
+            <div class="footer-cube"></div>
+            <div class="footer-sphere"></div>
+            <div class="footer-pyramid"></div>
+            <div class="footer-morph"></div>
+        </div>
+        
+        <!-- Striped Background Pattern -->
+        <div class="footer-stripes"></div>
+        
+        <!-- Main Footer Content -->
         <div class="footer-content">
             <div class="footer-grid">
                 <div class="footer-section">
-                    <h3 class="footer-title">Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="about.php">About ISNM</a></li>
-                        <li><a href="governance.php">Governance</a></li>
-                        <li><a href="programs.php">Academic Programs</a></li>
-                        <li><a href="activities.php">School Activities</a></li>
-                        <li><a href="infrastructure.php">Infrastructure</a></li>
-                        <li><a href="achievements.php">Achievements</a></li>
-                        <li><a href="history.php">School History</a></li>
-                    </ul>
+                    <div class="footer-card">
+                        <div class="footer-icon-wrapper">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <h3 class="footer-title">Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="about.php"><i class="fas fa-chevron-right"></i> About ISNM</a></li>
+                            <li><a href="governance.php"><i class="fas fa-chevron-right"></i> Governance</a></li>
+                            <li><a href="programs.php"><i class="fas fa-chevron-right"></i> Academic Programs</a></li>
+                            <li><a href="activities.php"><i class="fas fa-chevron-right"></i> School Activities</a></li>
+                            <li><a href="infrastructure.php"><i class="fas fa-chevron-right"></i> Infrastructure</a></li>
+                            <li><a href="achievements.php"><i class="fas fa-chevron-right"></i> Achievements</a></li>
+                            <li><a href="history.php"><i class="fas fa-chevron-right"></i> School History</a></li>
+                        </ul>
+                    </div>
                 </div>
+                
                 <div class="footer-section">
-                    <h3 class="footer-title">Application</h3>
-                    <ul class="footer-links">
-                        <li><a href="application.php">Apply Now</a></li>
-                        <li><a href="programs.php">Program Requirements</a></li>
-                        <li><a href="programs.php">Fee Structure</a></li>
-                        <li><a href="login-portal.php">Student Portal</a></li>
-                    </ul>
+                    <div class="footer-card">
+                        <div class="footer-icon-wrapper">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="footer-title">Application</h3>
+                        <ul class="footer-links">
+                            <li><a href="application.php"><i class="fas fa-chevron-right"></i> Apply Now</a></li>
+                            <li><a href="programs.php"><i class="fas fa-chevron-right"></i> Program Requirements</a></li>
+                            <li><a href="programs.php"><i class="fas fa-chevron-right"></i> Fee Structure</a></li>
+                            <li><a href="login-portal.php"><i class="fas fa-chevron-right"></i> Student Portal</a></li>
+                        </ul>
+                    </div>
                 </div>
+                
                 <div class="footer-section">
-                    <h3 class="footer-title">Contact Info</h3>
-                    <div class="contact-info">
-                        <p><i class="fas fa-map-marker-alt"></i> Iganga, Uganda</p>
-                        <p><i class="fas fa-phone"></i> +256 782633253</p>
-                         <p><i class="fas fa-phone"></i> +256 703999796</p>
-                          <p><i class="fas fa-phone"></i> +256 753393340</p>
-                        <p><i class="fas fa-envelope"></i> info@isnm.ug.edu</p>
+                    <div class="footer-card">
+                        <div class="footer-icon-wrapper">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <h3 class="footer-title">Contact Info</h3>
+                        <div class="contact-info">
+                            <p><i class="fas fa-map-marker-alt"></i> <span>Iganga, Uganda</span></p>
+                            <p><i class="fas fa-phone"></i> <span>+256 782633253</span></p>
+                            <p><i class="fas fa-phone"></i> <span>+256 703999796</span></p>
+                            <p><i class="fas fa-phone"></i> <span>+256 753393340</span></p>
+                            <p><i class="fas fa-envelope"></i> <span>info@isnm.ug.edu</span></p>
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- Enhanced Footer Bottom -->
             <div class="footer-bottom">
-                <h3 class="footer-title">Designed and Developed by Reagan Otema</h3>
-                <p class="footer-subtitle">For system errors, contact via WhatsApp</p>
-                <div class="footer-buttons">
-                    <a href="https://wa.me/256772514889" target="_blank" class="whatsapp-btn">
-                        <i class="fab fa-whatsapp"></i>
-                        MTN: +256772514889
-                    </a>
-                    <a href="https://wa.me/256730314979" target="_blank" class="whatsapp-btn">
-                        <i class="fab fa-whatsapp"></i>
-                        Airtel: +256730314979
-                    </a>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2026 Iganga School of Nursing and Midwifery. All rights reserved.</p>
+                <div class="footer-bottom-card">
+                    <div class="developer-section">
+                        <div class="footer-icon-wrapper">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="footer-title">Designed and Developed by Reagan Otema</h3>
+                        <p class="footer-subtitle">For system errors, contact via WhatsApp</p>
+                    </div>
+                    
+                    <div class="footer-buttons">
+                        <a href="https://wa.me/256772514889" target="_blank" class="whatsapp-btn">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>MTN: +256772514889</span>
+                        </a>
+                        <a href="https://wa.me/256730314979" target="_blank" class="whatsapp-btn">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Airtel: +256730314979</span>
+                        </a>
+                    </div>
+                    
+                    <div class="copyright">
+                        <p>&copy; 2026 Iganga School of Nursing and Midwifery. All rights reserved.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (mobileMenuToggle && navLinks) {
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+            
+            // Close menu when clicking on a link
+            navLinks.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        }
+
         // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
@@ -2507,27 +3459,233 @@ if (session_status() === PHP_SESSION_NONE) {
             });
         });
 
-        // Intersection Observer for animations
+        // Enhanced Intersection Observer for premium animations
         if ('IntersectionObserver' in window) {
             const observerOptions = {
                 threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                rootMargin: '0px 0px -100px 0px'
             };
 
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+                entries.forEach((entry, index) => {
                     if (entry.isIntersecting) {
-                        entry.target.style.animation = 'fadeInUp 0.8s ease-out';
-                        observer.unobserve(entry.target);
+                        const element = entry.target;
+                        const delay = index * 0.1;
+                        
+                        // Add staggered animation based on element type
+                        if (element.classList.contains('showcase-card')) {
+                            element.style.animation = `slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${delay}s, showcaseGlow 2s ease-in-out infinite ${delay + 0.5}s`;
+                        } else if (element.classList.contains('feature-card')) {
+                            element.style.animation = `slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${delay}s, featurePulse 3s ease-in-out infinite ${delay + 1}s`;
+                        } else if (element.classList.contains('program-card')) {
+                            element.style.animation = `slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${delay}s`;
+                        } else {
+                            element.style.animation = `slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) ${delay}s`;
+                        }
+                        
+                        observer.unobserve(element);
                     }
                 });
             }, observerOptions);
 
-            // Observe feature cards and program cards
-            document.querySelectorAll('.feature-card, .program-card').forEach(card => {
-                observer.observe(card);
+            // Observe all animated elements
+            document.querySelectorAll('.showcase-card, .feature-card, .program-card, .section-header').forEach(element => {
+                observer.observe(element);
             });
         }
+
+        // Advanced scroll-based parallax and animations
+        let lastScrollY = 0;
+        let scrollVelocity = 0;
+        
+        function handleScroll() {
+            const scrollY = window.pageYOffset;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollPercent = (scrollY / (documentHeight - windowHeight)) * 100;
+            
+            // Calculate scroll velocity
+            scrollVelocity = Math.abs(scrollY - lastScrollY);
+            lastScrollY = scrollY;
+            
+            // Parallax effects for hero section
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                const heroOpacity = Math.max(0, 1 - (scrollY / windowHeight));
+                heroSection.style.transform = `translateY(${scrollY * 0.5}px) scale(${1 - scrollY * 0.0005})`;
+                heroSection.style.opacity = heroOpacity;
+            }
+            
+            // Floating elements parallax
+            const floatingElements = document.querySelectorAll('.floating-element, .morphing-shape');
+            floatingElements.forEach((element, index) => {
+                const speed = 0.2 + (index * 0.05);
+                const yPos = -(scrollY * speed);
+                const rotation = scrollY * 0.1;
+                element.style.transform = `translateY(${yPos}px) rotate(${rotation}deg) translateZ(${index * 10}px)`;
+            });
+            
+            // Particles parallax
+            const particles = document.querySelectorAll('.particle, .medical-particle');
+            particles.forEach((particle, index) => {
+                const speed = 0.1 + (index * 0.02);
+                const yPos = -(scrollY * speed);
+                particle.style.transform = `translateY(${yPos}px) translateZ(${index * 5}px)`;
+            });
+            
+            // Navigation scroll effects
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+                if (scrollY > 100) {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                    navbar.style.backdropFilter = 'blur(25px)';
+                } else {
+                    navbar.style.background = 'rgba(255,255,255,0.1)';
+                    navbar.style.backdropFilter = 'blur(20px)';
+                }
+            }
+            
+            // Dynamic gradient background based on scroll
+            const body = document.body;
+            if (body) {
+                const hue = 200 + (scrollPercent * 0.5);
+                const saturation = 50 + (scrollPercent * 0.2);
+                body.style.background = `linear-gradient(180deg, hsl(${hue}, ${saturation}%, 95%) 0%, hsl(${hue}, ${saturation}%, 98%) 45%, hsl(${hue}, ${saturation}%, 95%) 100%)`;
+            }
+        }
+        
+        // Throttled scroll handler
+        let ticking = false;
+        function requestTick() {
+            if (!ticking) {
+                window.requestAnimationFrame(handleScroll);
+                ticking = true;
+                setTimeout(() => ticking = false, 16);
+            }
+        }
+        
+        window.addEventListener('scroll', requestTick);
+        
+        // Loading animation
+        function createLoadingAnimation() {
+            const loader = document.createElement('div');
+            loader.className = 'page-loader';
+            loader.innerHTML = `
+                <div class="loader-content">
+                    <div class="loader-cube"></div>
+                    <div class="loader-sphere"></div>
+                    <div class="loader-pyramid"></div>
+                    <div class="loader-text">Loading Amazing Experience...</div>
+                </div>
+            `;
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                .page-loader {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, #0a1628 0%, #1e3a5f 50%, #2563eb 100%);
+                    z-index: 9999;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    backdrop-filter: blur(10px);
+                }
+                
+                .loader-content {
+                    text-align: center;
+                    position: relative;
+                }
+                
+                .loader-cube {
+                    width: 60px;
+                    height: 60px;
+                    background: linear-gradient(135deg, #2563eb, #06b6d4);
+                    margin: 0 auto 20px;
+                    animation: rotateCube 2s infinite linear;
+                    transform-style: preserve-3d;
+                    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.4);
+                }
+                
+                .loader-sphere {
+                    width: 50px;
+                    height: 50px;
+                    background: radial-gradient(circle at 30% 30%, #3b82f6, #2563eb);
+                    border-radius: 50%;
+                    margin: 0 auto 20px;
+                    animation: floatSphere 1.5s infinite ease-in-out;
+                    box-shadow: 0 15px 35px rgba(6, 182, 212, 0.5);
+                }
+                
+                .loader-pyramid {
+                    width: 0;
+                    height: 0;
+                    border-left: 25px solid transparent;
+                    border-right: 25px solid transparent;
+                    border-bottom: 40px solid #1e40af;
+                    margin: 0 auto 20px;
+                    animation: rotatePyramid 1.8s infinite linear;
+                    filter: drop-shadow(0 10px 25px rgba(30, 64, 175, 0.6));
+                }
+                
+                .loader-text {
+                    color: white;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                    animation: pulse 1s infinite ease-in-out;
+                }
+            `;
+            
+            document.head.appendChild(style);
+            document.body.appendChild(loader);
+            
+            // Remove loader after page loads
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                loader.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(loader);
+                    document.head.removeChild(style);
+                }, 500);
+            }, 2000);
+        }
+        
+        // Initialize loading animation
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', createLoadingAnimation);
+        } else {
+            createLoadingAnimation();
+        }
+
+        // Smooth parallax scrolling for enhanced depth
+        let ticking = false;
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.showcase-card, .feature-card');
+            
+            parallaxElements.forEach((element, index) => {
+                const speed = 0.5 + (index * 0.1);
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translateY(${yPos}px) translateZ(${index * 5}px)`;
+            });
+            
+            ticking = false;
+        }
+
+        function requestTick() {
+            if (!ticking) {
+                window.requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            requestTick();
+        });
 
         // Slider functionality
         let currentSlideIndex = 0;

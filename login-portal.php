@@ -2258,21 +2258,101 @@ if (session_status() === PHP_SESSION_NONE) {
 
         /* Mobile Responsiveness */
         @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
             .navbar {
                 padding: 0.5rem 0;
             }
-
+            
             .nav-container {
                 padding: 0 1rem;
+                flex-wrap: wrap;
+                position: relative;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 100px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem;
+                box-shadow: 0 20px 40px rgba(10, 22, 40, 0.2);
+                border-top: 2px solid var(--accent-blue);
+                z-index: 999;
+                transform: translateY(-100%);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .nav-links.active {
+                display: flex;
+                transform: translateY(0);
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: 1rem;
+                border-radius: 0;
+                border-bottom: 1px solid var(--border-light);
+                text-align: center;
+                font-size: 1rem;
+            }
+
+            .nav-link:last-child {
+                border-bottom: none;
+            }
+
+            .nav-dropdown-menu {
+                position: static;
+                background: var(--gray-light);
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                margin-top: 0;
+                min-width: auto;
+            }
+
+            .nav-dropdown.active .nav-dropdown-menu {
+                display: block;
+            }
+
+            .nav-dropdown-toggle::after {
+                display: none;
+            }
+
+            .nav-dropdown-menu a {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+                border-bottom: 1px solid var(--border-light);
+                background: transparent;
+                color: var(--text-primary);
+            }
+
+            .nav-dropdown-menu a:hover {
+                background: var(--accent-light-blue);
+                color: var(--white);
+                transform: none;
             }
 
             .nav-logo {
-                font-size: 0.9rem;
+                font-size: 1.3rem;
+                gap: 1rem;
             }
 
             .nav-logo img {
-                width: 35px;
-                height: 35px;
+                width: 50px;
+                height: 50px;
             }
 
             .nav-links {
@@ -2410,47 +2490,67 @@ if (session_status() === PHP_SESSION_NONE) {
                 <img src="assets/school-logo.png" alt="ISNM">
                 <span>IGANGA SCHOOL OF NURSING AND MIDWIFERY</span>
             </a>
-            <div class="nav-links">
-                <a href="index.php" class="nav-link">
-                    <i class="fas fa-home"></i>
-                    Home
-                </a>
-                <a href="about.php" class="nav-link">
-                    <i class="fas fa-info-circle"></i>
-                    About
-                </a>
-                <a href="governance.php" class="nav-link">
-                    <i class="fas fa-users"></i>
-                    Governance
-                </a>
-                <a href="programs.php" class="nav-link">
-                    <i class="fas fa-graduation-cap"></i>
-                    Programs
-                </a>
-                <a href="admissions.php" class="nav-link">
-                    <i class="fas fa-user-plus"></i>
-                    Admissions
-                </a>
-                <a href="activities.php" class="nav-link">
-                    <i class="fas fa-running"></i>
-                    Activities
-                </a>
-                <a href="infrastructure.php" class="nav-link">
-                    <i class="fas fa-building"></i>
-                    Infrastructure
-                </a>
-                <a href="achievements.php" class="nav-link">
-                    <i class="fas fa-trophy"></i>
-                    Achievements
-                </a>
-                <a href="history.php" class="nav-link">
-                    <i class="fas fa-history"></i>
-                    History
-                </a>
-                <a href="contact.php" class="nav-link">
-                    <i class="fas fa-envelope"></i>
-                    Contact
-                </a>
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="nav-link">Home</a>
+                
+                <!-- Academics Dropdown -->
+                <div class="nav-dropdown">
+                    <div class="nav-dropdown-toggle">
+                        <a href="#" class="nav-link">Academics</a>
+                    </div>
+                    <div class="nav-dropdown-menu">
+                        <a href="programs.php">Programs</a>
+                        <a href="activities.php#academic-activities">Academic Activities</a>
+                        <a href="activities.php#sports-activities">Sports & Recreation</a>
+                        <a href="activities.php#community-service">Community Service</a>
+                        <a href="activities.php#cultural-activities">Cultural Activities</a>
+                    </div>
+                </div>
+                
+                <!-- About Dropdown -->
+                <div class="nav-dropdown">
+                    <div class="nav-dropdown-toggle">
+                        <a href="#" class="nav-link">About</a>
+                    </div>
+                    <div class="nav-dropdown-menu">
+                        <a href="about.php">Our School</a>
+                        <a href="governance.php">Governance</a>
+                        <a href="history.php">History</a>
+                        <a href="achievements.php">Achievements</a>
+                    </div>
+                </div>
+                
+                <!-- Admissions Dropdown -->
+                <div class="nav-dropdown">
+                    <div class="nav-dropdown-toggle">
+                        <a href="#" class="nav-link">Admissions</a>
+                    </div>
+                    <div class="nav-dropdown-menu">
+                        <a href="application.php">Apply Now</a>
+                        <a href="programs.php#requirements">Requirements</a>
+                        <a href="programs.php#fees">Fee Structure</a>
+                    </div>
+                </div>
+                
+                <!-- Campus Dropdown -->
+                <div class="nav-dropdown">
+                    <div class="nav-dropdown-toggle">
+                        <a href="#" class="nav-link">Campus</a>
+                    </div>
+                    <div class="nav-dropdown-menu">
+                        <a href="infrastructure.php">Infrastructure</a>
+                        <a href="activities.php">Student Life</a>
+                    </div>
+                </div>
+                
+                <a href="contact.php" class="nav-link">Contact</a>
+                <a href="login-portal.php" class="nav-link">Portal</a>
             </div>
         </div>
     </nav>
@@ -3129,6 +3229,75 @@ if (session_status() === PHP_SESSION_NONE) {
     </footer>
 
     <script>
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        if (mobileMenuToggle && navLinks) {
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+            
+            // Close menu when clicking on a link
+            navLinks.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        }
+
+        // Mobile Dropdown Toggle
+        const navDropdowns = document.querySelectorAll('.nav-dropdown');
+        
+        navDropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+            const menu = dropdown.querySelector('.nav-dropdown-menu');
+            
+            if (toggle && menu) {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Close other dropdowns
+                    navDropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    dropdown.classList.toggle('active');
+                });
+            }
+        });
+
+        // Handle window resize
+        let isMobile = window.innerWidth <= 768;
+        
+        window.addEventListener('resize', () => {
+            const newIsMobile = window.innerWidth <= 768;
+            if (isMobile !== newIsMobile) {
+                isMobile = newIsMobile;
+                // Reset mobile menu on resize
+                if (!isMobile && navLinks) {
+                    navLinks.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    navDropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                    });
+                }
+            }
+        });
+
         <?php
         // Add any dynamic PHP variables if needed
         $base_url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
