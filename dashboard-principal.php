@@ -1,76 +1,97 @@
 <?php
+// Start session
 session_start();
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin' || $_SESSION['department'] !== 'principal') {
-    header('Location: login.php');
+
+// Check if user is logged in and is principal
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'principal') {
+    header('Location: login-portal.php');
     exit();
 }
 
-include 'config.php';
+// Mock principal data - in production, this would come from database
+$principal = [
+    'id' => 'PRINC001',
+    'name' => 'Dr. Sarah Johnson',
+    'position' => 'Principal',
+    'email' => 'principal@isnm.ac.ug',
+    'phone' => '+256 772 514 889',
+    'department' => 'Principal Office',
+    'join_date' => '2019-06-01'
+];
 
-// Get principal information
-$principal_info = [];
-try {
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ? AND role = 'admin' AND department = 'principal'");
-    $stmt->execute([$_SESSION['user_id']]);
-    $principal_info = $stmt->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Error fetching principal info: " . $e->getMessage());
-}
+// Mock school statistics for comprehensive dashboard
+$school_stats = [
+    'total_students' => 1250,
+    'total_staff' => 156,
+    'active_courses' => 24,
+    'recent_activities' => 89,
+    'pass_rate' => 92.5,
+    'attendance_rate' => 94.2,
+    'graduation_rate' => 96.8,
+    'employment_rate' => 91.5
+];
 
-// Get school statistics
-$school_stats = [];
-try {
-    // Total students
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM users WHERE role = 'student'");
-    $school_stats['total_students'] = $stmt->fetchColumn();
-    
-    // Total staff
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM users WHERE role != 'student'");
-    $school_stats['total_staff'] = $stmt->fetchColumn();
-    
-    // Active courses
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM courses WHERE status = 'active'");
-    $school_stats['active_courses'] = $stmt->fetchColumn();
-    
-    // Recent activities
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM activity_log WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)");
-    $school_stats['recent_activities'] = $stmt->fetchColumn();
-} catch (PDOException $e) {
-    error_log("Error fetching school statistics: " . $e->getMessage());
-}
+// Mock department summaries
+$department_summaries = [
+    ['department' => 'Academic Affairs', 'staff_count' => 45, 'admin_count' => 8, 'lecturer_count' => 35, 'support_count' => 2],
+    ['department' => 'Clinical Skills', 'staff_count' => 28, 'admin_count' => 3, 'lecturer_count' => 20, 'support_count' => 5],
+    ['department' => 'Student Affairs', 'staff_count' => 22, 'admin_count' => 5, 'lecturer_count' => 12, 'support_count' => 5],
+    ['department' => 'Finance & Admin', 'staff_count' => 18, 'admin_count' => 10, 'lecturer_count' => 0, 'support_count' => 8],
+    ['department' => 'Library Services', 'staff_count' => 12, 'admin_count' => 2, 'lecturer_count' => 5, 'support_count' => 5],
+    ['department' => 'Hostel Management', 'staff_count' => 15, 'admin_count' => 3, 'lecturer_count' => 0, 'support_count' => 12],
+    ['department' => 'ICT Services', 'staff_count' => 8, 'admin_count' => 2, 'lecturer_count' => 3, 'support_count' => 3],
+    ['department' => 'Support Services', 'staff_count' => 8, 'admin_count' => 1, 'lecturer_count' => 0, 'support_count' => 7]
+];
 
-// Get department summaries
-$department_summaries = [];
-try {
-    $stmt = $pdo->query("
-        SELECT department, COUNT(*) as staff_count,
-               SUM(CASE WHEN role = 'admin' THEN 1 ELSE 0 END) as admin_count,
-               SUM(CASE WHEN role = 'lecturer' THEN 1 ELSE 0 END) as lecturer_count,
-               SUM(CASE WHEN role = 'support' THEN 1 ELSE 0 END) as support_count
-        FROM users 
-        WHERE department IS NOT NULL AND department != '' 
-        GROUP BY department 
-        ORDER BY staff_count DESC
-    ");
-    $department_summaries = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Error fetching department summaries: " . $e->getMessage());
-}
+// Mock recent activities
+$recent_activities = [
+    ['type' => 'meeting', 'title' => 'Staff Meeting - Academic Planning', 'date' => '2024-01-20', 'department' => 'Academic Affairs', 'status' => 'completed'],
+    ['type' => 'inspection', 'title' => 'Clinical Skills Lab Inspection', 'date' => '2024-01-19', 'department' => 'Clinical Skills', 'status' => 'completed'],
+    ['type' => 'event', 'title' => 'Student Orientation Day', 'date' => '2024-01-18', 'department' => 'Student Affairs', 'status' => 'completed'],
+    ['type' => 'audit', 'title' => 'Financial Audit Q1', 'date' => '2024-01-17', 'department' => 'Finance & Admin', 'status' => 'in_progress'],
+    ['type' => 'training', 'title' => 'Staff Development Workshop', 'date' => '2024-01-16', 'department' => 'HR', 'status' => 'completed'],
+    ['type' => 'inspection', 'title' => 'Hostel Facilities Inspection', 'date' => '2024-01-15', 'department' => 'Hostel Management', 'status' => 'pending']
+];
 
-// Get recent activities
-$recent_activities = [];
-try {
-    $stmt = $pdo->query("
-        SELECT al.*, u.username 
-        FROM activity_log al 
-        LEFT JOIN users u ON al.user_id = u.id 
-        ORDER BY al.created_at DESC 
-        LIMIT 10
-    ");
-    $recent_activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Error fetching recent activities: " . $e->getMessage());
-}
+// Mock pending approvals
+$pending_approvals = [
+    ['type' => 'leave', 'title' => 'Staff Leave Request', 'staff_name' => 'Ms. Amina Nakato', 'department' => 'Academic Affairs', 'urgency' => 'medium'],
+    ['type' => 'budget', 'title' => 'Equipment Purchase Request', 'staff_name' => 'Dr. James Mugisha', 'department' => 'Clinical Skills', 'amount' => 'UGX 15,000,000', 'urgency' => 'high'],
+    ['type' => 'policy', 'title' => 'New Academic Policy', 'staff_name' => 'Prof. Grace Nankya', 'department' => 'Academic Affairs', 'urgency' => 'medium'],
+    ['type' => 'event', 'title' => 'Student Event Approval', 'staff_name' => 'Mr. David Kato', 'department' => 'Student Affairs', 'urgency' => 'low'],
+    ['type' => 'hiring', 'title' => 'New Staff Recruitment', 'staff_name' => 'HR Department', 'department' => 'HR', 'positions' => 3, 'urgency' => 'high']
+];
+
+// Mock academic performance
+$academic_performance = [
+    'nursing_program' => [
+        'students' => 680,
+        'pass_rate' => 94.2,
+        'top_performer' => 'Sarah Nalwoga',
+        'average_grade' => 'B+'
+    ],
+    'midwifery_program' => [
+        'students' => 420,
+        'pass_rate' => 91.8,
+        'top_performer' => 'Grace Lutaaya',
+        'average_grade' => 'B'
+    ],
+    'short_courses' => [
+        'students' => 150,
+        'pass_rate' => 96.5,
+        'top_performer' => 'Joseph Mwanga',
+        'average_grade' => 'A-'
+    ]
+];
+
+// Mock upcoming events
+$upcoming_events = [
+    ['title' => 'Board of Governors Meeting', 'date' => '2024-01-25', 'type' => 'meeting', 'location' => 'Board Room'],
+    ['title' => 'Graduation Ceremony', 'date' => '2024-02-10', 'type' => 'ceremony', 'location' => 'Main Hall'],
+    ['title' => 'Staff Training Workshop', 'date' => '2024-01-28', 'type' => 'training', 'location' => 'Conference Room'],
+    ['title' => 'Open Day', 'date' => '2024-02-15', 'type' => 'event', 'location' => 'Campus'],
+    ['title' => 'NCHE Accreditation Visit', 'date' => '2024-02-20', 'type' => 'inspection', 'location' => 'Campus']
+];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,195 +100,296 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal Dashboard - ISNM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-                :root {
-            /* Dark and Creamy Yellow Color Palette */
-            --primary-dark: #1a1a1a;
-            --creamy-yellow: #FFF8DC;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            /* Principal Color Palette */
+            --primary-dark: #1a365d;
+            --accent-blue: #2563eb;
             --accent-gold: #FFD700;
-            --secondary-dark: #2d2d2d;
-            --light-cream: #FAF0E6;
-            --dark-accent: #B8860B;
-            --white: #FFFFFF;
-            --gray-light: #F5F5F5;
-            --gray-medium: #D3D3D3;
-            --gray-dark: #696969;
+            --executive-gray: #2c3e50;
+            --success-green: #22c55e;
+            --warning-amber: #f59e0b;
+            --danger-red: #ef4444;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
             
-            /* Gradients */
-            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
-            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
-            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
-            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
+            /* Principal Gradients */
+            --gradient-executive: linear-gradient(135deg, var(--primary-dark) 0%, var(--executive-gray) 50%, var(--accent-gold) 100%);
+            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-blue) 100%);
+            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, #fbbf24 100%);
+            --gradient-success: linear-gradient(135deg, var(--success-green) 0%, #16a34a 100%);
+            --gradient-warning: linear-gradient(135deg, var(--warning-amber) 0%, #d97706 100%);
+            --gradient-danger: linear-gradient(135deg, var(--danger-red) 0%, #dc2626 100%);
             
             /* Shadows */
-            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
-            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
-            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
-            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
-            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            --shadow-luxury: 0 8px 16px rgba(212, 175, 55, 0.3);
             
-            /* Borders */
-            --border-light: var(--gray-medium);
-            --border-medium: var(--gray-dark);
-            --border-dark: var(--primary-dark);
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            
+            /* Typography */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+            --radius-2xl: 1rem;
+            --radius-full: 9999px;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        
         body {
-            font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, var(--cream-white), var(--white));
-            color: var(--text-dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+            color: var(--gray-900);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .dashboard {
+            display: flex;
             min-height: 100vh;
         }
-
-        .navbar {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: var(--shadow-lg);
-            position: sticky;
-            top: 0;
+        
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: var(--white);
+            box-shadow: var(--shadow-xl);
+            border-right: 1px solid var(--gray-200);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
             z-index: 1000;
         }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
+        
+        .sidebar-header {
+            padding: var(--space-6);
+            background: var(--gradient-executive);
+            color: var(--white);
+            border-bottom: 2px solid var(--accent-gold);
+        }
+        
+        .school-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-4);
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--accent-gold);
+        }
+        
+        .user-info {
+            text-align: center;
+        }
+        
+        .user-name {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-1);
+        }
+        
+        .user-position {
+            font-size: var(--text-sm);
+            opacity: 0.9;
+            margin-bottom: var(--space-2);
+        }
+        
+        .user-email {
+            font-size: var(--text-xs);
+            opacity: 0.8;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            padding: var(--space-4) 0;
+        }
+        
+        .nav-item {
+            margin-bottom: var(--space-1);
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3) var(--space-6);
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+            border-left: 3px solid transparent;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            background: var(--gray-50);
+            color: var(--accent-blue);
+            border-left-color: var(--accent-blue);
+        }
+        
+        .nav-link.active {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--accent-blue);
+            border-left-color: var(--accent-blue);
+        }
+        
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--white);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--space-8);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: var(--space-4);
         }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-family: 'Rockwell Extra Bold', 'Rockwell', serif;
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: var(--primary-blue);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .nav-logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--golden-yellow);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-        }
-
-        .main-container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .dashboard-header {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 2rem;
-            border-radius: 20px;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-xl);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dashboard-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 1;
-        }
-
+        
         .header-title {
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: var(--text-3xl);
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: var(--space-2);
         }
-
+        
         .header-subtitle {
-            font-family: 'Bernard MT Condensed', 'Arial Narrow', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            color: var(--gray-600);
+            font-size: var(--text-lg);
         }
-
+        
+        .header-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        .btn {
+            padding: var(--space-3) var(--space-6);
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            transition: all var(--transition-normal);
+            border: none;
+            cursor: pointer;
+            font-size: var(--text-sm);
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-200);
+        }
+        
+        .btn-luxury {
+            background: var(--gradient-luxury);
+            color: var(--primary-dark);
+            box-shadow: var(--shadow-luxury);
+        }
+        
+        .btn-luxury:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
         }
-
+        
         .stat-card {
-            background: linear-gradient(145deg, var(--white), var(--cream-white));
-            border: 2px solid var(--primary-blue);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s ease;
+            background: var(--white);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+            transition: all var(--transition-normal);
             position: relative;
             overflow: hidden;
         }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--golden-yellow);
-        }
-
+        
         .stat-card::before {
             content: '';
             position: absolute;
@@ -277,196 +399,289 @@ try {
             height: 4px;
             background: var(--gradient-primary);
         }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: var(--shadow-md);
+        
+        .stat-card.luxury::before {
+            background: var(--gradient-luxury);
         }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
+        
+        .stat-card.success::before {
+            background: var(--gradient-success);
         }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        
+        .stat-card.warning::before {
+            background: var(--gradient-warning);
         }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
+        
+        .stat-card.danger::before {
+            background: var(--gradient-danger);
         }
-
-        .panel {
-            background: linear-gradient(145deg, var(--white), var(--cream-white));
-            border: 2px solid var(--soft-gray);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow-md);
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
         }
-
-        .panel-header {
+        
+        .stat-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--soft-gray);
+            margin-bottom: var(--space-4);
         }
-
-        .panel-title {
-            font-family: 'Rockwell Extra Bold', 'Rockwell', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-        }
-
-        .department-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .department-card {
-            background: var(--white);
-            border: 1px solid var(--soft-gray);
-            border-radius: 12px;
-            padding: 1rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .department-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary-blue);
-        }
-
-        .department-name {
-            font-weight: 600;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .department-count {
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--golden-yellow);
-        }
-
-        .activity-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .activity-item {
-            display: flex;
-            align-items: start;
-            gap: 1rem;
-            padding: 1rem;
-            border-bottom: 1px solid var(--soft-gray);
-            transition: all 0.3s ease;
-        }
-
-        .activity-item:hover {
-            background: var(--light-gray);
-        }
-
-        .activity-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: var(--white);
             background: var(--gradient-primary);
-            color: white;
-            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
         }
-
-        .activity-content {
-            flex: 1;
+        
+        .stat-icon.luxury {
+            background: var(--gradient-luxury);
+            color: var(--primary-dark);
         }
-
-        .activity-text {
-            font-size: 0.9rem;
-            color: var(--text-dark);
-            margin-bottom: 0.25rem;
+        
+        .stat-icon.success {
+            background: var(--gradient-success);
         }
-
-        .activity-time {
-            font-size: 0.8rem;
-            color: var(--text-muted);
+        
+        .stat-icon.warning {
+            background: var(--gradient-warning);
         }
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+        
+        .stat-icon.danger {
+            background: var(--gradient-danger);
         }
-
-        .action-btn {
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 1rem;
-            font-size: 0.9rem;
+        
+        .stat-value {
+            font-size: var(--text-4xl);
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: var(--space-2);
+        }
+        
+        .stat-label {
+            color: var(--gray-600);
+            font-size: var(--text-sm);
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .stat-change {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+        }
+        
+        .stat-change.positive {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success-green);
+        }
+        
+        .stat-change.negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-red);
+        }
+        
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-8);
+            margin-bottom: var(--space-8);
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .card-title {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            color: var(--primary-dark);
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            text-decoration: none;
+            gap: var(--space-3);
         }
-
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
+        
+        .card-title i {
+            color: var(--accent-gold);
         }
-
-        .action-btn i {
-            font-size: 1.2rem;
+        
+        /* Tables */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--space-4);
         }
-
-        @media (max-width: 768px) {
+        
+        .table th,
+        .table td {
+            padding: var(--space-3);
+            text-align: left;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .table th {
+            font-weight: 600;
+            color: var(--gray-700);
+            background: var(--gray-50);
+        }
+        
+        .table tbody tr:hover {
+            background: var(--gray-50);
+        }
+        
+        /* Lists */
+        .list {
+            list-style: none;
+        }
+        
+        .list-item {
+            padding: var(--space-4) 0;
+            border-bottom: 1px solid var(--gray-100);
+            transition: all var(--transition-fast);
+        }
+        
+        .list-item:last-child {
+            border-bottom: none;
+        }
+        
+        .list-item:hover {
+            background: var(--gray-50);
+            margin: 0 calc(-1 * var(--space-6));
+            padding: var(--space-4) var(--space-6);
+            border-radius: var(--radius-lg);
+        }
+        
+        .list-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-2);
+        }
+        
+        .list-item-title {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+        
+        .list-item-meta {
+            display: flex;
+            gap: var(--space-3);
+            align-items: center;
+        }
+        
+        .list-item-date {
+            font-size: var(--text-xs);
+            color: var(--gray-500);
+        }
+        
+        .list-item-status {
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .list-item-status.completed {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success-green);
+        }
+        
+        .list-item-status.in_progress {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-amber);
+        }
+        
+        .list-item-status.pending {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-red);
+        }
+        
+        .list-item-description {
+            color: var(--gray-600);
+            font-size: var(--text-sm);
+        }
+        
+        .urgency-badge {
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-full);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .urgency-badge.high {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-red);
+        }
+        
+        .urgency-badge.medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-amber);
+        }
+        
+        .urgency-badge.low {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success-green);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
             .content-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: var(--space-4);
             }
             
             .stats-grid {
                 grid-template-columns: 1fr;
             }
             
-            .nav-container {
+            .header-top {
                 flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .header-title {
-                font-size: 1.8rem;
+                gap: var(--space-4);
+                align-items: flex-start;
             }
         }
-
+        
+        /* Animations */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -477,242 +692,390 @@ try {
                 transform: translateY(0);
             }
         }
-
-        .fade-in {
+        
+        .stat-card, .card {
             animation: fadeIn 0.6s ease-out;
         }
-        .stat-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .stat-icon.yellow { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .stat-icon.red { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-        .stat-value { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
-        .stat-label { color: var(--gray-600); font-size: 0.875rem; }
-        .content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
-        .card { background: var(--white); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow-md); }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .card-title { font-size: 1.25rem; font-weight: 600; }
-        .btn { padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s; border: none; cursor: pointer; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--secondary); }
-        .btn-secondary { background: var(--gray-200); color: var(--gray-700); }
-        .btn-secondary:hover { background: var(--gray-300); }
-        .meeting-list { list-style: none; max-height: 400px; overflow-y: auto; }
-        .meeting-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--gray-100); }
-        .meeting-item:last-child { border-bottom: none; }
-        .meeting-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; color: var(--gray-600); }
-        .meeting-info { flex: 1; }
-        .meeting-title { font-weight: 500; margin-bottom: 0.25rem; }
-        .meeting-time { font-size: 0.875rem; color: var(--gray-600); }
-        .meeting-status { padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; }
-        .status-scheduled { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .status-pending { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .status-completed { background: rgba(59, 130, 246, 0.1); color: var(--primary); }
-        .department-list { list-style: none; max-height: 400px; overflow-y: auto; }
-        .department-item { background: var(--gray-50); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; border-left: 4px solid var(--primary); }
-        .department-name { font-weight: 600; color: var(--primary); margin-bottom: 0.25rem; }
-        .department-head { font-weight: 500; margin-bottom: 0.25rem; }
-        .department-meta { font-size: 0.875rem; color: var(--gray-600); }
-        @media (max-width: 768px) { .dashboard { flex-direction: column; } .sidebar { width: 100%; } .content-grid { grid-template-columns: 1fr; } }
+        
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(1) { animation-delay: 0.5s; }
+        .card:nth-child(2) { animation-delay: 0.6s; }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="login-portal.php" class="nav-logo">
-                <img src="assets/school-logo.png" alt="ISNM">
-                <span>IGANGA SCHOOL OF NURSING AND MIDWIFERY</span>
-            </a>
-            <div class="nav-links">
-                <a href="dashboard-principal.php" class="nav-link">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-users"></i> Staff Management
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-graduation-cap"></i> Academic Oversight
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-chart-line"></i> Performance Reports
-                </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-cog"></i> Settings
-                </a>
-                <div class="user-menu">
-                    <i class="fas fa-user"></i>
-                    <span><?php echo htmlspecialchars($principal_info['username'] ?? 'Principal'); ?></span>
-                    <a href="logout.php" class="nav-link">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </a>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="school-logo">
+                    <i class="fas fa-user-graduate"></i>
                 </div>
-            </div>
-        </div>
-    </nav>
-
-    <main class="main-container">
-        <header class="dashboard-header fade-in">
-            <div class="header-content">
-                <h1 class="header-title">PRINCIPAL</h1>
-                <p class="header-subtitle">School Leadership & Administrative Excellence</p>
-            </div>
-        </header>
-
-        <div class="stats-grid fade-in">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-users"></i>
+                <div class="user-info">
+                    <div class="user-name"><?php echo htmlspecialchars($principal['name']); ?></div>
+                    <div class="user-position"><?php echo htmlspecialchars($principal['position']); ?></div>
+                    <div class="user-email"><?php echo htmlspecialchars($principal['email']); ?></div>
                 </div>
-                <div class="stat-value"><?php echo number_format($school_stats['total_students'] ?? 0); ?></div>
-                <div class="stat-label">Total Students</div>
             </div>
             
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-chalkboard-teacher"></i>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Principal Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Staff Management</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Academic Affairs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Performance Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-clipboard-check"></i>
+                            <span>Approvals</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-calendar"></i>
+                            <span>Events & Meetings</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-building"></i>
+                            <span>Departments</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-bullhorn"></i>
+                            <span>Announcements</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="login-portal.php" class="nav-link" style="color: var(--danger-red);">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-top">
+                    <div>
+                        <h1 class="header-title">Principal Dashboard</h1>
+                        <p class="header-subtitle">Institutional Administration & Academic Oversight</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-download"></i>
+                            Export Report
+                        </button>
+                        <button class="btn btn-luxury">
+                            <i class="fas fa-calendar-plus"></i>
+                            Schedule Meeting
+                        </button>
+                    </div>
                 </div>
-                <div class="stat-value"><?php echo number_format($school_stats['total_staff'] ?? 0); ?></div>
-                <div class="stat-label">Total Staff</div>
-            </div>
+            </header>
             
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-book"></i>
-                </div>
-                <div class="stat-value"><?php echo number_format($school_stats['active_courses'] ?? 0); ?></div>
-                <div class="stat-label">Active Courses</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="stat-value"><?php echo number_format($school_stats['recent_activities'] ?? 0); ?></div>
-                <div class="stat-label">Weekly Activities</div>
-            </div>
-        </div>
-
-        <div class="content-grid fade-in">
-            <div class="panel">
-                <div class="panel-header">
-                    <h2 class="panel-title">
-                        <i class="fas fa-building"></i> Department Overview
-                    </h2>
-                    <a href="#" class="nav-link">View All</a>
-                </div>
-                <div class="department-grid">
-                    <?php foreach ($department_summaries as $dept): ?>
-                        <div class="department-card" onclick="window.location.href='#'">
-                            <div class="department-name"><?php echo htmlspecialchars(ucwords(str_replace('-', ' ', $dept['department']))); ?></div>
-                            <div class="department-count"><?php echo $dept['staff_count']; ?></div>
-                            <div style="font-size: 0.8rem; color: var(--text-muted);">
-                                <?php if ($dept['admin_count'] > 0) echo $dept['admin_count'] . ' Admin '; ?>
-                                <?php if ($dept['lecturer_count'] > 0) echo $dept['lecturer_count'] . ' Lecturer '; ?>
-                                <?php if ($dept['support_count'] > 0) echo $dept['support_count'] . ' Support'; ?>
-                            </div>
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card luxury">
+                    <div class="stat-header">
+                        <div class="stat-icon luxury">
+                            <i class="fas fa-users"></i>
                         </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-
-            <div class="panel">
-                <div class="panel-header">
-                    <h2 class="panel-title">
-                        <i class="fas fa-history"></i> Recent Activities
-                    </h2>
-                    <a href="#" class="nav-link">View All</a>
-                </div>
-                <div class="activity-list">
-                    <?php foreach ($recent_activities as $activity): ?>
-                        <div class="activity-item">
-                            <div class="activity-icon">
-                                <i class="fas fa-bell"></i>
-                            </div>
-                            <div class="activity-content">
-                                <div class="activity-text">
-                                    <?php echo htmlspecialchars($activity['username'] ?? 'System'); ?> 
-                                    <?php echo htmlspecialchars($activity['action'] ?? 'performed an action'); ?>
-                                </div>
-                                <div class="activity-time">
-                                    <?php echo date('M d, Y H:i', strtotime($activity['created_at'])); ?>
-                                </div>
-                            </div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            12%
                         </div>
-                    <?php endforeach; ?>
+                    </div>
+                    <div class="stat-value"><?php echo number_format($school_stats['total_students']); ?></div>
+                    <div class="stat-label">Total Students</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            8%
+                        </div>
+                    </div>
+                    <div class="stat-value"><?php echo number_format($school_stats['total_staff']); ?></div>
+                    <div class="stat-label">Total Staff</div>
+                </div>
+                
+                <div class="stat-card success">
+                    <div class="stat-header">
+                        <div class="stat-icon success">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            3%
+                        </div>
+                    </div>
+                    <div class="stat-value"><?php echo $school_stats['pass_rate']; ?>%</div>
+                    <div class="stat-label">Pass Rate</div>
+                </div>
+                
+                <div class="stat-card warning">
+                    <div class="stat-header">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            5%
+                        </div>
+                    </div>
+                    <div class="stat-value"><?php echo $school_stats['active_courses']; ?></div>
+                    <div class="stat-label">Active Courses</div>
                 </div>
             </div>
-        </div>
-
-        <div class="panel fade-in">
-            <div class="panel-header">
-                <h2 class="panel-title">
-                    <i class="fas fa-bolt"></i> Principal Quick Actions
-                </h2>
+            
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <!-- Department Overview Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-building"></i>
+                            Department Overview
+                        </h2>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            View All
+                        </button>
+                    </div>
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Department</th>
+                                <th>Staff Count</th>
+                                <th>Admin</th>
+                                <th>Lecturers</th>
+                                <th>Support</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($department_summaries as $dept): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($dept['department']); ?></td>
+                                    <td><?php echo $dept['staff_count']; ?></td>
+                                    <td><?php echo $dept['admin_count']; ?></td>
+                                    <td><?php echo $dept['lecturer_count']; ?></td>
+                                    <td><?php echo $dept['support_count']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Recent Activities Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-history"></i>
+                            Recent Activities
+                        </h2>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-eye"></i>
+                            View All
+                        </button>
+                    </div>
+                    
+                    <ul class="list">
+                        <?php foreach ($recent_activities as $activity): ?>
+                            <li class="list-item">
+                                <div class="list-item-header">
+                                    <div class="list-item-title"><?php echo htmlspecialchars($activity['title']); ?></div>
+                                    <div class="list-item-status <?php echo str_replace('_', '-', $activity['status']); ?>">
+                                        <?php echo htmlspecialchars(ucwords(str_replace('_', ' ', $activity['status']))); ?>
+                                    </div>
+                                </div>
+                                <div class="list-item-meta">
+                                    <span class="list-item-date"><?php echo htmlspecialchars($activity['date']); ?></span>
+                                    <span class="urgency-badge medium">
+                                        <?php echo htmlspecialchars(ucfirst($activity['type'])); ?>
+                                    </span>
+                                </div>
+                                <div class="list-item-description">
+                                    Department: <?php echo htmlspecialchars($activity['department']); ?>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                
+                <!-- Pending Approvals Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-clipboard-check"></i>
+                            Pending Approvals
+                        </h2>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-rocket"></i>
+                            Review All
+                        </button>
+                    </div>
+                    
+                    <ul class="list">
+                        <?php foreach ($pending_approvals as $approval): ?>
+                            <li class="list-item">
+                                <div class="list-item-header">
+                                    <div class="list-item-title"><?php echo htmlspecialchars($approval['title']); ?></div>
+                                    <div class="urgency-badge <?php echo htmlspecialchars($approval['urgency']); ?>">
+                                        <?php echo htmlspecialchars(ucfirst($approval['urgency'])); ?>
+                                    </div>
+                                </div>
+                                <div class="list-item-description">
+                                    By: <?php echo htmlspecialchars($approval['staff_name']); ?> - <?php echo htmlspecialchars($approval['department']); ?>
+                                    <?php if (isset($approval['amount'])): ?>
+                                        <br>Amount: <?php echo htmlspecialchars($approval['amount']); ?>
+                                    <?php endif; ?>
+                                    <?php if (isset($approval['positions'])): ?>
+                                        <br>Positions: <?php echo $approval['positions']; ?>
+                                    <?php endif; ?>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                
+                <!-- Academic Performance Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="fas fa-chart-line"></i>
+                            Academic Performance
+                        </h2>
+                        <button class="btn btn-luxury">
+                            <i class="fas fa-file-invoice"></i>
+                            Full Report
+                        </button>
+                    </div>
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Program</th>
+                                <th>Students</th>
+                                <th>Pass Rate</th>
+                                <th>Top Performer</th>
+                                <th>Avg Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($academic_performance as $program => $data): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars(ucwords(str_replace('_', ' ', $program))); ?></td>
+                                    <td><?php echo $data['students']; ?></td>
+                                    <td><?php echo $data['pass_rate']; ?>%</td>
+                                    <td><?php echo htmlspecialchars($data['top_performer']); ?></td>
+                                    <td><?php echo htmlspecialchars($data['average_grade']); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="quick-actions">
-                <a href="#" class="action-btn">
-                    <i class="fas fa-user-plus"></i>
-                    Staff Management
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-graduation-cap"></i>
-                    Academic Oversight
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-chart-line"></i>
-                    Performance Reports
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-handshake"></i>
-                    Stakeholder Relations
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-calendar"></i>
-                    Board Meetings
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-cog"></i>
-                    Settings
-                </a>
-            </div>
-        </div>
-    </main>
-
+        </main>
+    </div>
+    
     <script>
-        // Add entrance animations
+        // Add interactive functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach((el, index) => {
-                setTimeout(() => {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-        });
-
-        // Add interactive hover effects
-        const cards = document.querySelectorAll('.stat-card, .department-card, .activity-item');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px) scale(1.02)';
+            // Handle navigation clicks
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                    }
+                    
+                    // Remove active class from all links
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                });
             });
             
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
+            // Handle button clicks with visual feedback
+            document.querySelectorAll('.btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    // Add ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255,255,255,0.5)';
+                    ripple.style.width = ripple.style.height = '40px';
+                    ripple.style.marginLeft = '-20px';
+                    ripple.style.marginTop = '-20px';
+                    ripple.style.animation = 'ripple 0.6s';
+                    ripple.style.pointerEvents = 'none';
+                    
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => ripple.remove(), 600);
+                });
             });
         });
-
-        // Auto-refresh activities every 30 seconds
-        setInterval(() => {
-            // Refresh recent activities
-            fetch('api/recent-activities.php')
-                .then(response => response.json())
-                .then(data => {
-                    // Update activity list
-                    console.log('Activities refreshed');
-                })
-                .catch(error => console.error('Error refreshing activities:', error));
-        }, 30000);
+        
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
-
-
