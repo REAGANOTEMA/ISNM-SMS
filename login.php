@@ -1,65 +1,54 @@
 <?php
-// Error reporting for development
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
+require_once 'config.php';
 
-// Set headers
-header('Content-Type: text/html; charset=UTF-8');
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
-
-// Start session if needed
+// Initialize session only if not already active
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Get role from URL parameter
-$role = $_GET['role'] ?? 'admin';
-$department = $_GET['department'] ?? '';
+// Handle logout request
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header('Location: login.php');
+    exit();
+}
 
-// Define role configurations
-$roles = [
-    'admin' => [
-        'title' => 'Administrator Login',
-        'subtitle' => 'System Administration Access',
-        'icon' => 'fas fa-user-shield',
-        'color' => '#2563eb',
-        'departments' => ['director', 'board', 'management', 'accounts']
-    ],
-    'lecturer' => [
-        'title' => 'Lecturer Login',
-        'subtitle' => 'Academic Staff Access',
-        'icon' => 'fas fa-chalkboard-teacher',
-        'color' => '#059669',
-        'departments' => ['academic-registrar', 'academic', 'staff', 'school-nurse', 'clinical-instructors']
-    ],
-    'student' => [
-        'title' => 'Student Login',
-        'subtitle' => 'Student Portal Access',
-        'icon' => 'fas fa-user-graduate',
-        'color' => '#dc2626',
-        'departments' => ['student-affairs', 'representation']
-    ],
-    'support' => [
-        'title' => 'Support Staff Login',
-        'subtitle' => 'Support Services Access',
-        'icon' => 'fas fa-tools',
-        'color' => '#7c3aed',
-        'departments' => ['support', 'security', 'kitchen', 'gardening', 'cleaning', 'tailoring', 'drivers']
-    ]
-];
-
-// Get current role configuration
-$current_role = $roles[$role] ?? $roles['admin'];
-
-// Process login form from login portal
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = trim($_POST['password'] ?? '');
-    $user_type = $_POST['user_type'] ?? '';
+// Check if user is already logged in
+if (isset($_SESSION['user'])) {
+    // Debug: Show user info
+    if (isset($_GET['debug'])) {
+        echo "<pre>";
+        echo "User session data:\n";
+        print_r($_SESSION['user']);
+        echo "</pre>";
+        echo "<a href='?logout=1'>Logout</a>";
+        exit();
+    }
     
-    $errors = [];
+    // Redirect to appropriate dashboard based on role
+    $user_role = $_SESSION['user']['role'];
+    if ($user_role === 'student') {
+        header('Location: dashboard-student.php');
+    } else {
+        // For staff, redirect based on role directly
+        redirectBasedOnPosition($user_role);
+    }
+    exit();
+}
+
+// Handle login form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Prevent multiple login submissions
+    if (isset($_SESSION['login_attempt']) && $_SESSION['login_attempt'] > time() - 5) {
+        $errors[] = "Please wait before trying again.";
+    } else {
+        $_SESSION['login_attempt'] = time();
+        
+        $username = trim(isset($_POST['username']) ? $_POST['username'] : '');
+        $password = trim(isset($_POST['password']) ? $_POST['password'] : '');
+        $user_type = isset($_POST['user_type']) ? $_POST['user_type'] : '';
+        
+        $errors = [];
     
     // Validation
     if (empty($username)) {
@@ -75,260 +64,482 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     if (empty($errors)) {
-        // Role-based validation - in production, validate against database
-        // For demo purposes, we'll accept any non-empty credentials for the specified role
+        // Try database authentication first, fallback to mock credentials
+        $authenticated = false;
         
-        // Mock user data for each individual position
-        $mock_users = [
-            // Executive Directors
-            'director-general' => [
-                'valid_ids' => ['DIR001', 'DIRECTOR-GENERAL', 'DG', 'DIR-GEN'],
-                'password' => 'director123',
-                'name' => 'Director General',
-                'dashboard' => 'dashboard-director-general.php'
-            ],
-            'director-academics' => [
-                'valid_ids' => ['DIR002', 'DIRECTOR-ACADEMICS', 'DA', 'DIR-ACAD'],
-                'password' => 'director123',
-                'name' => 'Director of Academics',
-                'dashboard' => 'dashboard-director-academics.php'
-            ],
-            'director-ict' => [
-                'valid_ids' => ['DIR003', 'DIRECTOR-ICT', 'DI', 'DIR-ICT'],
-                'password' => 'director123',
-                'name' => 'Director of ICT',
-                'dashboard' => 'dashboard-director-ict.php'
-            ],
-            'director-finance' => [
-                'valid_ids' => ['DIR004', 'DIRECTOR-FINANCE', 'DF', 'DIR-FIN'],
-                'password' => 'director123',
-                'name' => 'Director of Finance',
-                'dashboard' => 'dashboard-director-finance.php'
-            ],
+        try {
+            // Check if database tables exist
+            $stmt = $pdo->query("SHOW TABLES LIKE 'staff_users'");
+            $tables_exist = $stmt->rowCount() > 0;
             
-            // Principal Office
-            'principal' => [
-                'valid_ids' => ['PRINCIPAL', 'PRIN001', 'PRIN', 'SCHOOL-PRINCIPAL'],
-                'password' => 'principal123',
-                'name' => 'School Principal',
-                'dashboard' => 'dashboard-principal.php'
-            ],
-            'deputy-principal' => [
-                'valid_ids' => ['DEPUTY', 'DEP001', 'DP', 'DEPUTY-PRINCIPAL'],
-                'password' => 'principal123',
-                'name' => 'Deputy Principal',
-                'dashboard' => 'dashboard-deputy-principal.php'
-            ],
-            
-            // Financial Management
-            'school-bursar' => [
-                'valid_ids' => ['BURSAR', 'BUR001', 'SB', 'SCHOOL-BURSAR'],
-                'password' => 'bursar123',
-                'name' => 'School Bursar / Chief Accountant',
-                'dashboard' => 'dashboard-bursar.php'
-            ],
-            'accounts-assistant' => [
-                'valid_ids' => ['ACC-AST', 'ACC001', 'AA', 'ACCOUNTS-ASSISTANT'],
-                'password' => 'bursar123',
-                'name' => 'Accounts Assistant',
-                'dashboard' => 'dashboard-accounts-assistant.php'
-            ],
-            'finance-officer' => [
-                'valid_ids' => ['FIN-OFF', 'FIN001', 'FO', 'FINANCE-OFFICER'],
-                'password' => 'bursar123',
-                'name' => 'Finance Officer',
-                'dashboard' => 'dashboard-finance-officer.php'
-            ],
-            
-            // Administrative Staff
-            'academic-registrar' => [
-                'valid_ids' => ['REGISTRAR', 'REG001', 'AR', 'ACADEMIC-REGISTRAR'],
-                'password' => 'admin123',
-                'name' => 'Academic Registrar',
-                'dashboard' => 'dashboard-academic-registrar.php'
-            ],
-            'hr-manager' => [
-                'valid_ids' => ['HR-MGR', 'HR001', 'HRM', 'HR-MANAGER'],
-                'password' => 'admin123',
-                'name' => 'HR Manager',
-                'dashboard' => 'dashboard-hr-manager.php'
-            ],
-            'secretary' => [
-                'valid_ids' => ['SECRETARY', 'SEC001', 'SEC', 'SCHOOL-SECRETARY'],
-                'password' => 'admin123',
-                'name' => 'School Secretary',
-                'dashboard' => 'dashboard-secretary.php'
-            ],
-            'librarian' => [
-                'valid_ids' => ['LIBRARIAN', 'LIB001', 'LIB', 'SCHOOL-LIBRARIAN'],
-                'password' => 'admin123',
-                'name' => 'School Librarian',
-                'dashboard' => 'dashboard-librarian.php'
-            ],
-            
-            // Academic Staff
-            'head-nursing' => [
-                'valid_ids' => ['HOD-NURS', 'HN001', 'HON', 'HEAD-NURSING'],
-                'password' => 'lecturer123',
-                'name' => 'Head of Nursing Department',
-                'dashboard' => 'dashboard-head-nursing.php'
-            ],
-            'head-midwifery' => [
-                'valid_ids' => ['HOD-MID', 'HM001', 'HOM', 'HEAD-MIDWIFERY'],
-                'password' => 'lecturer123',
-                'name' => 'Head of Midwifery Department',
-                'dashboard' => 'dashboard-head-midwifery.php'
-            ],
-            'senior-lecturer' => [
-                'valid_ids' => ['SR-LECT', 'SL001', 'SL', 'SENIOR-LECTURER'],
-                'password' => 'lecturer123',
-                'name' => 'Senior Lecturer',
-                'dashboard' => 'dashboard-senior-lecturer.php'
-            ],
-            'lecturer' => [
-                'valid_ids' => ['LECTURER', 'LEC001', 'LEC', 'ACADEMIC-STAFF'],
-                'password' => 'lecturer123',
-                'name' => 'Lecturer',
-                'dashboard' => 'dashboard-lecturer.php'
-            ],
-            'clinical-instructor' => [
-                'valid_ids' => ['CLIN-INST', 'CI001', 'CI', 'CLINICAL-INSTRUCTOR'],
-                'password' => 'lecturer123',
-                'name' => 'Clinical Instructor',
-                'dashboard' => 'dashboard-clinical-instructor.php'
-            ],
-            'tutor' => [
-                'valid_ids' => ['TUTOR', 'TUT001', 'TUT', 'ACADEMIC-TUTOR'],
-                'password' => 'lecturer123',
-                'name' => 'Academic Tutor',
-                'dashboard' => 'dashboard-tutor.php'
-            ],
-            
-            // Support Staff
-            'matron-1' => [
-                'valid_ids' => ['MATRON1', 'MAT001', 'M1', 'MATRON-ONE'],
-                'password' => 'support123',
-                'name' => 'Matron 1',
-                'dashboard' => 'dashboard-matron-1.php'
-            ],
-            'matron-2' => [
-                'valid_ids' => ['MATRON2', 'MAT002', 'M2', 'MATRON-TWO'],
-                'password' => 'support123',
-                'name' => 'Matron 2',
-                'dashboard' => 'dashboard-matron-2.php'
-            ],
-            'matron-3' => [
-                'valid_ids' => ['MATRON3', 'MAT003', 'M3', 'MATRON-THREE'],
-                'password' => 'support123',
-                'name' => 'Matron 3',
-                'dashboard' => 'dashboard-matron-3.php'
-            ],
-            'warden' => [
-                'valid_ids' => ['WARDEN', 'WAR001', 'WAR', 'HOSTEL-WARDEN'],
-                'password' => 'support123',
-                'name' => 'Hostel Warden',
-                'dashboard' => 'dashboard-warden.php'
-            ],
-            'lab-technician' => [
-                'valid_ids' => ['LAB-TECH', 'LT001', 'LT', 'LAB-TECHNICIAN'],
-                'password' => 'support123',
-                'name' => 'Laboratory Technician',
-                'dashboard' => 'dashboard-lab-technician.php'
-            ],
-            'driver' => [
-                'valid_ids' => ['DRIVER', 'DRV001', 'DRV', 'SCHOOL-DRIVER'],
-                'password' => 'support123',
-                'name' => 'School Driver',
-                'dashboard' => 'dashboard-driver.php'
-            ],
-            'cook' => [
-                'valid_ids' => ['COOK', 'CK001', 'CK', 'SCHOOL-COOK'],
-                'password' => 'support123',
-                'name' => 'School Cook',
-                'dashboard' => 'dashboard-cook.php'
-            ],
-            'cleaner' => [
-                'valid_ids' => ['CLEANER', 'CLN001', 'CLN', 'SCHOOL-CLEANER'],
-                'password' => 'support123',
-                'name' => 'School Cleaner',
-                'dashboard' => 'dashboard-cleaner.php'
-            ],
-            'security' => [
-                'valid_ids' => ['SECURITY', 'SEC001', 'SEC', 'SCHOOL-SECURITY'],
-                'password' => 'support123',
-                'name' => 'Security Officer',
-                'dashboard' => 'dashboard-security.php'
-            ],
-            'gardener' => [
-                'valid_ids' => ['GARDENER', 'GRD001', 'GRD', 'SCHOOL-GARDENER'],
-                'password' => 'support123',
-                'name' => 'School Gardener',
-                'dashboard' => 'dashboard-gardener.php'
-            ],
-            
-            // Students
-            'student' => [
-                'valid_ids' => ['STUDENT', 'STU001', '2024/001', 'LEARNER'],
-                'password' => 'student123',
-                'name' => 'Student',
-                'dashboard' => 'dashboard-student.php'
-            ],
-            'guild-president' => [
-                'valid_ids' => ['GUILD-PRES', 'GP001', 'GP', 'GUILD-PRESIDENT'],
-                'password' => 'student123',
-                'name' => 'Guild President',
-                'dashboard' => 'dashboard-guild-president.php'
-            ],
-            'class-rep' => [
-                'valid_ids' => ['CLASS-REP', 'CR001', 'CR', 'CLASS-REPRESENTATIVE'],
-                'password' => 'student123',
-                'name' => 'Class Representative',
-                'dashboard' => 'dashboard-class-rep.php'
-            ],
-            'club-leader' => [
-                'valid_ids' => ['CLUB-LEAD', 'CL001', 'CL', 'CLUB-LEADER'],
-                'password' => 'student123',
-                'name' => 'Club Leader',
-                'dashboard' => 'dashboard-club-leader.php'
-            ]
-        ];
+            if ($tables_exist && $user_type === 'staff') {
+                // Staff authentication from database
+                $stmt = $pdo->prepare("
+                    SELECT su.*, p.position_name, d.department_name 
+                    FROM staff_users su 
+                    LEFT JOIN positions p ON su.position_id = p.id 
+                    LEFT JOIN departments d ON su.department_id = d.id 
+                    WHERE su.staff_id = ? AND su.status = 'active'
+                ");
+                $stmt->execute([$username]);
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                
+                if ($user && password_verify($password, $user['password'])) {
+                    $authenticated = true;
+                    $_SESSION['user'] = [
+                        'id' => $user['staff_id'],
+                        'username' => $user['staff_id'],
+                        'name' => $user['first_name'] . ' ' . $user['last_name'],
+                        'email' => $user['email'],
+                        'role' => 'staff',
+                        'position' => $user['position_name'],
+                        'department' => $user['department_name'],
+                        'login_time' => date('Y-m-d H:i:s')
+                    ];
+                    
+                    // Log activity
+                    logActivity($user['staff_id'], 'staff', 'LOGIN', 'Staff login successful');
+                    
+                    // Clear login attempt and redirect to appropriate dashboard
+                    unset($_SESSION['login_attempt']);
+                    $position_code = strtolower(str_replace(' ', '-', $user['position_name']));
+                    redirectBasedOnPosition($position_code);
+                    exit();
+                }
+            } elseif ($tables_exist && $user_type === 'student') {
+                // Student authentication from database
+                $stmt = $pdo->prepare("
+                    SELECT s.*, p.program_name 
+                    FROM students s 
+                    LEFT JOIN programs p ON s.program_id = p.id 
+                    WHERE s.student_id = ? AND s.status = 'active'
+                ");
+                $stmt->execute([$username]);
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                
+                if ($user && password_verify($password, $user['password'])) {
+                    $authenticated = true;
+                    $_SESSION['user'] = [
+                        'id' => $user['student_id'],
+                        'username' => $user['student_id'],
+                        'name' => $user['first_name'] . ' ' . $user['last_name'],
+                        'email' => $user['email'],
+                        'role' => 'student',
+                        'program' => $user['program_name'],
+                        'year' => $user['academic_year'],
+                        'login_time' => date('Y-m-d H:i:s')
+                    ];
+                    
+                    // Log activity
+                    logActivity($user['student_id'], 'student', 'LOGIN', 'Student login successful');
+                    
+                    // Clear login attempt and redirect to student dashboard
+                    unset($_SESSION['login_attempt']);
+                    header('Location: dashboard-student.php');
+                    exit();
+                }
+            }
+        } catch (PDOException $e) {
+            // Database error, continue to mock authentication
+            error_log("Database login error, falling back to mock auth: " . $e->getMessage());
+        }
         
-        // Validate credentials for the specific role
-        $role_config = $mock_users[$user_type] ?? null;
-        if ($role_config) {
-            // For demo: accept any username if password matches role password
-            // In production: validate against database
-            if ($password === $role_config['password']) {
+        // Fallback to mock credentials if database authentication failed
+        if (!$authenticated) {
+            // Mock user data for each individual position
+            $mock_users = [
+                // Executive Directors
+                'director-general' => [
+                    'valid_ids' => ['DIR001', 'DIRECTOR-GENERAL', 'DG', 'DIR-GEN'],
+                    'password' => 'DG@ISNM2024',
+                    'name' => 'Director General',
+                    'dashboard' => 'dashboard-director-general.php'
+                ],
+                'director-academics' => [
+                    'valid_ids' => ['DIR002', 'DIRECTOR-ACADEMICS', 'DA', 'DIR-ACAD'],
+                    'password' => 'DA@ISNM2024',
+                    'name' => 'Director of Academics',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'director-ict' => [
+                    'valid_ids' => ['DIR003', 'DIRECTOR-ICT', 'DI', 'DIR-ICT'],
+                    'password' => 'DI@ISNM2024',
+                    'name' => 'Director of ICT',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'director-finance' => [
+                    'valid_ids' => ['DIR004', 'DIRECTOR-FINANCE', 'DF', 'DIR-FIN'],
+                    'password' => 'DF@ISNM2024',
+                    'name' => 'Director of Finance',
+                    'dashboard' => 'dashboard.php'
+                ],
+                
+                // Principal Office
+                'principal' => [
+                    'valid_ids' => ['PRINCIPAL', 'PRIN001', 'PRIN', 'SCHOOL-PRINCIPAL'],
+                    'password' => 'PRIN@ISNM2024',
+                    'name' => 'School Principal',
+                    'dashboard' => 'dashboard-principal.php'
+                ],
+                'deputy-principal' => [
+                    'valid_ids' => ['DEPUTY', 'DEP001', 'DP', 'DEPUTY-PRINCIPAL'],
+                    'password' => 'DP@ISNM2024',
+                    'name' => 'Deputy Principal',
+                    'dashboard' => 'dashboard.php'
+                ],
+                
+                // Financial Management
+                'school-bursar' => [
+                    'valid_ids' => ['BURSAR', 'BUR001', 'SB', 'SCHOOL-BURSAR', 'Emurun123'],
+                    'password' => 'BURSAR@ISNM2024',
+                    'name' => 'School Bursar / Chief Accountant',
+                    'dashboard' => 'dashboard-bursar.php'
+                ],
+                'accounts-assistant' => [
+                    'valid_ids' => ['ACC-AST', 'ACC001', 'AA', 'ACCOUNTS-ASSISTANT'],
+                    'password' => 'ACC@ISNM2024',
+                    'name' => 'Accounts Assistant',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'finance-officer' => [
+                    'valid_ids' => ['FIN-OFF', 'FIN001', 'FO', 'FINANCE-OFFICER'],
+                    'password' => 'FIN@ISNM2024',
+                    'name' => 'Finance Officer',
+                    'dashboard' => 'dashboard.php'
+                ],
+                
+                // Administrative Staff
+                'academic-registrar' => [
+                    'valid_ids' => ['REGISTRAR', 'REG001', 'AR', 'ACADEMIC-REGISTRAR'],
+                    'password' => 'REG@ISNM2024',
+                    'name' => 'Academic Registrar',
+                    'dashboard' => 'dashboard-academic-registrar.php'
+                ],
+                'hr-manager' => [
+                    'valid_ids' => ['HR-MGR', 'HR001', 'HRM', 'HR-MANAGER'],
+                    'password' => 'HR@ISNM2024',
+                    'name' => 'HR Manager',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'secretary' => [
+                    'valid_ids' => ['SECRETARY', 'SEC001', 'SEC', 'SCHOOL-SECRETARY'],
+                    'password' => 'SEC@ISNM2024',
+                    'name' => 'School Secretary',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'librarian' => [
+                    'valid_ids' => ['LIBRARIAN', 'LIB001', 'LIB', 'SCHOOL-LIBRARIAN'],
+                    'password' => 'LIB@ISNM2024',
+                    'name' => 'School Librarian',
+                    'dashboard' => 'dashboard.php'
+                ],
+                
+                // Academic Staff
+                'head-nursing' => [
+                    'valid_ids' => ['HOD-NURS', 'HN001', 'HON', 'HEAD-NURSING'],
+                    'password' => 'HON@ISNM2024',
+                    'name' => 'Head of Nursing Department',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'head-midwifery' => [
+                    'valid_ids' => ['HOD-MID', 'HM001', 'HOM', 'HEAD-MIDWIFERY'],
+                    'password' => 'HOM@ISNM2024',
+                    'name' => 'Head of Midwifery Department',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'senior-lecturer' => [
+                    'valid_ids' => ['SR-LECT', 'SL001', 'SL', 'SENIOR-LECTURER'],
+                    'password' => 'SL@ISNM2024',
+                    'name' => 'Senior Lecturer',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'lecturer' => [
+                    'valid_ids' => ['LECTURER', 'LEC001', 'LEC', 'ACADEMIC-STAFF'],
+                    'password' => 'LEC@ISNM2024',
+                    'name' => 'Lecturer',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'clinical-instructor' => [
+                    'valid_ids' => ['CLIN-INST', 'CI001', 'CI', 'CLINICAL-INSTRUCTOR'],
+                    'password' => 'CI@ISNM2024',
+                    'name' => 'Clinical Instructor',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'tutor' => [
+                    'valid_ids' => ['TUTOR', 'TUT001', 'TUT', 'ACADEMIC-TUTOR'],
+                    'password' => 'TUT@ISNM2024',
+                    'name' => 'Academic Tutor',
+                    'dashboard' => 'dashboard.php'
+                ],
+                
+                // Support Staff
+                'matron-1' => [
+                    'valid_ids' => ['MATRON1', 'MAT001', 'M1', 'MATRON-ONE'],
+                    'password' => 'MAT1@ISNM2024',
+                    'name' => 'Matron 1',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'matron-2' => [
+                    'valid_ids' => ['MATRON2', 'MAT002', 'M2', 'MATRON-TWO'],
+                    'password' => 'MAT2@ISNM2024',
+                    'name' => 'Matron 2',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'matron-3' => [
+                    'valid_ids' => ['MATRON3', 'MAT003', 'M3', 'MATRON-THREE'],
+                    'password' => 'MAT3@ISNM2024',
+                    'name' => 'Matron 3',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'warden' => [
+                    'valid_ids' => ['WARDEN', 'WAR001', 'WAR', 'HOSTEL-WARDEN'],
+                    'password' => 'WAR@ISNM2024',
+                    'name' => 'Hostel Warden',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'lab-technician' => [
+                    'valid_ids' => ['LAB-TECH', 'LT001', 'LT', 'LAB-TECHNICIAN'],
+                    'password' => 'LAB@ISNM2024',
+                    'name' => 'Laboratory Technician',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'driver' => [
+                    'valid_ids' => ['DRIVER', 'DRV001', 'DRV', 'SCHOOL-DRIVER'],
+                    'password' => 'DRV@ISNM2024',
+                    'name' => 'School Driver',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'cook' => [
+                    'valid_ids' => ['COOK', 'CK001', 'CK', 'SCHOOL-COOK'],
+                    'password' => 'COOK@ISNM2024',
+                    'name' => 'School Cook',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'cleaner' => [
+                    'valid_ids' => ['CLEANER', 'CLN001', 'CLN', 'SCHOOL-CLEANER'],
+                    'password' => 'CLN@ISNM2024',
+                    'name' => 'School Cleaner',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'security' => [
+                    'valid_ids' => ['SECURITY', 'SEC001', 'SEC', 'SCHOOL-SECURITY'],
+                    'password' => 'SEC@ISNM2024',
+                    'name' => 'Security Officer',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'gardener' => [
+                    'valid_ids' => ['GARDENER', 'GRD001', 'GRD', 'SCHOOL-GARDENER'],
+                    'password' => 'GRD@ISNM2024',
+                    'name' => 'School Gardener',
+                    'dashboard' => 'dashboard.php'
+                ],
+                
+                // Students
+                'student' => [
+                    'valid_ids' => ['STUDENT', 'STU001', '2024/001', 'LEARNER'],
+                    'password' => 'STU@ISNM2024',
+                    'name' => 'Student',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'guild-president' => [
+                    'valid_ids' => ['GUILD-PRES', 'GP001', 'GP', 'GUILD-PRESIDENT'],
+                    'password' => 'GP@ISNM2024',
+                    'name' => 'Guild President',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'class-rep' => [
+                    'valid_ids' => ['CLASS-REP', 'CR001', 'CR', 'CLASS-REPRESENTATIVE'],
+                    'password' => 'CR@ISNM2024',
+                    'name' => 'Class Representative',
+                    'dashboard' => 'dashboard.php'
+                ],
+                'club-leader' => [
+                    'valid_ids' => ['CLUB-LEAD', 'CL001', 'CL', 'CLUB-LEADER'],
+                    'password' => 'CL@ISNM2024',
+                    'name' => 'Club Leader',
+                    'dashboard' => 'dashboard.php'
+                ]
+            ];
+            
+            // Get the role from URL or use user_type
+            $selected_role = isset($_GET['role']) ? $_GET['role'] : $user_type;
+            
+            // Validate credentials for the specific role
+            $role_config = isset($mock_users[$selected_role]) ? $mock_users[$selected_role] : null;
+            if ($role_config && in_array($username, $role_config['valid_ids']) && $password === $role_config['password']) {
                 // Create user session with role-specific data
                 $_SESSION['user'] = [
                     'username' => $username,
-                    'role' => $user_type,
+                    'role' => $selected_role,
                     'name' => $role_config['name'],
                     'login_time' => date('Y-m-d H:i:s')
                 ];
+                
+                // Log activity (only if database is available)
+                try {
+                    logActivity($username, $selected_role, 'LOGIN', 'Mock login successful');
+                } catch (PDOException $e) {
+                    // Ignore logging errors in mock mode
+                }
+                
+                // Clear login attempt and redirect to individual dashboard based on specific role
+                unset($_SESSION['login_attempt']);
+                header('Location: ' . $role_config['dashboard']);
+                exit();
             } else {
-                $errors[] = "Invalid password for {$role_config['name']} account";
+                $role_name = isset($role_config['name']) ? $role_config['name'] : 'selected role';
+                $errors[] = "Invalid username or password for {$role_name}";
             }
-        } else {
-            $errors[] = "Invalid user type specified";
-        }
-        
-        // Redirect to individual dashboard based on specific role
-        if (isset($role_config['dashboard'])) {
-            header('Location: ' . $role_config['dashboard']);
-            exit();
-        } else {
-            $errors[] = "Invalid user type specified";
         }
     }
-    
-    // If there are errors, redirect back to login portal with error message
-    if (!empty($errors)) {
-        $_SESSION['login_errors'] = $errors;
-        header('Location: login-portal.php');
-        exit();
     }
 }
+
+// Function to redirect based on position
+function redirectBasedOnPosition($position) {
+    // Specialized dashboards that exist
+    $specialized_dashboards = [
+        'school-bursar' => 'dashboard-bursar.php',
+        'director-general' => 'dashboard-director-general.php',
+        'principal' => 'dashboard-principal.php',
+        'academic-registrar' => 'dashboard-academic-registrar.php'
+    ];
+    
+    // Check if there's a specialized dashboard for this role
+    if (isset($specialized_dashboards[$position]) && file_exists($specialized_dashboards[$position])) {
+        $dashboard = $specialized_dashboards[$position];
+    } else {
+        // Use universal dashboard for all other roles
+        $dashboard = 'dashboard.php';
+    }
+    
+    header('Location: ' . $dashboard);
+    exit();
+}
+
+// Function to log activity
+function logActivity($user_id, $user_type, $action, $description, $status = 'success') {
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("
+            INSERT INTO activity_log (user_id, user_type, action, description, status, ip_address, user_agent, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, NOW())
+        ");
+        $stmt->execute([
+            $user_id,
+            $user_type,
+            $action,
+            $description,
+            $status,
+            isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '',
+            isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : ''
+        ]);
+    } catch (PDOException $e) {
+        error_log("Activity log error: " . $e->getMessage());
+    }
+}
+
+// Get role from URL parameter for backward compatibility
+$role = isset($_GET['role']) ? $_GET['role'] : 'admin';
+$department = isset($_GET['department']) ? $_GET['department'] : '';
+
+// Define role configurations with specific office names
+$roles = [
+    'director-general' => [
+        'title' => 'Director General Login',
+        'subtitle' => 'Executive Director Office Access',
+        'icon' => 'fas fa-user-tie',
+        'color' => '#1e40af'
+    ],
+    'director-academics' => [
+        'title' => 'Director of Academics Login',
+        'subtitle' => 'Academic Director Office Access',
+        'icon' => 'fas fa-graduation-cap',
+        'color' => '#1e40af'
+    ],
+    'director-ict' => [
+        'title' => 'Director of ICT Login',
+        'subtitle' => 'ICT Director Office Access',
+        'icon' => 'fas fa-laptop-code',
+        'color' => '#1e40af'
+    ],
+    'director-finance' => [
+        'title' => 'Director of Finance Login',
+        'subtitle' => 'Finance Director Office Access',
+        'icon' => 'fas fa-chart-line',
+        'color' => '#1e40af'
+    ],
+    'principal' => [
+        'title' => 'School Principal Login',
+        'subtitle' => 'Principal Office Access',
+        'icon' => 'fas fa-user-shield',
+        'color' => '#dc2626'
+    ],
+    'deputy-principal' => [
+        'title' => 'Deputy Principal Login',
+        'subtitle' => 'Deputy Principal Office Access',
+        'icon' => 'fas fa-user-tie',
+        'color' => '#dc2626'
+    ],
+    'school-bursar' => [
+        'title' => 'School Bursar Login',
+        'subtitle' => 'Bursar Office Access',
+        'icon' => 'fas fa-coins',
+        'color' => '#059669'
+    ],
+    'academic-registrar' => [
+        'title' => 'Academic Registrar Login',
+        'subtitle' => 'Registrar Office Access',
+        'icon' => 'fas fa-file-alt',
+        'color' => '#7c3aed'
+    ],
+    'hr-manager' => [
+        'title' => 'HR Manager Login',
+        'subtitle' => 'Human Resources Office Access',
+        'icon' => 'fas fa-users',
+        'color' => '#7c3aed'
+    ],
+    'head-nursing' => [
+        'title' => 'Head of Nursing Login',
+        'subtitle' => 'Nursing Department Office Access',
+        'icon' => 'fas fa-user-nurse',
+        'color' => '#0891b2'
+    ],
+    'head-midwifery' => [
+        'title' => 'Head of Midwifery Login',
+        'subtitle' => 'Midwifery Department Office Access',
+        'icon' => 'fas fa-baby',
+        'color' => '#0891b2'
+    ],
+    'lecturer' => [
+        'title' => 'Lecturer Login',
+        'subtitle' => 'Academic Staff Office Access',
+        'icon' => 'fas fa-chalkboard-teacher',
+        'color' => '#0891b2'
+    ],
+    'student' => [
+        'title' => 'Student Login',
+        'subtitle' => 'Student Portal Access',
+        'icon' => 'fas fa-user-graduate',
+        'color' => '#ea580c'
+    ],
+    'support' => [
+        'title' => 'Support Staff Login',
+        'subtitle' => 'Support Services Office Access',
+        'icon' => 'fas fa-tools',
+        'color' => '#65a30d'
+    ],
+    'admin' => [
+        'title' => 'Administrator Login',
+        'subtitle' => 'System Administration Access',
+        'icon' => 'fas fa-user-shield',
+        'color' => '#2563eb'
+    ]
+];
+
+// Get current role configuration
+$current_role = isset($roles[$role]) ? $roles[$role] : $roles['admin'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -455,24 +666,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .login-title {
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--text-dark);
+            color: #1a1a1a;
             margin-bottom: 0.5rem;
+            display: block;
         }
 
         .login-subtitle {
-            color: var(--text-light);
+            color: #6b7280;
             font-size: 0.95rem;
+            display: block;
         }
 
         .department-info {
-            background: linear-gradient(135deg, var(--creamy-yellow), var(--golden-yellow));
+            background: linear-gradient(135deg, #FFF8DC, #FFD700);
             border-radius: 12px;
             padding: 1rem;
             margin-bottom: 2rem;
             text-align: center;
             font-size: 0.9rem;
-            color: var(--text-dark);
+            color: #1a1a1a;
             font-weight: 500;
+            display: block;
         }
 
         .form-group {
@@ -482,7 +696,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .form-label {
             display: block;
             font-weight: 600;
-            color: var(--text-dark);
+            color: #1a1a1a;
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
         }
@@ -539,14 +753,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .back-link a {
-            color: var(--primary-blue);
+            color: #2563eb;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            display: inline-block;
         }
 
         .back-link a:hover {
-            color: var(--primary-blue);
+            color: #1d4ed8;
             text-decoration: underline;
         }
 
@@ -569,14 +784,94 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .role-tab.active {
-            background: var(--gradient-primary);
+            background: linear-gradient(135deg, #2563eb 0%, #667eea 100%);
             color: white;
-            border-color: var(--primary-blue);
+            border-color: #2563eb;
         }
 
         .role-tab:hover:not(.active) {
-            border-color: var(--primary-blue);
+            border-color: #2563eb;
             background: rgba(37, 99, 235, 0.1);
+        }
+
+        .user-type-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .user-type-option {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .user-type-option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        
+        .user-type-option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .credentials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .credential-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 0.75rem;
+            border-radius: 8px;
+            border-left: 4px solid #FFD700;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .credential-item code {
+            background: #f3f4f6;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .login-guide {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .login-guide h4 {
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .guide-note {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: #f0f9ff;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #0369a1;
+            border-left: 4px solid #0ea5e9;
         }
 
         @keyframes float {
@@ -638,7 +933,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
 
+        <?php if (isset($error)): ?>
+            <div class="alert alert-error">
+                <?php echo htmlspecialchars($error); ?>
+            </div>
+        <?php endif; ?>
+
         <form method="POST" action="">
+            <div class="user-type-selector">
+                <div class="user-type-option selected" data-type="staff">
+                    <i class="fas fa-user-tie"></i>
+                    <div>Staff</div>
+                </div>
+                <div class="user-type-option" data-type="student">
+                    <i class="fas fa-user-graduate"></i>
+                    <div>Student</div>
+                </div>
+            </div>
+            
+            <input type="hidden" name="user_type" id="user_type" value="staff">
             <input type="hidden" name="role" value="<?php echo htmlspecialchars($role); ?>">
             <input type="hidden" name="department" value="<?php echo htmlspecialchars($department); ?>">
             
@@ -652,7 +965,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     name="username" 
                     class="form-input" 
                     placeholder="Enter your username"
-                    value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>"
+                    value="<?php echo htmlspecialchars(isset($_POST['username']) ? $_POST['username'] : ''); ?>"
                     required
                     autofocus
                 >
@@ -678,8 +991,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <div class="role-selector">
-            <a href="login.php?role=admin" class="role-tab <?php echo $role === 'admin' ? 'active' : ''; ?>">
-                <i class="fas fa-user-shield"></i> Admin
+            <a href="login.php?role=director-general" class="role-tab <?php echo $role === 'director-general' ? 'active' : ''; ?>">
+                <i class="fas fa-user-tie"></i> Director
+            </a>
+            <a href="login.php?role=principal" class="role-tab <?php echo $role === 'principal' ? 'active' : ''; ?>">
+                <i class="fas fa-user-shield"></i> Principal
+            </a>
+            <a href="login.php?role=school-bursar" class="role-tab <?php echo $role === 'school-bursar' ? 'active' : ''; ?>">
+                <i class="fas fa-coins"></i> Bursar
+            </a>
+            <a href="login.php?role=academic-registrar" class="role-tab <?php echo $role === 'academic-registrar' ? 'active' : ''; ?>">
+                <i class="fas fa-file-alt"></i> Registrar
+            </a>
+            <a href="login.php?role=head-nursing" class="role-tab <?php echo $role === 'head-nursing' ? 'active' : ''; ?>">
+                <i class="fas fa-user-nurse"></i> Nursing
             </a>
             <a href="login.php?role=lecturer" class="role-tab <?php echo $role === 'lecturer' ? 'active' : ''; ?>">
                 <i class="fas fa-chalkboard-teacher"></i> Lecturer
@@ -693,22 +1018,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="login-guide">
-            <h4><i class="fas fa-info-circle"></i> Login Credentials Guide</h4>
+            <h4><i class="fas fa-info-circle"></i> Office Login Credentials</h4>
             <div class="credentials-grid">
                 <div class="credential-item">
-                    <strong>Director:</strong> Any ID | Password: <code>director123</code>
+                    <strong>Director General:</strong> Any ID | Password: <code>director123</code>
                 </div>
                 <div class="credential-item">
-                    <strong>Principal:</strong> Any ID | Password: <code>principal123</code>
+                    <strong>School Principal:</strong> Any ID | Password: <code>principal123</code>
                 </div>
                 <div class="credential-item">
-                    <strong>Accountant:</strong> Any ID | Password: <code>bursar123</code>
+                    <strong>School Bursar:</strong> Any ID | Password: <code>12345678</code>
                 </div>
                 <div class="credential-item">
-                    <strong>Admin Staff:</strong> Any ID | Password: <code>admin123</code>
+                    <strong>Academic Registrar:</strong> Any ID | Password: <code>admin123</code>
+                </div>
+                <div class="credential-item">
+                    <strong>Head of Nursing:</strong> Any ID | Password: <code>lecturer123</code>
+                </div>
+                <div class="credential-item">
+                    <strong>Head of Midwifery:</strong> Any ID | Password: <code>lecturer123</code>
                 </div>
                 <div class="credential-item">
                     <strong>Lecturer:</strong> Any ID | Password: <code>lecturer123</code>
+                </div>
+                <div class="credential-item">
+                    <strong>HR Manager:</strong> Any ID | Password: <code>admin123</code>
                 </div>
                 <div class="credential-item">
                     <strong>Support Staff:</strong> Any ID | Password: <code>support123</code>
@@ -719,7 +1053,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <p class="guide-note">
                 <i class="fas fa-lightbulb"></i> 
-                For testing: Use any username/ID with the correct password for your role type
+                Use any username/ID with the correct password for your specific office
             </p>
         </div>
 
@@ -737,6 +1071,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (usernameField) {
                 usernameField.focus();
             }
+        });
+
+        // User type selector
+        document.querySelectorAll('.user-type-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.user-type-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                document.getElementById('user_type').value = this.dataset.type;
+            });
         });
 
         // Add smooth transitions for role tabs

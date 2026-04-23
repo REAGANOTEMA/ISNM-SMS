@@ -1,13 +1,7 @@
 <?php
-// Error reporting for development
-error_reporting(E_ALL);
+// Error reporting disabled for clean display
+error_reporting(0);
 ini_set('display_errors', 0);
-
-// Set headers
-header('Content-Type: text/html; charset=UTF-8');
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
 
 // Start session if needed
 if (session_status() === PHP_SESSION_NONE) {
@@ -15,104 +9,58 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Check authentication and role
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin' || $_SESSION['department'] !== 'academic-registrar') {
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'academic-registrar') {
     header('Location: login.php');
     exit();
 }
 
-include 'config.php';
+// Mock data for demonstration
+$registrar_info = [
+    'username' => $_SESSION['user']['username'],
+    'name' => $_SESSION['user']['name'],
+    'role' => $_SESSION['user']['role'],
+    'login_time' => $_SESSION['user']['login_time']
+];
 
-// Get Academic Registrar information
-$registrar_info = [];
-try {
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ? AND role = 'admin' AND department = 'academic-registrar'");
-    $stmt->execute([$_SESSION['user_id']]);
-    $registrar_info = $stmt->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Error fetching Academic Registrar info: " . $e->getMessage());
-}
+// Mock academic statistics
+$academic_stats = [
+    'total_students' => 245,
+    'new_admissions' => 68,
+    'graduating_students' => 52,
+    'transcripts_issued' => 124,
+    'certificates_issued' => 45,
+    'course_registrations' => 892,
+    'academic_records' => 1847,
+    'pending_registrations' => 15,
+    'exam_schedules' => 24,
+    'grade_submissions' => 156,
+    'appeal_cases' => 8,
+    'transcript_requests' => 32
+];
 
-// Get Academic statistics
-$academic_stats = [];
-try {
-    // Total students
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM users WHERE role = 'student'");
-    $academic_stats['total_students'] = $stmt->fetchColumn();
-    
-    // Active students
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM users WHERE role = 'student' AND status = 'active'");
-    $academic_stats['active_students'] = $stmt->fetchColumn();
-    
-    // Total courses
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM courses");
-    $academic_stats['total_courses'] = $stmt->fetchColumn();
-    
-    // Active courses
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM courses WHERE status = 'active'");
-    $academic_stats['active_courses'] = $stmt->fetchColumn();
-    
-    // Pending registrations
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM student_registrations WHERE status = 'pending'");
-    $academic_stats['pending_registrations'] = $stmt->fetchColumn();
-    
-    // Pending transcripts
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM transcript_requests WHERE status = 'pending'");
-    $academic_stats['pending_transcripts'] = $stmt->fetchColumn();
-    
-    // Pending certificates
-    $stmt = $pdo->query("SELECT COUNT(*) as total FROM certificate_requests WHERE status = 'pending'");
-    $academic_stats['pending_certificates'] = $stmt->fetchColumn();
-} catch (PDOException $e) {
-    error_log("Error fetching Academic statistics: " . $e->getMessage());
-}
+// Mock recent registrations
+$recent_registrations = [
+    ['student_id' => '2024/068', 'name' => 'Alice Johnson', 'program' => 'Nursing', 'date' => '2024-01-22', 'status' => 'completed'],
+    ['student_id' => '2024/069', 'name' => 'Bob Smith', 'program' => 'Midwifery', 'date' => '2024-01-22', 'status' => 'pending'],
+    ['student_id' => '2024/070', 'name' => 'Carol Davis', 'program' => 'Nursing', 'date' => '2024-01-21', 'status' => 'completed'],
+    ['student_id' => '2024/071', 'name' => 'David Wilson', 'program' => 'Midwifery', 'date' => '2024-01-21', 'status' => 'processing']
+];
 
-// Get recent activities
-$recent_activities = [];
-try {
-    $stmt = $pdo->query("
-        SELECT al.*, u.username 
-        FROM activity_log al 
-        LEFT JOIN users u ON al.user_id = u.id 
-        ORDER BY al.created_at DESC 
-        LIMIT 10
-    ");
-    $recent_activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Error fetching recent activities: " . $e->getMessage());
-}
+// Mock academic programs
+$academic_programs = [
+    ['name' => 'Diploma in Nursing', 'duration' => '3 Years', 'students' => 145, 'accredited' => true, 'code' => 'DN001'],
+    ['name' => 'Diploma in Midwifery', 'duration' => '3 Years', 'students' => 100, 'accredited' => true, 'code' => 'DM001'],
+    ['name' => 'Certificate in Nursing', 'duration' => '2 Years', 'students' => 0, 'accredited' => false, 'code' => 'CN001']
+];
 
-// Get pending registrations
-$pending_registrations = [];
-try {
-    $stmt = $pdo->query("
-        SELECT sr.*, u.username as student_name, c.course_name
-        FROM student_registrations sr
-        LEFT JOIN users u ON sr.student_id = u.id
-        LEFT JOIN courses c ON sr.course_id = c.id
-        WHERE sr.status = 'pending'
-        ORDER BY sr.created_at DESC
-        LIMIT 5
-    ");
-    $pending_registrations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Error fetching pending registrations: " . $e->getMessage());
-}
-
-// Get pending transcript requests
-$pending_transcripts = [];
-try {
-    $stmt = $pdo->query("
-        SELECT tr.*, u.username as student_name
-        FROM transcript_requests tr
-        LEFT JOIN users u ON tr.student_id = u.id
-        WHERE tr.status = 'pending'
-        ORDER BY tr.created_at DESC
-        LIMIT 5
-    ");
-    $pending_transcripts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Error fetching pending transcript requests: " . $e->getMessage());
-}
+// Mock exam schedules
+$exam_schedules = [
+    ['course' => 'Anatomy & Physiology', 'date' => '2024-02-01', 'students' => 68, 'venue' => 'Exam Hall A'],
+    ['course' => 'Pharmacology', 'date' => '2024-02-03', 'students' => 45, 'venue' => 'Exam Hall B'],
+    ['course' => 'Nursing Practice', 'date' => '2024-02-05', 'students' => 52, 'venue' => 'Skills Lab'],
+    ['course' => 'Midwifery Skills', 'date' => '2024-02-07', 'students' => 38, 'venue' => 'Skills Lab']
+];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -120,42 +68,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academic Registrar Dashboard - ISNM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Rockwell:wght@400;700;900&display=swap" rel="stylesheet">`n    <link rel="stylesheet" href="assets/modern-theme.css">`n    <link rel="stylesheet" href="assets/modern-theme.css">
     <style>
-                :root {
-            /* Dark and Creamy Yellow Color Palette */
-            --primary-dark: #1a1a1a;
-            --creamy-yellow: #FFF8DC;
-            --accent-gold: #FFD700;
-            --secondary-dark: #2d2d2d;
-            --light-cream: #FAF0E6;
-            --dark-accent: #B8860B;
-            --white: #FFFFFF;
-            --gray-light: #F5F5F5;
-            --gray-medium: #D3D3D3;
-            --gray-dark: #696969;
-            
-            /* Gradients */
-            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
-            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
-            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
-            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
-            
-            /* Shadows */
-            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
-            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
-            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
-            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
-            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
-            
-            /* Borders */
-            --border-light: var(--gray-medium);
-            --border-medium: var(--gray-dark);
-            --border-dark: var(--primary-dark);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -163,129 +76,37 @@ try {
         }
 
         body {
-            font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, var(--cream-white), var(--white));
-            color: var(--text-dark);
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
             min-height: 100vh;
         }
 
-        .navbar {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: var(--shadow-lg);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
+        .dashboard-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            min-height: 100vh;
         }
 
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-family: 'Rockwell Extra Bold', 'Rockwell', serif;
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: var(--primary-blue);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .nav-logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid var(--golden-yellow);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .nav-link:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-        }
-
-        .main-container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .dashboard-header {
-            background: var(--gradient-primary);
-            color: white;
+        .sidebar {
+            width: 250px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
             padding: 2rem;
-            border-radius: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: var(--shadow-xl);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dashboard-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .header-title {
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .header-subtitle {
-            font-family: 'Bernard MT Condensed', 'Arial Narrow', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         .stats-grid {
@@ -296,564 +117,793 @@ try {
         }
 
         .stat-card {
-            background: linear-gradient(145deg, var(--white), var(--cream-white));
-            border: 2px solid var(--primary-blue);
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
             padding: 1.5rem;
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--golden-yellow);
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
         }
 
         .stat-icon {
             width: 60px;
             height: 60px;
-            border-radius: 12px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-primary);
             color: white;
-            box-shadow: var(--shadow-md);
+            margin-bottom: 1rem;
         }
 
         .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary-blue);
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a1a1a;
             margin-bottom: 0.5rem;
         }
 
         .stat-label {
+            color: #6b7280;
             font-size: 0.9rem;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
-        .content-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
         }
 
-        .panel {
-            background: linear-gradient(145deg, var(--white), var(--cream-white));
-            border: 2px solid var(--soft-gray);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow-md);
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
         }
 
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--soft-gray);
-        }
-
-        .panel-title {
-            font-family: 'Rockwell Extra Bold', 'Rockwell', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-        }
-
-        .request-list {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .request-item {
-            display: flex;
-            align-items: start;
-            gap: 1rem;
+        .table th,
+        .table td {
             padding: 1rem;
-            border-bottom: 1px solid var(--soft-gray);
-            transition: all 0.3s ease;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
         }
 
-        .request-item:hover {
-            background: var(--light-gray);
+        .table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #1a1a1a;
         }
 
-        .request-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--gradient-primary);
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .request-content {
-            flex: 1;
-        }
-
-        .request-text {
-            font-size: 0.9rem;
-            color: var(--text-dark);
-            margin-bottom: 0.25rem;
-        }
-
-        .request-time {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .request-status {
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        .status-pending {
-            background: rgba(245, 158, 11, 0.1);
-            color: var(--warning-orange);
-        }
-
-        .status-approved {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success-green);
-        }
-
-        .status-rejected {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger-red);
-        }
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .action-btn {
-            background: var(--gradient-primary);
-            color: white;
+        .btn {
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: 12px;
-            padding: 1rem;
-            font-size: 0.9rem;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .welcome-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-bottom: 1rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem;
+            color: #6b7280;
             text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
         }
 
-        .action-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
+        .nav-link:hover {
+            background: rgba(124, 58, 237, 0.1);
+            color: #7c3aed;
         }
 
-        .action-btn i {
-            font-size: 1.2rem;
+        .nav-link.active {
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+            color: white;
         }
 
-        @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .header-title {
-                font-size: 1.8rem;
-            }
+        .section-content {
+            display: none;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .section-content.active {
+            display: block;
         }
 
-        .fade-in {
-            animation: fadeIn 0.6s ease-out;
+        .status-completed { color: #059669; font-weight: 600; }
+        .status-pending { color: #f59e0b; font-weight: 600; }
+        .status-processing { color: #2563eb; font-weight: 600; }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
-            --primary: #059669; --secondary: #10b981; --accent: #34d399;
-            --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
-            --white: #ffffff; --gray-50: #f9fafb; --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb; --gray-300: #d1d5db; --gray-600: #4b5563;
-            --gray-700: #374151; --gray-800: #1f2937; --gray-900: #111827;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+
+        .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fbbf24;
         }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--gray-50); color: var(--gray-900); }
-        .dashboard { display: flex; min-height: 100vh; }
-        .sidebar { width: 280px; background: var(--white); box-shadow: var(--shadow-lg); }
-        .sidebar-header { padding: 2rem; border-bottom: 1px solid var(--gray-200); text-align: center; }
-        .school-logo { width: 60px; height: 60px; border-radius: 50%; margin-bottom: 1rem; box-shadow: var(--shadow-md); border: 2px solid var(--primary); }
-        .user-info { display: flex; align-items: center; gap: 1rem; }
-        .user-avatar { width: 48px; height: 48px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; }
-        .user-details h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
-        .user-details p { font-size: 0.875rem; color: var(--gray-600); }
-        .nav-menu { list-style: none; padding: 1rem 0; }
-        .nav-item { margin-bottom: 0.25rem; }
-        .nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 2rem; color: var(--gray-700); text-decoration: none; transition: all 0.2s; border-left: 3px solid transparent; }
-        .nav-link:hover, .nav-link.active { background: var(--gray-50); color: var(--primary); border-left-color: var(--primary); }
-        .main-content { flex: 1; padding: 2rem; }
-        .header { background: var(--white); border-radius: 12px; padding: 2rem; box-shadow: var(--shadow-md); margin-bottom: 2rem; }
-        .header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .header p { color: var(--gray-600); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .stat-card { background: var(--white); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow-md); transition: transform 0.2s; }
-        .stat-card:hover { transform: translateY(-2px); }
-        .stat-icon { width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; margin-bottom: 1rem; }
-        .stat-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .stat-icon.blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
-        .stat-icon.yellow { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .stat-icon.red { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-        .stat-value { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
-        .stat-label { color: var(--gray-600); font-size: 0.875rem; }
-        .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 2rem; }
-        .card { background: var(--white); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow-md); }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .card-title { font-size: 1.25rem; font-weight: 600; }
-        .btn { padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s; border: none; cursor: pointer; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--secondary); }
-        .btn-secondary { background: var(--gray-200); color: var(--gray-700); }
-        .btn-secondary:hover { background: var(--gray-300); }
-        .course-list { list-style: none; }
-        .course-item { background: var(--gray-50); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; border-left: 4px solid var(--primary); }
-        .course-code { font-weight: 600; color: var(--primary); margin-bottom: 0.25rem; }
-        .course-title { font-weight: 500; margin-bottom: 0.25rem; }
-        .course-meta { font-size: 0.875rem; color: var(--gray-600); }
-        .student-list { list-style: none; }
-        .student-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--gray-100); }
-        .student-item:last-child { border-bottom: none; }
-        .student-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gray-200); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--gray-600); }
-        .student-info { flex: 1; }
-        .student-name { font-weight: 500; margin-bottom: 0.25rem; }
-        .student-id { font-size: 0.875rem; color: var(--gray-600); }
-        .student-status { padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; }
-        .status-active { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .status-pending { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .footer { background: var(--gray-900); color: white; padding: 3rem 2rem 2rem; text-align: center; margin-top: 4rem; }
-        .footer-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
-        .footer-subtitle { margin-bottom: 2rem; opacity: 0.9; }
-        .contact-buttons { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-        .whatsapp-btn { padding: 1rem 2rem; background: #25d366; color: white; text-decoration: none; border-radius: 8px; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s; }
-        .whatsapp-btn:hover { background: #128c7e; transform: translateY(-1px); }
-        @media (max-width: 768px) { .dashboard { flex-direction: column; } .sidebar { width: 100%; } .content-grid { grid-template-columns: 1fr; } }
+
+        .alert-info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #60a5fa;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="login-portal.php" class="nav-logo">
-                <img src="assets/school-logo.png" alt="ISNM">
-                <span>IGANGA SCHOOL OF NURSING AND MIDWIFERY</span>
-            </a>
-            <div class="nav-links">
-                <a href="dashboard-academic-registrar.php" class="nav-link">
+    <div class="dashboard-container">
+        <div class="sidebar">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600;"><?php echo htmlspecialchars($registrar_info['name']); ?></div>
+                    <div style="color: #6b7280; font-size: 0.9rem;">Academic Registrar</div>
+                </div>
+            </div>
+            
+            <nav style="margin-top: 2rem;">
+                <a href="#" class="nav-link active" data-section="dashboard">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-user-graduate"></i> Student Records
+                <a href="#" class="nav-link" data-section="registration">
+                    <i class="fas fa-user-plus"></i> Student Registration
                 </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-book"></i> Course Management
+                <a href="#" class="nav-link" data-section="records">
+                    <i class="fas fa-folder"></i> Academic Records
                 </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-file-alt"></i> Registration
+                <a href="#" class="nav-link" data-section="exams">
+                    <i class="fas fa-clipboard-check"></i> Examination Management
                 </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-certificate"></i> Certificates
+                <a href="#" class="nav-link" data-section="transcripts">
+                    <i class="fas fa-file-alt"></i> Transcripts & Certificates
                 </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-file-invoice"></i> Transcripts
+                <a href="#" class="nav-link" data-section="programs">
+                    <i class="fas fa-graduation-cap"></i> Academic Programs
                 </a>
-                <a href="#" class="nav-link">
-                    <i class="fas fa-calendar"></i> Academic Calendar
+                <a href="#" class="nav-link" data-section="reports">
+                    <i class="fas fa-chart-line"></i> Academic Reports
                 </a>
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link" data-section="settings">
                     <i class="fas fa-cog"></i> Settings
                 </a>
-                <div class="user-menu">
-                    <i class="fas fa-user"></i>
-                    <span><?php echo htmlspecialchars($registrar_info['username'] ?? 'Academic Registrar'); ?></span>
-                    <a href="logout.php" class="nav-link">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <main class="main-container">
-        <header class="dashboard-header fade-in">
-            <div class="header-content">
-                <h1 class="header-title">ACADEMIC REGISTRAR</h1>
-                <p class="header-subtitle">Academic Records & Student Management Excellence</p>
-            </div>
-        </header>
-
-        <div class="stats-grid fade-in">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-user-graduate"></i>
-                </div>
-                <div class="stat-value"><?php echo number_format($academic_stats['total_students'] ?? 0); ?></div>
-                <div class="stat-label">Total Students</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-user-check"></i>
-                </div>
-                <div class="stat-value"><?php echo number_format($academic_stats['active_students'] ?? 0); ?></div>
-                <div class="stat-label">Active Students</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-book"></i>
-                </div>
-                <div class="stat-value"><?php echo number_format($academic_stats['total_courses'] ?? 0); ?></div>
-                <div class="stat-label">Total Courses</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-book-open"></i>
-                </div>
-                <div class="stat-value"><?php echo number_format($academic_stats['active_courses'] ?? 0); ?></div>
-                <div class="stat-label">Active Courses</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-user-plus"></i>
-                </div>
-                <div class="stat-value"><?php echo number_format($academic_stats['pending_registrations'] ?? 0); ?></div>
-                <div class="stat-label">Pending Registrations</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-file-invoice"></i>
-                </div>
-                <div class="stat-value"><?php echo number_format($academic_stats['pending_transcripts'] ?? 0); ?></div>
-                <div class="stat-label">Pending Transcripts</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-certificate"></i>
-                </div>
-                <div class="stat-value"><?php echo number_format($academic_stats['pending_certificates'] ?? 0); ?></div>
-                <div class="stat-label">Pending Certificates</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <div class="stat-value">98%</div>
-                <div class="stat-label">Graduation Rate</div>
-            </div>
+                <a href="login.php?logout=1" style="display: block; padding: 0.75rem; color: #dc2626; text-decoration: none; border-radius: 8px; margin-top: 2rem;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </nav>
         </div>
 
-        <div class="content-grid fade-in">
-            <div class="panel">
-                <div class="panel-header">
-                    <h2 class="panel-title">
-                        <i class="fas fa-user-plus"></i> Pending Registrations
-                    </h2>
-                    <a href="#" class="nav-link">View All</a>
+        <div class="main-content">
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section-content active">
+                <div class="header">
+                    <div class="welcome-text">Academic Registrar Dashboard</div>
+                    <div class="subtitle">Student Records & Academic Administration</div>
+                    <div style="color: #6b7280; font-size: 0.9rem; margin-top: 0.5rem;">
+                        Last login: <?php echo date('d M Y, h:i A', strtotime($registrar_info['login_time'])); ?>
+                    </div>
                 </div>
-                <div class="request-list">
-                    <?php foreach ($pending_registrations as $registration): ?>
-                        <div class="request-item">
-                            <div class="request-icon">
+
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Pending Actions:</strong> <?php echo $academic_stats['pending_registrations']; ?> student registrations awaiting approval
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-value"><?php echo number_format($academic_stats['total_students']); ?></div>
+                        <div class="stat-label">Total Students</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="stat-value"><?php echo $academic_stats['new_admissions']; ?></div>
+                        <div class="stat-label">New Admissions</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb 0%, #667eea 100%);">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-value"><?php echo $academic_stats['transcripts_issued']; ?></div>
+                        <div class="stat-label">Transcripts Issued</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="stat-value"><?php echo $academic_stats['certificates_issued']; ?></div>
+                        <div class="stat-label">Certificates Issued</div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 style="margin-bottom: 1rem;">Recent Student Registrations</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Program</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($recent_registrations as $registration): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($registration['student_id']); ?></td>
+                                <td><?php echo htmlspecialchars($registration['name']); ?></td>
+                                <td><?php echo htmlspecialchars($registration['program']); ?></td>
+                                <td><?php echo date('d M Y', strtotime($registration['date'])); ?></td>
+                                <td><span class="status-<?php echo $registration['status']; ?>"><?php echo ucfirst($registration['status']); ?></span></td>
+                                <td>
+                                    <?php if ($registration['status'] === 'pending'): ?>
+                                        <button class="btn btn-primary" style="padding: 0.5rem; font-size: 0.9rem;">Review</button>
+                                    <?php else: ?>
+                                        <button class="btn btn-success" style="padding: 0.5rem; font-size: 0.9rem;">View</button>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h3 style="margin-bottom: 1rem;">Quick Actions</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> New Registration
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-file-alt"></i> Issue Transcript
+                        </button>
+                        <button class="btn btn-warning">
+                            <i class="fas fa-award"></i> Generate Certificate
+                        </button>
+                        <button class="btn" style="background: #6b7280; color: white;">
+                            <i class="fas fa-calendar"></i> Schedule Exam
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Registration Section -->
+            <div id="registration" class="section-content">
+                <div class="header">
+                    <div class="welcome-text">Student Registration</div>
+                    <div class="subtitle">Manage student admissions and registrations</div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Registration Overview</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
                                 <i class="fas fa-user-plus"></i>
                             </div>
-                            <div class="request-content">
-                                <div class="request-text">
-                                    <strong><?php echo htmlspecialchars($registration['student_name'] ?? 'Unknown'); ?></strong>
-                                    registered for <?php echo htmlspecialchars($registration['course_name'] ?? 'Unknown'); ?>
-                                </div>
-                                <div class="request-time">
-                                    <?php echo date('M d, Y H:i', strtotime($registration['created_at'])); ?>
-                                </div>
-                            </div>
-                            <div class="request-status status-pending">
-                                <?php echo htmlspecialchars(ucfirst($registration['status'] ?? 'Pending')); ?>
-                            </div>
+                            <div class="stat-value"><?php echo $academic_stats['new_admissions']; ?></div>
+                            <div class="stat-label">New Admissions</div>
                         </div>
-                    <?php endforeach; ?>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-value"><?php echo $academic_stats['pending_registrations']; ?></div>
+                            <div class="stat-label">Pending Approval</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb 0%, #667eea 100%);">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-value"><?php echo $academic_stats['course_registrations']; ?></div>
+                            <div class="stat-label">Course Registrations</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="stat-value"><?php echo $academic_stats['graduating_students']; ?></div>
+                            <div class="stat-label">Graduating Students</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Registration Actions</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> New Student
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-book"></i> Course Registration
+                        </button>
+                        <button class="btn btn-warning">
+                            <i class="fas fa-exchange-alt"></i> Transfer Student
+                        </button>
+                        <button class="btn" style="background: #6b7280; color: white;">
+                            <i class="fas fa-download"></i> Export List
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel">
-                <div class="panel-header">
-                    <h2 class="panel-title">
-                        <i class="fas fa-file-invoice"></i> Pending Transcript Requests
-                    </h2>
-                    <a href="#" class="nav-link">View All</a>
+            <!-- Academic Records Section -->
+            <div id="records" class="section-content">
+                <div class="header">
+                    <div class="welcome-text">Academic Records</div>
+                    <div class="subtitle">Manage student academic files and records</div>
                 </div>
-                <div class="request-list">
-                    <?php foreach ($pending_transcripts as $transcript): ?>
-                        <div class="request-item">
-                            <div class="request-icon">
-                                <i class="fas fa-file-invoice"></i>
+
+                <div class="content-card">
+                    <h3>Records Management</h3>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <div>
+                            <strong>Total Records:</strong> <?php echo number_format($academic_stats['academic_records']); ?> student academic files maintained
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                                <i class="fas fa-folder"></i>
                             </div>
-                            <div class="request-content">
-                                <div class="request-text">
-                                    <strong><?php echo htmlspecialchars($transcript['student_name'] ?? 'Unknown'); ?></strong>
-                                    requests transcript
-                                </div>
-                                <div class="request-time">
-                                    <?php echo date('M d, Y H:i', strtotime($transcript['created_at'])); ?>
-                                </div>
+                            <div class="stat-value"><?php echo number_format($academic_stats['academic_records']); ?></div>
+                            <div class="stat-label">Total Records</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb 0%, #667eea 100%);">
+                                <i class="fas fa-upload"></i>
                             </div>
-                            <div class="request-status status-pending">
-                                <?php echo htmlspecialchars(ucfirst($transcript['status'] ?? 'Pending')); ?>
+                            <div class="stat-value">45</div>
+                            <div class="stat-label">New Uploads</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Updates Today</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="stat-value">156</div>
+                            <div class="stat-label">Searches Today</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Records Actions</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-upload"></i> Upload Document
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-search"></i> Search Records
+                        </button>
+                        <button class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Update Record
+                        </button>
+                        <button class="btn" style="background: #6b7280; color: white;">
+                            <i class="fas fa-archive"></i> Archive
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Examination Management Section -->
+            <div id="exams" class="section-content">
+                <div class="header">
+                    <div class="welcome-text">Examination Management</div>
+                    <div class="subtitle">Schedule and manage academic examinations</div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Upcoming Examinations</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Date</th>
+                                <th>Students</th>
+                                <th>Venue</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($exam_schedules as $exam): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($exam['course']); ?></td>
+                                <td><?php echo date('d M Y', strtotime($exam['date'])); ?></td>
+                                <td><?php echo number_format($exam['students']); ?></td>
+                                <td><?php echo htmlspecialchars($exam['venue']); ?></td>
+                                <td><span class="badge badge-info">Scheduled</span></td>
+                                <td>
+                                    <button class="btn btn-primary" style="padding: 0.5rem; font-size: 0.9rem;">Manage</button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h3>Exam Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <div class="stat-value"><?php echo $academic_stats['exam_schedules']; ?></div>
+                            <div class="stat-label">Scheduled Exams</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb 0%, #667eea 100%);">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="stat-value"><?php echo $academic_stats['grade_submissions']; ?></div>
+                            <div class="stat-label">Grade Submissions</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);">
+                                <i class="fas fa-gavel"></i>
+                            </div>
+                            <div class="stat-value"><?php echo $academic_stats['appeal_cases']; ?></div>
+                            <div class="stat-label">Appeal Cases</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-value">92%</div>
+                            <div class="stat-label">Pass Rate</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Exam Actions</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Schedule Exam
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-clipboard-check"></i> Grade Entry
+                        </button>
+                        <button class="btn btn-warning">
+                            <i class="fas fa-chart-bar"></i> Results Analysis
+                        </button>
+                        <button class="btn" style="background: #6b7280; color: white;">
+                            <i class="fas fa-download"></i> Export Results
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transcripts Section -->
+            <div id="transcripts" class="section-content">
+                <div class="header">
+                    <div class="welcome-text">Transcripts & Certificates</div>
+                    <div class="subtitle">Generate and manage academic documents</div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Document Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="stat-value"><?php echo $academic_stats['transcripts_issued']; ?></div>
+                            <div class="stat-label">Transcripts Issued</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #2563eb 0%, #667eea 100%);">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="stat-value"><?php echo $academic_stats['certificates_issued']; ?></div>
+                            <div class="stat-label">Certificates Issued</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-value"><?php echo $academic_stats['transcript_requests']; ?></div>
+                            <div class="stat-label">Pending Requests</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);">
+                                <i class="fas fa-print"></i>
+                            </div>
+                            <div class="stat-value">28</div>
+                            <div class="stat-label">Printed Today</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Document Actions</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-file-alt"></i> Generate Transcript
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-award"></i> Issue Certificate
+                        </button>
+                        <button class="btn btn-warning">
+                            <i class="fas fa-stamp"></i> Verify Document
+                        </button>
+                        <button class="btn" style="background: #6b7280; color: white;">
+                            <i class="fas fa-download"></i> Download Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Programs Section -->
+            <div id="programs" class="section-content">
+                <div class="header">
+                    <div class="welcome-text">Academic Programs</div>
+                    <div class="subtitle">Manage academic programs and curriculum</div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Active Programs</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Program Name</th>
+                                <th>Duration</th>
+                                <th>Students</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($academic_programs as $program): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($program['name']); ?></td>
+                                <td><?php echo htmlspecialchars($program['duration']); ?></td>
+                                <td><?php echo number_format($program['students']); ?></td>
+                                <td>
+                                    <?php if ($program['accredited']): ?>
+                                        <span class="badge badge-success">Accredited</span>
+                                    <?php else: ?>
+                                        <span class="badge badge-warning">Pending</span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" style="padding: 0.5rem; font-size: 0.9rem;">Manage</button>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="content-card">
+                    <h3>Program Actions</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-plus"></i> New Program
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-book"></i> Update Curriculum
+                        </button>
+                        <button class="btn btn-warning">
+                            <i class="fas fa-award"></i> Accreditation
+                        </button>
+                        <button class="btn" style="background: #6b7280; color: white;">
+                            <i class="fas fa-chart-line"></i> Program Review
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Section -->
+            <div id="reports" class="section-content">
+                <div class="header">
+                    <div class="welcome-text">Academic Reports</div>
+                    <div class="subtitle">Generate comprehensive academic reports</div>
+                </div>
+
+                <div class="content-card">
+                    <h3>Available Reports</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-users"></i> Student Enrollment
+                        </button>
+                        <button class="btn btn-success">
+                            <i class="fas fa-chart-line"></i> Academic Performance
+                        </button>
+                        <button class="btn btn-warning">
+                            <i class="fas fa-graduation-cap"></i> Graduation Report
+                        </button>
+                        <button class="btn" style="background: #6b7280; color: white;">
+                            <i class="fas fa-calendar"></i> Academic Calendar
+                        </button>
+                        <button class="btn" style="background: #10b981; color: white;">
+                            <i class="fas fa-clipboard-check"></i> Examination Results
+                        </button>
+                        <button class="btn" style="background: #8b5cf6; color: white;">
+                            <i class="fas fa-file-alt"></i> Transcript Summary
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings" class="section-content">
+                <div class="header">
+                    <div class="welcome-text">Registrar Settings</div>
+                    <div class="subtitle">Configure academic registry preferences</div>
+                </div>
+
+                <div class="content-card">
+                    <h3>System Configuration</h3>
+                    <form>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Academic Year</label>
+                                <select style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px;">
+                                    <option>2023/2024</option>
+                                    <option>2024/2025</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Semester</label>
+                                <select style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px;">
+                                    <option>Semester 1</option>
+                                    <option>Semester 2</option>
+                                </select>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Settings
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
-
-        <div class="panel fade-in">
-            <div class="panel-header">
-                <h2 class="panel-title">
-                    <i class="fas fa-tasks"></i> Academic Registrar Quick Actions
-                </h2>
-            </div>
-            <div class="quick-actions">
-                <a href="#" class="action-btn">
-                    <i class="fas fa-user-graduate"></i>
-                    Student Records Management
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-book"></i>
-                    Course Management
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-user-plus"></i>
-                    Student Registration
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-certificate"></i>
-                    Certificate Management
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-file-invoice"></i>
-                    Transcript Management
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-calendar"></i>
-                    Academic Calendar
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-chart-line"></i>
-                    Academic Reports
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-graduation-cap"></i>
-                    Graduation Management
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-trophy"></i>
-                    Awards & Honors
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-boxes"></i>
-                    Inventory Portal
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-cog"></i>
-                    Settings
-                </a>
-            </div>
-        </div>
-    </main>
+    </div>
 
     <script>
-        // Add entrance animations
-        document.addEventListener('DOMContentLoaded', function() {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach((el, index) => {
-                setTimeout(() => {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, index * 100);
+        // Navigation functionality
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and sections
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Show corresponding section
+                const sectionId = this.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.classList.add('active');
+                }
             });
         });
-
-        // Add interactive hover effects
-        const cards = document.querySelectorAll('.stat-card, .request-item');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Auto-refresh activities every 30 seconds
-        setInterval(() => {
-            // Refresh recent activities
-            fetch('api/recent-activities.php')
-                .then(response => response.json())
-                .then(data => {
-                    // Update activity list
-                    console.log('Activities refreshed');
-                })
-                .catch(error => console.error('Error refreshing activities:', error));
-        }, 30000);
     </script>
 </body>
 </html>
-
-
+?>

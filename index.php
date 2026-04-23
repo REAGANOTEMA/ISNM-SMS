@@ -3345,7 +3345,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                     
                     <a href="contact.php" class="nav-link">Contact</a>
-                    <a href="login-portal.php" class="nav-link">Portal</a>
+                    <a href="organogram.php" class="nav-link">Portal</a>
                 </div>
             </div>
         </nav>
@@ -3852,7 +3852,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             <li><a href="application.php"><i class="fas fa-chevron-right"></i> Apply Now</a></li>
                             <li><a href="programs.php"><i class="fas fa-chevron-right"></i> Program Requirements</a></li>
                             <li><a href="programs.php"><i class="fas fa-chevron-right"></i> Fee Structure</a></li>
-                            <li><a href="login-portal.php"><i class="fas fa-chevron-right"></i> Student Portal</a></li>
+                            <li><a href="organogram.php"><i class="fas fa-chevron-right"></i> Student Portal</a></li>
                         </ul>
                     </div>
                 </div>
