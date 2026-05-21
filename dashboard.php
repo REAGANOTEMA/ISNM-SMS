@@ -1,651 +1,546 @@
 <?php
-// Error reporting disabled for clean display
-error_reporting(0);
-ini_set('display_errors', 0);
-
-// Start session if needed
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+include_once 'includes/config.php';
+include_once 'includes/functions.php';
 
-// Check authentication
-if (!isset($_SESSION['user'])) {
-    header('Location: login.php');
+// Check if user is logged in
+if (!isLoggedIn()) {
+    header("Location: login.php");
     exit();
 }
 
-// Get user role from session
-$user_role = $_SESSION['user']['role'];
-$user_name = $_SESSION['user']['name'];
-$login_time = $_SESSION['user']['login_time'];
+// Get user information
+$user = getUserInfo($_SESSION['user_id']);
+$access_level = $_SESSION['access_level'] ?? 1;
 
-// Role-based dashboard configuration
-$dashboard_configs = [
-    'director-general' => [
-        'title' => 'Director General Dashboard',
-        'subtitle' => 'Executive Management System',
-        'icon' => 'fas fa-user-tie',
-        'color' => '#1e40af',
-        'modules' => ['overview', 'management', 'reports', 'settings']
-    ],
-    'director-academics' => [
-        'title' => 'Director of Academics Dashboard',
-        'subtitle' => 'Academic Management System',
-        'icon' => 'fas fa-graduation-cap',
-        'color' => '#1e40af',
-        'modules' => ['academics', 'faculty', 'curriculum', 'reports']
-    ],
-    'director-ict' => [
-        'title' => 'Director of ICT Dashboard',
-        'subtitle' => 'ICT Management System',
-        'icon' => 'fas fa-laptop-code',
-        'color' => '#1e40af',
-        'modules' => ['systems', 'network', 'support', 'security']
-    ],
-    'director-finance' => [
-        'title' => 'Director of Finance Dashboard',
-        'subtitle' => 'Financial Management System',
-        'icon' => 'fas fa-chart-line',
-        'color' => '#1e40af',
-        'modules' => ['finance', 'budget', 'reports', 'audit']
-    ],
-    'principal' => [
-        'title' => 'School Principal Dashboard',
-        'subtitle' => 'School Management System',
-        'icon' => 'fas fa-user-shield',
-        'color' => '#dc2626',
-        'modules' => ['overview', 'academics', 'staff', 'students']
-    ],
-    'deputy-principal' => [
-        'title' => 'Deputy Principal Dashboard',
-        'subtitle' => 'School Management System',
-        'icon' => 'fas fa-user-tie',
-        'color' => '#dc2626',
-        'modules' => ['academics', 'discipline', 'operations']
-    ],
-    'school-bursar' => [
-        'title' => 'School Bursar Dashboard',
-        'subtitle' => 'Financial Management System',
-        'icon' => 'fas fa-coins',
-        'color' => '#059669',
-        'modules' => ['fees', 'payments', 'budget', 'reports']
-    ],
-    'academic-registrar' => [
-        'title' => 'Academic Registrar Dashboard',
-        'subtitle' => 'Academic Records Management',
-        'icon' => 'fas fa-file-alt',
-        'color' => '#7c3aed',
-        'modules' => ['records', 'registration', 'exams', 'certificates']
-    ],
-    'hr-manager' => [
-        'title' => 'HR Manager Dashboard',
-        'subtitle' => 'Human Resources Management',
-        'icon' => 'fas fa-users',
-        'color' => '#7c3aed',
-        'modules' => ['staff', 'payroll', 'recruitment', 'performance']
-    ],
-    'head-nursing' => [
-        'title' => 'Head of Nursing Dashboard',
-        'subtitle' => 'Nursing Department Management',
-        'icon' => 'fas fa-user-nurse',
-        'color' => '#0891b2',
-        'modules' => ['students', 'faculty', 'clinical', 'curriculum']
-    ],
-    'head-midwifery' => [
-        'title' => 'Head of Midwifery Dashboard',
-        'subtitle' => 'Midwifery Department Management',
-        'icon' => 'fas fa-baby',
-        'color' => '#0891b2',
-        'modules' => ['students', 'faculty', 'clinical', 'curriculum']
-    ],
-    'lecturer' => [
-        'title' => 'Lecturer Dashboard',
-        'subtitle' => 'Academic Staff Portal',
-        'icon' => 'fas fa-chalkboard-teacher',
-        'color' => '#0891b2',
-        'modules' => ['courses', 'students', 'grades', 'schedule']
-    ],
-    'student' => [
-        'title' => 'Student Dashboard',
-        'subtitle' => 'Student Portal',
-        'icon' => 'fas fa-user-graduate',
-        'color' => '#ea580c',
-        'modules' => ['courses', 'grades', 'fees', 'schedule']
-    ]
-];
-
-// Get current role configuration
-$config = isset($dashboard_configs[$user_role]) ? $dashboard_configs[$user_role] : $dashboard_configs['student'];
-
-// Mock data for demonstration
-$stats_data = [
-    'overview' => [
-        ['title' => 'Total Students', 'value' => 245, 'icon' => 'fas fa-users', 'color' => '#059669'],
-        ['title' => 'Active Courses', 'value' => 12, 'icon' => 'fas fa-book', 'color' => '#2563eb'],
-        ['title' => 'Staff Members', 'value' => 45, 'icon' => 'fas fa-chalkboard-teacher', 'color' => '#7c3aed'],
-        ['title' => 'Completion Rate', 'value' => '92%', 'icon' => 'fas fa-chart-line', 'color' => '#10b981']
-    ],
-    'finance' => [
-        ['title' => 'Total Revenue', 'value' => 'UGX 380M', 'icon' => 'fas fa-money-bill-wave', 'color' => '#059669'],
-        ['title' => 'Expenses', 'value' => 'UGX 120M', 'icon' => 'fas fa-receipt', 'color' => '#dc2626'],
-        ['title' => 'Outstanding', 'value' => 'UGX 45M', 'icon' => 'fas fa-exclamation-triangle', 'color' => '#f59e0b'],
-        ['title' => 'Collection Rate', 'value' => '88%', 'icon' => 'fas fa-percentage', 'color' => '#10b981']
-    ],
-    'academics' => [
-        ['title' => 'Enrolled Students', 'value' => 245, 'icon' => 'fas fa-user-graduate', 'color' => '#059669'],
-        ['title' => 'Courses Offered', 'value' => 18, 'icon' => 'fas fa-book', 'color' => '#2563eb'],
-        ['title' => 'Pass Rate', 'value' => '94%', 'icon' => 'fas fa-trophy', 'color' => '#10b981'],
-        ['title' => 'Avg GPA', 'value' => '3.6', 'icon' => 'fas fa-chart-line', 'color' => '#7c3aed']
-    ]
-];
-
-// Get appropriate stats based on role
-$role_stats = [];
-if (in_array('finance', $config['modules'])) {
-    $role_stats = $stats_data['finance'];
-} elseif (in_array('academics', $config['modules'])) {
-    $role_stats = $stats_data['academics'];
-} else {
-    $role_stats = $stats_data['overview'];
+// Redirect top administrators to student accounts management
+if ($access_level >= 8) {
+    header("Location: student_accounts_management.php");
+    exit();
 }
 
-// Recent activities data
-$recent_activities = [
-    ['time' => '2 hours ago', 'activity' => 'New student registration', 'user' => 'John Doe', 'type' => 'success'],
-    ['time' => '4 hours ago', 'activity' => 'Payment received', 'user' => 'Jane Smith', 'type' => 'success'],
-    ['time' => '6 hours ago', 'activity' => 'Course updated', 'user' => 'Prof. Johnson', 'type' => 'info'],
-    ['time' => '1 day ago', 'activity' => 'Exam results published', 'user' => 'Academic Office', 'type' => 'warning']
-];
+// For other users, show appropriate dashboard based on role
+$role = $_SESSION['role'] ?? '';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($config['title']); ?> - ISNM</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#3E2723">
+    <title>Dashboard - ISNM</title>
+    <link rel="icon" type="image/x-icon" href="images/school-logo.png">
+    <link rel="apple-touch-icon" href="images/school-logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #3E2723;
+            --secondary-color: #1A237E;
+            --accent-color: #FFD700;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+        }
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
+            -webkit-box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .navbar-brand img {
+            height: 35px;
+            width: auto;
+            margin-right: 10px;
         }
 
         .dashboard-container {
-            display: flex;
-            min-height: 100vh;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .sidebar {
-            width: 250px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 2rem;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+        .welcome-card {
+            background: white;
             border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent-color);
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+            background: white;
             border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 1rem;
-        }
-
-        .stat-value {
-            font-size: 2rem;
+        .stat-number {
+            font-size: 2.5rem;
             font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 0.5rem;
+            color: var(--primary-color);
         }
 
         .stat-label {
-            color: #6b7280;
+            color: #666;
             font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .content-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+        .action-card {
+            background: white;
             border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            text-align: center;
         }
 
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
+        .action-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .table th,
-        .table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
+        .action-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
         }
 
-        .table th {
-            background: #f9fafb;
-            font-weight: 600;
-            color: #1a1a1a;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
+        .btn-action {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
+            padding: 12px 30px;
             font-weight: 600;
-            cursor: pointer;
             transition: all 0.3s ease;
+            min-height: 44px;
+            touch-action: manipulation;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #2563eb 0%, #667eea 100%);
-            color: white;
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-            color: white;
-        }
-
-        .btn:hover {
+        .btn-action:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .welcome-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 0.5rem;
-        }
-
-        .subtitle {
-            color: #6b7280;
-            margin-bottom: 1rem;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, <?php echo $config['color']; ?> 0%, <?php echo $config['color']; ?> 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-        }
-
-        .nav-link {
-            display: block;
-            padding: 0.75rem;
-            color: #6b7280;
-            text-decoration: none;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover {
-            background: rgba(37, 99, 235, 0.1);
-            color: #2563eb;
-        }
-
-        .nav-link.active {
-            background: linear-gradient(135deg, <?php echo $config['color']; ?> 0%, <?php echo $config['color']; ?> 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             color: white;
         }
 
-        .section-content {
-            display: none;
+        /* Perfect Mobile Styles */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 15px;
+            }
+
+            .welcome-card {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .stat-card {
+                padding: 20px;
+                margin-bottom: 15px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .action-card {
+                padding: 20px;
+                margin-bottom: 15px;
+            }
+
+            .action-icon {
+                font-size: 2.5rem;
+            }
+
+            .navbar-brand img {
+                height: 30px;
+            }
+
+            .btn-action {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
         }
 
-        .section-content.active {
-            display: block;
+        @media (max-width: 480px) {
+            .dashboard-container {
+                padding: 10px;
+            }
+
+            .welcome-card {
+                padding: 15px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .action-card {
+                padding: 15px;
+            }
+
+            .action-icon {
+                font-size: 2rem;
+            }
+
+            .navbar-brand img {
+                height: 25px;
+            }
+
+            .btn-action {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+                min-height: 40px;
+            }
         }
 
-        .activity-item {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
+        /* Landscape Mobile */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .welcome-card {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
 
-        .activity-item:last-child {
-            border-bottom: none;
-        }
+            .stat-card {
+                padding: 15px;
+            }
 
-        .activity-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            font-size: 0.9rem;
+            .action-card {
+                padding: 15px;
+            }
         }
-
-        .activity-content {
-            flex: 1;
-        }
-
-        .activity-time {
-            color: #6b7280;
-            font-size: 0.9rem;
-        }
-
-        .activity-success { background: #d1fae5; color: #065f46; }
-        .activity-info { background: #dbeafe; color: #1e40af; }
-        .activity-warning { background: #fef3c7; color: #92400e; }
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <div class="sidebar">
-            <div class="user-info">
-                <div class="user-avatar">
-                    <i class="<?php echo $config['icon']; ?>"></i>
-                </div>
-                <div>
-                    <div style="font-weight: 600;"><?php echo htmlspecialchars($user_name); ?></div>
-                    <div style="color: #6b7280; font-size: 0.9rem;"><?php echo htmlspecialchars($config['title']); ?></div>
-                </div>
-            </div>
+    <!-- Perfect Mobile Responsive Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <!-- Brand Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="dashboard.php">
+                <img src="images/school-logo.png" alt="ISNM Logo" class="me-2" style="height: 35px; width: auto;">
+                <span class="d-none d-md-inline">ISNM Dashboard</span>
+            </a>
             
-            <nav style="margin-top: 2rem;">
-                <a href="#" class="nav-link active" data-section="dashboard">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard
-                </a>
-                <?php foreach ($config['modules'] as $module): ?>
-                <a href="#" class="nav-link" data-section="<?php echo htmlspecialchars($module); ?>">
-                    <i class="fas fa-<?php echo getModuleIcon($module); ?>"></i> <?php echo ucfirst($module); ?>
-                </a>
-                <?php endforeach; ?>
-                <a href="#" class="nav-link" data-section="reports">
-                    <i class="fas fa-chart-line"></i> Reports
-                </a>
-                <a href="#" class="nav-link" data-section="settings">
-                    <i class="fas fa-cog"></i> Settings
-                </a>
-                <a href="login.php?logout=1" style="display: block; padding: 0.75rem; color: #dc2626; text-decoration: none; border-radius: 8px; margin-top: 2rem;">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
-            </nav>
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardNavbar" aria-controls="dashboardNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navigation Menu -->
+            <div class="collapse navbar-collapse" id="dashboardNavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="dashboard.php">
+                            <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <?php if ($access_level >= 8): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="student_accounts_management.php">
+                            <i class="fas fa-users me-1"></i>Student Accounts
+                        </a>
+                    </li>
+                    <?php endif; ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="student_profile.php">
+                            <i class="fas fa-user-graduate me-1"></i>Student Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="application.php">
+                            <i class="fas fa-edit me-1"></i>Applications
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="student_accounts_management.php">
+                            <i class="fas fa-users"></i> Student Accounts
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle"></i> <?php echo htmlspecialchars($_SESSION['first_name'] . ' ' . $_SESSION['last_name']); ?>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="profile.php">
+                                <i class="fas fa-user"></i> Profile
+                            </a></li>
+                            <li><a class="dropdown-item" href="settings.php">
+                                <i class="fas fa-cog"></i> Settings
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="logout.php">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
+    </nav>
 
-        <div class="main-content">
-            <!-- Dashboard Section -->
-            <div id="dashboard" class="section-content active">
-                <div class="header">
-                    <div class="welcome-text"><?php echo htmlspecialchars($config['title']); ?></div>
-                    <div class="subtitle"><?php echo htmlspecialchars($config['subtitle']); ?></div>
-                    <div style="color: #6b7280; font-size: 0.9rem; margin-top: 0.5rem;">
-                        Last login: <?php echo date('d M Y, h:i A', strtotime($login_time)); ?>
+    <!-- Perfect Mobile Responsive Main Content -->
+    <div class="dashboard-container">
+        <?php if ($access_level >= 8): ?>
+            <!-- Welcome Message for Top Administrators -->
+            <div class="welcome-card">
+                <div class="d-flex align-items-center mb-4">
+                    <img src="images/school-logo.png" alt="ISNM Logo" class="me-3" style="height: 60px; width: auto; border-radius: 50%; border: 3px solid var(--accent-color);">
+                    <div>
+                        <h1 class="h3 mb-1">
+                            <i class="fas fa-shield-alt text-primary me-2"></i> Welcome, <?php echo htmlspecialchars($user['first_name']); ?>
+                        </h1>
+                        <p class="text-muted mb-0">
+                            <?php echo htmlspecialchars(ucfirst($role)); ?> Dashboard
+                        </p>
                     </div>
                 </div>
+                <p class="text-muted mb-4">
+                    You have full access to the Student Accounts Management System.
+                </p>
+                <div class="text-center">
+                    <a href="student_accounts_management.php" class="btn-action">
+                        <i class="fas fa-users me-2"></i> Manage Student Accounts
+                    </a>
+                </div>
+            </div>
 
-                <div class="stats-grid">
-                    <?php foreach ($role_stats as $stat): ?>
+            <!-- Perfect Mobile Statistics -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
                     <div class="stat-card">
-                        <div class="stat-icon" style="background: linear-gradient(135deg, <?php echo $stat['color']; ?> 0%, <?php echo $stat['color']; ?> 100%);">
-                            <i class="<?php echo $stat['icon']; ?>"></i>
-                        </div>
-                        <div class="stat-value"><?php echo htmlspecialchars($stat['value']); ?></div>
-                        <div class="stat-label"><?php echo htmlspecialchars($stat['title']); ?></div>
-                    </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <div class="content-card">
-                    <h3 style="margin-bottom: 1rem;">Recent Activities</h3>
-                    <?php foreach ($recent_activities as $activity): ?>
-                    <div class="activity-item">
-                        <div class="activity-icon activity-<?php echo $activity['type']; ?>">
-                            <i class="fas fa-<?php echo getActivityIcon($activity['type']); ?>"></i>
-                        </div>
-                        <div class="activity-content">
-                            <div style="font-weight: 600;"><?php echo htmlspecialchars($activity['activity']); ?></div>
-                            <div style="color: #6b7280; font-size: 0.9rem;"><?php echo htmlspecialchars($activity['user']); ?> • <?php echo htmlspecialchars($activity['time']); ?></div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="stat-number">
+                                    <?php 
+                                    $total_sql = "SELECT COUNT(*) as count FROM students";
+                                    $total_result = executeQuery($total_sql);
+                                    echo number_format($total_result[0]['count']);
+                                    ?>
+                                </div>
+                                <div class="stat-label">Total Students</div>
+                            </div>
+                            <div class="text-primary">
+                                <i class="fas fa-users fa-2x"></i>
+                            </div>
                         </div>
                     </div>
-                    <?php endforeach; ?>
                 </div>
-            </div>
-
-            <!-- Dynamic Module Sections -->
-            <?php foreach ($config['modules'] as $module): ?>
-            <div id="<?php echo htmlspecialchars($module); ?>" class="section-content">
-                <div class="header">
-                    <div class="welcome-text"><?php echo ucfirst($module); ?> Management</div>
-                    <div class="subtitle">Manage <?php echo htmlspecialchars($module); ?> operations</div>
-                </div>
-
-                <div class="content-card">
-                    <h3><?php echo ucfirst($module); ?> Overview</h3>
-                    <p style="margin-bottom: 1rem;">This section provides comprehensive management tools for <?php echo htmlspecialchars($module); ?> operations.</p>
-                    <div class="form-row">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-plus"></i> Add New
-                        </button>
-                        <button class="btn btn-success">
-                            <i class="fas fa-eye"></i> View All
-                        </button>
-                        <button class="btn" style="background: #6b7280; color: white;">
-                            <i class="fas fa-download"></i> Export
-                        </button>
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="stat-number">
+                                    <?php 
+                                    $active_sql = "SELECT COUNT(*) as count FROM students WHERE status = 'active'";
+                                    $active_result = executeQuery($active_sql);
+                                    echo number_format($active_result[0]['count']);
+                                    ?>
+                                </div>
+                                <div class="stat-label">Active Students</div>
+                            </div>
+                            <div class="text-success">
+                                <i class="fas fa-user-check fa-2x"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="content-card">
-                    <h3>Recent <?php echo ucfirst($module); ?> Activities</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#001</td>
-                                <td>Sample <?php echo ucfirst($module); ?></td>
-                                <td><span style="color: #059669;">Active</span></td>
-                                <td><?php echo date('d M Y'); ?></td>
-                                <td>
-                                    <button class="btn btn-primary" style="padding: 0.5rem; font-size: 0.9rem;">View</button>
-                                    <button class="btn btn-success" style="padding: 0.5rem; font-size: 0.9rem;">Edit</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="stat-number">
+                                    <?php 
+                                    $programs_sql = "SELECT COUNT(DISTINCT program) as count FROM students";
+                                    $programs_result = executeQuery($programs_sql);
+                                    echo number_format($programs_result[0]['count']);
+                                    ?>
+                                </div>
+                                <div class="stat-label">Programs</div>
+                            </div>
+                            <div class="text-info">
+                                <i class="fas fa-graduation-cap fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <?php endforeach; ?>
-
-            <!-- Reports Section -->
-            <div id="reports" class="section-content">
-                <div class="header">
-                    <div class="welcome-text">Reports & Analytics</div>
-                    <div class="subtitle">Generate comprehensive reports</div>
-                </div>
-
-                <div class="content-card">
-                    <h3>Available Reports</h3>
-                    <div class="form-row">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-file-pdf"></i> Monthly Report
-                        </button>
-                        <button class="btn btn-success">
-                            <i class="fas fa-file-excel"></i> Export Excel
-                        </button>
-                        <button class="btn" style="background: #6b7280; color: white;">
-                            <i class="fas fa-print"></i> Print Report
-                        </button>
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-3">
+                    <div class="stat-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="stat-number">
+                                    <?php 
+                                    $current_year = date('Y');
+                                    $year_sql = "SELECT COUNT(*) as count FROM students WHERE intake_year = ?";
+                                    $year_result = executeQuery($year_sql, [$current_year], 's');
+                                    echo number_format($year_result[0]['count']);
+                                    ?>
+                                </div>
+                                <div class="stat-label">Current Year</div>
+                            </div>
+                            <div class="text-warning">
+                                <i class="fas fa-calendar fa-2x"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Settings Section -->
-            <div id="settings" class="section-content">
-                <div class="header">
-                    <div class="welcome-text">System Settings</div>
-                    <div class="subtitle">Configure system preferences</div>
+            <!-- Perfect Mobile Action Cards -->
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <div class="action-card">
+                        <div class="action-icon text-primary">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <h5>Add New Student</h5>
+                        <p class="text-muted">Register a new student in the system</p>
+                        <a href="student_accounts_management.php?action=add" class="btn-action">
+                            <i class="fas fa-plus me-2"></i> Add Student
+                        </a>
+                    </div>
                 </div>
-
-                <div class="content-card">
-                    <h3>User Preferences</h3>
-                    <form>
-                        <div class="form-group">
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email Notifications</label>
-                            <select style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px;">
-                                <option>Enabled</option>
-                                <option>Disabled</option>
-                            </select>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <div class="action-card">
+                        <div class="action-icon text-success">
+                            <i class="fas fa-upload"></i>
                         </div>
-                        <div class="form-group">
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Theme</label>
-                            <select style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px;">
-                                <option>Light</option>
-                                <option>Dark</option>
-                            </select>
+                        <h5>Import Students</h5>
+                        <p class="text-muted">Bulk import students from CSV file</p>
+                        <a href="import_student_data.php" class="btn-action">
+                            <i class="fas fa-upload me-2"></i> Import Data
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <div class="action-card">
+                        <div class="action-icon text-info">
+                            <i class="fas fa-chart-bar"></i>
                         </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> Save Settings
-                        </button>
-                    </form>
+                        <h5>View Reports</h5>
+                        <p class="text-muted">Generate and view student reports</p>
+                        <a href="reports.php" class="btn-action">
+                            <i class="fas fa-chart-bar me-2"></i> Reports
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
+
+        <?php else: ?>
+            <!-- Mobile-Friendly Access Denied -->
+            <div class="welcome-card">
+                <div class="text-center">
+                    <div class="action-icon text-danger mb-4">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h2>Access Restricted</h2>
+                    <p class="text-muted mb-4">
+                        Your current access level does not permit access to the Student Accounts Management System.
+                        This feature is available only to top administrators and directors.
+                    </p>
+                    <div class="alert alert-info">
+                        <strong>Your Role:</strong> <?php echo htmlspecialchars($role); ?><br>
+                        <strong>Access Level:</strong> <?php echo $access_level; ?><br>
+                        <strong>Required Level:</strong> 8 or higher
+                    </div>
+                    <div class="mt-4">
+                        <a href="logout.php" class="btn-action me-2">
+                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                        </a>
+                        <?php if (hasPermission($role, 'dashboard')): ?>
+                            <a href="dashboards/<?php echo strtolower(str_replace(' ', '-', $role)); ?>.php" class="btn-action">
+                                <i class="fas fa-tachometer-alt me-2"></i> Your Dashboard
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 
+    <!-- Mobile-Optimized Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Navigation functionality
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Remove active class from all links and sections
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                document.querySelectorAll('.section-content').forEach(s => s.classList.remove('active'));
-                
-                // Add active class to clicked link
-                this.classList.add('active');
-                
-                // Show corresponding section
-                const sectionId = this.getAttribute('data-section');
-                const section = document.getElementById(sectionId);
-                if (section) {
-                    section.classList.add('active');
+        // Mobile touch optimization
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent double-tap zoom on mobile
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
                 }
+                lastTouchEnd = now;
+            }, false);
+
+            // Smooth scroll for mobile
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
             });
         });
+
+        // Auto-redirect to student accounts for top admins
+        <?php if ($access_level >= 8): ?>
+        setTimeout(function() {
+            if (confirm('Redirect to Student Accounts Management?')) {
+                window.location.href = 'student_accounts_management.php';
+            }
+        }, 3000);
+        <?php endif; ?>
     </script>
 </body>
 </html>
-
-<?php
-// Helper functions
-function getModuleIcon($module) {
-    $icons = [
-        'overview' => 'tachometer-alt',
-        'academics' => 'graduation-cap',
-        'finance' => 'coins',
-        'fees' => 'money-bill-wave',
-        'payments' => 'credit-card',
-        'budget' => 'wallet',
-        'students' => 'user-graduate',
-        'faculty' => 'chalkboard-teacher',
-        'courses' => 'book',
-        'grades' => 'chart-line',
-        'schedule' => 'calendar',
-        'staff' => 'users',
-        'payroll' => 'money-check',
-        'recruitment' => 'user-plus',
-        'performance' => 'trophy',
-        'records' => 'file-alt',
-        'registration' => 'user-plus',
-        'exams' => 'clipboard-check',
-        'certificates' => 'award',
-        'systems' => 'server',
-        'network' => 'network-wired',
-        'support' => 'headset',
-        'security' => 'shield-alt',
-        'management' => 'briefcase',
-        'reports' => 'chart-line',
-        'audit' => 'search',
-        'curriculum' => 'book-open',
-        'clinical' => 'hospital',
-        'operations' => 'cogs'
-    ];
-    return isset($icons[$module]) ? $icons[$module] : 'folder';
-}
-
-function getActivityIcon($type) {
-    $icons = [
-        'success' => 'check',
-        'info' => 'info',
-        'warning' => 'exclamation-triangle'
-    ];
-    return isset($icons[$type]) ? $icons[$type] : 'circle';
-}
-?>

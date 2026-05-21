@@ -1,2226 +1,1223 @@
-<?php
-// Error reporting for development
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
-
-// Set headers
-header('Content-Type: text/html; charset=UTF-8');
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
-
-// Start session if needed
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programs Offered - Iganga School of Nursing and Midwifery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/modern-theme.css">
-    <link rel="stylesheet" href="assets/css/image-animations.css">
-    <style>
-        /* CSS Reset & Base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Premium Design System Variables */
-        :root {
-            /* Professional Color Palette */
-            --primary-dark: #0a1628;
-            --secondary-dark: #1e3a5f;
-            --accent-blue: #2563eb;
-            --accent-cyan: #06b6d4;
-            --accent-light-blue: #3b82f6;
-            --accent-dark-blue: #1e40af;
-            --accent-gold: #FFD700;
-            --accent-gold-light: #fbbf24;
-            --medical-blue: #0066cc;
-            --medical-cyan: #00bcd4;
-            --success-green: #22c55e;
-            --error-red: #ef4444;
-            --warning-orange: #f97316;
-            
-            /* Neutral Colors */
-            --white: #ffffff;
-            --gray-50: #f8fafc;
-            --gray-100: #f1f5f9;
-            --gray-200: #e2e8f0;
-            --gray-300: #cbd5e1;
-            --gray-400: #94a3b8;
-            --gray-500: #64748b;
-            --gray-600: #475569;
-            --gray-700: #334155;
-            --gray-800: #1e293b;
-            --gray-900: #0f172a;
-            
-            /* Text Colors */
-            --text-primary: var(--gray-900);
-            --text-secondary: var(--gray-600);
-            --text-muted: var(--gray-500);
-            --text-inverse: var(--white);
-            
-            /* Background Colors */
-            --bg-primary: var(--white);
-            --bg-secondary: var(--gray-50);
-            --bg-tertiary: var(--gray-100);
-            
-            /* Border Colors */
-            --border-light: var(--gray-200);
-            --border-medium: var(--gray-300);
-            --border-dark: var(--gray-400);
-            
-            /* Premium Gradients */
-            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-blue) 100%);
-            --gradient-secondary: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
-            --gradient-gold: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
-            --gradient-success: linear-gradient(135deg, var(--success-green) 0%, #16a34a 100%);
-            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-blue) 100%);
-            
-            /* Advanced Shadows */
-            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
-            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
-            --shadow-glow: 0 0 20px rgba(37, 99, 235, 0.3);
-            --shadow-glow-gold: 0 0 30px rgba(255, 215, 0, 0.4);
-            
-            /* Transitions */
-            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Border Radius */
-            --radius-sm: 0.375rem;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-            --radius-2xl: 1.5rem;
-            --radius-full: 9999px;
-            
-            /* Typography Scale */
-            --text-xs: 0.75rem;
-            --text-sm: 0.875rem;
-            --text-base: 1rem;
-            --text-lg: 1.125rem;
-            --text-xl: 1.25rem;
-            --text-2xl: 1.5rem;
-            --text-3xl: 1.875rem;
-            --text-4xl: 2.25rem;
-            --text-5xl: 3rem;
-            
-            /* Spacing Scale */
-            --space-1: 0.25rem;
-            --space-2: 0.5rem;
-            --space-3: 0.75rem;
-            --space-4: 1rem;
-            --space-5: 1.25rem;
-            --space-6: 1.5rem;
-            --space-8: 2rem;
-            --space-10: 2.5rem;
-            --space-12: 3rem;
-            --space-16: 4rem;
-            --space-20: 5rem;
-            --space-24: 6rem;
-        }
-
-        /* Base Typography & Body */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-size: var(--text-base);
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 50%, var(--bg-secondary) 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Premium Navigation System */
-        .navbar {
-            position: fixed;
-            top: 40px;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-light);
-            z-index: 1001;
-            padding: var(--space-4) 0;
-            box-shadow: var(--shadow-lg);
-            transition: all var(--transition-normal);
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .navbar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-primary);
-            animation: navbarShine 4s ease-in-out infinite;
-        }
-
-        .navbar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        @keyframes navbarShine {
-            0%, 100% {
-                transform: translateX(-100%);
-            }
-            50% {
-                transform: translateX(100%);
-            }
-        }
-
-        /* Premium Brand Banner */
-        .brand-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: var(--gradient-hero);
-            border-bottom: 1px solid var(--border-light);
-            z-index: 1002;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            transform-style: preserve-3d;
-        }
-
-        .brand-marquee {
-            display: inline-flex;
-            align-items: center;
-            gap: 3rem;
-            white-space: nowrap;
-            animation: marquee 18s linear infinite;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--text-inverse);
-            font-size: var(--text-sm);
-            transform: perspective(1000px) rotateX(0deg);
-            line-height: 1;
-            margin: 0;
-            padding: 0;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-
-        @keyframes marquee {
-            0% { 
-                transform: translateX(0) perspective(1000px) rotateX(2deg); 
-            }
-            100% { 
-                transform: translateX(-100%) perspective(1000px) rotateX(2deg); 
-            }
-        }
-
-        /* Fixed Header Container */
-        .fixed-header {
-            position: relative;
-            z-index: 1000;
-            width: 100%;
-        }
-
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            box-shadow: var(--shadow-xl);
-            border-bottom-color: var(--border-light);
-            transform: translateY(0);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 var(--space-8);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-            min-height: auto;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: var(--space-4);
-            font-weight: 900;
-            font-size: var(--text-2xl);
-            color: var(--text-primary);
-            text-decoration: none;
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            transform-style: preserve-3d;
-            transition: all var(--transition-normal);
-            position: relative;
-            z-index: 5;
-            padding: 0;
-            margin: 0;
-        }
-
-        .nav-logo::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
-            background: var(--gradient-primary);
-            border-radius: var(--radius-full);
-            opacity: 0;
-            transition: opacity var(--transition-normal);
-            z-index: -1;
-            filter: blur(8px);
-        }
-
-        .nav-logo:hover::before {
-            opacity: 0.15;
-        }
-
-        .nav-logo img {
-            width: 64px;
-            height: 64px;
-            object-fit: cover;
-            border: 3px solid var(--border-light);
-            border-radius: var(--radius-full);
-            transition: all var(--transition-normal);
-            box-shadow: var(--shadow-lg);
-            transform-style: preserve-3d;
-            background: var(--bg-primary);
-            position: relative;
-            z-index: 3;
-        }
-
-        .nav-logo:hover {
-            transform: translateY(-4px) scale(1.02);
-        }
-
-        .nav-logo:hover img {
-            transform: scale(1.05) rotateZ(2deg);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--accent-gold);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: var(--space-2);
-            align-items: center;
-            transform-style: preserve-3d;
-            position: relative;
-            z-index: 2;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            color: #000000;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid #000000;
-            font-family: 'Inter', sans-serif;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 1;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #000000 0%, var(--primary-dark) 100%);
-            border-radius: 8px;
-            opacity: 0;
-            transition: opacity 0.35s ease;
-            z-index: -1;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
-            border-radius: 8px;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
-        .nav-link:hover {
-            color: #FFFFFF;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            border-color: #000000;
-            background: #000000;
-        }
-
-        .nav-link:hover::before {
-            opacity: 1;
-        }
-
-        .nav-link:hover::after {
-            opacity: 0.3;
-        }
-
-        .nav-link:active {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Premium Page Header Section */
-        .page-header-section {
-            background: var(--gradient-hero);
-            color: var(--text-inverse);
-            padding: calc(var(--space-20) + 120px) 0 var(--space-20);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            margin-top: 0;
-        }
-
-        .page-header-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            animation: pageHeaderFloat 20s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes pageHeaderFloat {
-            0%, 100% { 
-                transform: translateX(0) translateY(0) rotate(0deg); 
-            }
-            33% { 
-                transform: translateX(10px) translateY(-5px) rotate(1deg); 
-            }
-            66% { 
-                transform: translateX(-10px) translateY(5px) rotate(-1deg); 
-            }
-        }
-
-        .page-header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--space-8);
-        }
-
-        .page-title {
-            font-family: 'Playfair Display', serif;
-            font-size: var(--text-5xl);
-            font-weight: 900;
-            margin-bottom: var(--space-4);
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            transform-style: preserve-3d;
-            transform: translateZ(20px);
-            animation: titleGlow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes titleGlow {
-            0% {
-                text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            }
-            100% {
-                text-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
-            }
-        }
-
-        .breadcrumb {
-            opacity: 0.9;
-            font-size: var(--text-lg);
-            transform-style: preserve-3d;
-            transform: translateZ(10px);
-            color: var(--accent-gold-light);
-        }
-
-        /* Premium Main Content */
-        .main-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: var(--space-20) var(--space-8);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Premium Section Styles */
-        .section {
-            margin-bottom: var(--space-24);
-            opacity: 0;
-            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            transform-style: preserve-3d;
-        }
-
-        .section:nth-child(1) { animation-delay: 0.1s; }
-        .section:nth-child(2) { animation-delay: 0.2s; }
-        .section:nth-child(3) { animation-delay: 0.3s; }
-        .section:nth-child(4) { animation-delay: 0.4s; }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px) translateZ(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) translateZ(0);
-            }
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: var(--space-12);
-            position: relative;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: var(--text-4xl);
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: var(--space-4);
-            position: relative;
-            display: inline-block;
-            transform: translateZ(10px);
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--gradient-gold);
-            border-radius: var(--radius-full);
-            box-shadow: var(--shadow-glow-gold);
-            animation: titleUnderline 3s ease-in-out infinite;
-        }
-
-        @keyframes titleUnderline {
-            0%, 100% { width: 100px; }
-            50% { width: 120px; }
-        }
-
-        .section-subtitle {
-            color: var(--text-secondary);
-            font-size: var(--text-lg);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.7;
-            transform: translateZ(5px);
-        }
-
-        /* Premium Programs Overview */
-        .programs-overview {
-            background: var(--bg-primary);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-12);
-            box-shadow: var(--shadow-xl);
-            border: 1px solid var(--border-light);
-            margin-bottom: var(--space-12);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .programs-overview::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-gold);
-            animation: overviewShine 3s ease-in-out infinite;
-        }
-
-        @keyframes overviewShine {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-
-        .overview-text {
-            font-size: var(--text-xl);
-            line-height: 1.8;
-            color: var(--text-primary);
-            margin-bottom: var(--space-8);
-            transform: translateZ(10px);
-        }
-
-        .programs-count {
-            display: flex;
-            justify-content: center;
-            gap: var(--space-12);
-            flex-wrap: wrap;
-            margin-top: var(--space-8);
-        }
-
-        .count-item {
-            text-align: center;
-            padding: var(--space-6);
-            background: var(--bg-secondary);
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--border-light);
-            transition: all var(--transition-normal);
-            transform-style: preserve-3d;
-            min-width: 150px;
-        }
-
-        .count-item:hover {
-            transform: translateY(-8px) translateZ(10px) scale(1.05);
-            box-shadow: var(--shadow-xl);
-            background: var(--gradient-gold);
-        }
-
-        .count-number {
-            font-family: 'Playfair Display', serif;
-            font-size: var(--text-5xl);
-            font-weight: 900;
-            color: var(--accent-blue);
-            display: block;
-            margin-bottom: var(--space-2);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .count-item:hover .count-number {
-            color: var(--text-inverse);
-        }
-
-        .count-label {
-            color: var(--text-secondary);
-            font-size: var(--text-base);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .count-item:hover .count-label {
-            color: var(--text-inverse);
-        }
-
-        /* Premium Programs Grid */
-        .programs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: var(--space-8);
-            margin-top: var(--space-12);
-        }
-
-        .program-card {
-            background: var(--bg-primary);
-            border-radius: var(--radius-2xl);
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border-light);
-            transition: all var(--transition-slow);
-            position: relative;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-        }
-
-        .program-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, transparent 0%, rgba(255, 215, 0, 0.1) 100%);
-            opacity: 0;
-            transition: opacity var(--transition-normal);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .program-card:hover {
-            transform: translateY(-12px) translateZ(20px) rotateX(2deg);
-            box-shadow: var(--shadow-2xl);
-        }
-
-        .program-card:hover::before {
-            opacity: 1;
-        }
-
-        .program-header {
-            background: var(--gradient-primary);
-            color: var(--text-inverse);
-            padding: var(--space-8);
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            transform-style: preserve-3d;
-        }
-
-        .program-header.certificate {
-            background: var(--gradient-success);
-        }
-
-        .program-header.diploma {
-            background: var(--gradient-secondary);
-        }
-
-        .program-header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .program-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: var(--radius-full);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: var(--text-3xl);
-            margin: 0 auto var(--space-4);
-            box-shadow: var(--shadow-lg);
-            transform: translateZ(10px);
-            transition: all var(--transition-normal);
-        }
-
-        .program-card:hover .program-icon {
-            transform: translateZ(20px) scale(1.1) rotateY(10deg);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .program-title {
-            font-family: 'Playfair Display', serif;
-            font-size: var(--text-3xl);
-            font-weight: 800;
-            margin-bottom: var(--space-2);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            transform: translateZ(5px);
-        }
-
-        .program-type {
-            font-size: var(--text-lg);
-            opacity: 0.9;
-            font-weight: 500;
-            transform: translateZ(3px);
-        }
-
-        .program-image {
-            position: relative;
-            overflow: hidden;
-            height: 220px;
-            z-index: 1;
-        }
-
-        .program-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all var(--transition-slow);
-            transform: scale(1);
-        }
-
-        .program-card:hover .program-img {
-            transform: scale(1.15) rotate(2deg);
-            filter: brightness(1.1);
-        }
-
-        .program-content {
-            padding: var(--space-8);
-            position: relative;
-            z-index: 2;
-            background: var(--bg-primary);
-        }
-
-        .program-description {
-            color: var(--text-primary);
-            font-size: var(--text-lg);
-            line-height: 1.7;
-            margin-bottom: var(--space-6);
-            transform: translateZ(5px);
-        }
-
-        .program-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: var(--space-4) 0;
-            border-top: 1px solid var(--border-light);
-            margin-top: var(--space-4);
-        }
-
-        .duration {
-            display: flex;
-            align-items: center;
-            gap: var(--space-2);
-            color: var(--text-secondary);
-            font-weight: 600;
-            transform: translateZ(5px);
-        }
-
-        .duration i {
-            color: var(--accent-blue);
-            font-size: var(--text-lg);
-        }
-
-        .apply-btn {
-            background: var(--gradient-gold);
-            color: var(--text-primary);
-            border: none;
-            padding: var(--space-3) var(--space-6);
-            border-radius: var(--radius-full);
-            font-weight: 700;
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
-            font-size: var(--text-sm);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: var(--shadow-md);
-            transform: translateZ(5px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .apply-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left var(--transition-normal);
-        }
-
-        .apply-btn:hover {
-            transform: translateY(-4px) translateZ(10px) scale(1.05);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .apply-btn:hover::before {
-            left: 100%;
-        }
-
-        /* Premium Program Features */
-        .program-features {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-xl);
-            padding: var(--space-6);
-            margin-top: var(--space-6);
-            border: 1px solid var(--border-light);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .program-features::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            opacity: 0.6;
-        }
-
-        .feature-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--space-4);
-            margin-top: var(--space-4);
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: var(--space-3);
-            color: var(--text-primary);
-            padding: var(--space-2);
-            border-radius: var(--radius-md);
-            transition: all var(--transition-fast);
-            transform: translateZ(0);
-        }
-
-        .feature-item:hover {
-            background: var(--bg-tertiary);
-            transform: translateZ(5px) translateX(4px);
-        }
-
-        .feature-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-primary);
-            border-radius: var(--radius-full);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-inverse);
-            font-size: var(--text-sm);
-            flex-shrink: 0;
-            box-shadow: var(--shadow-md);
-            transform: translateZ(5px);
-            transition: all var(--transition-normal);
-        }
-
-        .feature-item:hover .feature-icon {
-            transform: translateZ(10px) scale(1.1) rotateY(15deg);
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* Admission requirements */
-        .requirements-section {
-            background: var(--bg-primary);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-12);
-            box-shadow: var(--shadow-xl);
-            border: 1px solid var(--border-light);
-            margin-top: var(--space-12);
-        }
-
-        .requirements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--space-8);
-            margin-top: var(--space-8);
-        }
-
-        .requirement-card {
-            background: var(--bg-secondary);
-            border-radius: var(--radius-xl);
-            padding: var(--space-8);
-            border: 1px solid var(--border-light);
-        }
-
-        .requirement-title {
-            font-family: 'Playfair Display', serif;
-            font-size: var(--text-2xl);
-            font-weight: 700;
-            color: var(--accent-blue);
-            margin-bottom: var(--space-4);
-        }
-
-        .requirement-list {
-            list-style: none;
-        }
-
-        .requirement-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: var(--space-3);
-            padding: var(--space-3) 0;
-            border-bottom: 1px solid var(--border-light);
-            color: var(--text-primary);
-        }
-
-        .requirement-list li:last-child {
-            border-bottom: none;
-        }
-
-        .requirement-list li i {
-            color: var(--success-green);
-            margin-top: var(--space-1);
-            flex-shrink: 0;
-        }
-
-        /* Career Opportunities */
-        .careers-section {
-            background: var(--gradient-primary);
-            color: var(--text-inverse);
-            border-radius: var(--radius-2xl);
-            padding: var(--space-12);
-            margin-top: var(--space-12);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .careers-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .careers-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .careers-title {
-            font-family: 'Playfair Display', serif;
-            font-size: var(--text-3xl);
-            font-weight: 700;
-            margin-bottom: var(--space-8);
-            text-align: center;
-        }
-
-        .careers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--space-6);
-        }
-
-        .career-item {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-lg);
-            padding: var(--space-6);
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .career-icon {
-            font-size: var(--text-3xl);
-            margin-bottom: var(--space-4);
-        }
-
-        .career-title {
-            font-weight: 600;
-            margin-bottom: var(--space-2);
-        }
-
-        /* Premium Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            display: none;
-            background: var(--gradient-primary);
-            border: 2px solid var(--accent-light-blue);
-            width: 50px;
-            height: 50px;
-            border-radius: var(--radius-lg);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all var(--transition-normal);
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-            box-shadow: var(--shadow-md);
-        }
-
-        .mobile-menu-toggle::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 24px;
-            height: 2px;
-            background: var(--text-inverse);
-            transform: translate(-50%, -50%);
-            transition: all var(--transition-normal);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .mobile-menu-toggle::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 24px;
-            height: 2px;
-            background: var(--text-inverse);
-            transform: translate(-50%, -50%) rotate(90deg);
-            transition: all var(--transition-normal);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .mobile-menu-toggle:hover {
-            transform: translateY(-4px) translateZ(10px) rotateX(-2deg);
-            box-shadow: var(--shadow-xl);
-            background: var(--gradient-secondary);
-        }
-
-        .mobile-menu-toggle.active::before {
-            transform: translate(-50%, -50%) rotate(45deg);
-            background: var(--accent-gold);
-        }
-
-        .mobile-menu-toggle.active::after {
-            transform: translate(-50%, -50%) rotate(-45deg);
-            background: var(--accent-gold);
-        }
-
-        /* Premium Navigation Dropdown */
-        .nav-dropdown {
-            position: relative;
-        }
-
-        .nav-dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: var(--space-1);
-            cursor: pointer;
-            transform-style: preserve-3d;
-        }
-
-        .nav-dropdown-toggle::after {
-            content: '▼';
-            font-size: var(--text-xs);
-            transition: all var(--transition-normal);
-            color: var(--text-secondary);
-            transform: translateZ(2px);
-        }
-
-        .nav-dropdown:hover .nav-dropdown-toggle::after {
-            transform: translateZ(2px) rotate(180deg);
-            color: var(--accent-blue);
-        }
-
-        .nav-dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--bg-primary);
-            border: 2px solid var(--accent-light-blue);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px) translateZ(-20px);
-            transition: all var(--transition-normal);
-            min-width: 200px;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .nav-dropdown:hover .nav-dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) translateZ(10px);
-        }
-
-        .nav-dropdown-menu a {
-            display: block;
-            padding: var(--space-3) var(--space-4);
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: var(--text-sm);
-            transition: all var(--transition-fast);
-            border-bottom: 1px solid transparent;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-dropdown-menu a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient-primary);
-            transition: left var(--transition-fast);
-            z-index: -1;
-        }
-
-        .nav-dropdown-menu a:hover {
-            color: var(--text-inverse);
-            transform: translateX(8px) translateZ(5px);
-        }
-
-        .nav-dropdown-menu a:hover::before {
-            left: 0;
-        }
-
-        .nav-dropdown-menu a:first-child {
-            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-        }
-
-        .nav-dropdown-menu a:last-child {
-            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
-        }
-
-        /* Premium Responsive Design */
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 100px;
-                left: 0;
-                right: 0;
-                background: var(--bg-primary);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                flex-direction: column;
-                gap: 0;
-                padding: var(--space-4);
-                box-shadow: var(--shadow-2xl);
-                border-top: 2px solid var(--accent-light-blue);
-                z-index: 999;
-                transform: translateY(-100%);
-                transition: all var(--transition-normal);
-                max-height: 70vh;
-                overflow-y: auto;
-            }
-
-            .nav-links.active {
-                display: flex;
-                transform: translateY(0);
-            }
-
-            .nav-link {
-                width: 100%;
-                padding: var(--space-4);
-                border-radius: var(--radius-md);
-                border-bottom: 1px solid var(--border-light);
-                text-align: center;
-                font-size: var(--text-base);
-                margin-bottom: var(--space-2);
-            }
-
-            .nav-link:last-child {
-                border-bottom: none;
-                margin-bottom: 0;
-            }
-
-            .nav-dropdown-menu {
-                position: static;
-                background: var(--bg-secondary);
-                box-shadow: none;
-                border: 1px solid var(--border-light);
-                border-radius: var(--radius-lg);
-                transform: none;
-                opacity: 1;
-                visibility: visible;
-                display: none;
-                margin-top: var(--space-2);
-                min-width: auto;
-                padding: var(--space-2);
-            }
-
-            .nav-dropdown.active .nav-dropdown-menu {
-                display: block;
-            }
-
-            .nav-dropdown-toggle::after {
-                display: none;
-            }
-
-            .nav-dropdown-menu a {
-                padding: var(--space-3) var(--space-4);
-                font-size: var(--text-sm);
-                border-bottom: 1px solid var(--border-light);
-                background: transparent;
-                color: var(--text-primary);
-                border-radius: var(--radius-md);
-                margin-bottom: var(--space-1);
-            }
-
-            .nav-dropdown-menu a:last-child {
-                margin-bottom: 0;
-                border-bottom: none;
-            }
-
-            .nav-dropdown-menu a:hover {
-                background: var(--gradient-primary);
-                color: var(--text-inverse);
-                transform: none;
-            }
-
-            .navbar {
-                padding: var(--space-4);
-            }
-
-            .nav-container {
-                flex-wrap: wrap;
-                position: relative;
-                padding: 0 var(--space-4);
-            }
-
-            .nav-logo {
-                font-size: var(--text-xl);
-                gap: var(--space-3);
-            }
-
-            .nav-logo img {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .page-title {
-                font-size: var(--text-3xl);
-            }
-            
-            .section-title {
-                font-size: var(--text-3xl);
-            }
-            
-            .programs-grid {
-                grid-template-columns: 1fr;
-                gap: var(--space-6);
-            }
-            
-            .programs-count {
-                gap: var(--space-6);
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .count-item {
-                width: 100%;
-                max-width: 200px;
-            }
-            
-            .requirements-grid {
-                grid-template-columns: 1fr;
-                gap: var(--space-6);
-            }
-            
-            .main-content {
-                padding: var(--space-16) var(--space-4);
-            }
-            
-            .program-card {
-                margin-bottom: var(--space-6);
-            }
-        }
-        /* Premium Footer Styling */
-        .footer {
-            background: var(--gradient-primary);
-            color: var(--text-inverse);
-            padding: var(--space-20) var(--space-8) var(--space-8);
-            margin-top: var(--space-24);
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            animation: footerFloat 25s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes footerFloat {
-            0%, 100% { transform: translateX(0) translateY(0); }
-            33% { transform: translateX(10px) translateY(-5px); }
-            66% { transform: translateX(-10px) translateY(5px); }
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--space-8);
-            margin-bottom: var(--space-12);
-        }
-
-        .footer-section h3 {
-            font-size: var(--text-xl);
-            font-weight: 800;
-            margin-bottom: var(--space-6);
-            color: var(--accent-gold);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            transform: translateZ(10px);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: var(--space-4);
-            transform: translateZ(5px);
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            transition: all var(--transition-normal);
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer-links a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.3), transparent);
-            transition: left var(--transition-normal);
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-gold);
-            transform: translateX(8px) translateZ(5px);
-        }
-
-        .footer-links a:hover::before {
-            left: 100%;
-        }
-
-        .contact-info p {
-            margin-bottom: var(--space-4);
-            color: rgba(255, 255, 255, 0.9);
-            display: flex;
-            align-items: center;
-            gap: var(--space-3);
-            font-weight: 500;
-            transform: translateZ(5px);
-        }
-
-        .contact-info i {
-            color: var(--accent-gold);
-            width: 20px;
-            font-size: var(--text-lg);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: var(--space-8);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer-title {
-            font-size: var(--text-2xl);
-            font-weight: 800;
-            margin-bottom: var(--space-4);
-            color: var(--accent-gold);
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-            transform: translateZ(10px);
-        }
-
-        .footer-subtitle {
-            font-size: var(--text-lg);
-            margin-bottom: var(--space-8);
-            opacity: 0.9;
-            transform: translateZ(5px);
-        }
-
-        .footer-buttons {
-            display: flex;
-            justify-content: center;
-            gap: var(--space-4);
-            flex-wrap: wrap;
-            margin-bottom: var(--space-8);
-        }
-
-        .whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-2);
-            background: #25d366;
-            color: var(--text-inverse);
-            padding: var(--space-4) var(--space-8);
-            border-radius: var(--radius-xl);
-            text-decoration: none;
-            font-weight: 700;
-            transition: all var(--transition-normal);
-            font-size: var(--text-base);
-            box-shadow: var(--shadow-lg);
-            transform: translateZ(5px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .whatsapp-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left var(--transition-normal);
-        }
-
-        .whatsapp-btn:hover {
-            background: #128c7e;
-            transform: translateY(-4px) translateZ(10px) scale(1.05);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .whatsapp-btn:hover::before {
-            left: 100%;
-        }
-
-        .copyright {
-            margin-top: var(--space-8);
-            padding-top: var(--space-8);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 500;
-            transform: translateZ(5px);
-        }
-
-        @media (max-width: 768px) {
-            .footer {
-                padding: var(--space-16) var(--space-4) var(--space-8);
-            }
-
-            .footer-grid {
-                gap: var(--space-6);
-                grid-template-columns: 1fr;
-            }
-
-            .footer-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .whatsapp-btn {
-                width: 100%;
-                justify-content: center;
-                max-width: 300px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="fixed-header">
-        <div class="brand-banner">
-            <div class="brand-marquee">
-                <span>Iganga School of Nursing & Midwifery</span>
-                <span>Practical Skills Lab | Modern Healthcare Training | Student Success</span>
-                <span>Academic Excellence | Compassionate Care | Career Ready Nurses</span>
-            </div>
+<?php include('shared/_header.php');?>
+
+  <main>
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-12 text-center">
+            <h1 class="page-title">Academic Programs</h1>
+            <p class="page-subtitle">Quality Healthcare Education for Tomorrow's Professionals</p>
+          </div>
         </div>
-        <!-- Professional Navigation -->
-        <nav class="navbar" id="navbar">
-            <div class="nav-container">
-                <a href="index.php" class="nav-logo">
-                    <img src="assets/school-logo.png" alt="ISNM Logo">
-                </a>
-                <!-- Mobile Menu Toggle -->
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <span></span>
-                    <span></span>
-                </button>
-                
-                <div class="nav-links" id="navLinks">
-                    <a href="index.php" class="nav-link">Home</a>
-                    
-                    <!-- Academics Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">Academics</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="programs.php">Programs</a>
-                            <a href="activities.php#academic-activities">Academic Activities</a>
-                            <a href="activities.php#sports-activities">Sports & Recreation</a>
-                            <a href="activities.php#community-service">Community Service</a>
-                            <a href="activities.php#cultural-activities">Cultural Activities</a>
-                        </div>
-                    </div>
-                    
-                    <!-- About Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">About</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="about.php">Our School</a>
-                            <a href="governance.php">Governance</a>
-                            <a href="history.php">History</a>
-                            <a href="achievements.php">Achievements</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Admissions Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">Admissions</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="application.php">Apply Now</a>
-                            <a href="programs.php#requirements">requirements</a>
-                            <a href="programs.php#fees">Fee Structure</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Campus Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">Campus</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="infrastructure.php">Infrastructure</a>
-                            <a href="activities.php">Student Life</a>
-                        </div>
-                    </div>
-                    
-                    <a href="contact.php" class="nav-link">Contact</a>
-                    <a href="login-portal.php" class="nav-link">Portal</a>
-                </div>
-            </div>
-        </nav>
-    </div>
+      </div>
+    </section>
 
-    <!-- Page Title Section -->
-    <div class="page-header-section">
-        <div class="page-header-content">
-            <h1 class="page-title">Programs Offered</h1>
-            <div class="breadcrumb">
-                <p>Home / Programs</p>
-            </div>
+    <!-- Programs Overview -->
+    <section class="programs-overview py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center mb-4">
+            <h2 class="section-title">Our Academic Programs</h2>
+            <p class="section-subtitle">ISNM offers comprehensive nursing and midwifery programs designed to produce competent healthcare professionals</p>
+          </div>
         </div>
-    </div>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Programs Overview -->
-        <section class="section">
-            <div class="section-header">
-                <h2 class="section-title">4.0 Programs Offered</h2>
-                <p class="section-subtitle">Comprehensive healthcare education programs designed for Excellence</p>
-            </div>
-            
-            <div class="programs-overview">
-                <p class="overview-text">
-                    Currently the school offers four (4) programs designed to provide quality healthcare education 
-                    and prepare students for successful careers in nursing and midwifery.
-                </p>
-                
-                <div class="programs-count">
-                    <div class="count-item">
-                        <span class="count-number">4</span>
-                        <span class="count-label">Total Programs</span>
-                    </div>
-                    <div class="count-item">
-                        <span class="count-number">2</span>
-                        <span class="count-label">Certificate Programs</span>
-                    </div>
-                    <div class="count-item">
-                        <span class="count-number">2</span>
-                        <span class="count-label">Diploma Programs</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Programs Grid -->
-        <section class="section">
-            <div class="programs-grid">
-                <!-- Certificate in Nursing -->
-                <div class="program-card">
-                    <div class="program-header certificate">
-                        <div class="program-icon">
-                            <i class="fas fa-user-nurse"></i>
-                        </div>
-                        <h3 class="program-title">Certificate in Nursing</h3>
-                        <p class="program-type">Certificate Program</p>
-                    </div>
-                    <div class="program-image">
-                        <img src="assets/images/academic/certificate-in-nursing-students-in-examination-room.jpg" alt="Certificate in Nursing Students in Examination Room" class="program-img">
-                    </div>
-                    <div class="program-content">
-                        <p class="program-description">
-                            Comprehensive nursing education focusing on fundamental nursing skills, patient care, 
-                            and clinical practice. This program prepares students for entry-level nursing positions 
-                            in various healthcare settings.
-                        </p>
-                        <div class="program-features">
-                            <h4>Key Features:</h4>
-                            <div class="feature-list">
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-book"></i>
-                                    </div>
-                                    <span>Theoretical Knowledge</span>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-hospital"></i>
-                                    </div>
-                                    <span>Clinical Practice</span>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-flask"></i>
-                                    </div>
-                                    <span>Skills Laboratory</span>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-certificate"></i>
-                                    </div>
-                                    <span>National Certification</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="program-details">
-                            <div class="duration">
-                                <i class="fas fa-clock"></i>
-                                <span>2½ Years</span>
-                            </div>
-                            <a href="application.php" class="apply-btn">
-                                <i class="fas fa-paper-plane"></i>
-                                Apply Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Certificate in Midwifery -->
-                <div class="program-card">
-                    <div class="program-header certificate">
-                        <div class="program-icon">
-                            <i class="fas fa-baby"></i>
-                        </div>
-                        <h3 class="program-title">Certificate in Midwifery</h3>
-                        <p class="program-type">Certificate Program</p>
-                    </div>
-                    <div class="program-image">
-                        <img src="assets/images/academic/students-in-skill-laboratory-in-practical-training.jpg" alt="ISNM Midwifery Students - Advanced Practical Training" class="program-img">
-                    </div>
-                    <div class="program-content">
-                        <p class="program-description">
-                            Specialized midwifery training covering maternal health, childbirth, postnatal care, 
-                            and newborn care. Students gain expertise in supporting women throughout pregnancy 
-                            and childbirth.
-                        </p>
-                        <div class="program-features">
-                            <h4>Key Features:</h4>
-                            <div class="feature-list">
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-female"></i>
-                                    </div>
-                                    <span>Maternal Health</span>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-baby-carriage"></i>
-                                    </div>
-                                    <span>Newborn Care</span>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-stethoscope"></i>
-                                    </div>
-                                    <span>Clinical Skills</span>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-award"></i>
-                                    </div>
-                                    <span>Professional Recognition</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="program-details">
-                            <div class="duration">
-                                <i class="fas fa-clock"></i>
-                                <span>2½ Years</span>
-                            </div>
-                            <a href="application.php" class="apply-btn">
-                                <i class="fas fa-paper-plane"></i>
-                                Apply Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Diploma in Nursing -->
-                <div class="program-card">
-                    <div class="program-header diploma">
-                        <div class="program-icon">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <h3 class="program-title">Diploma in Nursing</h3>
-                        <p class="program-type">Diploma Program</p>
-                    </div>
-                    <div class="program-image">
-                        <img src="assets/images/academic/diploma-in-nursing-and-midwifery-extension-images-for-students.jpg" alt="ISNM Diploma Nursing Students - Advanced Clinical Training" class="program-img">
-                    </div>
-                    <div class="program-content">
-                        <p class="program-description">
-                            Advanced nursing program building on certificate foundation with specialized 
-                            clinical skills, leadership training, and comprehensive patient care management.
-                        </p>
-                        <div class="program-features">
-                            <h4>Key Features:</h4>
-                            <div class="feature-list">
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-user-tie"></i>
-                                    </div>
-                                    <span>Leadership Skills</span>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-chart-line"></i>
-                                    </div>
-                                    <span>Research Methods</span>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-medal"></i>
-                                    </div>
-                                    <span>Diploma Certification</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="program-details">
-                            <div class="duration">
-                                <i class="fas fa-clock"></i>
-                                <span>1½ Years</span>
-                            </div>
-                            <a href="application.php" class="apply-btn">
-                                <i class="fas fa-paper-plane"></i>
-                                Apply Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Diploma in Midwifery -->
-                <div class="program-card">
-                    <div class="program-header diploma">
-                        <div class="program-icon">
-                            <i class="fas fa-baby"></i>
-                        </div>
-                        <h3 class="program-title">Diploma in Midwifery</h3>
-                        <p class="program-type">Extension Program</p>
-                    </div>
-                    <div class="program-image">
-                        <img src="assets/images/academic/student-at-practicum-site2.jpg" alt="ISNM Students - Clinical Practicum Experience" class="program-img">
-                    </div>
-                    <div class="program-content">
-                        <p class="program-description">
-                            Advanced midwifery education for certificate holders wanting to enhance their expertise 
-                            and career prospects. Focuses on advanced maternal and neonatal care practices.
-                        </p>
-                        <div class="program-features">
-                            <h4>Key Features:</h4>
-                            <div class="feature-list">
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-heartbeat"></i>
-                                    </div>
-                                    <span>Advanced Maternal Care</span>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-user-nurse"></i>
-                                    </div>
-                                    <span>Clinical Leadership</span>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-microscope"></i>
-                                    </div>
-                                    <span>Research Skills</span>
-                                </div>
-                                <div class="feature-item">
-                                    <div class="feature-icon">
-                                        <i class="fas fa-trophy"></i>
-                                    </div>
-                                    <span>Professional Advancement</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="program-details">
-                            <div class="duration">
-                                <i class="fas fa-clock"></i>
-                                <span>1½ Years</span>
-                            </div>
-                            <a href="application.php" class="apply-btn">
-                                <i class="fas fa-paper-plane"></i>
-                                Apply Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Admission requirements -->
-        <section class="section">
-            <div class="requirements-section">
-                <div class="section-header">
-                    <h2 class="section-title">Admission requirements</h2>
-                    <p class="section-subtitle">requirements for certificate and diploma programs</p>
-                </div>
-                
-                <div class="requirements-grid">
-                    <!-- Certificate requirements -->
-                    <div class="requirement-card">
-                        <h3 class="requirement-title">Certificate Programs</h3>
-                        <ul class="requirement-list">
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Uganda Certificate of Education (UCE) with at least 5 passes</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Credits in Biology, Chemistry, and Physics/Mathematics</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Minimum age of 17 years</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Medical fitness certificate</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Two passport photographs</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Letter of recommendation (optional)</span>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Diploma requirements -->
-                    <div class="requirement-card">
-                        <h3 class="requirement-title">Diploma Extension Programs</h3>
-                        <ul class="requirement-list">
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Certificate in Nursing or Midwifery from recognized institution</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Valid practicing license from Uganda Nurses and Midwives Council</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Minimum of 2 years working experience</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Reference letter from current employer</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Academic transcripts from certificate program</span>
-                            </li>
-                            <li>
-                                <i class="fas fa-check-circle"></i>
-                                <span>Proof of continuing professional development</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Career Opportunities -->
-        <section class="section">
-            <div class="careers-section">
-                <div class="careers-content">
-                    <h2 class="careers-title">Career Opportunities</h2>
-                    <div class="careers-grid">
-                        <div class="career-item">
-                            <div class="career-icon">
-                                <i class="fas fa-hospital"></i>
-                            </div>
-                            <h4 class="career-title">Hospitals</h4>
-                            <p>National and regional referral hospitals</p>
-                        </div>
-                        <div class="career-item">
-                            <div class="career-icon">
-                                <i class="fas fa-clinic-medical"></i>
-                            </div>
-                            <h4 class="career-title">Health Centers</h4>
-                            <p>Government and private health facilities</p>
-                        </div>
-                        <div class="career-item">
-                            <div class="career-icon">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <h4 class="career-title">Education</h4>
-                            <p>Nursing and midwifery training institutions</p>
-                        </div>
-                        <div class="career-item">
-                            <div class="career-icon">
-                                <i class="fas fa-globe"></i>
-                            </div>
-                            <h4 class="career-title">International</h4>
-                            <p>Global healthcare opportunities</p>
-                        </div>
-                        <div class="career-item">
-                            <div class="career-icon">
-                                <i class="fas fa-user-md"></i>
-                            </div>
-                            <h4 class="career-title">Private Practice</h4>
-                            <p>Independent healthcare providers</p>
-                        </div>
-                        <div class="career-item">
-                            <div class="career-icon">
-                                <i class="fas fa-briefcase"></i>
-                            </div>
-                            <h4 class="career-title">Leadership</h4>
-                            <p>Healthcare management positions</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navLinks = document.getElementById('navLinks');
         
-        if (mobileMenuToggle && navLinks) {
-            mobileMenuToggle.addEventListener('click', function() {
-                mobileMenuToggle.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            });
-            
-            // Close menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
-                    mobileMenuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                }
-            });
-            
-            // Close menu when clicking on a link
-            navLinks.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                });
-            });
-        }
-
-        // Mobile Dropdown Toggle
-        const navDropdowns = document.querySelectorAll('.nav-dropdown');
-        
-        navDropdowns.forEach(dropdown => {
-            const toggle = dropdown.querySelector('.nav-dropdown-toggle');
-            const menu = dropdown.querySelector('.nav-dropdown-menu');
-            
-            if (toggle && menu) {
-                toggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Close other dropdowns
-                    navDropdowns.forEach(otherDropdown => {
-                        if (otherDropdown !== dropdown) {
-                            otherDropdown.classList.remove('active');
-                        }
-                    });
-                    
-                    // Toggle current dropdown
-                    dropdown.classList.toggle('active');
-                });
-            }
-        });
-
-        // Handle window resize
-        let isMobile = window.innerWidth <= 768;
-        
-        window.addEventListener('resize', () => {
-            const newIsMobile = window.innerWidth <= 768;
-            if (isMobile !== newIsMobile) {
-                isMobile = newIsMobile;
-                // Reset mobile menu on resize
-                if (!isMobile && navLinks) {
-                    navLinks.classList.remove('active');
-                    mobileMenuToggle.classList.remove('active');
-                    navDropdowns.forEach(dropdown => {
-                        dropdown.classList.remove('active');
-                    });
-                }
-            }
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const hash = this.getAttribute('href');
-                if (!hash || hash === '#') return;
-
-                let target = null;
-                try {
-                    target = document.querySelector(hash);
-                } catch (error) {
-                    console.warn('Invalid anchor hash:', hash, error);
-                }
-
-                if (target instanceof Element) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add error handling for images
-        document.querySelectorAll('img').forEach(img => {
-            img.addEventListener('error', function() {
-                this.style.display = 'none';
-                console.warn('Image failed to load:', this.src);
-            });
-        });
-    </script>
-
-    <!-- Premium Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="programs.php"><i class="fas fa-graduation-cap"></i> Programs</a></li>
-                        <li><a href="about.php"><i class="fas fa-info-circle"></i> About Us</a></li>
-                        <li><a href="application.php"><i class="fas fa-edit"></i> Apply Now</a></li>
-                    </ul>
+        <div class="row g-4 justify-content-center">
+          <!-- Certificate in Nursing -->
+          <div class="col-lg-6">
+            <div class="program-card">
+              <div class="program-header">
+                <div class="program-icon">
+                  <i class="fas fa-user-nurse"></i>
                 </div>
+                <div class="program-title">
+                  <h3>Certificate in Nursing</h3>
+                  <span class="program-duration">2½ Years</span>
+                </div>
+              </div>
+              <div class="program-content">
+                <h4>Program Overview</h4>
+                <p>Our Certificate in Nursing program provides comprehensive nursing education combining theoretical knowledge with practical clinical experience. Students are trained to provide quality nursing care in various healthcare settings.</p>
                 
-                <div class="footer-section">
-                    <h3>Academics</h3>
-                    <ul class="footer-links">
-                        <li><a href="programs.php#certificate"><i class="fas fa-certificate"></i> Certificate Programs</a></li>
-                        <li><a href="programs.php#diploma"><i class="fas fa-medal"></i> Diploma Programs</a></li>
-                        <li><a href="activities.php"><i class="fas fa-users"></i> Student Activities</a></li>
-                        <li><a href="infrastructure.php"><i class="fas fa-building"></i> Infrastructure</a></li>
-                    </ul>
-                </div>
+                <h4>Entry Requirements</h4>
+                <ul class="requirements-list">
+                  <li>Must have passed "O" Level in English, Mathematics, Biology, Chemistry and Physics at least with a pass or D for candidates of the New Lower Secondary curriculum</li>
+                  <li>This MUST be obtained at the same sitting</li>
+                  <li>"A" Level is an added advantage</li>
+                  <li>Attach copies of both O' and A' Level results/certificates</li>
+                </ul>
                 
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <div class="contact-info">
-                        <p><i class="fas fa-map-marker-alt"></i> Iganga Municipality, Uganda</p>
-                        <p><i class="fas fa-phone"></i> +256 123 456 789</p>
-                        <p><i class="fas fa-envelope"></i> info@isnm.ac.ug</p>
-                        <p><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 5:00 PM</p>
-                    </div>
+                <h4>Course Content</h4>
+                <ul class="course-content">
+                  <li>Anatomy and Physiology</li>
+                  <li>Pharmacology</li>
+                  <li>Medical-Surgical Nursing</li>
+                  <li>Community Health Nursing</li>
+                  <li>Mental Health Nursing</li>
+                  <li>Pediatric Nursing</li>
+                  <li>Research Methodology</li>
+                </ul>
+                
+                <h4>Clinical Practicum</h4>
+                <p>Students gain hands-on experience at major hospitals including Iganga, Bugiri, Busolwe, Tororo, Masafu, and Mbale Regional Referral hospitals.</p>
+                
+                <div class="program-actions">
+                  <a href="application.php" class="btn btn-primary">Apply Now</a>
+                  <a href="contact.php" class="btn btn-outline-primary">Learn More</a>
                 </div>
+              </div>
             </div>
-            
-            <div class="footer-bottom">
-                <h3 class="footer-title">Iganga School of Nursing & Midwifery</h3>
-                <p class="footer-subtitle">Excellence in Healthcare Education Since 1982</p>
-                <div class="footer-buttons">
-                    <a href="https://wa.me/256123456789" class="whatsapp-btn" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                        Chat on WhatsApp
-                    </a>
+          </div>
+
+          <!-- Certificate in Midwifery -->
+          <div class="col-lg-6">
+            <div class="program-card">
+              <div class="program-header">
+                <div class="program-icon">
+                  <i class="fas fa-baby"></i>
                 </div>
-                <div class="copyright">
-                    <p>&copy; 2024 Iganga School of Nursing & Midwifery. All rights reserved.</p>
+                <div class="program-title">
+                  <h3>Certificate in Midwifery</h3>
+                  <span class="program-duration">2½ Years</span>
                 </div>
+              </div>
+              <div class="program-content">
+                <h4>Program Overview</h4>
+                <p>Our Certificate in Midwifery program specializes in maternal and child health, preparing students to provide comprehensive midwifery care including antenatal, intrapartum, and postnatal services.</p>
+                
+                <h4>Entry Requirements</h4>
+                <ul class="requirements-list">
+                  <li>Must have passed "O" Level in English, Mathematics, Biology, Chemistry and Physics at least with a pass or D for candidates of the New Lower Secondary curriculum</li>
+                  <li>This MUST be obtained at the same sitting</li>
+                  <li>"A" Level is an added advantage</li>
+                  <li>Attach copies of both O' and A' Level results/certificates</li>
+                </ul>
+                
+                <h4>Course Content</h4>
+                <ul class="course-content">
+                  <li>Midwifery Foundations</li>
+                  <li>Antenatal Care</li>
+                  <li>Intrapartum Care</li>
+                  <li>Postnatal Care</li>
+                  <li>Newborn Care</li>
+                  <li>Family Planning</li>
+                  <li>High-Risk Pregnancy Management</li>
+                </ul>
+                
+                <h4>Clinical Practicum</h4>
+                <p>Extensive hands-on training in delivery rooms and maternity wards at partner hospitals, ensuring students gain practical experience in real delivery situations.</p>
+                
+                <div class="program-actions">
+                  <a href="application.php" class="btn btn-primary">Apply Now</a>
+                  <a href="contact.php" class="btn btn-outline-primary">Learn More</a>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <!-- Diploma in Nursing - Extension -->
+          <div class="col-lg-6">
+            <div class="program-card">
+              <div class="program-header">
+                <div class="program-icon">
+                  <i class="fas fa-user-md"></i>
+                </div>
+                <div class="program-title">
+                  <h3>Diploma in Nursing - Extension</h3>
+                  <span class="program-duration">1½ Years</span>
+                </div>
+              </div>
+              <div class="program-content">
+                <h4>Program Overview</h4>
+                <p>This extension program is designed for enrolled nurses who wish to upgrade to diploma level, providing advanced nursing knowledge and leadership skills.</p>
+                
+                <h4>Entry Requirements</h4>
+                <ul class="requirements-list">
+                  <li>Must have qualified as an Enrolled Nurse from a recognized Institution</li>
+                  <li>Must have a pass slip and a Certificate from the Uganda Nurses and Midwives Examinations Board (UNMEB)</li>
+                  <li>Must have a Certificate of Enrolment from the Uganda Nurses and Midwives Council (UNMC)</li>
+                  <li>Must have an experience of two (2) years in the field</li>
+                </ul>
+                
+                <h4>Course Content</h4>
+                <ul class="course-content">
+                  <li>Advanced Nursing Concepts</li>
+                  <li>Nursing Leadership and Management</li>
+                  <li>Advanced Medical-Surgical Nursing</li>
+                  <li>Research and Evidence-Based Practice</li>
+                  <li>Healthcare Ethics and Law</li>
+                  <li>Quality Improvement in Healthcare</li>
+                  <li>Teaching and Supervision Skills</li>
+                </ul>
+                
+                <h4>Career Opportunities</h4>
+                <p>Graduates can work as senior nurses, nursing officers, nurse managers, and pursue further education to become nurse educators or advanced practice nurses.</p>
+                
+                <div class="program-actions">
+                  <a href="application.php" class="btn btn-primary">Apply Now</a>
+                  <a href="contact.php" class="btn btn-outline-primary">Learn More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Diploma in Midwifery - Extension -->
+          <div class="col-lg-6">
+            <div class="program-card">
+              <div class="program-header">
+                <div class="program-icon">
+                  <i class="fas fa-stethoscope"></i>
+                </div>
+                <div class="program-title">
+                  <h3>Diploma in Midwifery - Extension</h3>
+                  <span class="program-duration">1½ Years</span>
+                </div>
+              </div>
+              <div class="program-content">
+                <h4>Program Overview</h4>
+                <p>This extension program is designed for enrolled midwives who wish to upgrade to diploma level, providing advanced midwifery skills and specialized knowledge in maternal health.</p>
+                
+                <h4>Entry Requirements</h4>
+                <ul class="requirements-list">
+                  <li>Must have qualified as an Enrolled Midwife from a recognized Institution</li>
+                  <li>Must have a pass slip and a Certificate from the Uganda Nurses and Midwives Examinations Board (UNMEB)</li>
+                  <li>Must have a Certificate of Enrolment from the Uganda Nurses and Midwives Council (UNMC)</li>
+                  <li>Must have an experience of two (2) years in the field</li>
+                </ul>
+                
+                <h4>Course Content</h4>
+                <ul class="course-content">
+                  <li>Advanced Midwifery Practice</li>
+                  <li>High-Risk Obstetrics</li>
+                  <li>Neonatal Intensive Care</li>
+                  <li>Gynecological Nursing</li>
+                  <li>Midwifery Research</li>
+                  <li>Healthcare Management</li>
+                  <li>Reproductive Health Policy</li>
+                </ul>
+                
+                <h4>Career Opportunities</h4>
+                <p>Graduates can work as senior midwives, maternity ward managers, reproductive health specialists, and pursue roles in healthcare policy and administration.</p>
+                
+                <div class="program-actions">
+                  <a href="application.php" class="btn btn-primary">Apply Now</a>
+                  <a href="contact.php" class="btn btn-outline-primary">Learn More</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </footer>
-</body>
-</html>
+      </div>
+    </section>
 
+    <!-- Practicum Sites Section -->
+    <section class="practicum-section py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center mb-4">
+            <h2 class="section-title">Clinical Practicum Sites</h2>
+            <p class="section-subtitle">Our students gain practical experience at leading healthcare facilities</p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="practicum-info">
+              <p>Iganga School of Nursing and Midwifery has entered into a Memorandum of Understanding (MOU) with major hospitals for providing our students with hands-on practical experience.</p>
+              
+              <div class="hospitals-grid">
+                <div class="hospital-card">
+                  <div class="hospital-icon">
+                    <i class="fas fa-hospital"></i>
+                  </div>
+                  <div class="hospital-info">
+                    <h4>Iganga Hospital</h4>
+                    <p>Government Hospital • 3km from school • 200 bed capacity</p>
+                  </div>
+                </div>
+                
+                <div class="hospital-card">
+                  <div class="hospital-icon">
+                    <i class="fas fa-hospital"></i>
+                  </div>
+                  <div class="hospital-info">
+                    <h4>Bugiri Hospital</h4>
+                    <p>Government Hospital • 30km from school • 200 bed capacity</p>
+                  </div>
+                </div>
+                
+                <div class="hospital-card">
+                  <div class="hospital-icon">
+                    <i class="fas fa-hospital"></i>
+                  </div>
+                  <div class="hospital-info">
+                    <h4>Tororo Hospital</h4>
+                    <p>Government Hospital • 50km from school • 200 bed capacity</p>
+                  </div>
+                </div>
+                
+                <div class="hospital-card">
+                  <div class="hospital-icon">
+                    <i class="fas fa-hospital"></i>
+                  </div>
+                  <div class="hospital-info">
+                    <h4>Busolwe Hospital</h4>
+                    <p>Government Hospital • 40km from school • 200 bed capacity</p>
+                  </div>
+                </div>
+                
+                <div class="hospital-card">
+                  <div class="hospital-icon">
+                    <i class="fas fa-hospital"></i>
+                  </div>
+                  <div class="hospital-info">
+                    <h4>Masafu Hospital</h4>
+                    <p>Government Hospital • 40km from school • 200 bed capacity</p>
+                  </div>
+                </div>
+                
+                <div class="hospital-card">
+                  <div class="hospital-icon">
+                    <i class="fas fa-hospital"></i>
+                  </div>
+                  <div class="hospital-info">
+                    <h4>Mbale Regional Referral Hospital</h4>
+                    <p>Government Hospital • 80km from school • 300 bed capacity</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="practicum-details">
+                <h3>Clinical Training Structure</h3>
+                <ul class="training-structure">
+                  <li>Each semester, students spend 8 weeks at practicum sites</li>
+                  <li>Remaining time is dedicated to block study and skills laboratory training</li>
+                  <li>Clinical mentors at hospitals provide daily supervision</li>
+                  <li>School tutors conduct weekly support supervision</li>
+                  <li>Students rotate through all hospitals during their training</li>
+                  <li>Performance evaluations are conducted after each placement</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!-- Admission Process Section -->
+    <section class="admission-process py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center mb-4">
+            <h2 class="section-title">Admission Process</h2>
+            <p class="section-subtitle">Your pathway to joining ISNM</p>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="process-timeline">
+              <div class="timeline-item">
+                <div class="timeline-marker">
+                  <span>1</span>
+                </div>
+                <div class="timeline-content">
+                  <h4>Application Submission</h4>
+                  <p>Complete and submit the online application form with all required documents and application fee of UGX 95,000.</p>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-marker">
+                  <span>2</span>
+                </div>
+                <div class="timeline-content">
+                  <h4>Application Review</h4>
+                  <p>Our admissions committee reviews all applications to ensure candidates meet the minimum requirements.</p>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-marker">
+                  <span>3</span>
+                </div>
+                <div class="timeline-content">
+                  <h4>Interview</h4>
+                  <p>Shortlisted candidates are invited for interviews at the school campus to assess their suitability for the program.</p>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-marker">
+                  <span>4</span>
+                </div>
+                <div class="timeline-content">
+                  <h4>Admission Offer</h4>
+                  <p>Successful candidates receive admission letters and are provided with enrollment instructions.</p>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-marker">
+                  <span>5</span>
+                </div>
+                <div class="timeline-content">
+                  <h4>Registration</h4>
+                  <p>Complete registration process, pay fees, and attend orientation to begin your healthcare education journey.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <style>
+    /* Enhanced Page Header */
+    .page-header {
+      background: linear-gradient(135deg, #1a237e 0%, #3949ab 50%, #1a237e 100%);
+      color: white;
+      padding: 3rem 0;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50%" font-size="100" fill="rgba(255,255,255,0.03)">🎓</text></svg>');
+      background-size: 150px 150px;
+      animation: floatPattern 30s linear infinite;
+    }
+
+    @keyframes floatPattern {
+      0% { transform: translateX(0) translateY(0); }
+      100% { transform: translateX(-150px) translateY(-150px); }
+    }
+
+    .page-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      animation: titleEntrance 1s ease-out;
+      font-family: 'Elephant', serif;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes titleEntrance {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      animation: subtitleEntrance 1.2s ease-out;
+      font-family: 'Bodoni MT Poster Compressed', serif;
+      color: #ffffff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes subtitleEntrance {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 0.9; transform: translateY(0); }
+    }
+
+    /* Enhanced Program Cards */
+    .program-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      overflow: visible;
+      transition: all 0.3s ease;
+      height: auto;
+      animation: cardEntrance 0.6s ease-out;
+      border: 2px solid rgba(144, 238, 144, 0.5);
+      margin-bottom: 1.5rem;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    @keyframes cardEntrance {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .program-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .program-header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: white;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .program-icon {
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      animation: iconFloat 3s ease-in-out infinite;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .program-icon i {
+      font-size: 1.2rem;
+      color: white;
+      animation: iconRotate 8s linear infinite;
+    }
+
+    @keyframes iconRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .program-title h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Haettenschweiler', sans-serif;
+      color: #ffffff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+      line-height: 1.2;
+    }
+
+    .program-duration {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 0.2rem 0.5rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+    }
+
+    .program-content {
+      padding: 1.5rem;
+      position: relative;
+      z-index: 15;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    .program-content h4 {
+      color: #1e3a8a !important;
+      margin: 0.8rem 0 0.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: 'Cooper Black', sans-serif;
+      position: relative;
+      z-index: 20;
+      visibility: visible !important;
+      opacity: 1 !important;
+      text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+    }
+
+    .program-content h4:first-child {
+      margin-top: 0;
+    }
+
+    .program-content p {
+      color: #000000 !important;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      font-family: 'Bodoni MT Poster Compressed', serif;
+      font-size: 1.01rem;
+      font-weight: 600;
+      text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.9);
+      position: relative;
+      z-index: 15;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    .requirements-list,
+    .course-content {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+
+    .requirements-list li,
+    .course-content li {
+      padding: 0.5rem 0.75rem;
+      color: #000000 !important;
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(144, 238, 144, 0.6);
+      font-family: 'Bodoni MT Poster Compressed', serif;
+      font-size: 1.01rem;
+      font-weight: 600;
+      text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.9);
+      z-index: 10;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    .requirements-list li:hover,
+    .course-content li:hover {
+      background: linear-gradient(135deg, #f0fff4 0%, #e8f5e8 100%);
+      transform: translateX(5px);
+      border-color: rgba(144, 238, 144, 0.6);
+    }
+
+    .requirements-list li:before,
+    .course-content li:before {
+      content: "✓";
+      color: #1e3a8a !important;
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+      font-size: 1.1rem;
+      z-index: 25;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    .program-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 2px solid rgba(144, 238, 144, 0.3);
+      position: relative;
+      z-index: 20;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      border-radius: 25px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-decoration: none;
+      display: inline-block;
+      font-family: 'Cooper Black', sans-serif;
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 25;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      z-index: -1;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      bottom: 2px;
+      border-radius: inherit;
+      z-index: -1;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(145deg, #4a2c2a 0%, #6b4423 25%, #8b5a3c 50%, #6b4423 75%, #4a2c2a 100%);
+      box-shadow: 
+        0 8px 15px rgba(74, 44, 42, 0.4),
+        0 4px 8px rgba(107, 68, 35, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+      border: 2px solid #3d2422;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-primary::before {
+      background: linear-gradient(145deg, #3d2422 0%, #5c3a28 25%, #7a4e35 50%, #5c3a28 75%, #3d2422 100%);
+      box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-primary::after {
+      background: linear-gradient(145deg, #6b4423 0%, #8b5a3c 50%, #6b4423 100%);
+      opacity: 0.3;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) rotateX(5deg) scale(1.02);
+      box-shadow: 
+        0 12px 20px rgba(74, 44, 42, 0.5),
+        0 6px 12px rgba(107, 68, 35, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+      background: linear-gradient(145deg, #5c3a28 0%, #7a4e35 25%, #9b6a4a 50%, #7a4e35 75%, #5c3a28 100%);
+    }
+
+    .btn-primary:hover::before {
+      transform: translateZ(-2px);
+      background: linear-gradient(145deg, #4a2c2a 0%, #6b4423 25%, #8b5a3c 50%, #6b4423 75%, #4a2c2a 100%);
+      box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary:hover::after {
+      transform: translateZ(-1px);
+      opacity: 0.4;
+    }
+
+    .btn-primary:active {
+      transform: translateY(-1px) rotateX(2deg) scale(0.98);
+      box-shadow: 
+        0 4px 8px rgba(74, 44, 42, 0.4),
+        0 2px 4px rgba(107, 68, 35, 0.3),
+        inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-outline-primary {
+      color: #1e3a8a;
+      background: linear-gradient(145deg, #f8f4f1 0%, #e8dfd8 50%, #f8f4f1 100%);
+      box-shadow: 
+        0 8px 15px rgba(74, 44, 42, 0.3),
+        0 4px 8px rgba(107, 68, 35, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+      border: 2px solid #6b4423;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+    }
+
+    .btn-outline-primary::before {
+      background: linear-gradient(145deg, #e8dfd8 0%, #d8cfc6 50%, #e8dfd8 100%);
+      box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .btn-outline-primary::after {
+      background: linear-gradient(145deg, #6b4423 0%, #8b5a3c 50%, #6b4423 100%);
+      opacity: 0.1;
+    }
+
+    .btn-outline-primary:hover {
+      transform: translateY(-3px) rotateX(5deg) scale(1.02);
+      color: #1e3a8a;
+      background: linear-gradient(145deg, #fff8f0 0%, #f5e6d8 50%, #fff8f0 100%);
+      box-shadow: 
+        0 12px 20px rgba(74, 44, 42, 0.4),
+        0 6px 12px rgba(107, 68, 35, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+      border-color: #8b5a3c;
+    }
+
+    .btn-outline-primary:hover::before {
+      transform: translateZ(-2px);
+      background: linear-gradient(145deg, #f5e6d8 0%, #ead4c2 50%, #f5e6d8 100%);
+      box-shadow: 
+        0 6px 12px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-outline-primary:hover::after {
+      transform: translateZ(-1px);
+      opacity: 0.2;
+    }
+
+    .btn-outline-primary:active {
+      transform: translateY(-1px) rotateX(2deg) scale(0.98);
+      box-shadow: 
+        0 4px 8px rgba(74, 44, 42, 0.3),
+        0 2px 4px rgba(107, 68, 35, 0.2),
+        inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Clean Hospitals Grid */
+    .hospitals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+    }
+
+    .hospital-card {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+      padding: 1.2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(144, 238, 144, 0.4);
+    }
+
+    .hospital-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    .hospital-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      flex-shrink: 0;
+      box-shadow: 0 3px 8px rgba(30, 58, 138, 0.2);
+    }
+
+    .hospital-icon i {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .hospital-info h4 {
+      color: #1e3a8a;
+      margin: 0 0 0.4rem;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Cooper Black', sans-serif;
+    }
+
+    .hospital-info p {
+      color: #1a1a1a;
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      font-family: 'Bodoni MT Poster Compressed', serif;
+      font-weight: 500;
+      text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+    }
+
+    .practicum-details {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      margin-top: 1.5rem;
+      border: 1px solid rgba(144, 238, 144, 0.4);
+    }
+
+    .practicum-details h3 {
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      font-family: 'Haettenschweiler', sans-serif;
+    }
+
+    .practicum-info p {
+      color: #1a1a1a;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-family: 'Bodoni MT Poster Compressed', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+    }
+
+    .training-structure {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .training-structure li {
+      padding: 0.6rem 0.75rem;
+      color: #1a1a1a;
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 0.6rem;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border-left: 3px solid rgba(144, 238, 144, 0.5);
+      font-family: 'Bodoni MT Poster Compressed', serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+    }
+
+    .training-structure li:hover {
+      background: linear-gradient(135deg, #f0fff4 0%, #e8f5e8 100%);
+      transform: translateX(5px);
+      border-left-color: #1e3a8a;
+    }
+
+    .training-structure li:last-child {
+      border-bottom: none;
+    }
+
+    .training-structure li:before {
+      content: "→";
+      color: #1e3a8a;
+      position: absolute;
+      left: 0.5rem;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    /* Enhanced Timeline */
+    .process-timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .process-timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, #ffd700 0%, #1a237e 50%, #ffd700 100%);
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+      position: relative;
+      animation: timelineItemEntrance 0.8s ease-out;
+    }
+
+    @keyframes timelineItemEntrance {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .timeline-item:nth-child(even) {
+      flex-direction: row-reverse;
+      animation: timelineItemEntranceRight 0.8s ease-out;
+    }
+
+    @keyframes timelineItemEntranceRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .timeline-marker {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-right: 1.5rem;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+      animation: markerPulse 2s ease-in-out infinite;
+      font-family: 'Cooper Black', sans-serif;
+    }
+
+    @keyframes markerPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .timeline-content {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      flex: 1;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(144, 238, 144, 0.4);
+    }
+
+    .timeline-item:hover .timeline-content {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+
+    .timeline-content h4 {
+      color: #1e3a8a;
+      margin: 0 0 0.6rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: 'Cooper Black', sans-serif;
+    }
+
+    .timeline-content p {
+      color: #1a1a1a;
+      margin: 0;
+      line-height: 1.5;
+      font-family: 'Bodoni MT Poster Compressed', serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.8);
+    }
+
+    /* Enhanced Responsive Design */
+    @media (max-width: 768px) {
+      .page-header {
+        padding: 3rem 0;
+      }
+      
+      .page-title {
+        font-size: 2.2rem;
+      }
+      
+      .page-subtitle {
+        font-size: 1rem;
+      }
+      
+      .program-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+      }
+      
+      .program-icon {
+        width: 60px;
+        height: 60px;
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+      
+      .program-icon i {
+        font-size: 1.5rem;
+      }
+      
+      .program-title h3 {
+        font-size: 1.3rem;
+      }
+      
+      .program-duration {
+        font-size: 0.8rem;
+        padding: 0.2rem 0.5rem;
+      }
+      
+      .program-content {
+        padding: 1.5rem;
+      }
+      
+      .program-content h4 {
+        font-size: 1.1rem;
+        margin: 1rem 0 0.75rem;
+      }
+      
+      .program-content p {
+        font-size: 0.9rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .requirements-list li,
+      .course-content li {
+        padding: 0.4rem 0;
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
+      }
+      
+      .program-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+      }
+      
+      .btn {
+        padding: 10px 25px;
+        font-size: 0.9rem;
+        width: 100%;
+      }
+      
+      .hospital-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+      }
+      
+      .hospital-icon {
+        width: 50px;
+        height: 50px;
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+      
+      .hospital-icon i {
+        font-size: 1.2rem;
+      }
+      
+      .hospital-info h4 {
+        font-size: 1rem;
+      }
+      
+      .hospital-info p {
+        font-size: 0.85rem;
+      }
+      
+      .practicum-details {
+        padding: 1.5rem;
+      }
+      
+      .practicum-details h3 {
+        font-size: 1.2rem;
+      }
+      
+      .training-structure li {
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .timeline-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      
+      .timeline-item:nth-child(even) {
+        flex-direction: column;
+      }
+      
+      .timeline-marker {
+        width: 50px;
+        height: 50px;
+        margin-right: 0;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+      }
+      
+      .timeline-content {
+        padding: 1.5rem;
+      }
+      
+      .timeline-content h4 {
+        font-size: 1.1rem;
+        margin: 0 0 0.5rem;
+      }
+      
+      .timeline-content p {
+        font-size: 0.9rem;
+      }
+      
+      .process-timeline::before {
+        left: 25px;
+      }
+      
+      .timeline-item:not(:last-child):after {
+        left: 25px;
+        top: 60px;
+        height: calc(100% + 1rem);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .page-title {
+        font-size: 1.8rem;
+      }
+      
+      .program-header {
+        padding: 1rem;
+      }
+      
+      .program-icon {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .program-icon i {
+        font-size: 1.2rem;
+      }
+      
+      .program-title h3 {
+        font-size: 1.1rem;
+      }
+      
+      .program-content {
+        padding: 1rem;
+      }
+      
+      .program-content h4 {
+        font-size: 1rem;
+      }
+      
+      .program-content p {
+        font-size: 0.85rem;
+      }
+      
+      .requirements-list li,
+      .course-content li {
+        font-size: 0.85rem;
+      }
+      
+      .btn {
+        padding: 8px 20px;
+        font-size: 0.8rem;
+      }
+      
+      .hospital-card {
+        padding: 0.75rem;
+      }
+      
+      .hospital-icon {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .hospital-icon i {
+        font-size: 1rem;
+      }
+      
+      .timeline-marker {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+      }
+      
+      .timeline-content {
+        padding: 1rem;
+      }
+    }
+  </style>
+
+  <?php include('shared/_footer.php'); ?>

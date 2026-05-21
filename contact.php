@@ -1,1836 +1,1316 @@
 <?php
-// Error reporting for development
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
-
-// Set headers
-header('Content-Type: text/html; charset=UTF-8');
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
-
-// Start session if needed
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Iganga School of Nursing and Midwifery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/modern-theme.css">
-    <link rel="stylesheet" href="assets/css/image-animations.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            /* Dark Blue Professional Color Palette - Matching index.php */
-            --primary-dark: #0a1628;
-            --secondary-dark: #1e3a5f;
-            --accent-blue: #2563eb;
-            --accent-cyan: #06b6d4;
-            --accent-light-blue: #3b82f6;
-            --accent-dark-blue: #1e40af;
-            --medical-blue: #0066cc;
-            --medical-cyan: #00bcd4;
-            --white: #FFFFFF;
-            --gray-light: #f8fafc;
-            --gray-medium: #e2e8f0;
-            --gray-dark: #475569;
-            --text-primary: #0f172a;
-            --text-secondary: #64748b;
-            --text-muted: #94a3b8;
-            
-            /* Gradients */
-            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-blue) 100%);
-            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-blue) 100%);
-            --gradient-secondary: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
-            --gradient-clean: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%);
-            
-            /* Shadows */
-            --shadow-sm: 0 2px 4px rgba(10, 22, 40, 0.1);
-            --shadow-md: 0 4px 8px rgba(10, 22, 40, 0.15);
-            --shadow-lg: 0 8px 16px rgba(10, 22, 40, 0.2);
-            --shadow-xl: 0 20px 40px rgba(10, 22, 40, 0.25);
-            
-            /* Borders */
-            --border-light: var(--gray-medium);
-            --border-medium: var(--gray-dark);
-            --border-dark: var(--primary-dark);
-            --border-color: var(--gray-medium);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 45%, var(--gray-light) 100%);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Premium 3D Navigation - Matching index.php */
-        .navbar {
-            position: fixed;
-            top: 40px;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            z-index: 1001;
-            padding: 1rem 0;
-            box-shadow: 
-                0 8px 32px rgba(10, 22, 40, 0.1),
-                0 2px 8px rgba(10, 22, 40, 0.05),
-                inset 0 1px 0 rgba(255,255,255,0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .navbar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-dark-blue) 0%, var(--accent-blue) 50%, var(--accent-cyan) 100%);
-            animation: navbarShine 4s ease-in-out infinite;
-        }
-
-        .navbar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        @keyframes navbarShine {
-            0%, 100% {
-                transform: translateX(-100%);
-            }
-            50% {
-                transform: translateX(100%);
-            }
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-            min-height: auto;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-weight: 900;
-            font-size: 1.6rem;
-            color: var(--primary-dark);
-            text-decoration: none;
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            transform-style: preserve-3d;
-            transition: all 0.35s ease;
-            position: relative;
-            z-index: 5;
-            padding: 0;
-            margin: 0;
-        }
-
-        .nav-logo img {
-            width: 64px;
-            height: 64px;
-            object-fit: cover;
-            border: 2px solid rgba(17, 82, 147, 0.2);
-            border-radius: 50%;
-            transition: all 0.35s ease;
-            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-        }
-
-        .nav-logo:hover img {
-            transform: scale(1.03);
-            box-shadow: 0 14px 32px rgba(0,0,0,0.16);
-            border-color: rgba(255, 215, 0, 0.8);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            transform-style: preserve-3d;
-            position: relative;
-            z-index: 2;
-            flex-wrap: wrap;
-        }
-
-        .nav-link {
-            color: #000000;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid #000000;
-            font-family: 'Inter', sans-serif;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 1;
-        }
-
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #000000 0%, var(--primary-dark) 100%);
-            border-radius: 8px;
-            opacity: 0;
-            transition: opacity 0.35s ease;
-            z-index: -1;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
-            border-radius: 8px;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
-        .nav-link:hover {
-            color: #FFFFFF;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            border-color: #000000;
-            background: #000000;
-        }
-
-        .nav-link:hover::before {
-            opacity: 1;
-        }
-
-        .nav-link:hover::after {
-            opacity: 0.3;
-        }
-
-        .nav-link:active {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Navigation Dropdown */
-        .nav-dropdown {
-            position: relative;
-        }
-
-        .nav-dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            cursor: pointer;
-        }
-
-        .nav-dropdown-toggle::after {
-            content: '▼';
-            font-size: 0.7rem;
-            transition: transform 0.3s ease;
-            color: var(--text-secondary);
-        }
-
-        .nav-dropdown:hover .nav-dropdown-toggle::after {
-            transform: rotate(180deg);
-            color: var(--accent-blue);
-        }
-
-        .nav-dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--white);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-shadow: var(--shadow-lg);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            min-width: 180px;
-            z-index: 1000;
-        }
-
-        .nav-dropdown:hover .nav-dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .nav-dropdown-menu a {
-            display: block;
-            padding: 0.6rem 1rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid transparent;
-        }
-
-        .nav-dropdown-menu a:hover {
-            background: var(--accent-light-blue);
-            color: var(--white);
-            transform: translateX(5px);
-        }
-
-        .nav-dropdown-menu a:first-child {
-            border-radius: 8px 8px 0 0;
-        }
-
-        .nav-dropdown-menu a:last-child {
-            border-radius: 0 0 8px 8px;
-        }
-
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            display: none;
-            background: var(--accent-dark-blue);
-            border: 2px solid var(--accent-blue);
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .mobile-menu-toggle::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 24px;
-            height: 2px;
-            background: var(--white);
-            transform: translate(-50%, -50%);
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-toggle::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 24px;
-            height: 2px;
-            background: var(--white);
-            transform: translate(-50%, -50%) rotate(90deg);
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-toggle:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(10, 22, 40, 0.3);
-        }
-
-        .mobile-menu-toggle.active::before {
-            transform: translate(-50%, -50%) rotate(45deg);
-        }
-
-        .mobile-menu-toggle.active::after {
-            transform: translate(-50%, -50%) rotate(-45deg);
-        }
-
-        /* Page Header Section */
-        .page-header-section {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 3rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .page-header-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="page-header-pattern" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="3" fill="rgba(255,255,255,0.1)"/><path d="M10 20 Q20 10, 30 20 T50 20" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23page-header-pattern)"/></svg>');
-            animation: pageHeaderFloat 25s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes pageHeaderFloat {
-            0% { transform: translateX(0) translateY(0); }
-            25% { transform: translateX(10px) translateY(-5px); }
-            50% { transform: translateX(20px) translateY(0); }
-            75% { transform: translateX(10px) translateY(5px); }
-            100% { transform: translateX(0) translateY(0); }
-        }
-
-        .page-header-content {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .page-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            transform-style: preserve-3d;
-            transform: translateZ(10px);
-        }
-
-        .breadcrumb {
-            opacity: 0.9;
-            font-size: 1.1rem;
-            transform-style: preserve-3d;
-            transform: translateZ(5px);
-        }
-
-        /* Brand Banner */
-        .brand-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-dark-blue) 50%, var(--accent-blue) 100%);
-            border-bottom: 1px solid rgba(220,220,220,0.9);
-            z-index: 1002;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-        }
-
-        .brand-marquee {
-            display: inline-flex;
-            align-items: center;
-            gap: 3rem;
-            white-space: nowrap;
-            animation: marquee 18s linear infinite;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--white);
-            font-size: 0.95rem;
-            transform: perspective(1000px) rotateX(0deg);
-            line-height: 1;
-            margin: 0;
-            padding: 0;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0) perspective(1000px) rotateX(2deg); }
-            100% { transform: translateX(-100%) perspective(1000px) rotateX(2deg); }
-        }
-
-        /* Fixed Header Container */
-        .fixed-header {
-            position: relative;
-            z-index: 1000;
-            width: 100%;
-        }
-
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(25px);
-            box-shadow: 
-                0 20px 60px rgba(10, 22, 40, 0.15),
-                0 8px 24px rgba(10, 22, 40, 0.1),
-                inset 0 1px 0 rgba(255,255,255,0.2);
-            border-bottom-color: rgba(255,255,255,0.3);
-        }
-
-        /* Main Content */
-        .main-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            margin-bottom: 3rem;
-        }
-
-        .contact-intro {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .contact-image-card {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.3s ease;
-        }
-
-        .contact-image-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .image-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            color: white;
-            padding: 2rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .contact-image-card:hover .image-overlay {
-            transform: translateY(0);
-        }
-
-        .contact-info-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
-        }
-
-        .contact-form {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .contact-item:last-child {
-            border-bottom: none;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .contact-details h3 {
-            font-weight: 600;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-details p {
-            color: var(--text-secondary);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        /* Map Section */
-        .map-section {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
-            margin-bottom: 3rem;
-        }
-
-        .map-container {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
-            border-radius: 15px;
-        }
-
-        .map-info {
-            text-align: center;
-            padding: 2rem;
-            background: linear-gradient(135deg, #f8fafc, #ffffff);
-            border-radius: 15px;
-            border: 1px solid var(--border-color);
-        }
-
-        .map-info h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            margin-bottom: 1rem;
-        }
-
-        .map-info p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .directions-btn {
-            display: flex;
-            justify-content: center;
-        }
-
-        .btn-directions {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--gradient-primary);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .btn-directions:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            background: var(--accent-gold);
-        }
-
-        /* Quick Links */
-        .quick-links {
-            background: var(--gradient-primary);
-            color: white;
-            border-radius: 20px;
-            padding: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .quick-links::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .quick-links-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .quick-links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .quick-link-item {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .quick-link-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .quick-link-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .quick-link-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .quick-link-description {
-            opacity: 0.9;
-            margin-bottom: 1rem;
-        }
-
-        .quick-link-btn {
-            background: var(--golden-yellow);
-            color: var(--primary-blue);
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .quick-link-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* Mobile Menu Button */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 100px;
-                left: 0;
-                right: 0;
-                background: var(--white);
-                flex-direction: column;
-                gap: 0;
-                padding: 1rem;
-                box-shadow: 0 20px 40px rgba(10, 22, 40, 0.2);
-                border-top: 2px solid var(--accent-blue);
-                z-index: 999;
-                transform: translateY(-100%);
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            .nav-links.active {
-                display: flex;
-                transform: translateY(0);
-            }
-
-            .nav-link {
-                width: 100%;
-                padding: 1rem;
-                border-radius: 0;
-                border-bottom: 1px solid var(--border-light);
-                text-align: center;
-                font-size: 1rem;
-            }
-
-            .nav-link:last-child {
-                border-bottom: none;
-            }
-
-            .nav-dropdown-menu {
-                position: static;
-                background: var(--gray-light);
-                box-shadow: none;
-                border: none;
-                border-radius: 0;
-                transform: none;
-                opacity: 1;
-                visibility: visible;
-                display: none;
-                margin-top: 0;
-                min-width: auto;
-            }
-
-            .nav-dropdown.active .nav-dropdown-menu {
-                display: block;
-            }
-
-            .nav-dropdown-toggle::after {
-                display: none;
-            }
-
-            .nav-dropdown-menu a {
-                padding: 0.8rem 1rem;
-                font-size: 0.9rem;
-                border-bottom: 1px solid var(--border-light);
-                background: transparent;
-                color: var(--text-primary);
-            }
-
-            .nav-dropdown-menu a:hover {
-                background: var(--accent-light-blue);
-                color: var(--white);
-                transform: none;
-            }
-
-            .navbar {
-                padding: 1rem;
-            }
-
-            .nav-container {
-                flex-wrap: wrap;
-                position: relative;
-            }
-
-            .nav-logo {
-                font-size: 1.3rem;
-                gap: 1rem;
-            }
-
-            .nav-logo img {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .header-nav {
-                flex-wrap: wrap;
-                position: relative;
-            }
-            
-            .logo-section {
-                flex: 1;
-            }
-            .nav-links {
-                display: none;
-            }
-            
-            .page-title {
-                font-size: 2rem;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .contact-image-card img {
-                height: 200px;
-            }
-            
-            .map-container iframe {
-                height: 300px;
-            }
-            
-            .quick-links-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Footer Styling */
-        .footer {
-            background: var(--primary-dark);
-            color: white;
-            padding: 3rem 2rem 2rem;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--accent-gold);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-gold);
-            transform: translateX(5px);
-        }
-
-        .contact-info p {
-            margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .contact-info i {
-            color: var(--accent-gold);
-            width: 20px;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .footer-subtitle {
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .footer-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        .whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #25d366;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-btn:hover {
-            background: #128c7e;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-        }
-
-        .copyright {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* Premium Contact Gallery Section Styles */
-        .contact-gallery-section {
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 50%, var(--gray-light) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-gallery-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 40% 40%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 60% 60%, rgba(6, 182, 212, 0.03) 0%, transparent 50%),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="contact-bg-pattern" width="55" height="55" patternUnits="userSpaceOnUse"><circle cx="27.5" cy="27.5" r="3.5" fill="rgba(37, 99, 235, 0.06)"/><path d="M17 27.5 Q27.5 17, 38 27.5 T59 27.5" stroke="rgba(6, 182, 212, 0.04)" stroke-width="1" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23contact-bg-pattern)"/></svg>');
-            background-size: cover, cover, 110px 110px;
-            background-position: center, center, 0 0;
-            animation: contactFloat 60s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes contactFloat {
-            0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
-            25% { transform: translateX(22px) translateY(-14px) rotate(0.6deg); }
-            50% { transform: translateX(44px) translateY(0) rotate(0deg); }
-            75% { transform: translateX(22px) translateY(14px) rotate(-0.6deg); }
-        }
-
-        .contact-gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-            grid-auto-rows: 340px;
-            gap: 2.8rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .contact-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 32px;
-            box-shadow: var(--shadow-xl);
-            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-            background: var(--white);
-        }
-
-        .contact-item-large {
-            grid-column: span 2;
-            grid-row: span 2;
-        }
-
-        .contact-item-wide {
-            grid-column: span 2;
-        }
-
-        .contact-image-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            border-radius: 32px;
-        }
-
-        .contact-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: scale(1);
-            filter: brightness(1) contrast(1) saturate(1);
-        }
-
-        .contact-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                to bottom,
-                transparent 0%,
-                transparent 38%,
-                rgba(10, 22, 40, 0.85) 78%,
-                rgba(10, 22, 40, 0.98) 100%
-            );
-            display: flex;
-            align-items: flex-end;
-            padding: 4rem;
-            opacity: 0;
-            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateY(40px);
-        }
-
-        .contact-content {
-            color: var(--white);
-            transform: translateZ(30px);
-        }
-
-        .contact-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 1.4rem;
-            text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.9);
-        }
-
-        .contact-description {
-            font-size: 1.2rem;
-            line-height: 1.9;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-        }
-
-        .contact-badges {
-            display: flex;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-        }
-
-        .contact-badge {
-            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
-            color: var(--white);
-            padding: 0.8rem 1.6rem;
-            border-radius: 40px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.7);
-        }
-
-        /* Contact Gallery Hover Effects */
-        .contact-item:hover {
-            transform: translateY(-35px) translateZ(70px) rotateX(7deg) rotateY(-6deg);
-            box-shadow: 
-                var(--shadow-2xl),
-                0 0 120px rgba(37, 99, 235, 0.7),
-                0 0 250px rgba(6, 182, 212, 0.6);
-        }
-
-        .contact-item:hover .contact-image {
-            transform: scale(1.22) rotateX(6deg) rotateY(-6deg);
-            filter: brightness(1.3) contrast(1.2) saturate(1.3);
-        }
-
-        .contact-item:hover .contact-overlay {
-            opacity: 1;
-            transform: translateY(0);
-            background: linear-gradient(
-                to bottom,
-                transparent 0%,
-                transparent 28%,
-                rgba(10, 22, 40, 0.75) 68%,
-                rgba(10, 22, 40, 0.9) 100%
-            );
-        }
-
-        /* Contact Item Animations */
-        .contact-item:nth-child(1) { animation: contactSlideIn 1.2s ease-out 0.1s both; }
-        .contact-item:nth-child(2) { animation: contactSlideIn 1.2s ease-out 0.2s both; }
-        .contact-item:nth-child(3) { animation: contactSlideIn 1.2s ease-out 0.3s both; }
-        .contact-item:nth-child(4) { animation: contactSlideIn 1.2s ease-out 0.4s both; }
-        .contact-item:nth-child(5) { animation: contactSlideIn 1.2s ease-out 0.5s both; }
-        .contact-item:nth-child(6) { animation: contactSlideIn 1.2s ease-out 0.6s both; }
-        .contact-item:nth-child(7) { animation: contactSlideIn 1.2s ease-out 0.7s both; }
-        .contact-item:nth-child(8) { animation: contactSlideIn 1.2s ease-out 0.8s both; }
-
-        @keyframes contactSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(70px) scale(0.7);
-                filter: blur(25px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: blur(0);
-            }
-        }
-
-        /* Responsive Contact Gallery */
-        @media (max-width: 1024px) {
-            .contact-gallery-grid {
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-                grid-auto-rows: 300px;
-                gap: 2.2rem;
-            }
-
-            .contact-item-large {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
-
-            .contact-item-wide {
-                grid-column: span 1;
-            }
-
-            .contact-title {
-                font-size: 1.7rem;
-            }
-
-            .contact-description {
-                font-size: 1.1rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .contact-gallery-section {
-                padding: 4rem 1rem;
-            }
-
-            .contact-gallery-grid {
-                grid-template-columns: 1fr;
-                grid-auto-rows: 340px;
-                gap: 2rem;
-            }
-
-            .contact-item-large,
-            .contact-item-wide {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
-
-            .contact-overlay {
-                padding: 3.5rem;
-            }
-
-            .contact-title {
-                font-size: 1.8rem;
-            }
-
-            .contact-description {
-                font-size: 1.15rem;
-            }
-
-            .footer {
-                padding: 2rem 1rem;
-            }
-
-            .footer-grid {
-                gap: 2rem;
-            }
-
-            .footer-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .whatsapp-btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .contact-title {
-                font-size: 1.6rem;
-            }
-
-            .contact-description {
-                font-size: 1.05rem;
-            }
-
-            .contact-badge {
-                font-size: 0.85rem;
-                padding: 0.7rem 1.4rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="fixed-header">
-        <div class="brand-banner">
-            <div class="brand-marquee">
-                <span>Iganga School of Nursing & Midwifery</span>
-                <span>Practical Skills Lab | Modern Healthcare Training | Student Success</span>
-                <span>Academic Excellence | Compassionate Care | Career Ready Nurses</span>
-            </div>
+// Use enhanced configuration with multi-database support
+require_once 'includes/config_enhanced.php';
+include_once 'includes/functions.php';
+include_once 'shared/_header.php'; ?>
+
+  <main>
+    <!-- Hero Page Header -->
+    <section class="hero-header">
+      <div class="hero-overlay"></div>
+      <div class="hero-particles"></div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 class="hero-title animate-fade-in">Contact Us</h1>
+            <p class="hero-subtitle animate-slide-up">Get in touch with Iganga School of Nursing and Midwifery</p>
+            <div class="hero-decoration animate-scale-in"></div>
+          </div>
         </div>
-        <!-- Professional Navigation -->
-        <nav class="navbar" id="navbar">
-            <div class="nav-container">
-                <a href="index.php" class="nav-logo">
-                    <img src="assets/school-logo.png" alt="ISNM Logo">
-                </a>
-                
-                <!-- Mobile Menu Toggle -->
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <span></span>
-                    <span></span>
-                </button>
-                
-                <div class="nav-links" id="navLinks">
-                    <a href="index.php" class="nav-link">Home</a>
-                    
-                    <!-- Academics Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">Academics</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="programs.php">Programs</a>
-                            <a href="activities.php#academic-activities">Academic Activities</a>
-                            <a href="activities.php#sports-activities">Sports & Recreation</a>
-                            <a href="activities.php#community-service">Community Service</a>
-                            <a href="activities.php#cultural-activities">Cultural Activities</a>
-                        </div>
-                    </div>
-                    
-                    <!-- About Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">About</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="about.php">Our School</a>
-                            <a href="governance.php">Governance</a>
-                            <a href="history.php">History</a>
-                            <a href="achievements.php">Achievements</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Admissions Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">Admissions</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="application.php">Apply Now</a>
-                            <a href="programs.php#requirements">Requirements</a>
-                            <a href="programs.php#fees">Fee Structure</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Campus Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">Campus</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="infrastructure.php">Infrastructure</a>
-                            <a href="activities.php">Student Life</a>
-                        </div>
-                    </div>
-                    
-                    <a href="contact.php" class="nav-link">Contact</a>
-                    <a href="login-portal.php" class="nav-link">Portal</a>
-                </div>
-            </div>
-        </nav>
-    </div>
+      </div>
+    </section>
 
-    <!-- Page Title Section -->
-    <div class="page-header-section">
-        <div class="page-header-content">
-            <h1 class="page-title">Contact Us</h1>
-            <div class="breadcrumb">
-                <p>Home / Contact</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Contact Section -->
-        <div class="contact-section">
-            <div class="contact-intro">
-                <h2 class="section-title">Get in Touch</h2>
-                <p class="section-subtitle">We're here to help you start your healthcare career journey</p>
-            </div>
-            
-            <div class="contact-grid">
-                <div class="contact-image-card">
-                    <img src="assets/images/facilities/administration-block.jpg" alt="ISNM Administration Block" style="width: 100%; height: 250px; object-fit: cover; border-radius: 15px;">
-                    <div class="image-overlay">
-                        <h4>Visit Our Campus</h4>
-                        <p>Experience our modern facilities and meet our dedicated staff</p>
-                    </div>
-                </div>
-                
-                <div class="contact-info-card">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Location</h3>
-                            <p>Iganga Town, Iganga District<br>Eastern Region, Uganda</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Phone Numbers</h3>
-                            <p>+256 782633253</p>
-                            <p>+256 703999796</p>
-                            <p>+256 753393340</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Email Addresses</h3>
-                            <p>General: info@isnm.ug.edu</p>
-                            <p>Application: application@isnm.ug.edu</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h3>Office Hours</h3>
-                            <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
-                            <p>Saturday: 8:00 AM - 1:00 PM</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="contact-form">
-                <h2 class="section-title">Send us a Message</h2>
-                
-                <form action="#" method="POST">
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="subject">Subject *</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Message *</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i>
-                        Send Message
-                    </button>
-                </form>
-            </div>
+    <!-- Contact Information Section -->
+    <section class="contact-info-section py-5">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="header-icon">
+            <i class="fas fa-address-book"></i>
+          </div>
+          <h2 class="section-title">Our Contact Information</h2>
+          <p class="section-subtitle">We're here to help and answer any questions you might have</p>
         </div>
         
-        <!-- Map Section -->
-        <div class="map-section">
-            <h2 class="section-title">Find Us</h2>
-            <div class="map-container">
+        <div class="contact-grid">
+          <div class="contact-card animate-slide-up" style="animation-delay: 0.1s;">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h4>Address</h4>
+            <div class="contact-details">
+              <p><i class="fas fa-building"></i> P.O. Box 418, Iganga</p>
+              <p><i class="fas fa-store"></i> Before C.M.S Trading Centre</p>
+              <p><i class="fas fa-road"></i> Along Jinja-Iganga Highway</p>
+              <p><i class="fas fa-home"></i> After Nekoli Guest House</p>
+            </div>
+          </div>
+          
+          <div class="contact-card animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <h4>Phone Numbers</h4>
+            <div class="contact-details">
+              <p><i class="fas fa-user-tie"></i> Principal: 0782 990 403</p>
+              <p><i class="fas fa-user-shield"></i> Deputy Principal: 0782 633 253</p>
+              <p><i class="fas fa-user-cog"></i> Director: 0753 393 340</p>
+              <p><i class="fas fa-users"></i> HRM: 0703 999 796</p>
+            </div>
+          </div>
+          
+          <div class="contact-card animate-slide-up" style="animation-delay: 0.3s;">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <h4>Email</h4>
+            <div class="contact-details">
+              <p><i class="fas fa-at"></i> iganganursingschool@gmail.com</p>
+              <p><i class="fas fa-graduation-cap"></i> admissions@isnm.ac.ug</p>
+              <p><i class="fas fa-info-circle"></i> info@isnm.ac.ug</p>
+            </div>
+          </div>
+          
+          <div class="contact-card animate-slide-up" style="animation-delay: 0.4s;">
+            <div class="contact-icon">
+              <i class="fas fa-globe"></i>
+            </div>
+            <h4>Website & Social</h4>
+            <div class="contact-details">
+              <p><i class="fas fa-globe-africa"></i> www.isnm.ac.ug</p>
+              <p><i class="fas fa-share-alt"></i> Follow us on social media</p>
+              <p><i class="fab fa-facebook"></i> Facebook: @ISNMUganda</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section py-5">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="header-icon">
+            <i class="fas fa-paper-plane"></i>
+          </div>
+          <h2 class="section-title">Send Us a Message</h2>
+          <p class="section-subtitle">Fill out the form below and we'll get back to you as soon as possible</p>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-8 col-md-10 col-sm-12 mx-auto">
+            <div class="contact-form-container animate-fade-in">
+              <form id="contactForm" method="POST" action="process-contact.php">
+                <div class="form-section">
+                  <div class="section-title">
+                    <i class="fas fa-user me-2"></i>
+                    <h4>Personal Information</h4>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="firstName" class="form-label">
+                        <i class="fas fa-user me-1"></i> First Name *
+                      </label>
+                      <input type="text" class="form-control" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="lastName" class="form-label">
+                        <i class="fas fa-user me-1"></i> Last Name *
+                      </label>
+                      <input type="text" class="form-control" id="lastName" name="lastName" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-section">
+                  <div class="section-title">
+                    <i class="fas fa-address-card me-2"></i>
+                    <h4>Contact Details</h4>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="email" class="form-label">
+                        <i class="fas fa-envelope me-1"></i> Email Address *
+                      </label>
+                      <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="phone" class="form-label">
+                        <i class="fas fa-phone me-1"></i> Phone Number *
+                      </label>
+                      <input type="tel" class="form-control" id="phone" name="phone" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-section">
+                  <div class="section-title">
+                    <i class="fas fa-tag me-2"></i>
+                    <h4>Message Details</h4>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <label for="subject" class="form-label">
+                        <i class="fas fa-list me-1"></i> Subject *
+                      </label>
+                      <select class="form-control" id="subject" name="subject" required>
+                        <option value="">Select Subject</option>
+                        <option value="Admissions">🎓 Admissions</option>
+                        <option value="Academics">📚 Academics</option>
+                        <option value="Finance">💰 Finance/Bursar</option>
+                        <option value="General Inquiry">❓ General Inquiry</option>
+                        <option value="Complaint">📝 Complaint</option>
+                        <option value="Partnership">🤝 Partnership</option>
+                        <option value="Alumni">👥 Alumni</option>
+                      </select>
+                    </div>
+                    <div class="col-12">
+                      <label for="message" class="form-label">
+                        <i class="fas fa-comment-alt me-1"></i> Message *
+                      </label>
+                      <textarea class="form-control" id="message" name="message" rows="5" required placeholder="Type your message here..."></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-footer text-center">
+                  <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane me-2"></i>
+                    <span>Send Message</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile-Friendly Office Hours Section -->
+    <section class="office-hours-section py-5">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="header-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h2 class="section-title">Office Hours</h2>
+          <p class="section-subtitle">When you can visit us or call</p>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-6 col-md-12 mb-4">
+            <div class="hours-card animate-slide-up" style="animation-delay: 0.1s;">
+              <div class="card-header">
+                <div class="office-icon">
+                  <i class="fas fa-building"></i>
+                </div>
+                <h3>Administrative Office</h3>
+              </div>
+              <div class="hours-list">
+                <div class="hour-item">
+                  <div class="day-info">
+                    <i class="fas fa-calendar-day me-2"></i>
+                    <span class="day">Monday - Friday</span>
+                  </div>
+                  <span class="time">8:00 AM - 5:00 PM</span>
+                </div>
+                <div class="hour-item">
+                  <div class="day-info">
+                    <i class="fas fa-calendar-week me-2"></i>
+                    <span class="day">Saturday</span>
+                  </div>
+                  <span class="time">9:00 AM - 1:00 PM</span>
+                </div>
+                <div class="hour-item closed">
+                  <div class="day-info">
+                    <i class="fas fa-calendar-times me-2"></i>
+                    <span class="day">Sunday</span>
+                  </div>
+                  <span class="time">Closed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-6 col-md-12 mb-4">
+            <div class="hours-card animate-slide-up" style="animation-delay: 0.2s;">
+              <div class="card-header">
+                <div class="office-icon">
+                  <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Admissions Office</h3>
+              </div>
+              <div class="hours-list">
+                <div class="hour-item">
+                  <div class="day-info">
+                    <i class="fas fa-calendar-day me-2"></i>
+                    <span class="day">Monday - Friday</span>
+                  </div>
+                  <span class="time">9:00 AM - 4:00 PM</span>
+                </div>
+                <div class="hour-item">
+                  <div class="day-info">
+                  <i class="fas fa-calendar-week"></i>
+                  <span class="day">Saturday</span>
+                </div>
+                <span class="time">9:00 AM - 1:00 PM</span>
+              </div>
+              <div class="hour-item closed">
+                <div class="day-info">
+                  <i class="fas fa-calendar-times"></i>
+                  <span class="day">Sunday</span>
+                </div>
+                <span class="time">Closed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile-Friendly Map Section -->
+    <section class="map-section py-5">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="header-icon">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <h2 class="section-title">Find Us</h2>
+          <p class="section-subtitle">Located in the heart of Iganga Town, Eastern Uganda</p>
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-8 col-md-12 mb-4">
+            <div class="map-container animate-fade-in">
+              <div class="map-wrapper">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7654321098765!2d33.4516861!3d0.5918431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177ef324132c5553:0x86feaa6ce21fc3a1!2sIganga+School+of+Nursing+%26+Midwifery!5e0!3m2!1sen!2sug!4v1234567890"
                     width="100%" 
-                    height="450" 
-                    style="border:0; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" 
+                    height="350" 
                     allowfullscreen="" 
                     loading="lazy" 
                     referrerpolicy="no-referrer-when-downgrade"
                     title="Iganga School of Nursing and Midwifery Location">
                 </iframe>
+              </div>
             </div>
-            <div class="map-info">
-                <h3>Visit Iganga School of Nursing and Midwifery</h3>
-                <p>Located in the heart of Iganga Town, Eastern Uganda, our campus provides easy access to quality healthcare education. Use the map above to find directions to our institution.</p>
-                <div class="directions-btn">
-                    <a href="https://www.google.com/maps/place/Iganga+School+of+Nursing+%26+Midwifery/@0.5918431,33.4516861,17z/data=!3m1!4b1!4m6!3m5!1s0x177ef324132c5553:0x86feaa6ce21fc3a1!8m2!3d0.5918377!4d33.454261!16s%2Fg%2F11b5ys19t0?hl=en-GB&entry=ttu&g_ep=EgoyMDI2MDQxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-directions">
-                        <i class="fas fa-directions"></i>
-                        Get Directions
-                    </a>
+          </div>
+          
+          <div class="col-lg-4 col-md-12">
+            <div class="map-info animate-slide-up" style="animation-delay: 0.3s;">
+              <div class="info-header">
+                <div class="info-icon">
+                  <i class="fas fa-location-arrow"></i>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Quick Links -->
-        <div class="quick-links">
-            <div class="quick-links-content">
-                <h2 class="section-title" style="color: white; text-align: center;">Quick Links</h2>
-                <div class="quick-links-grid">
-                    <div class="quick-link-item">
-                        <div class="quick-link-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h3 class="quick-link-title">Application</h3>
-                        <p class="quick-link-description">Apply now and join our healthcare programs</p>
-                        <a href="application.php" class="quick-link-btn">Apply Now</a>
-                    </div>
-                    
-                    <div class="quick-link-item">
-                        <div class="quick-link-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <h3 class="quick-link-title">Programs</h3>
-                        <p class="quick-link-description">Explore our nursing and midwifery programs</p>
-                        <a href="programs.php" class="quick-link-btn">View Programs</a>
-                    </div>
-                    
-                    <div class="quick-link-item">
-                        <div class="quick-link-icon">
-                            <i class="fas fa-sign-in-alt"></i>
-                        </div>
-                        <h3 class="quick-link-title">Student Portal</h3>
-                        <p class="quick-link-description">Access your student account and resources</p>
-                        <a href="login-portal.php" class="quick-link-btn">Login</a>
-                    </div>
+                <h3>Visit ISNM</h3>
+              </div>
+              <p class="info-description">Located in the heart of Iganga Town, Eastern Uganda, our campus provides easy access to quality healthcare education.</p>
+              <div class="directions-section">
+                <div class="direction-item">
+                  <i class="fas fa-car me-2"></i>
+                  <span>By Car: 2 hours from Kampala</span>
                 </div>
+                <div class="direction-item">
+                  <i class="fas fa-bus me-2"></i>
+                  <span>By Bus: Regular services from major towns</span>
+                </div>
+                <div class="direction-item">
+                  <i class="fas fa-walking me-2"></i>
+                  <span>Walking: 10 minutes from Iganga town center</span>
+                </div>
+              </div>
+              <div class="directions-btn">
+                <a href="https://www.google.com/maps/place/Iganga+School+of+Nursing+%26+Midwifery/@0.5918431,33.4516861,17z/data=!3m1!4b1!4m6!3m5!1s0x177ef324132c5553:0x86feaa6ce21fc3a1!8m2!3d0.5918377!4d33.454261!16s%2Fg%2F11b5ys19t0?hl=en-GB&entry=ttu&g_ep=EgoyMDI2MDQxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-directions">
+                  <i class="fas fa-directions me-2"></i>
+                  <span>Get Directions</span>
+                </a>
+              </div>
             </div>
+          </div>
         </div>
-    </main>
+      </div>
+    </section>
 
-    <!-- Footer -->
-    <footer class="footer" id="contact">
-        <div class="footer-content">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3 class="footer-title">Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="about.php">About ISNM</a></li>
-                        <li><a href="governance.php">Governance</a></li>
-                        <li><a href="programs.php">Academic Programs</a></li>
-                        <li><a href="activities.php">School Activities</a></li>
-                        <li><a href="infrastructure.php">Infrastructure</a></li>
-                        <li><a href="achievements.php">Achievements</a></li>
-                        <li><a href="history.php">School History</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3 class="footer-title">Application</h3>
-                    <ul class="footer-links">
-                        <li><a href="application.php">Apply Now</a></li>
-                        <li><a href="programs.php">Program Requirements</a></li>
-                        <li><a href="programs.php">Fee Structure</a></li>
-                        <li><a href="login-portal.php">Student Portal</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3 class="footer-title">Contact Info</h3>
-                    <div class="contact-info">
-                        <p><i class="fas fa-map-marker-alt"></i> Iganga, Uganda</p>
-                        <p><i class="fas fa-phone"></i> +256 782633253</p>
-                        <p><i class="fas fa-phone"></i> +256 703999796</p>
-                        <p><i class="fas fa-phone"></i> +256 753393340</p>
-                        <p><i class="fas fa-envelope"></i> info@isnm.ug.edu</p>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <h3 class="footer-title">Designed and Developed by Reagan Otema</h3>
-                <p class="footer-subtitle">For system errors, contact via WhatsApp</p>
-                <div class="footer-buttons">
-                    <a href="https://wa.me/256772514889" target="_blank" class="whatsapp-btn">
-                        <i class="fab fa-whatsapp"></i>
-                        MTN: +256772514889
-                    </a>
-                    <a href="https://wa.me/256730314979" target="_blank" class="whatsapp-btn">
-                        <i class="fab fa-whatsapp"></i>
-                        Airtel: +256730314979
-                    </a>
-                </div>
-                <div class="copyright">
-                    <p>&copy; 2026 Iganga School of Nursing and Midwifery. All rights reserved.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+  </main>
 
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navLinks = document.getElementById('navLinks');
-        
-        if (mobileMenuToggle && navLinks) {
-            mobileMenuToggle.addEventListener('click', function() {
-                mobileMenuToggle.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            });
-            
-            // Close menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
-                    mobileMenuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                }
-            });
-            
-            // Close menu when clicking on a link
-            navLinks.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                });
-            });
+  <script>
+    // Contact form validation
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      const requiredFields = this.querySelectorAll('[required]');
+      let isValid = true;
+      
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          isValid = false;
+          field.classList.add('is-invalid');
+        } else {
+          field.classList.remove('is-invalid');
+        }
+      });
+      
+      if (!isValid) {
+        e.preventDefault();
+        showNotification('Please fill in all required fields', 'error');
+        return;
+      }
+      
+      // Phone number validation
+      const phone = document.getElementById('phone').value.replace(/\s/g, '');
+      if (phone.startsWith('+256') && phone.length === 13) {
+        // Valid
+      } else if (phone.startsWith('0') && phone.length === 10) {
+        document.getElementById('phone').value = '+256' + phone.substring(1);
+      } else {
+        e.preventDefault();
+        showNotification('Please enter a valid Ugandan phone number', 'error');
+        return;
+      }
+      
+      // Show loading state
+      const submitBtn = this.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    });
+
+    // Notification function
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.innerHTML = `
+        <div class="notification-content">
+          <i class="fas ${type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+          <span>${message}</span>
+        </div>
+      `;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 100);
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+  </script>
+
+<style>
+    :root {
+        --primary-color: #3E2723;
+        --secondary-color: #1A237E;
+        --accent-color: #FFD700;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+        --warning-color: #ffc107;
+        --info-color: #17a2b8;
+        --light-bg: #f8f9fa;
+    }
+
+    * {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Mobile-Friendly Hero Header Styles */
+    .hero-header {
+      position: relative;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 80px 0 60px;
+      overflow: hidden;
+    }
+
+    .hero-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.15"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.15"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.15"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(62, 39, 35, 0.8), rgba(26, 35, 126, 0.6));
+    }
+
+    /* Mobile Responsive Styles */
+    @media (max-width: 768px) {
+        .hero-header {
+            padding: 60px 0 40px;
         }
 
-        // Mobile Dropdown Toggle
-        const navDropdowns = document.querySelectorAll('.nav-dropdown');
-        
-        navDropdowns.forEach(dropdown => {
-            const toggle = dropdown.querySelector('.nav-dropdown-toggle');
-            const menu = dropdown.querySelector('.nav-dropdown-menu');
-            
-            if (toggle && menu) {
-                toggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Close other dropdowns
-                    navDropdowns.forEach(otherDropdown => {
-                        if (otherDropdown !== dropdown) {
-                            otherDropdown.classList.remove('active');
-                        }
-                    });
-                    
-                    // Toggle current dropdown
-                    dropdown.classList.toggle('active');
-                });
-            }
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            const isMobile = window.innerWidth <= 768;
-            // Reset mobile menu on resize
-            if (!isMobile && navLinks) {
-                navLinks.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                navDropdowns.forEach(dropdown => {
-                    dropdown.classList.remove('active');
-                });
-            }
-        });
-
-        // Add smooth scroll behavior
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-
-        // Add error handling for images
-        document.querySelectorAll('img').forEach(img => {
-            img.addEventListener('error', function() {
-                this.style.display = 'none';
-                console.warn('Image failed to load:', this.src);
-            });
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Form submission handler
-        const contactForm = document.querySelector('form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Create success message instead of alert
-                const successMessage = document.createElement('div');
-                successMessage.style.cssText = `
-                    position: fixed;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    background: linear-gradient(135deg, #2563eb, #06b6d4);
-                    color: white;
-                    padding: 2rem 3rem;
-                    border-radius: 15px;
-                    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-                    z-index: 10000;
-                    font-family: 'Inter', sans-serif;
-                    font-size: 1.1rem;
-                    text-align: center;
-                    animation: slideIn 0.3s ease;
-                `;
-                successMessage.innerHTML = `
-                    <div style="margin-bottom: 1rem;">
-                        <i class="fas fa-check-circle" style="font-size: 2rem; color: #10b981;"></i>
-                    </div>
-                    <div>Thank you for your message!</div>
-                    <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.9;">We will get back to you soon.</div>
-                `;
-                
-                document.body.appendChild(successMessage);
-                
-                // Remove message after 3 seconds
-                setTimeout(() => {
-                    successMessage.style.animation = 'slideOut 0.3s ease';
-                    setTimeout(() => {
-                        if (successMessage.parentNode) {
-                            successMessage.parentNode.removeChild(successMessage);
-                        }
-                    }, 300);
-                }, 3000);
-                
-                // Reset form
-                this.reset();
-            });
+        .hero-title {
+            font-size: 2rem !important;
         }
 
-        // Add CSS animations for success message
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    opacity: 0;
-                    transform: translate(-50%, -50%) scale(0.8);
-                }
-                to {
-                    opacity: 1;
-                    transform: translate(-50%, -50%) scale(1);
-                }
-            }
-            @keyframes slideOut {
-                from {
-                    opacity: 1;
-                    transform: translate(-50%, -50%) scale(1);
-                }
-                to {
-                    opacity: 0;
-                    transform: translate(-50%, -50%) scale(0.8);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
-</body>
-</html>
+        .hero-subtitle {
+            font-size: 1rem !important;
+        }
 
+        .contact-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem !important;
+        }
 
+        .hours-grid {
+            grid-template-columns: 1fr !important;
+        }
+
+        .map-container iframe {
+            height: 250px !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-header {
+            padding: 40px 0 30px;
+        }
+
+        .hero-title {
+            font-size: 1.5rem !important;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem !important;
+        }
+
+        .section-title {
+            font-size: 1.5rem !important;
+        }
+
+        .contact-card {
+            padding: 1.5rem !important;
+        }
+
+        .hours-card {
+            padding: 1.5rem !important;
+        }
+
+        .map-container iframe {
+            height: 200px !important;
+        }
+    }
+
+    .hero-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      letter-spacing: 2px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .hero-decoration {
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #ffd700, #ffed4e);
+      margin: 0 auto;
+      border-radius: 2px;
+    }
+
+    /* Section Headers */
+    .section-header {
+      margin-bottom: 4rem;
+      padding: 2rem 0;
+    }
+
+    .section-header.text-center {
+      text-align: center;
+    }
+
+    .header-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #7e22ce, #ec4899);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 30px rgba(126, 34, 206, 0.3);
+      position: relative;
+    }
+
+    .header-icon::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(135deg, #7e22ce, #ec4899);
+      border-radius: 25px;
+      z-index: -1;
+      opacity: 0.3;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .header-icon i {
+      font-size: 2.5rem;
+      color: white;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1e3c72;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: #6c757d;
+      margin-top: 0.5rem;
+    }
+
+    /* Contact Information Section */
+    .contact-info-section {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      padding: 5rem 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .contact-card {
+      background: white;
+      border-radius: 25px;
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #7e22ce, #ec4899, #f59e0b, #10b981, #3b82f6, #7e22ce);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    }
+
+    .contact-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #7e22ce, #6b21a8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 30px rgba(126, 34, 206, 0.3);
+    }
+
+    .contact-icon i {
+      font-size: 2.5rem;
+      color: white;
+    }
+
+    .contact-card h4 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1e3c72;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-details {
+      text-align: left;
+    }
+
+    .contact-details p {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: #495057;
+      margin: 0.8rem 0;
+      line-height: 1.6;
+    }
+
+    .contact-details i {
+      color: #7e22ce;
+      font-size: 1rem;
+      width: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Contact Form Section */
+    .contact-form-section {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      padding: 5rem 0;
+    }
+
+    .contact-form-container {
+      background: white;
+      border-radius: 30px;
+      padding: 4rem;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.12);
+      border: 2px solid #e9ecef;
+      position: relative;
+      overflow: hidden;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .contact-form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #7e22ce, #ec4899, #f59e0b, #10b981, #3b82f6, #7e22ce);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    .form-section {
+      margin-bottom: 2.5rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 20px;
+      border: 1px solid #dee2e6;
+      transition: all 0.3s ease;
+    }
+
+    .form-section:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    .section-title i {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #7e22ce, #6b21a8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .section-title h4 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1e3c72;
+      margin: 0;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-label i {
+      color: #7e22ce;
+      font-size: 0.9rem;
+    }
+
+    .form-control {
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .form-control:focus {
+      border-color: #7e22ce;
+      box-shadow: 0 0 0 0.2rem rgba(126, 34, 206, 0.15);
+      outline: none;
+    }
+
+    .form-control:hover {
+      border-color: #dee2e6;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #7e22ce, #6b21a8);
+      color: white;
+      border: none;
+      padding: 1rem 3rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      box-shadow: 0 10px 30px rgba(126, 34, 206, 0.3);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(126, 34, 206, 0.4);
+      background: linear-gradient(135deg, #6b21a8, #581c87);
+    }
+
+    .submit-btn i {
+      font-size: 1.2rem;
+    }
+
+    /* Office Hours Section */
+    .office-hours-section {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .hours-card {
+      background: white;
+      border-radius: 25px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+
+    .hours-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f8f9fa;
+    }
+
+    .office-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+    }
+
+    .office-icon i {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .card-header h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1e3c72;
+      margin: 0;
+    }
+
+    .hours-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hour-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+
+    .hour-item:last-child {
+      border-bottom: none;
+    }
+
+    .hour-item:hover {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      margin: 0 -1rem;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .day-info {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .day-info i {
+      color: #7e22ce;
+      font-size: 1rem;
+      width: 20px;
+    }
+
+    .day {
+      font-weight: 600;
+      color: #495057;
+    }
+
+    .time {
+      color: #10b981;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .hour-item.closed .time {
+      color: #dc3545;
+    }
+
+    /* Map Section */
+    .map-section {
+      background: white;
+    }
+
+    .map-content {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      margin-top: 2rem;
+    }
+
+    .map-container {
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+      border: 2px solid #e9ecef;
+      position: relative;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    .map-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.2);
+    }
+
+    .map-wrapper iframe {
+      border: none;
+      border-radius: 25px;
+      width: 100%;
+      height: 500px;
+    }
+
+    .map-info {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 30px;
+      padding: 3rem;
+      border: 2px solid #dee2e6;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.12);
+    }
+
+    .map-info::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #f59e0b, #d97706, #10b981, #3b82f6, #7e22ce, #f59e0b);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    .info-header {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid #f8f9fa;
+    }
+
+    .info-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 35px rgba(245, 158, 11, 0.4);
+      position: relative;
+    }
+
+    .info-icon::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border-radius: 20px;
+      z-index: -1;
+      opacity: 0.3;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .info-icon i {
+      font-size: 1.8rem;
+      color: white;
+    }
+
+    .info-header h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #1e3c72;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+
+    .info-description {
+      color: #495057;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+    }
+
+    .directions-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .direction-item {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.2rem;
+      margin-bottom: 1.2rem;
+      background: white;
+      border-radius: 15px;
+      border: 2px solid #e9ecef;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .direction-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, #f59e0b, #d97706);
+      transition: width 0.3s ease;
+    }
+
+    .direction-item:hover::before {
+      width: 100%;
+    }
+
+    .direction-item:hover {
+      transform: translateX(8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-color: #f59e0b;
+    }
+
+    .direction-item i {
+      color: #f59e0b;
+      font-size: 1.4rem;
+      width: 30px;
+      flex-shrink: 0;
+    }
+
+    .direction-item span {
+      color: #495057;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+
+    .directions-btn {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .btn-directions {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      text-decoration: none;
+      padding: 1.2rem 3rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 15px 40px rgba(245, 158, 11, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-directions::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn-directions:hover::before {
+      left: 100%;
+    }
+
+    .btn-directions:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(245, 158, 11, 0.5);
+      background: linear-gradient(135deg, #d97706, #b45309);
+    }
+
+    /* Notification Styles */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    .notification-content {
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-left: 4px solid #7e22ce;
+    }
+
+    .notification.error .notification-content {
+      border-left-color: #dc3545;
+    }
+
+    .notification i {
+      font-size: 1.5rem;
+    }
+
+    .notification.error i {
+      color: #dc3545;
+    }
+
+    .notification:not(.error) i {
+      color: #10b981;
+    }
+
+    /* Animations */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.05); opacity: 0.5; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .animate-slide-up {
+      animation: slideUp 0.8s ease-out;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .hours-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .map-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .contact-form-container {
+        padding: 2.5rem;
+      }
+      
+      .form-section {
+        padding: 2rem;
+      }
+      
+      .section-title {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+      
+      .hour-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      
+      .direction-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+      
+      .map-wrapper iframe {
+        height: 400px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .contact-card,
+      .hours-card,
+      .map-info {
+        padding: 2rem;
+      }
+      
+      .contact-form-container {
+        padding: 2rem;
+      }
+      
+      .map-wrapper iframe {
+        height: 350px;
+      }
+      
+      .info-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+      
+      .directions-btn {
+        margin-top: 1.5rem;
+      }
+    }
+
+    /* Invalid Form Styles */
+    .is-invalid {
+      border-color: #dc3545 !important;
+      background-color: #fff5f5;
+    }
+
+    .is-invalid:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.15);
+    }
+  </style>
+
+  <?php include('shared/_footer.php'); ?>

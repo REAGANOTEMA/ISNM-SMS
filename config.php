@@ -1,80 +1,86 @@
 <?php
-// ISNM School Management System Database Configuration
-$host = 'localhost';
-$dbname = 'isnm';
-$username = 'root';
-$password = 'ReagaN23#';
+/**
+ * Root legacy config — unified with config/database.php (staffs_db + students_db)
+ */
+require_once __DIR__ . '/config/database.php';
 
-// Create database connection
+$host = DB_HOST;
+$username = DB_USER;
+$password = DB_PASS;
+$dbname = STAFF_DB_NAME;
+
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    
-    // Set charset to utf8mb4 for full Unicode support
-    $pdo->exec("SET NAMES utf8mb4");
-    
-    // Enable persistent connection for better performance
-    $pdo->setAttribute(PDO::ATTR_PERSISTENT, true);
-    
-} catch(PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
+    $pdo = new PDO(
+        'mysql:host=' . DB_HOST . ';dbname=' . STAFF_DB_NAME . ';charset=' . DB_CHARSET,
+        DB_USER,
+        DB_PASS,
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]
+    );
+    $pdo->exec('SET NAMES utf8mb4');
+} catch (PDOException $e) {
+    error_log('PDO connection failed: ' . $e->getMessage());
+    die('Database connection failed. Please contact administrator.');
 }
 
-// MySQLi connection (for legacy code)
-$mysqli = new mysqli($host, $username, $password, $dbname);
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
-$mysqli->set_charset("utf8mb4");
+$mysqli = getStaffConnection();
 
-// Database connection function
 function getDBConnection() {
     global $pdo;
     return $pdo;
 }
 
-// MySQLi connection function
 function getMySQLiConnection() {
     global $mysqli;
     return $mysqli;
 }
 
-// Session configuration
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-// Security headers
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
+if (!headers_sent()) {
+    header('X-Content-Type-Options: nosniff');
+    header('X-Frame-Options: DENY');
+    header('X-XSS-Protection: 1; mode=block');
+}
 
-// Error reporting for development
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-// Timezone
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
 date_default_timezone_set('Africa/Kampala');
 
-// Application settings
-define('APP_NAME', 'ISNM School Management System');
-define('APP_VERSION', '1.0.0');
-define('BASE_URL', 'http://localhost/ISNM-SMS/');
-define('UPLOAD_PATH', __DIR__ . '/uploads/');
-define('MAX_FILE_SIZE', 5 * 1024 * 1024); // 5MB
-
-// Password settings
-define('MIN_PASSWORD_LENGTH', 8);
-define('SESSION_TIMEOUT', 3600); // 1 hour
-
-// Login attempts
-define('MAX_LOGIN_ATTEMPTS', 5);
-define('LOCKOUT_TIME', 1800); // 30 minutes
-
-// Email settings (configure as needed)
-define('SMTP_HOST', 'localhost');
-define('SMTP_PORT', 587);
-define('SMTP_USERNAME', '');
-define('SMTP_PASSWORD', '');
-define('FROM_EMAIL', 'noreply@isnm.ac.ug');
-define('FROM_NAME', 'ISNM School Management System');
-?>
+if (!defined('APP_NAME')) {
+    define('APP_NAME', 'ISNM School Management System');
+}
+if (!defined('APP_VERSION')) {
+    define('APP_VERSION', '1.0.0');
+}
+if (!defined('BASE_URL')) {
+    define('BASE_URL', 'http://localhost/ISNM-SMS/');
+}
+if (!defined('UPLOAD_PATH')) {
+    define('UPLOAD_PATH', __DIR__ . '/uploads/');
+}
+if (!defined('MAX_FILE_SIZE')) {
+    define('MAX_FILE_SIZE', 5 * 1024 * 1024);
+}
+if (!defined('MIN_PASSWORD_LENGTH')) {
+    define('MIN_PASSWORD_LENGTH', 8);
+}
+if (!defined('SESSION_TIMEOUT')) {
+    define('SESSION_TIMEOUT', 3600);
+}
+if (!defined('MAX_LOGIN_ATTEMPTS')) {
+    define('MAX_LOGIN_ATTEMPTS', 5);
+}
+if (!defined('LOCKOUT_TIME')) {
+    define('LOCKOUT_TIME', 1800);
+}
+if (!defined('SMTP_HOST')) {
+    define('SMTP_HOST', 'localhost');
+    define('SMTP_PORT', 587);
+    define('SMTP_USERNAME', '');
+    define('SMTP_PASSWORD', '');
+    define('FROM_EMAIL', 'noreply@isnm.ac.ug');
+    define('FROM_NAME', 'ISNM School Management System');
+}

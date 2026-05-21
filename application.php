@@ -1,1871 +1,1553 @@
-<?php
-// Error reporting for development
-error_reporting(E_ALL);
-ini_set('display_errors', 0);
-
-// Set headers
-header('Content-Type: text/html; charset=UTF-8');
-header('X-Content-Type-Options: nosniff');
-header('X-Frame-Options: DENY');
-header('X-XSS-Protection: 1; mode=block');
-
-// Start session if needed
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application - Iganga School of Nursing and Midwifery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Copperplate+Gothic+Bold&family=Rockwell+Extra+Bold&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/modern-theme.css">
-    <link rel="stylesheet" href="assets/css/image-animations.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            /* Dark Blue Professional Color Palette - Matching index.php */
-            --primary-dark: #0a1628;
-            --creamy-yellow: #FFF8DC;
-            --accent-gold: #FFD700;
-            --secondary-dark: #2d2d2d;
-            --light-cream: #FAF0E6;
-            --dark-accent: #B8860B;
-            --white: #FFFFFF;
-            --gray-light: #F5F5F5;
-            --gray-medium: #D3D3D3;
-            --gray-dark: #696969;
-            
-            /* Additional colors for form */
-            --primary-blue: #2563eb;
-            --text-primary: #1a202c;
-            --text-secondary: #4a5568;
-            --border-color: #e2e8f0;
-            --cream-white: #fefefe;
-            --clean-white: #ffffff;
-            --light-green: #10b981;
-            
-            /* Additional missing variables */
-            --pure-white: #FFFFFF;
-            --accent-blue: #3b82f6;
-            --golden-yellow: #fbbf24;
-            
-            /* Gradients */
-            --gradient-hero: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 50%, var(--accent-gold) 100%);
-            --gradient-primary: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-gold) 100%);
-            --gradient-luxury: linear-gradient(135deg, var(--accent-gold) 0%, var(--creamy-yellow) 100%);
-            --gradient-clean: linear-gradient(135deg, var(--light-cream) 0%, var(--white) 100%);
-            
-            /* Shadows */
-            --shadow-sm: 0 2px 4px rgba(26, 26, 26, 0.1);
-            --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.15);
-            --shadow-lg: 0 8px 16px rgba(26, 26, 26, 0.2);
-            --shadow-xl: 0 20px 40px rgba(26, 26, 26, 0.25);
-            --shadow-neon: 0 0 20px rgba(255, 215, 0, 0.3);
-            
-            /* Borders */
-            --border-light: var(--gray-medium);
-            --border-medium: var(--gray-dark);
-            --border-dark: var(--primary-dark);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
-            color: var(--pure-white);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
-                radial-gradient(circle at 50% 20%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 50% 80%, rgba(249, 115, 22, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%);
-            animation: modernAurora 15s ease-in-out infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="modern-admissions-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="3" fill="rgba(139,92,246,0.3)"/><path d="M5 15 Q15 5, 25 15 T45 15" stroke="rgba(59,130,246,0.4)" stroke-width="2" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23modern-admissions-pattern)"/></svg>'),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="vibrant-admissions-pattern" width="50" height="50" patternUnits="userSpaceOnUse"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(236,72,153,0.3)" stroke-width="2"/><circle cx="25" cy="25" r="6" fill="rgba(249,115,22,0.4)"/></pattern></defs><rect width="200" height="200" fill="url(%23vibrant-admissions-pattern)"/></svg>');
-            background-size: 30px 30px, 100px 100px;
-            animation: modernPatternFloat 25s linear infinite;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* Luxury Header */
-        .luxury-header {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 2rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .luxury-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            animation: floatPattern 20s ease-in-out infinite;
-        }
-
-        @keyframes floatPattern {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(10px, 10px); }
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .header-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: 3px solid var(--golden-yellow);
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #000000;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.95);
-            border: 2px solid #000000;
-            font-family: 'Inter', sans-serif;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 1;
-        }
-
-        .nav-links a:hover {
-            color: #FFFFFF;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            border-color: #000000;
-            background: #000000;
-        }
-
-        .page-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .breadcrumb {
-            text-align: center;
-            opacity: 0.9;
-        }
-
-        /* Main Content */
-        .main-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-        }
-
-        /* Admission Overview */
-        .admission-overview {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .admission-overview::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-
-        .overview-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .overview-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-        }
-
-        .overview-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Program Tabs */
-        .program-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 1rem 2rem;
-            border: none;
-            background: var(--cream-white);
-            color: var(--text-primary);
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            border: 2px solid var(--border-color);
-        }
-
-        .tab-btn.active {
-            background: var(--gradient-primary);
-            color: white;
-            border-color: var(--primary-blue);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .tab-btn:hover:not(.active) {
-            background: var(--light-green);
-            color: white;
-            border-color: var(--light-green);
-        }
-
-        /* Program Content */
-        .program-content {
-            display: none;
-            animation: fadeInUp 0.5s ease;
-        }
-
-        .program-content.active {
-            display: block;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Admission Requirements */
-        .admission-requirements {
-            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .requirements-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .requirements-list {
-            list-style: none;
-            display: grid;
-            gap: 1rem;
-        }
-
-        .requirement-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 1rem;
-            background: white;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .requirement-item:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
-            border-color: var(--accent-blue);
-        }
-
-        .requirement-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .requirement-text {
-            flex: 1;
-        }
-
-        .requirement-title {
-            font-weight: 600;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .requirement-description {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Program Details */
-        .program-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .detail-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .detail-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .detail-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-luxury);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .detail-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-        }
-
-        .detail-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Fee Structure */
-        .fee-structure {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            border: 1px solid var(--border-color);
-            margin-bottom: 2rem;
-        }
-
-        .fee-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .fee-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 1.5rem;
-        }
-
-        .fee-table-container {
-            overflow-x: auto;
-            margin-bottom: 1.5rem;
-        }
-
-        .fee-table th,
-        .fee-table td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .fee-table th {
-            background: var(--gradient-primary);
-            color: white;
-            font-weight: 600;
-        }
-
-        .fee-table tr:hover {
-            background: var(--cream-white);
-        }
-
-        .fee-amount {
-            font-weight: 700;
-            color: var(--primary-blue);
-            font-size: 1.1rem;
-        }
-
-        /* Application Process */
-        .application-process {
-            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .process-steps {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .process-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .process-step:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .step-content {
-            flex: 1;
-        }
-
-        .step-title {
-            font-weight: 600;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .step-description {
-            color: var(--text-secondary);
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: var(--gradient-primary);
-            color: white;
-            border-radius: 20px;
-            padding: 3rem;
-            text-align: center;
-            margin-top: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .cta-description {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .cta-btn {
-            padding: 1.2rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .cta-btn-primary {
-            background: white;
-            color: var(--primary-blue);
-            box-shadow: var(--shadow-md);
-        }
-
-        .cta-btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .cta-btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .cta-btn-secondary:hover {
-            background: white;
-            color: var(--primary-blue);
-        }
-
-        /* Mobile Menu Toggle */
-        .mobile-menu-toggle {
-            display: none;
-            background: var(--accent-dark-blue);
-            border: 2px solid var(--accent-blue);
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-        }
-
-        .mobile-menu-toggle::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 24px;
-            height: 2px;
-            background: var(--white);
-            transform: translate(-50%, -50%);
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-toggle::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 24px;
-            height: 2px;
-            background: var(--white);
-            transform: translate(-50%, -50%) rotate(90deg);
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-toggle:hover {
-            transform: translateY(-2px) translateZ(10px) rotateX(-2deg);
-            box-shadow: 0 8px 20px rgba(10, 22, 40, 0.3);
-        }
-
-        .mobile-menu-toggle.active::before {
-            transform: translate(-50%, -50%) rotate(45deg);
-        }
-
-        .mobile-menu-toggle.active::after {
-            transform: translate(-50%, -50%) rotate(-45deg);
-        }
-
-        /* Navigation Dropdown */
-        .nav-dropdown {
-            position: relative;
-        }
-
-        .nav-dropdown-toggle {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            cursor: pointer;
-        }
-
-        .nav-dropdown-toggle::after {
-            content: '▼';
-            font-size: 0.7rem;
-            transition: transform 0.3s ease;
-            color: var(--text-secondary);
-        }
-
-        .nav-dropdown:hover .nav-dropdown-toggle::after {
-            transform: rotate(180deg);
-            color: var(--accent-blue);
-        }
-
-        .nav-dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--white);
-            border: 2px solid var(--accent-blue);
-            border-radius: 12px;
-            box-shadow: 0 12px 24px rgba(10, 22, 40, 0.2);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px) translateZ(-20px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            min-width: 180px;
-            z-index: 1000;
-        }
-
-        .nav-dropdown:hover .nav-dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) translateZ(10px);
-        }
-
-        .nav-dropdown-menu a {
-            display: block;
-            padding: 0.6rem 0.8rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid transparent;
-            transform-style: preserve-3d;
-            transform: translateZ(0);
-        }
-
-        .nav-dropdown-menu a:hover {
-            background: var(--accent-light-blue);
-            color: var(--white);
-            transform: translateX(5px) translateZ(5px);
-            border-bottom-color: var(--accent-blue);
-        }
-
-        .nav-dropdown-menu a:first-child {
-            border-radius: 10px 10px 0 0;
-        }
-
-        .nav-dropdown-menu a:last-child {
-            border-radius: 0 0 10px 10px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 100px;
-                left: 0;
-                right: 0;
-                background: var(--white);
-                flex-direction: column;
-                gap: 0;
-                padding: 1rem;
-                box-shadow: 0 20px 40px rgba(10, 22, 40, 0.2);
-                border-top: 2px solid var(--accent-blue);
-                z-index: 999;
-                transform: translateY(-100%);
-                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            .nav-links.active {
-                display: flex;
-                transform: translateY(0);
-            }
-
-            .nav-link {
-                width: 100%;
-                padding: 1rem;
-                border-radius: 0;
-                border-bottom: 1px solid var(--border-light);
-                text-align: center;
-                font-size: 1rem;
-            }
-
-            .nav-link:last-child {
-                border-bottom: none;
-            }
-
-            .nav-dropdown-menu {
-                position: static;
-                background: var(--gray-light);
-                box-shadow: none;
-                border: none;
-                border-radius: 0;
-                transform: none;
-                opacity: 1;
-                visibility: visible;
-                display: none;
-                margin-top: 0;
-                min-width: auto;
-            }
-
-            .nav-dropdown.active .nav-dropdown-menu {
-                display: block;
-            }
-
-            .nav-dropdown-toggle::after {
-                display: none;
-            }
-
-            .nav-dropdown-menu a {
-                padding: 0.8rem 1rem;
-                font-size: 0.9rem;
-                border-bottom: 1px solid var(--border-light);
-                background: transparent;
-                color: var(--text-primary);
-            }
-
-            .nav-dropdown-menu a:hover {
-                background: var(--accent-light-blue);
-                color: var(--white);
-                transform: none;
-            }
-
-            .luxury-header {
-                padding: 1rem;
-            }
-
-            .header-content {
-                flex-wrap: wrap;
-                position: relative;
-            }
-
-            .logo-section {
-                flex: 1;
-            }
-            
-            .header-nav {
-                flex-wrap: wrap;
-                position: relative;
-            }
-            
-            .logo-section {
-                flex: 1;
-            }
-            
-            .page-title {
-                font-size: 2rem;
-            }
-            
-            .program-tabs {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .tab-btn {
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .program-details {
-                grid-template-columns: 1fr;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .main-content {
-                padding: 2rem 1rem;
-            }
-            
-            .admission-overview,
-            .application-form-section {
-                padding: 2rem 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-title {
-                font-size: 1.5rem;
-            }
-            
-            .overview-title,
-            .form-title {
-                font-size: 2rem;
-            }
-            
-            .admission-overview,
-            .application-form-section {
-                padding: 1.5rem 1rem;
-            }
-        }
-
-        /* Application Form Styles */
-        .application-form-section {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
-            margin-bottom: 3rem;
-        }
-
-        .application-form-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-
-        .form-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .form-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-        }
-
-        .form-description {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .application-form {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
-            flex: 1;
-        }
-
-        .form-group.full-width {
-            width: 100%;
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .form-input,
-        .form-select,
-        .form-textarea {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-            background: var(--white);
-        }
-
-        .form-input:focus,
-        .form-select:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .file-upload {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .file-upload input[type="file"] {
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-        }
-
-        .file-upload-label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            border: 2px dashed var(--border-color);
-            border-radius: 10px;
-            background: var(--gray-light);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            min-height: 60px;
-        }
-
-        .file-upload-label:hover {
-            border-color: var(--primary-blue);
-            background: rgba(37, 99, 235, 0.05);
-        }
-
-        .file-upload-label i {
-            margin-right: 0.5rem;
-            color: var(--text-secondary);
-        }
-
-        .file-name {
-            margin-left: 0.5rem;
-            color: var(--primary-blue);
-            font-weight: 500;
-        }
-
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 1.2rem;
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif;
-            margin-top: 2rem;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .required {
-            color: #dc2626;
-        }
-
-        @media (max-width: 768px) {
-            .form-row {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-    </style>
-
-    /* Footer Styling */
-    .footer {
-        background: var(--primary-dark);
-        color: white;
-        padding: 3rem 2rem 2rem;
-        margin-top: 4rem;
-    }
-
-    .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .footer-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 3rem;
-        margin-bottom: 3rem;
-    }
-
-    .footer-section h3 {
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        color: var(--accent-gold);
-    }
-
-    .footer-links {
-        list-style: none;
-    }
-
-    .footer-links li {
-        margin-bottom: 0.8rem;
-    }
-
-    .footer-links a {
-        color: rgba(255, 255, 255, 0.8);
-        text-decoration: none;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .footer-links a:hover {
-        color: var(--accent-gold);
-        transform: translateX(5px);
-    }
-
-    .contact-info p {
-        margin-bottom: 1rem;
-        color: rgba(255, 255, 255, 0.8);
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-    }
-
-    .contact-info i {
-        color: var(--accent-gold);
-        width: 20px;
-    }
-
-    .footer-bottom {
-        text-align: center;
-        padding-top: 2rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .footer-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-    }
-
-    .footer-subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-        opacity: 0.9;
-    }
-
-    .footer-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-        margin-bottom: 2rem;
-    }
-
-    .whatsapp-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: #25d366;
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .whatsapp-btn:hover {
-        background: #128c7e;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-    }
-
-    .copyright {
-        margin-top: 2rem;
-        padding-top: 2rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.6);
-    }
-
-    @media (max-width: 768px) {
-        .footer {
-            padding: 2rem 1rem;
-        }
-
-        .footer-grid {
-            gap: 2rem;
-        }
-
-        .footer-buttons {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .whatsapp-btn {
-            width: 100%;
-            justify-content: center;
-        }
-    }
-</head>
-<body>
-    <!-- Luxury Header -->
-    <header class="luxury-header">
-        <div class="header-content">
-            <nav class="header-nav">
-                <div class="logo-section">
-                    <img src="assets/school-logo.png" alt="ISNM Logo" class="logo">
-                    <div>
-                        <h1 style="font-family: 'Copperplate Gothic Bold', 'Rockwell Extra Bold', serif; font-size: 1.2rem; font-weight: 900;">ISNM</h1>
-                        <p style="font-size: 0.8rem; opacity: 0.9;">Excellence in Healthcare Education</p>
-                    </div>
+<?php include('shared/_header.php');?>
+
+  <main>
+
+      <!-- Perfect Mobile Application Introduction -->
+      <section class="application-intro py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="school-banner animate-fade-in">
+                <div class="school-info">
+                  <h2 class="school-title">IGANGA SCHOOL OF NURSING AND MIDWIFERY</h2>
+                  <div class="school-details">
+                    <p><i class="fas fa-map-marker-alt"></i> P.O. Box 418, Iganga</p>
+                    <p><i class="fas fa-phone"></i> 0782 990 403 | 0782 633 253 | 0753 393 340 | 0703 999 796</p>
+                    <p><i class="fas fa-envelope"></i> iganganursingschool@gmail.com</p>
+                    <p><i class="fas fa-globe"></i> www.isnm.ac.ug</p>
+                  </div>
                 </div>
-                <!-- Mobile Menu Toggle -->
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <span></span>
-                    <span></span>
-                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-12 text-center mb-5">
+              <div class="announcement-card animate-slide-up">
+                <div class="announcement-icon">
+                  <i class="fas fa-bullhorn"></i>
+                </div>
+                <h3 class="announcement-title">SPECIAL ANNOUNCEMENT</h3>
+                <p class="announcement-text">The Principal of Iganga School of Nursing & Midwifery, Iganga Campus cordially invites suitable applicants for Certificate Courses in Nursing & Midwifery and Diploma Extension programs in Nursing and Midwifery for JUNE/JULY, 2026 INTAKE (PICKING OF APPLICATIONS IS IN PROGRESS)</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-lg-6 col-md-12 mb-4">
+              <div class="requirements-card animate-fade-in">
+                <div class="card-header">
+                  <i class="fas fa-graduation-cap"></i>
+                  <h4>ENTRY REQUIREMENTS</h4>
+                </div>
                 
-                <div class="nav-links" id="navLinks">
-                    <a href="index.php" class="nav-link">Home</a>
-                    
-                    <!-- Academics Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">Academics</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="programs.php">Programs</a>
-                            <a href="activities.php#academic-activities">Academic Activities</a>
-                            <a href="activities.php#sports-activities">Sports & Recreation</a>
-                            <a href="activities.php#community-service">Community Service</a>
-                            <a href="activities.php#cultural-activities">Cultural Activities</a>
-                        </div>
-                    </div>
-                    
-                    <!-- About Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">About</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="about.php">Our School</a>
-                            <a href="governance.php">Governance</a>
-                            <a href="history.php">History</a>
-                            <a href="achievements.php">Achievements</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Admissions Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">Admissions</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="application.php">Apply Now</a>
-                            <a href="programs.php#requirements">Requirements</a>
-                            <a href="programs.php#fees">Fee Structure</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Campus Dropdown -->
-                    <div class="nav-dropdown">
-                        <div class="nav-dropdown-toggle">
-                            <a href="#" class="nav-link">Campus</a>
-                        </div>
-                        <div class="nav-dropdown-menu">
-                            <a href="infrastructure.php">Infrastructure</a>
-                            <a href="activities.php">Student Life</a>
-                        </div>
-                    </div>
-                    
-                    <a href="contact.php" class="nav-link">Contact</a>
-                    <a href="login-portal.php" class="nav-link">Portal</a>
+                <div class="requirement-section">
+                  <div class="section-header">
+                    <i class="fas fa-certificate"></i>
+                    <h5>CERTIFICATE LEVEL</h5>
+                  </div>
+                  <ol class="requirements-list">
+                    <li>You must have passed "O" Level in English, Mathematics, Biology, Chemistry and Physics at least with a pass or D for candidates of the New Lower Secondary curriculum</li>
+                    <li>This MUST be obtained at the same sitting</li>
+                    <li>Filled application form (picked from school with attachment of all relevant documents)</li>
+                    <li>"A" Level is an added advantage</li>
+                  </ol>
                 </div>
-            </nav>
-            <div class="page-title">Application</div>
-            <div class="breadcrumb">
-                <p>Home / Application</p>
+                
+                <div class="requirement-section">
+                  <div class="section-header">
+                    <i class="fas fa-medal"></i>
+                    <h5>DIPLOMA EXTENSION PROGRAM</h5>
+                  </div>
+                  <ol class="requirements-list">
+                    <li>Must have qualified as an Enrolled Nurse, Enrolled Midwife and or Enrolled Comprehensive Nurse from a recognized Institution</li>
+                    <li>Must have a pass slip/Transcript and a Certificate of completion from the Uganda Nurses and Midwives Examinations Board (UNMEB)</li>
+                    <li>Must have a Certificate of Enrolment and a Valid practicing license from the Uganda Nurses and Midwives Council (UNMC)</li>
+                    <li>Must have an experience of two (2) years in the field</li>
+                  </ol>
+                </div>
+              </div>
             </div>
+            
+            <div class="col-lg-6 col-md-12 mb-4">
+              <div class="interview-card animate-slide-up">
+                <div class="card-header">
+                  <i class="fas fa-calendar-check"></i>
+                  <h4>INTERVIEWS & ADMISSIONS IN PROGRESS</h4>
+                  <span class="intake-badge">JUNE/JULY, 2026 INTAKE</span>
+                </div>
+                
+                <div class="interview-details">
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="detail-content">
+                      <span class="label">VENUE:</span>
+                      <span class="value">IGANGA CAMPUS</span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="detail-content">
+                      <span class="label">TIME:</span>
+                      <span class="value">9:00AM-4:00PM (MONDAY-FRIDAY)</span>
+                    </div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-icon">
+                      <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <div class="detail-content">
+                      <span class="label">FEE:</span>
+                      <span class="value">UGX 95,000 (NON-REFUNDABLE)</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="location-info">
+                  <div class="location-header">
+                    <i class="fas fa-location-arrow"></i>
+                    <h5>LOCATION</h5>
+                  </div>
+                  <p>The School is located before C.M.S Trading Centre along Jinja-Iganga Highway after Nekoli Guest House</p>
+                </div>
+                
+                <div class="contact-details">
+                  <div class="contact-header">
+                    <i class="fas fa-phone-alt"></i>
+                    <h5>CONTACT INFORMATION</h5>
+                  </div>
+                  <div class="contact-grid">
+                    <div class="contact-item">
+                      <div class="contact-avatar">
+                        <i class="fas fa-user-tie"></i>
+                      </div>
+                      <div class="contact-info">
+                        <span class="role">PRINCIPAL</span>
+                        <span class="number">0782 990 403</span>
+                      </div>
+                    </div>
+                    <div class="contact-item">
+                      <div class="contact-avatar">
+                        <i class="fas fa-user-shield"></i>
+                      </div>
+                      <div class="contact-info">
+                        <span class="role">DEPUTY PRINCIPAL</span>
+                        <span class="number">0782 633 253</span>
+                      </div>
+                    </div>
+                    <div class="contact-item">
+                      <div class="contact-avatar">
+                        <i class="fas fa-user-cog"></i>
+                      </div>
+                      <div class="contact-info">
+                        <span class="role">DIRECTOR</span>
+                        <span class="number">0753 393 340</span>
+                      </div>
+                    </div>
+                    <div class="contact-item">
+                      <div class="contact-avatar">
+                        <i class="fas fa-users"></i>
+                      </div>
+                      <div class="contact-info">
+                        <span class="role">HRM</span>
+                        <span class="number">0703 999 796</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </header>
+      </section>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Application Overview -->
-        <section class="admission-overview">
-            <div class="overview-header">
-                <h2 class="overview-title">Join Our Healthcare Community</h2>
-                <p class="overview-subtitle">
-                    Take the first step towards a rewarding career in nursing and midwifery. 
-                    Our comprehensive programs are designed to meet the highest standards of healthcare education.
-                </p>
-            </div>
-
-            <!-- Program Tabs -->
-            <div class="program-tabs">
-                <button class="tab-btn active" onclick="showProgram('diploma')">
-                    <i class="fas fa-graduation-cap"></i> Diploma Programs
-                </button>
-                <button class="tab-btn" onclick="showProgram('certificate')">
-                    <i class="fas fa-certificate"></i> Certificate Programs
-                </button>
-            </div>
-
-            <!-- Diploma Program Content -->
-            <div id="diploma" class="program-content active">
-                <div class="admission-requirements">
-                    <h3 class="requirements-title">
-                        <i class="fas fa-clipboard-check"></i>
-                        Diploma Application Requirements
-                    </h3>
-                    <ul class="requirements-list">
-                        <li class="requirement-item">
-                            <div class="requirement-icon">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <div class="requirement-text">
-                                <div class="requirement-title">Academic Qualifications</div>
-                                <div class="requirement-description">
-                                    Uganda Advanced Certificate of Education (UACE) with at least 2 principal passes in any subjects
-                                </div>
-                            </div>
-                        </li>
-                        <li class="requirement-item">
-                            <div class="requirement-icon">
-                                <i class="fas fa-book"></i>
-                            </div>
-                            <div class="requirement-text">
-                                <div class="requirement-title">O-Level Requirements</div>
-                                <div class="requirement-description">
-                                    Uganda Certificate of Education (UCE) with at least 5 passes, including English, Biology, Chemistry, and Physics
-                                </div>
-                            </div>
-                        </li>
-                        <li class="requirement-item">
-                            <div class="requirement-icon">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="requirement-text">
-                                <div class="requirement-title">Age Requirement</div>
-                                <div class="requirement-description">
-                                    No age restriction, at the time of admission
-                                </div>
-                            </div>
-                        </li>
-                        <li class="requirement-item">
-                            <div class="requirement-icon">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div class="requirement-text">
-                                <div class="requirement-title">Medical Fitness</div>
-                                <div class="requirement-description">
-                                    Medical fitness certificate from a registered medical practitioner
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+      <!-- Perfect Mobile Application Form -->
+      <section class="application-form-section py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-container animate-fade-in">
+                <!-- Mobile-Friendly Form Header -->
+                <div class="form-header">
+                  <div class="form-logo">
+                    <img src="images/school-logo.png" alt="ISNM Logo" style="height: 60px; width: auto; border-radius: 50%; border: 3px solid var(--accent-color);">
+                  </div>
+                  <h2 class="form-title">APPLICATION FORM</h2>
+                  <p class="form-subtitle">IGANGA SCHOOL OF NURSING AND MIDWIFERY</p>
+                  <div class="form-instructions">
+                    <i class="fas fa-info-circle"></i>
+                    <span>PLEASE FILL THIS FORM IN CAPITAL LETTERS</span>
+                  </div>
                 </div>
-
-                <div class="program-details">
-                    <div class="detail-card">
-                        <div class="detail-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                         <h3 class="detail-title">Program Duration</h3>
-                        <p class="detail-description">
-                            3 semesters (1.5 years) extension program with comprehensive theoretical and practical training
-                        </p>
-                    </div>
-                    <div class="detail-card">
-                        <div class="detail-icon">
-                            <i class="fas fa-award"></i>
-                        </div>
-                        <h3 class="detail-title">Award</h3>
-                        <p class="detail-description">
-                            Diploma in Midwifery recognized by Uganda Nursing and Midwifery Council
-                        </p>
-                    </div>
-                    <div class="detail-card">
-                        <div class="detail-icon">
-                            <i class="fas fa-hospital"></i>
-                        </div>
-                        <h3 class="detail-title">Clinical Practice</h3>
-                        <p class="detail-description">
-                            Extensive clinical rotations in partner hospitals and healthcare facilities with specialized midwifery focus
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Certificate Program Content -->
-            <div id="certificate" class="program-content">
-                <div class="admission-requirements">
-                    <h3 class="requirements-title">
-                        <i class="fas fa-clipboard-check"></i>
-                        Certificate Application Requirements
-                    </h3>
-                    <ul class="requirements-list">
-                        <li class="requirement-item">
-                            <div class="requirement-icon">
-                                <i class="fas fa-book"></i>
-                            </div>
-                            <div class="requirement-text">
-                                <div class="requirement-title">Academic Qualifications</div>
-                                <div class="requirement-description">
-                                    Uganda Certificate of Education (UCE) with at least 5 passes
-                                </div>
-                            </div>
-                        </li>
-                        <li class="requirement-item">
-                            <div class="requirement-icon">
-                                <i class="fas fa-flask"></i>
-                            </div>
-                            <div class="requirement-text">
-                                <div class="requirement-title">Science Subjects</div>
-                                <div class="requirement-description">
-                                    Preference given to candidates with passes in Biology, Chemistry, and Physics
-                                </div>
-                            </div>
-                        </li>
-                        <li class="requirement-item">
-                            <div class="requirement-icon">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="requirement-text">
-                                <div class="requirement-title">Age Requirement</div>
-                                <div class="requirement-description">
-                                    Minimum age of 18 years at the time of admission
-                                </div>
-                            </div>
-                        </li>
-                        <li class="requirement-item">
-                            <div class="requirement-icon">
-                                <i class="fas fa-heartbeat"></i>
-                            </div>
-                            <div class="requirement-text">
-                                <div class="requirement-title">Medical Fitness</div>
-                                <div class="requirement-description">
-                                    Medical fitness certificate from a registered medical practitioner
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="program-details">
-                    <div class="detail-card">
-                        <div class="detail-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <h3 class="detail-title">Program Duration</h3>
-                        <p class="detail-description">
-                            2.5 years (5 semesters) full-time program with comprehensive theoretical and practical training
-                        </p>
-                    </div>
-                    <div class="detail-card">
-                        <div class="detail-icon">
-                            <i class="fas fa-award"></i>
-                        </div>
-                        <h3 class="detail-title">Award</h3>
-                        <p class="detail-description">
-                            Certificate in Nursing recognized by Uganda Nursing and Midwifery Council
-                        </p>
-                    </div>
-                    <div class="detail-card">
-                        <div class="detail-icon">
-                            <i class="fas fa-hospital"></i>
-                        </div>
-                        <h3 class="detail-title">Clinical Practice</h3>
-                        <p class="detail-description">
-                            Structured clinical placements in partner healthcare facilities
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Application Process -->
-        <section class="application-process">
-            <h3 class="requirements-title">
-                <i class="fas fa-tasks"></i>
-                Application Process
-            </h3>
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h4 class="step-title">Obtain Application Form</h4>
-                        <p class="step-description">
-                            Collect application form from the school administration office or download from our website
-                        </p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h4 class="step-title">Complete Application</h4>
-                        <p class="step-description">
-                            Fill in all required information and attach necessary documents
-                        </p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h4 class="step-title">Submit Application</h4>
-                        <p class="step-description">
-                            Submit completed application form with required documents and pay application fee
-                        </p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h4 class="step-title">Interview & Assessment</h4>
-                        <p class="step-description">
-                            Attend scheduled interview and assessment session
-                        </p>
-                    </div>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h4 class="step-title">Application Confirmation</h4>
-                        <p class="step-description">
-                            Receive application letter and complete registration process
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="cta-section">
-            <div class="cta-content">
-                <h2 class="cta-title">Ready to Start Your Healthcare Journey?</h2>
-                <p class="cta-description">
-                    Join thousands of successful healthcare professionals who started their careers at ISNM
-                </p>
-                    <a href="contact.php" class="cta-btn cta-btn-secondary">
-                        <i class="fas fa-phone"></i> Contact Application Office
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Online Application Form -->
-        <section class="application-form-section">
-            <div class="form-header">
-                <h2 class="form-title">Online Application Form</h2>
-                <p class="form-description">
-                    Apply online for application to Iganga School of Nursing and Midwifery. Fill in all required information carefully.
-                </p>
-            </div>
-            <form class="application-form" action="submit-application.php" method="POST" enctype="multipart/form-data">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="first_name" class="form-label">First Name <span class="required">*</span></label>
-                        <input type="text" id="first_name" name="first_name" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="surname" class="form-label">Surname <span class="required">*</span></label>
-                        <input type="text" id="surname" name="surname" class="form-input" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="date_of_birth" class="form-label">Date of Birth <span class="required">*</span></label>
-                        <input type="date" id="date_of_birth" name="date_of_birth" class="form-input" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contacts" class="form-label">Contact Number <span class="required">*</span></label>
-                        <input type="tel" id="contacts" name="contacts" class="form-input" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="level" class="form-label">Level Applying For <span class="required">*</span></label>
-                        <select id="level" name="level" class="form-select" required>
-                            <option value="">Select Level</option>
-                            <option value="Certificate">Certificate</option>
-                            <option value="Diploma">Diploma</option>
+                
+                <form id="applicationForm" method="POST" action="process-application.php" enctype="multipart/form-data">
+                  <!-- Personal Information -->
+                  <div class="form-section">
+                    <h4><i class="fas fa-user me-2"></i> APPLICANT'S PERSONAL DETAILS</h4>
+                    <div class="row g-3">
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="surname" class="form-label">SURNAME *</label>
+                        <input type="text" class="form-control" id="surname" name="surname" required>
+                      </div>
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="firstName" class="form-label">FIRST NAME *</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                      </div>
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="otherName" class="form-label">OTHER NAME</label>
+                        <input type="text" class="form-control" id="otherName" name="otherName">
+                      </div>
+                      <div class="col-lg-3 col-md-6 col-sm-12">
+                        <label for="gender" class="form-label">GENDER *</label>
+                        <select class="form-control" id="gender" name="gender" required>
+                          <option value="">Select Gender</option>
+                          <option value="Male">MALE</option>
+                          <option value="Female">FEMALE</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="course" class="form-label">Course <span class="required">*</span></label>
-                        <select id="course" name="course" class="form-select" required>
-                            <option value="">Select Course</option>
-                            <option value="Diploma in Nursing"> Nursing</option>
-                            <option value="Diploma in Midwifery">Midwifery</option>
+                      </div>
+                      <div class="col-lg-3 col-md-6 col-sm-12">
+                        <label for="dateOfBirth" class="form-label">DATE OF BIRTH *</label>
+                        <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
+                      </div>
+                      <div class="col-lg-3 col-md-6 col-sm-12">
+                        <label for="nationality" class="form-label">NATIONALITY *</label>
+                        <input type="text" class="form-control" id="nationality" name="nationality" value="UGANDAN" required>
+                      </div>
+                      <div class="col-lg-3 col-md-6 col-sm-12">
+                        <label for="countryOfResidence" class="form-label">COUNTRY OF RESIDENCE *</label>
+                        <input type="text" class="form-control" id="countryOfResidence" name="countryOfResidence" value="UGANDA" required>
+                      </div>
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="homeDistrict" class="form-label">HOME DISTRICT</label>
+                        <input type="text" class="form-control" id="homeDistrict" name="homeDistrict">
+                      </div>
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="village" class="form-label">VILLAGE</label>
+                        <input type="text" class="form-control" id="village" name="village">
+                      </div>
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="religion" class="form-label">RELIGIOUS AFFILIATION</label>
+                        <input type="text" class="form-control" id="religion" name="religion" placeholder="Specify denomination">
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="email" class="form-label">EMAIL ADDRESS *</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="contactNumber" class="form-label">TELEPHONE CONTACT *</label>
+                        <input type="tel" class="form-control" id="contactNumber" name="contactNumber" placeholder="+256..." required>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="maritalStatus" class="form-label">MARITAL STATUS *</label>
+                        <select class="form-control" id="maritalStatus" name="maritalStatus" required>
+                          <option value="">Select Status</option>
+                          <option value="Single">Single</option>
+                          <option value="Married">Married</option>
+                          <option value="Other">Other (Specify)</option>
                         </select>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="spouseName" class="form-label">NAME OF SPOUSE</label>
+                        <input type="text" class="form-control" id="spouseName" name="spouseName">
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="numberOfChildren" class="form-label">NUMBER OF CHILDREN</label>
+                        <input type="number" class="form-control" id="numberOfChildren" name="numberOfChildren" min="0">
+                      </div>
                     </div>
-                </div>
-                <div class="form-group full-width">
-                    <label for="address" class="form-label">Location Address <span class="required">*</span></label>
-                    <textarea id="address" name="address" class="form-textarea" placeholder="Enter your full address" required></textarea>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Upload Academic Document (PDF, JPEG, PNG, DOC) <span class="required">*</span></label>
-                        <div class="file-upload">
-                            <input type="file" id="document" name="document" accept=".pdf,.jpeg,.jpg,.png,.doc,.docx" required>
-                            <label for="document" class="file-upload-label">
-                                <i class="fas fa-upload"></i>
-                                <span>Choose file...</span>
-                                <span id="document-name" class="file-name"></span>
-                            </label>
-                        </div>
+                  </div>
+
+                  <!-- Mobile-Friendly Disability Information -->
+                  <div class="form-section">
+                    <h4><i class="fas fa-accessibility me-2"></i> DISABILITY</h4>
+                    <div class="row g-3">
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="disability" class="form-label">Do you have any disability? *</label>
+                        <select class="form-control" id="disability" name="disability" required>
+                          <option value="">Select Option</option>
+                          <option value="No">No</option>
+                          <option value="Yes">Yes</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="disabilityType" class="form-label">If yes, state the type of disability</label>
+                        <select class="form-control" id="disabilityType" name="disabilityType">
+                          <option value="">Select Type</option>
+                          <option value="Physical disability">Physical disability</option>
+                          <option value="Chronic illness">Chronic illness</option>
+                          <option value="Hearing impairment">Hearing impairment</option>
+                          <option value="Visual impairment">Visual impairment</option>
+                          <option value="Speech impairment">Speech impairment</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                      <div class="col-12">
+                        <label for="disabilityDescription" class="form-label">Briefly state nature of disability</label>
+                        <textarea class="form-control" id="disabilityDescription" name="disabilityDescription" rows="2"></textarea>
+                      </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Upload Your Photo <span class="required">*</span></label>
-                        <div class="file-upload">
-                            <input type="file" id="image" name="image" accept=".jpeg,.jpg,.png" required>
-                            <label for="image" class="file-upload-label">
-                                <i class="fas fa-camera"></i>
-                                <span>Choose image...</span>
-                                <span id="image-name" class="file-name"></span>
-                            </label>
-                        </div>
+                  </div>
+
+                  <!-- Mobile-Friendly Fee Information -->
+                  <div class="form-section">
+                    <h4><i class="fas fa-money-bill me-2"></i> FEES INFORMATION</h4>
+                    <div class="row g-3">
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="feePayer" class="form-label">Who is expected to pay your fees/tuition? *</label>
+                        <select class="form-control" id="feePayer" name="feePayer" required>
+                          <option value="">Select Option</option>
+                          <option value="Yourself">Yourself</option>
+                          <option value="Parent/Guardian">Parent/Guardian</option>
+                          <option value="Sponsors">Sponsors</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="parentName" class="form-label">Details of the person responsible for fees payment - Name *</label>
+                        <input type="text" class="form-control" id="parentName" name="parentName" required>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="parentNationality" class="form-label">Nationality *</label>
+                        <input type="text" class="form-control" id="parentNationality" name="parentNationality" required>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="parentAddress" class="form-label">Address *</label>
+                        <input type="text" class="form-control" id="parentAddress" name="parentAddress" required>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="parentPhone" class="form-label">Telephone contact *</label>
+                        <input type="tel" class="form-control" id="parentPhone" name="parentPhone" required>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12">
+                        <label for="parentEmail" class="form-label">Email *</label>
+                        <input type="email" class="form-control" id="parentEmail" name="parentEmail" required>
+                      </div>
                     </div>
+                  </div>
+
+                  <!-- Mobile-Friendly Emergency Contact -->
+                  <div class="form-section">
+                    <h4><i class="fas fa-phone-alt me-2"></i> DETAILS OF EMERGENCY CONTACT INFORMATION</h4>
+                    <div class="row g-3">
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="emergencyContactName" class="form-label">Name *</label>
+                        <input type="text" class="form-control" id="emergencyContactName" name="emergencyContactName" required>
+                      </div>
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="emergencyContactPhone" class="form-label">Telephone contact *</label>
+                        <input type="tel" class="form-control" id="emergencyContactPhone" name="emergencyContactPhone" required>
+                      </div>
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="emergencyContactEmail" class="form-label">Email *</label>
+                        <input type="email" class="form-control" id="emergencyContactEmail" name="emergencyContactEmail" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Mobile-Friendly Academic Information -->
+                  <div class="form-section">
+                    <h4><i class="fas fa-graduation-cap me-2"></i> ACADEMIC INFORMATION</h4>
+                    <div class="row g-3">
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="levelApplying" class="form-label">CHOICE OF PROGRAMME (Tick one (1) program of your choice) *</label>
+                        <select class="form-control" id="levelApplying" name="levelApplying" required onchange="updateProgramOptions()">
+                          <option value="">Select Level</option>
+                          <option value="Certificate">Certificate Program</option>
+                          <option value="Diploma Extension">Diploma Extension Program</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="course" class="form-label">Course *</label>
+                        <select class="form-control" id="course" name="course" required>
+                          <option value="">Select Course</option>
+                          <option value="Nursing">Nursing</option>
+                          <option value="Midwifery">Midwifery</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-4 col-md-6 col-sm-12">
+                        <label for="intakePeriod" class="form-label">CHOICE OF INTAKE (Indicate January/July) *</label>
+                        <select class="form-control" id="intakePeriod" name="intakePeriod" required>
+                          <option value="">Select Intake</option>
+                          <option value="January">January</option>
+                          <option value="July">July</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                <!-- Mobile-Friendly UCE Results (For Certificate Applicants) -->
+                <div class="form-section" id="uceSection" style="display: none;">
+                  <h4><i class="fas fa-book me-2"></i> UGANDA CERTIFICATE OF EDUCATION (UCE)</h4>
+                  <div class="row g-3">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="uceIndexNumber" class="form-label">INDEX NUMBER</label>
+                      <input type="text" class="form-control" id="uceIndexNumber" name="uceIndexNumber" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="uceYear" class="form-label">YEAR OF COMPLETION</label>
+                      <input type="number" class="form-control" id="uceYear" name="uceYear" min="2010" max="2026" required>
+                    </div>
+                  </div>
+                  
+                  <div class="row g-3">
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                      <label for="uceEnglish" class="form-label">ENG</label>
+                      <select class="form-control" id="uceEnglish" name="uceEnglish" required>
+                        <option value="">Grade</option>
+                        <option value="D1">D1</option>
+                        <option value="D2">D2</option>
+                        <option value="C3">C3</option>
+                        <option value="C4">C4</option>
+                        <option value="C5">C5</option>
+                        <option value="C6">C6</option>
+                        <option value="P7">P7</option>
+                        <option value="P8">P8</option>
+                        <option value="F9">F9</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                      <label for="uceMath" class="form-label">MATH</label>
+                      <select class="form-control" id="uceMath" name="uceMath" required>
+                        <option value="">Grade</option>
+                        <option value="D1">D1</option>
+                        <option value="D2">D2</option>
+                        <option value="C3">C3</option>
+                        <option value="C4">C4</option>
+                        <option value="C5">C5</option>
+                        <option value="C6">C6</option>
+                        <option value="P7">P7</option>
+                        <option value="P8">P8</option>
+                        <option value="F9">F9</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                      <label for="uceBiology" class="form-label">CHEM</label>
+                      <select class="form-control" id="uceBiology" name="uceBiology" required>
+                        <option value="">Grade</option>
+                        <option value="D1">D1</option>
+                        <option value="D2">D2</option>
+                        <option value="C3">C3</option>
+                        <option value="C4">C4</option>
+                        <option value="C5">C5</option>
+                        <option value="C6">C6</option>
+                        <option value="P7">P7</option>
+                        <option value="P8">P8</option>
+                        <option value="F9">F9</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                      <label for="uceChemistry" class="form-label">PHY</label>
+                      <select class="form-control" id="uceChemistry" name="uceChemistry" required>
+                        <option value="">Grade</option>
+                        <option value="D1">D1</option>
+                        <option value="D2">D2</option>
+                        <option value="C3">C3</option>
+                        <option value="C4">C4</option>
+                        <option value="C5">C5</option>
+                        <option value="C6">C6</option>
+                        <option value="P7">P7</option>
+                        <option value="P8">P8</option>
+                        <option value="F9">F9</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                      <label for="ucePhysics" class="form-label">BEST</label>
+                      <select class="form-control" id="ucePhysics" name="ucePhysics">
+                        <option value="">Grade</option>
+                        <option value="D1">D1</option>
+                        <option value="D2">D2</option>
+                        <option value="C3">C3</option>
+                        <option value="C4">C4</option>
+                        <option value="C5">C5</option>
+                        <option value="C6">C6</option>
+                        <option value="P7">P7</option>
+                        <option value="P8">P8</option>
+                        <option value="F9">F9</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-6">
+                      <label for="uceOther" class="form-label">OTHER</label>
+                      <select class="form-control" id="uceOther" name="uceOther">
+                        <option value="">Grade</option>
+                        <option value="D1">D1</option>
+                        <option value="D2">D2</option>
+                        <option value="C3">C3</option>
+                        <option value="C4">C4</option>
+                        <option value="C5">C5</option>
+                        <option value="C6">C6</option>
+                        <option value="P7">P7</option>
+                        <option value="P8">P8</option>
+                        <option value="F9">F9</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="alert alert-info">
+                    <strong>Note:</strong> Attach a photo of the UCE Certificate or its equivalent. Strictly photocopy of the Certificate must be attached.
+                  </div>
                 </div>
-                <button type="submit" class="submit-btn">
+
+                <!-- Mobile-Friendly UACE Results (Optional) -->
+                <div class="form-section">
+                  <h4><i class="fas fa-book me-2"></i> UGANDA ADVANCED CERTIFICATE OF EDUCATION (UACE) - OPTIONAL</h4>
+                  <div class="row g-3">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="uaceIndexNumber" class="form-label">INDEX NUMBER</label>
+                      <input type="text" class="form-control" id="uaceIndexNumber" name="uaceIndexNumber">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="uaceYear" class="form-label">YEAR OF COMPLETION</label>
+                      <input type="number" class="form-control" id="uaceYear" name="uaceYear" min="2010" max="2026">
+                    </div>
+                  </div>
+                  
+                  <div class="alert alert-info">
+                    <strong>Note:</strong> Attach a photocopy of the UACE Certificate or equivalent. This is optional but recommended.
+                  </div>
+                </div>
+                        <option value="P8">P8</option>
+                        <option value="F9">F9</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <label for="ucePhysics" class="form-label">Physics Grade</label>
+                      <select class="form-control" id="ucePhysics" name="ucePhysics">
+                        <option value="">Grade</option>
+                        <option value="D1">D1</option>
+                        <option value="D2">D2</option>
+                        <option value="C3">C3</option>
+                        <option value="C4">C4</option>
+                        <option value="C5">C5</option>
+                        <option value="C6">C6</option>
+                        <option value="P7">P7</option>
+                        <option value="P8">P8</option>
+                        <option value="F9">F9</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Mobile-Friendly Diploma Extension Information -->
+                <div class="form-section" id="diplomaSection" style="display: none;">
+                  <h4><i class="fas fa-certificate me-2"></i> Diploma Extension Information</h4>
+                  <div class="row g-3">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="diplomaExamNumber" class="form-label">Diploma Exam Number</label>
+                      <input type="text" class="form-control" id="diplomaExamNumber" name="diplomaExamNumber">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="diplomaYearCompletion" class="form-label">Year of Completion</label>
+                      <input type="number" class="form-control" id="diplomaYearCompletion" name="diplomaYearCompletion" min="2000" max="2026">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="diplomaYearEntry" class="form-label">Year of Entry</label>
+                      <input type="number" class="form-control" id="diplomaYearEntry" name="diplomaYearEntry" min="2000" max="2026">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="practicingLicense" class="form-label">Practicing License Number</label>
+                      <input type="text" class="form-control" id="practicingLicense" name="practicingLicense">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Mobile-Friendly Diploma Extension Results (For Diploma Applicants) -->
+                <div class="form-section" id="diplomaSection" style="display: none;">
+                  <h4><i class="fas fa-graduation-cap me-2"></i> DIPLOMA EXTENSION QUALIFICATIONS</h4>
+                  <div class="alert alert-warning">
+                    <strong>FOR ONLY STUDENTS APPLYING FOR DIPLOMA EXTENSION PROGRAM</strong>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="diplomaExamNumber" class="form-label">EXAM NUMBER (NSIN)</label>
+                      <input type="text" class="form-control" id="diplomaExamNumber" name="diplomaExamNumber" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="diplomaYearCompletion" class="form-label">YEAR OF COMPLETION</label>
+                      <input type="number" class="form-control" id="diplomaYearCompletion" name="diplomaYearCompletion" min="2000" max="2026" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="diplomaYearEntry" class="form-label">YEAR OF ENTRY</label>
+                      <input type="number" class="form-control" id="diplomaYearEntry" name="diplomaYearEntry" min="2000" max="2026" required>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <label for="practicingLicense" class="form-label">PRACTICING LICENSE NUMBER</label>
+                      <input type="text" class="form-control" id="practicingLicense" name="practicingLicense" required>
+                    </div>
+                  </div>
+                  
+                  <div class="row g-3">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                      <label for="diplomaPaper1" class="form-label">PAPER I</label>
+                      <select class="form-control" id="diplomaPaper1" name="diplomaPaper1" required>
+                        <option value="">Grade</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                      <label for="diplomaPaper2" class="form-label">PAPER II</label>
+                      <select class="form-control" id="diplomaPaper2" name="diplomaPaper2" required>
+                        <option value="">Grade</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="diplomaPaper3" class="form-label">PAPER III</label>
+                      <select class="form-control" id="diplomaPaper3" name="diplomaPaper3" required>
+                        <option value="">Grade</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="diplomaOsce" class="form-label">OSPE/USCE</label>
+                      <select class="form-control" id="diplomaOsce" name="diplomaOsce" required>
+                        <option value="">Grade</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <label for="diplomaDistinctions" class="form-label">DISTINCTIONS</label>
+                      <input type="number" class="form-control" id="diplomaDistinctions" name="diplomaDistinctions" min="0" required>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="diplomaCredits" class="form-label">CREDITS</label>
+                      <input type="number" class="form-control" id="diplomaCredits" name="diplomaCredits" min="0" required>
+                    </div>
+                    <div class="col-md-4">
+                      <label for="diplomaPasses" class="form-label">PASSES</label>
+                      <input type="number" class="form-control" id="diplomaPasses" name="diplomaPasses" min="0" required>
+                    </div>
+                    <div class="col-md-12">
+                      <label for="diplomaCgpa" class="form-label">CGPA</label>
+                      <input type="text" class="form-control" id="diplomaCgpa" name="diplomaCgpa" required>
+                    </div>
+                  </div>
+                  
+                  <div class="alert alert-info">
+                    <strong>Please attach a photocopy of the result slip from UNMEB, UNMEB certificate, certificate of enrolment and practicing license from UNMEB, and academic transcript.</strong>
+                  </div>
+                </div>
+
+                <!-- Sports and Leadership -->
+                <div class="form-section">
+                  <h4><i class="fas fa-trophy"></i> SPORTS AND LEADERSHIP</h4>
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <label for="sportsActivities" class="form-label">Have you taken part in any sports activities? (List and attach sports certificates)</label>
+                      <textarea class="form-control" id="sportsActivities" name="sportsActivities" rows="3"></textarea>
+                    </div>
+                    <div class="col-12">
+                      <label for="leadershipPositions" class="form-label">State positions of responsibility held (e.g., Prefect, Sports Captain, Counselor, Minister)</label>
+                      <textarea class="form-control" id="leadershipPositions" name="leadershipPositions" rows="3"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Motivation Statement -->
+                <div class="form-section">
+                  <h4><i class="fas fa-edit"></i> MOTIVATION STATEMENT</h4>
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <label for="motivation" class="form-label">State why you want to undertake this course, any relevant experience, skills and attributes and your long-term goals (In not more than 100 words)</label>
+                      <textarea class="form-control" id="motivation" name="motivation" rows="4" maxlength="500" required placeholder="State your motivation, relevant experience, skills, attributes, and long-term goals..."></textarea>
+                      <small class="text-muted"><span id="charCount">0</span>/500 characters</small>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Document Uploads -->
+                <div class="form-section">
+                  <h4><i class="fas fa-upload"></i> DOCUMENT UPLOADS</h4>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label for="academicDocument" class="form-label">Upload Academic Document (PDF, JPEG, PNG, DOC) *</label>
+                      <input type="file" class="form-control" id="academicDocument" name="academicDocument" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+                      <small class="text-muted">Maximum file size: 5MB</small>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="photo" class="form-label">Upload Your Photo *</label>
+                      <input type="file" class="form-control" id="photo" name="photo" accept="image/*" required>
+                      <small class="text-muted">Passport-sized photo, maximum file size: 2MB</small>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Additional Information -->
+                <div class="form-section">
+                  <h3><i class="fas fa-info-circle"></i> Additional Information</h3>
+                  <div class="row g-3">
+                    <div class="col-12">
+                      <label for="motivation" class="form-label">Why do you want to undertake this course? (Maximum 100 words)</label>
+                      <textarea class="form-control" id="motivation" name="motivation" rows="4" maxlength="500" required placeholder="State your motivation, relevant experience, skills, attributes, and long-term goals..."></textarea>
+                      <small class="text-muted"><span id="charCount">0</span>/500 characters</small>
+                    </div>
+                    <div class="col-12">
+                      <label for="disability" class="form-label">Do you have any disability?</label>
+                      <select class="form-control" id="disability" name="disability" onchange="toggleDisabilityDetails()">
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                      </select>
+                    </div>
+                    <div id="disabilityDetails" style="display: none;">
+                      <div class="col-md-6">
+                        <label for="disabilityType" class="form-label">Type of Disability</label>
+                        <select class="form-control" id="disabilityType" name="disabilityType">
+                          <option value="">Select Type</option>
+                          <option value="Physical disability">Physical disability</option>
+                          <option value="Chronic illness">Chronic illness</option>
+                          <option value="Hearing impairment">Hearing impairment</option>
+                          <option value="Visual impairment">Visual impairment</option>
+                          <option value="Speech impairment">Speech impairment</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                      <div class="col-12">
+                        <label for="disabilityDescription" class="form-label">Brief description of disability</label>
+                        <textarea class="form-control" id="disabilityDescription" name="disabilityDescription" rows="3"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Declaration -->
+                <div class="form-section">
+                  <div class="declaration-box">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Important Notice</h4>
+                    <p class="declaration-text">
+                      Cases of impersonation, falsification of documents, or giving false/incomplete information whenever discovered, either at registration or afterwards, will lead to automatic cancellation of admission and prosecution in the Uganda Courts of Law.
+                    </p>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="declaration" name="declaration" required>
+                      <label class="form-check-label" for="declaration">
+                        I have read and understood the above declaration and confirm that all information provided is true and accurate
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-section text-center">
+                  <button type="submit" class="btn btn-primary btn-lg">
                     <i class="fas fa-paper-plane"></i> Submit Application
-                </button>
-            </form>
-        </section>
-    </main>
+                  </button>
+                  <div class="mt-3">
+                    <small class="text-muted">
+                      Application Fee: UGX 95,000 (Non-refundable)<br>
+                      You will be contacted for interview and fee payment after submission
+                    </small>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navLinks = document.getElementById('navLinks');
-        
-        if (mobileMenuToggle && navLinks) {
-            mobileMenuToggle.addEventListener('click', function() {
-                mobileMenuToggle.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            });
-            
-            // Close menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!mobileMenuToggle.contains(e.target) && !navLinks.contains(e.target)) {
-                    mobileMenuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                }
-            });
-            
-            // Close menu when clicking on a link
-            navLinks.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                });
-            });
+  </main>
+
+  <script>
+    // Character counter for motivation field
+    document.getElementById('motivation').addEventListener('input', function() {
+      const charCount = this.value.length;
+      document.getElementById('charCount').textContent = charCount;
+    });
+
+    // Toggle disability details
+    function toggleDisabilityDetails() {
+      const disability = document.getElementById('disability').value;
+      const details = document.getElementById('disabilityDetails');
+      details.style.display = disability === 'Yes' ? 'block' : 'none';
+    }
+
+    // Update program options based on level
+    function updateProgramOptions() {
+      const level = document.getElementById('levelApplying').value;
+      const uceSection = document.getElementById('uceSection');
+      const diplomaSection = document.getElementById('diplomaSection');
+      
+      if (level === 'Certificate') {
+        uceSection.style.display = 'block';
+        diplomaSection.style.display = 'none';
+      } else if (level === 'Diploma Extension') {
+        uceSection.style.display = 'none';
+        diplomaSection.style.display = 'block';
+      } else {
+        uceSection.style.display = 'none';
+        diplomaSection.style.display = 'none';
+      }
+    }
+
+    // Form validation
+    document.getElementById('applicationForm').addEventListener('submit', function(e) {
+      // Basic validation
+      const requiredFields = this.querySelectorAll('[required]');
+      let isValid = true;
+      
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          isValid = false;
+          field.classList.add('is-invalid');
+        } else {
+          field.classList.remove('is-invalid');
         }
+      });
+      
+      if (!isValid) {
+        e.preventDefault();
+        alert('Please fill in all required fields');
+        return;
+      }
+      
+      // Check file sizes
+      const academicDoc = document.getElementById('academicDocument').files[0];
+      const photo = document.getElementById('photo').files[0];
+      
+      if (academicDoc && academicDoc.size > 5 * 1024 * 1024) {
+        e.preventDefault();
+        alert('Academic document must be less than 5MB');
+        return;
+      }
+      
+      if (photo && photo.size > 2 * 1024 * 1024) {
+        e.preventDefault();
+        alert('Photo must be less than 2MB');
+        return;
+      }
+      
+      // Show loading state
+      const submitBtn = this.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    });
 
-        // Mobile Dropdown Toggle
-        const navDropdowns = document.querySelectorAll('.nav-dropdown');
-        
-        navDropdowns.forEach(dropdown => {
-            const toggle = dropdown.querySelector('.nav-dropdown-toggle');
-            const menu = dropdown.querySelector('.nav-dropdown-menu');
-            
-            if (toggle && menu) {
-                toggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Close other dropdowns
-                    navDropdowns.forEach(otherDropdown => {
-                        if (otherDropdown !== dropdown) {
-                            otherDropdown.classList.remove('active');
-                        }
-                    });
-                    
-                    // Toggle current dropdown
-                    dropdown.classList.toggle('active');
-                });
-            }
-        });
+    // Phone number validation
+    document.getElementById('contactNumber').addEventListener('input', function() {
+      const value = this.value.replace(/\s/g, '');
+      if (value.startsWith('+256') && value.length === 13) {
+        this.setCustomValidity('');
+      } else if (value.startsWith('0') && value.length === 10) {
+        this.value = '+256' + value.substring(1);
+        this.setCustomValidity('');
+      } else {
+        this.setCustomValidity('Please enter a valid Ugandan phone number');
+      }
+    });
+  </script>
 
-        // Handle window resize
-        let isMobile = window.innerWidth <= 768;
-        
-        window.addEventListener('resize', () => {
-            const newIsMobile = window.innerWidth <= 768;
-            if (isMobile !== newIsMobile) {
-                isMobile = newIsMobile;
-                // Reset mobile menu on resize
-                if (!isMobile && navLinks) {
-                    navLinks.classList.remove('active');
-                    mobileMenuToggle.classList.remove('active');
-                    navDropdowns.forEach(dropdown => {
-                        dropdown.classList.remove('active');
-                    });
-                }
-            }
-        });
+  <style>
+    /* Hero Header Styles */
+    .hero-header {
+      position: relative;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+      color: white;
+      padding: 6rem 0 4rem;
+      overflow: hidden;
+    }
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+    .hero-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.15"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.15"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.15"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+      opacity: 0.3;
+    }
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const hash = this.getAttribute('href');
-                if (!hash || hash === '#') return;
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(30, 60, 114, 0.8), rgba(126, 34, 206, 0.6));
+    }
 
-                let target = null;
-                try {
-                    target = document.querySelector(hash);
-                } catch (error) {
-                    console.warn('Invalid anchor hash:', hash, error);
-                }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
 
-                if (target instanceof Element) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      letter-spacing: 2px;
+    }
 
-        // Add error handling for images
-        document.querySelectorAll('img').forEach(img => {
-            img.addEventListener('error', function() {
-                this.style.display = 'none';
-                console.warn('Image failed to load:', this.src);
-            });
-        });
+    .hero-subtitle {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
 
-        // Add parallax effect to header (disabled on mobile for performance)
-        let isMobile = window.innerWidth <= 768;
-        
-        window.addEventListener('resize', () => {
-            isMobile = window.innerWidth <= 768;
-        });
-        
-        if (!isMobile) {
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const header = document.querySelector('.luxury-header');
-                if (header) {
-                    header.style.transform = `translateY(${scrolled * 0.5}px)`;
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+    .hero-decoration {
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #ffd700, #ffed4e);
+      margin: 0 auto;
+      border-radius: 2px;
+    }
 
-        function showProgram(programType) {
-            // Hide all program contents
-            document.querySelectorAll('.program-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remove active class from all tabs
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Show selected program content
-            const selectedProgram = document.getElementById(programType);
-            if (selectedProgram) {
-                selectedProgram.classList.add('active');
-            }
-            
-            // Add active class to clicked tab
-            if (event && event.target) {
-                event.target.classList.add('active');
-            }
-        }
+    /* School Banner Styles */
+    .school-banner {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+      border: 1px solid #dee2e6;
+      position: relative;
+      overflow: hidden;
+    }
 
-        // Add smooth scroll behavior
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+    .school-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(126, 34, 206, 0.05) 0%, transparent 70%);
+      animation: rotate 30s linear infinite;
+    }
 
-        // Add parallax effect to header (disabled on mobile for performance)
-        let isMobile = window.innerWidth <= 768;
-        
-        window.addEventListener('resize', () => {
-            isMobile = window.innerWidth <= 768;
-        });
-        
-        if (!isMobile) {
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const header = document.querySelector('.luxury-header');
-                if (header) {
-                    header.style.transform = `translateY(${scrolled * 0.5}px)`;
-                }
-            });
-        }
+    .school-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1e3c72;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
 
-        // File upload display
-        const documentInput = document.getElementById('document');
-        const imageInput = document.getElementById('image');
-        
-        if (documentInput) {
-            documentInput.addEventListener('change', function(e) {
-                const fileName = e.target.files[0] ? e.target.files[0].name : '';
-                const fileNameElement = document.getElementById('document-name');
-                if (fileNameElement) {
-                    fileNameElement.textContent = fileName;
-                }
-            });
-        }
-        
-        if (imageInput) {
-            imageInput.addEventListener('change', function(e) {
-                const fileName = e.target.files[0] ? e.target.files[0].name : '';
-                const fileNameElement = document.getElementById('image-name');
-                if (fileNameElement) {
-                    fileNameElement.textContent = fileName;
-                }
-            });
-        }
+    .school-details {
+      max-width: 600px;
+      margin: 0 auto;
+    }
 
-        // Add error handling for images
-        document.querySelectorAll('img').forEach(img => {
-            img.addEventListener('error', function() {
-                this.style.display = 'none';
-                console.warn('Image failed to load:', this.src);
-            });
-        });
-    </script>
-</body>
-</html>
+    .school-details p {
+      margin: 0.8rem 0;
+      font-size: 1.1rem;
+      color: #495057;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
 
+    .school-details i {
+      color: #7e22ce;
+      font-size: 1rem;
+    }
 
+    /* Announcement Card */
+    .announcement-card {
+      background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+      border-radius: 20px;
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(255, 193, 7, 0.15);
+      border: 2px solid #ffc107;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .announcement-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ffc107, #ff6b6b, #4ecdc4, #ffc107);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    .announcement-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #ffc107, #ff6b6b);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
+    }
+
+    .announcement-icon i {
+      font-size: 2rem;
+      color: white;
+    }
+
+    .announcement-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #856404;
+      margin-bottom: 1rem;
+    }
+
+    .announcement-text {
+      font-size: 1.1rem;
+      color: #856404;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Requirements Card */
+    .requirements-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+      border: 1px solid #e9ecef;
+      height: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .requirements-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f8f9fa;
+    }
+
+    .card-header i {
+      font-size: 2rem;
+      color: #7e22ce;
+      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-header h4 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1e3c72;
+      margin: 0;
+    }
+
+    .requirement-section {
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header i {
+      font-size: 1.2rem;
+      color: #7e22ce;
+    }
+
+    .section-header h5 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #495057;
+      margin: 0;
+    }
+
+    .requirements-list {
+      padding-left: 1.5rem;
+      margin: 0;
+    }
+
+    .requirements-list li {
+      margin-bottom: 0.8rem;
+      color: #495057;
+      line-height: 1.6;
+      position: relative;
+      padding-left: 0.5rem;
+    }
+
+    .requirements-list li::before {
+      content: '▸';
+      position: absolute;
+      left: -1rem;
+      color: #7e22ce;
+      font-weight: bold;
+    }
+
+    /* Interview Card */
+    .interview-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+      border: 1px solid #e9ecef;
+      height: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .interview-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+    }
+
+    .intake-badge {
+      background: linear-gradient(135deg, #4ecdc4, #44a3aa);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-left: auto;
+    }
+
+    .interview-details {
+      margin-bottom: 2rem;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 15px;
+      transition: background 0.3s ease;
+    }
+
+    .detail-item:hover {
+      background: #e9ecef;
+    }
+
+    .detail-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #7e22ce, #6b21a8);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .detail-icon i {
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .detail-content {
+      flex: 1;
+    }
+
+    .detail-content .label {
+      display: block;
+      font-size: 0.9rem;
+      color: #6c757d;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .detail-content .value {
+      font-size: 1.1rem;
+      color: #1e3c72;
+      font-weight: 600;
+    }
+
+    .location-info {
+      background: linear-gradient(135deg, #e8f5e8, #d4edda);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid #c3e6cb;
+    }
+
+    .location-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .location-header i {
+      font-size: 1.2rem;
+      color: #28a745;
+    }
+
+    .location-header h5 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #155724;
+      margin: 0;
+    }
+
+    .location-info p {
+      color: #155724;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .contact-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-header i {
+      font-size: 1.2rem;
+      color: #007bff;
+    }
+
+    .contact-header h5 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #004085;
+      margin: 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+      background: #e9ecef;
+      transform: translateX(5px);
+    }
+
+    .contact-avatar {
+      width: 45px;
+      height: 45px;
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-avatar i {
+      font-size: 1rem;
+      color: white;
+    }
+
+    .contact-info {
+      flex: 1;
+    }
+
+    .contact-info .role {
+      display: block;
+      font-size: 0.9rem;
+      color: #6c757d;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-info .number {
+      font-size: 1rem;
+      color: #1e3c72;
+      font-weight: 600;
+    }
+
+    /* Form Container */
+    .form-container {
+      background: white;
+      border-radius: 25px;
+      padding: 3rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      border: 1px solid #e9ecef;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #7e22ce, #ec4899, #f59e0b, #10b981, #3b82f6, #7e22ce);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .form-logo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #7e22ce, #ec4899);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 30px rgba(126, 34, 206, 0.3);
+      position: relative;
+    }
+
+    .form-logo::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(135deg, #7e22ce, #ec4899);
+      border-radius: 25px;
+      z-index: -1;
+      opacity: 0.3;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .form-logo i {
+      font-size: 2.5rem;
+      color: white;
+    }
+
+    .form-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1e3c72;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-subtitle {
+      font-size: 1.2rem;
+      color: #6c757d;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-instructions {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      color: #856404;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid #ffc107;
+    }
+
+    .form-instructions i {
+      font-size: 1rem;
+      color: #f39c12;
+    }
+
+    /* Form Sections */
+    .form-section {
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 20px;
+      border: 1px solid #dee2e6;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .form-section:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .form-section h4 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1e3c72;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .form-section h4 i {
+      font-size: 1.2rem;
+      color: #7e22ce;
+      background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .form-control:focus {
+      border-color: #7e22ce;
+      box-shadow: 0 0 0 0.2rem rgba(126, 34, 206, 0.15);
+      outline: none;
+    }
+
+    .form-control:hover {
+      border-color: #dee2e6;
+    }
+
+    /* Animations */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.05); opacity: 0.5; }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .animate-slide-up {
+      animation: slideUp 0.8s ease-out 0.2s both;
+    }
+
+    .animate-scale-in {
+      animation: scaleIn 0.8s ease-out 0.4s both;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .school-title {
+        font-size: 2rem;
+      }
+      
+      .form-container {
+        padding: 2rem;
+      }
+      
+      .form-section {
+        padding: 1.5rem;
+      }
+      
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .detail-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+      
+      .card-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+      }
+    }
+
+    /* Invalid Form Styles */
+    .is-invalid {
+      border-color: #dc3545 !important;
+      background-color: #fff5f5;
+    }
+
+    .is-invalid:focus {
+      border-color: #dc3545;
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.15);
+    }
+  </style>
+
+  <?php include('shared/_footer.php'); ?>
