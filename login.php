@@ -1058,8 +1058,8 @@ $current_role = isset($roles[$role]) ? $roles[$role] : $roles['admin'];
         </div>
 
         <div class="back-link">
-            <a href="login-portal.php">
-                <i class="fas fa-arrow-left"></i> Back to Department Selection
+            <a href="organogram.php">
+                <i class="fas fa-arrow-left"></i> Back to Portal / Organogram
             </a>
         </div>
     </div>

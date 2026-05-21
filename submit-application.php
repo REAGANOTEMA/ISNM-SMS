@@ -181,8 +181,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div style="text-align: center;">
-                <a href="admissions.php" class="back-btn">
-                    <i class="fas fa-arrow-left"></i> Back to Admissions
+                <a href="application.php" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Application
                 </a>
             </div>
         </div>
@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php
 } else {
     // Redirect if accessed directly
-    header('Location: admissions.php');
+    header('Location: application.php');
     exit;
 }
 ?>

@@ -35,7 +35,6 @@
           <ul class="list-unstyled">
             <li><a href="index.php"><i class="fas fa-home me-2"></i>Home</a></li>
             <li><a href="about.php"><i class="fas fa-info-circle me-2"></i>About Us</a></li>
-            <li><a href="history.php"><i class="fas fa-history me-2"></i>School History</a></li>
             <li><a href="programs.php"><i class="fas fa-graduation-cap me-2"></i>Programs</a></li>
             <li><a href="application.php"><i class="fas fa-user-plus me-2"></i>Application</a></li>
             <li><a href="donation.php"><i class="fas fa-hand-holding-heart me-2"></i>Donate</a></li>

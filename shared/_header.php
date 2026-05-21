@@ -2004,11 +2004,6 @@ include_once 'includes/functions.php'; ?>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="history.php">
-            <i class="fas fa-history"></i> History
-          </a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="programs.php">
             <i class="fas fa-graduation-cap"></i> Programs
           </a>
