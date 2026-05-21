@@ -4,9 +4,9 @@
  */
 require_once __DIR__ . '/config/database.php';
 
-$host = DB_HOST;
-$username = DB_USER;
-$password = DB_PASS;
+$host = STAFF_DB_HOST;
+$username = STAFF_DB_USER;
+$password = STAFF_DB_PASS;
 $dbname = STAFF_DB_NAME;
 
 try {

@@ -12,12 +12,12 @@ try {
     $conn = getConnection();
 
     // Test basic query
-    $result = $conn->query("SELECT COUNT(*) as table_count FROM information_schema.tables WHERE table_schema = 'isnm_db'");
+    $result = $conn->query("SELECT COUNT(*) as table_count FROM information_schema.tables WHERE table_schema = 'igangaschoolofl_students_db'");
     $row = $result->fetch_assoc();
 
     echo "<h2>Database Connection Test Results</h2>";
     echo "<p><strong>Status:</strong> <span style='color: green;'>✅ Connected Successfully</span></p>";
-    echo "<p><strong>Database:</strong> isnm_db</p>";
+    echo "<p><strong>Database:</strong> igangaschoolofl_students_db</p>";
     echo "<p><strong>Tables Found:</strong> " . $row['table_count'] . "</p>";
 
     // Test users table
