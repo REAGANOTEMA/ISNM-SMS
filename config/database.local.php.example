@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copy to database.local.php and set values for your environment.
+ * database.local.php is gitignored — never commit real passwords.
+ */
+define('APP_ENV', 'local'); // local | production
+
+define('STUDENTS_DB_HOST', 'localhost');
+define('STUDENTS_DB_USER', 'your_students_user');
+define('STUDENTS_DB_PASS', 'your_students_password');
+define('STUDENTS_DB_NAME', 'your_students_database');
+
+define('STAFF_DB_HOST', 'localhost');
+define('STAFF_DB_USER', 'your_staff_user');
+define('STAFF_DB_PASS', 'your_staff_password');
+define('STAFF_DB_NAME', 'your_staff_database');
+
+define('WEBSITE_DB_HOST', 'localhost');
+define('WEBSITE_DB_USER', 'your_website_user');
+define('WEBSITE_DB_PASS', 'your_website_password');
+define('WEBSITE_DB_NAME', 'your_website_database');

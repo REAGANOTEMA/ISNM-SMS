@@ -1,78 +1,76 @@
 <?php
-// ISNM Unified Database Connection System
-// Connects to all three databases: staffs_db, students_db, website_db
+/**
+ * ISNM Unified Database Connection System
+ * Delegates to config/database.php per-database credentials.
+ */
 
 class DatabaseConnection {
     private static $connections = [];
-    private static $config = null;
+    private static $map = null;
 
-    private static function getConfig() {
-        if (self::$config === null) {
+    private static function getMap(): array {
+        if (self::$map === null) {
             require_once __DIR__ . '/../config/database.php';
-            self::$config = [
-                'host' => DB_HOST,
-                'username' => DB_USER,
-                'password' => DB_PASS,
-                'charset' => DB_CHARSET,
-            ];
+            self::$map = unserialize(DB_MAP);
         }
-        return self::$config;
+        return self::$map;
+    }
+
+    /** @param string $key students|staffs|website or legacy staffs_db|students_db|website_db */
+    private static function resolveKey(string $database): string {
+        $aliases = [
+            'staffs_db' => 'staffs',
+            'students_db' => 'students',
+            'website_db' => 'website',
+            'staffs' => 'staffs',
+            'students' => 'students',
+            'website' => 'website',
+        ];
+        return $aliases[$database] ?? $database;
     }
 
     public static function getConnection($database) {
-        if (!isset(self::$connections[$database])) {
-            try {
-                $cfg = self::getConfig();
-                $conn = new mysqli(
-                    $cfg['host'],
-                    $cfg['username'],
-                    $cfg['password'],
-                    $database
-                );
-
-                if ($conn->connect_error) {
-                    throw new Exception("Connection to {$database} failed: " . $conn->connect_error);
-                }
-
-                $conn->set_charset($cfg['charset']);
-                self::$connections[$database] = $conn;
-
-                // Log successful connection
-                error_log("Successfully connected to {$database} database");
-                
-            } catch (Exception $e) {
-                error_log("Database connection error: " . $e->getMessage());
-                throw $e;
+        $key = self::resolveKey($database);
+        if (!isset(self::$connections[$key])) {
+            $map = self::getMap();
+            if (!isset($map[$key])) {
+                throw new Exception("Unknown database: {$database}");
             }
+            $c = $map[$key];
+            $conn = @new mysqli($c['host'], $c['user'], $c['pass'], $c['name']);
+            if ($conn->connect_error) {
+                error_log("Database connection error ({$key}): " . $conn->connect_error);
+                throw new Exception('Database connection failed. Please contact administrator.');
+            }
+            $conn->set_charset(DB_CHARSET);
+            self::$connections[$key] = $conn;
         }
-        
-        return self::$connections[$database];
+        return self::$connections[$key];
     }
 
     public static function getStaffConnection() {
-        return self::getConnection('staffs_db');
+        return self::getConnection('staffs');
     }
 
     public static function getStudentsConnection() {
-        return self::getConnection('students_db');
+        return self::getConnection('students');
     }
 
     public static function getWebsiteConnection() {
-        return self::getConnection('website_db');
+        return self::getConnection('website');
     }
 
     public static function closeConnection($database) {
-        if (isset(self::$connections[$database])) {
-            self::$connections[$database]->close();
-            unset(self::$connections[$database]);
-            error_log("Closed connection to {$database} database");
+        $key = self::resolveKey($database);
+        if (isset(self::$connections[$key])) {
+            self::$connections[$key]->close();
+            unset(self::$connections[$key]);
         }
     }
 
     public static function closeAllConnections() {
-        foreach (self::$connections as $database => $connection) {
+        foreach (self::$connections as $connection) {
             $connection->close();
-            error_log("Closed connection to {$database} database");
         }
         self::$connections = [];
     }
@@ -80,35 +78,32 @@ class DatabaseConnection {
     public static function testConnection($database) {
         try {
             $conn = self::getConnection($database);
-            $result = $conn->query("SELECT 1");
-            $conn->close();
-            return $result !== false;
+            return $conn->query('SELECT 1') !== false;
         } catch (Exception $e) {
-            error_log("Connection test failed for {$database}: " . $e->getMessage());
+            error_log('Connection test failed for ' . $database . ': ' . $e->getMessage());
             return false;
         }
     }
 
     public static function testAllConnections() {
         $results = [];
-        $databases = ['staffs_db', 'students_db', 'website_db'];
-        
-        foreach ($databases as $database) {
+        foreach (['staffs', 'students', 'website'] as $database) {
             $results[$database] = self::testConnection($database);
         }
-        
         return $results;
     }
 
     public static function getConnectionInfo($database) {
+        $key = self::resolveKey($database);
         $conn = self::getConnection($database);
+        $map = self::getMap();
         return [
-            'host' => self::$config['host'],
-            'database' => $database,
-            'charset' => self::$config['charset'],
+            'host' => $map[$key]['host'],
+            'database' => $map[$key]['name'],
+            'charset' => DB_CHARSET,
             'connected' => $conn->ping(),
             'server_info' => $conn->get_server_info(),
-            'client_info' => $conn->get_client_info()
+            'client_info' => $conn->get_client_info(),
         ];
     }
 
@@ -116,15 +111,12 @@ class DatabaseConnection {
         try {
             $conn = self::getConnection($database);
             $stmt = $conn->prepare($sql);
-            
             if (!empty($params) && !empty($types)) {
                 $stmt->bind_param($types, ...$params);
             }
-            
             $stmt->execute();
             $result = $stmt->get_result();
             $stmt->close();
-            
             return $result;
         } catch (Exception $e) {
             error_log("Query execution error in {$database}: " . $e->getMessage());
@@ -136,15 +128,12 @@ class DatabaseConnection {
         try {
             $conn = self::getConnection($database);
             $stmt = $conn->prepare($sql);
-            
             if (!empty($params) && !empty($types)) {
                 $stmt->bind_param($types, ...$params);
             }
-            
             $stmt->execute();
             $insert_id = $conn->insert_id;
             $stmt->close();
-            
             return $insert_id;
         } catch (Exception $e) {
             error_log("Insert execution error in {$database}: " . $e->getMessage());
@@ -156,15 +145,12 @@ class DatabaseConnection {
         try {
             $conn = self::getConnection($database);
             $stmt = $conn->prepare($sql);
-            
             if (!empty($params) && !empty($types)) {
                 $stmt->bind_param($types, ...$params);
             }
-            
-            $result = $stmt->execute();
+            $stmt->execute();
             $affected_rows = $conn->affected_rows;
             $stmt->close();
-            
             return $affected_rows;
         } catch (Exception $e) {
             error_log("Update execution error in {$database}: " . $e->getMessage());
@@ -177,45 +163,23 @@ class DatabaseConnection {
     }
 
     public static function beginTransaction($database) {
-        $conn = self::getConnection($database);
-        $conn->begin_transaction();
+        self::getConnection($database)->begin_transaction();
     }
 
     public static function commitTransaction($database) {
-        $conn = self::getConnection($database);
-        $conn->commit();
+        self::getConnection($database)->commit();
     }
 
     public static function rollbackTransaction($database) {
-        $conn = self::getConnection($database);
-        $conn->rollback();
+        self::getConnection($database)->rollback();
     }
 
     public static function escapeString($database, $string) {
-        $conn = self::getConnection($database);
-        return $conn->real_escape_string($string);
+        return self::getConnection($database)->real_escape_string($string);
     }
 }
 
-// Legacy compatibility functions
-if (!function_exists('getStaffConnection')) {
-    function getStaffConnection() {
-        return DatabaseConnection::getStaffConnection();
-    }
-}
-
-if (!function_exists('getStudentsConnection')) {
-    function getStudentsConnection() {
-        return DatabaseConnection::getStudentsConnection();
-    }
-}
-
-if (!function_exists('getWebsiteConnection')) {
-    function getWebsiteConnection() {
-        return DatabaseConnection::getWebsiteConnection();
-    }
-}
-
+// Legacy wrappers only if config/database.php did not define them
 if (!function_exists('executeQuery')) {
     function executeQuery($database, $sql, $params = [], $types = '') {
         return DatabaseConnection::executeQuery($database, $sql, $params, $types);
@@ -234,24 +198,9 @@ if (!function_exists('executeUpdate')) {
     }
 }
 
-if (!function_exists('sanitizeInput')) {
-    function sanitizeInput($input) {
-        return DatabaseConnection::sanitizeInput($input);
-    }
-}
-
-if (!function_exists('escapeString')) {
-    function escapeString($database, $string) {
-        return DatabaseConnection::escapeString($database, $string);
-    }
-}
-
-// Test all connections on include
 if (defined('TEST_CONNECTIONS') && TEST_CONNECTIONS) {
     $test_results = DatabaseConnection::testAllConnections();
-    echo "<h3>Database Connection Test Results</h3>";
-    echo "<pre>";
+    echo '<h3>Database Connection Test Results</h3><pre>';
     print_r($test_results);
-    echo "</pre>";
+    echo '</pre>';
 }
-?>

@@ -3,9 +3,11 @@
  * Finance module AJAX/form handler
  */
 require_once __DIR__ . '/../includes/staff_dashboard_access.php';
+require_once __DIR__ . '/../includes/finance_access.php';
 require_once __DIR__ . '/../includes/finance_module.php';
 
-bootstrapStaffDashboard(['bursar', 'finance', 'accountant', 'school bursar', 'director finance']);
+financeRequireAccess();
+bootstrapStaffDashboard(['school bursar', 'bursar', 'director finance', 'director general']);
 
 finEnsureSchema();
 $action = $_POST['action'] ?? $_GET['action'] ?? '';

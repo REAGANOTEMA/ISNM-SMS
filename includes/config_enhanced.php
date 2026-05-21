@@ -1,51 +1,26 @@
 <?php
 // ISNM Enhanced Configuration with Multi-Database Support
-// Supports staffs_db, students_db, and website_db
 
-// Database configuration
-$config = [
-    'host' => 'localhost',
-    'username' => 'root',
-    'password' => 'ReagaN23#',
-    'charset' => 'utf8mb4',
-    'databases' => [
-        'staffs' => 'staffs_db',
-        'students' => 'students_db',
-        'website' => 'website_db'
-    ]
-];
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/database_connections.php';
 
-// Include unified database connection system
-require_once 'database_connections.php';
-
-// Session configuration - ensure session is started only once
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Enhanced error reporting
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
 ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/../logs/php_errors.log');
-
-// Set timezone
-date_default_timezone_set('Africa/Kampala');
-
-// Initialize database connections
-try {
-    // Test all connections
-    $connection_tests = DatabaseConnection::testAllConnections();
-    
-    foreach ($connection_tests as $db => $status) {
-        if (!$status) {
-            error_log("Warning: Failed to connect to {$db} database");
-        }
-    }
-    
-} catch (Exception $e) {
-    error_log("Database initialization error: " . $e->getMessage());
+$logDir = __DIR__ . '/../logs';
+if (!is_dir($logDir)) {
+    @mkdir($logDir, 0755, true);
 }
+ini_set('error_log', $logDir . '/php_errors.log');
+
+$isLocal = defined('APP_ENV') && APP_ENV === 'local';
+ini_set('display_errors', $isLocal ? '1' : '0');
+ini_set('display_startup_errors', $isLocal ? '1' : '0');
+
+date_default_timezone_set('Africa/Kampala');
 
 // Enhanced global functions with database selection
 if (!function_exists('executeQuery')) {

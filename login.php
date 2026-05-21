@@ -399,7 +399,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 function redirectBasedOnPosition($position) {
     // Specialized dashboards that exist
     $specialized_dashboards = [
-        'school-bursar' => 'dashboard-bursar.php',
+        'school-bursar' => 'dashboards/bursar-finance-hub.php',
         'director-general' => 'dashboard-director-general.php',
         'principal' => 'dashboard-principal.php',
         'academic-registrar' => 'dashboard-academic-registrar.php'

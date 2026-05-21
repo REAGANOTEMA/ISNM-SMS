@@ -3,9 +3,11 @@
  * Student fee statement — print / PDF (browser print)
  */
 require_once __DIR__ . '/../includes/staff_dashboard_access.php';
+require_once __DIR__ . '/../includes/finance_access.php';
 require_once __DIR__ . '/../includes/bursar_finance.php';
 
-bootstrapStaffDashboard(['bursar', 'finance', 'accountant', 'school bursar']);
+financeRequireAccess();
+bootstrapStaffDashboard(['school bursar', 'bursar', 'director finance', 'director general']);
 
 $studentId = trim($_GET['student_id'] ?? '');
 if ($studentId === '') {

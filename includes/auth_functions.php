@@ -269,12 +269,12 @@ function getUserDashboard($role) {
         // Director Level
         'Director Academics' => 'director-academics.php',
         'Director ICT' => 'director-ict.php',
-        'Director Finance' => 'director-finance.php',
+        'Director Finance' => 'bursar-finance-hub.php',
         
         // School Management
         'School Principal' => 'school-principal.php',
         'Deputy Principal' => 'deputy-principal.php',
-        'School Bursar' => 'school-bursar.php',
+        'School Bursar' => 'bursar-finance-hub.php',
         'Academic Registrar' => 'academic-registrar.php',
         'HR Manager' => 'hr-manager.php',
         'School Secretary' => 'school-secretary.php',

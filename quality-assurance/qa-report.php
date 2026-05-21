@@ -9,11 +9,8 @@ session_start();
 // Include necessary files
 require_once '../includes/department-restrictions.php';
 
-// Database connection
-$conn = new mysqli('localhost', 'root', '', 'isnm_school');
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once __DIR__ . '/../config/database.php';
+$conn = getStudentsConnection();
 
 // QA Test Suite
 class QualityAssurance {

@@ -226,7 +226,12 @@ if ($dept_result) {
                     
                     <!-- Financial Overview -->
                     <div class="financial-overview">
-                        <h3>Financial Summary</h3>
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                            <h3 class="mb-0">Financial Summary</h3>
+                            <a href="bursar-finance-hub.php" class="btn btn-primary">
+                                <i class="fas fa-coins"></i> Open Finance Hub
+                            </a>
+                        </div>
                         <div class="financial-stats">
                             <div class="financial-stat">
                                 <h4>UGX <?php echo number_format($total_collections); ?></h4>

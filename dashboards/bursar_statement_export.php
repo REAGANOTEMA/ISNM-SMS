@@ -3,9 +3,11 @@
  * Export student statement or all accounts to Excel (CSV / XLSX)
  */
 require_once __DIR__ . '/../includes/staff_dashboard_access.php';
+require_once __DIR__ . '/../includes/finance_access.php';
 require_once __DIR__ . '/../includes/bursar_finance.php';
 
-bootstrapStaffDashboard(['bursar', 'finance', 'accountant', 'school bursar']);
+financeRequireAccess();
+bootstrapStaffDashboard(['school bursar', 'bursar', 'director finance', 'director general']);
 
 $studentId = trim($_GET['student_id'] ?? '');
 $format = strtolower($_GET['format'] ?? 'excel');

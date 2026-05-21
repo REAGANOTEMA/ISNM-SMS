@@ -3,10 +3,12 @@
  * ISNM Bursar Finance Hub — full financial management dashboard
  */
 require_once __DIR__ . '/../includes/staff_dashboard_access.php';
+require_once __DIR__ . '/../includes/finance_access.php';
 require_once __DIR__ . '/../includes/finance_module.php';
 require_once __DIR__ . '/../includes/bursar_finance.php';
 
-$ctx = bootstrapStaffDashboard(['bursar', 'finance', 'accountant', 'school bursar', 'director finance']);
+financeRequireAccess();
+$ctx = bootstrapStaffDashboard(['school bursar', 'bursar', 'director finance', 'director general']);
 finEnsureSchema();
 
 $user = $ctx['user'];

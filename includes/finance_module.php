@@ -4,6 +4,7 @@
  */
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/bursar_finance.php';
+require_once __DIR__ . '/finance_access.php';
 
 if (!function_exists('finConn')) {
     function finConn(): mysqli {
@@ -499,9 +500,3 @@ if (!function_exists('finApproveAdjustment')) {
     }
 }
 
-if (!function_exists('finCanApprove')) {
-    function finCanApprove(): bool {
-        $role = strtolower($_SESSION['role'] ?? '');
-        return strpos($role, 'bursar') !== false || strpos($role, 'director finance') !== false || strpos($role, 'director general') !== false;
-    }
-}

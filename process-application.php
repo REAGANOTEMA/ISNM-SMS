@@ -2,19 +2,8 @@
 // Application processing script
 session_start();
 
-// Database configuration
-$host = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'isnm_school';
-
-// Create connection
-$conn = new mysqli($host, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once __DIR__ . '/config/database.php';
+$conn = getStudentsConnection();
 
 // Generate unique application ID
 function generateApplicationId() {

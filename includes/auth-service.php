@@ -9,60 +9,18 @@ class AuthenticationService {
     private $config;
     
     public function __construct() {
-        $this->config = [
-            'host' => 'localhost',
-            'username' => 'root',
-            'password' => 'ReagaN23#',
-            'charset' => 'utf8mb4'
-        ];
-        
+        require_once __DIR__ . '/../config/database.php';
+        $this->config = ['charset' => DB_CHARSET];
         $this->initializeConnections();
     }
     
     private function initializeConnections() {
         try {
-            // Connect to all three databases
-            $this->staffs_conn = new mysqli(
-                $this->config['host'],
-                $this->config['username'],
-                $this->config['password'],
-                'staffs_db'
-            );
-            
-            $this->students_conn = new mysqli(
-                $this->config['host'],
-                $this->config['username'],
-                $this->config['password'],
-                'students_db'
-            );
-            
-            $this->website_conn = new mysqli(
-                $this->config['host'],
-                $this->config['username'],
-                $this->config['password'],
-                'website_db'
-            );
-            
-            // Set charset for all connections
-            $this->staffs_conn->set_charset($this->config['charset']);
-            $this->students_conn->set_charset($this->config['charset']);
-            $this->website_conn->set_charset($this->config['charset']);
-            
-            // Check connections
-            if ($this->staffs_conn->connect_error) {
-                throw new Exception("Staffs DB connection failed: " . $this->staffs_conn->connect_error);
-            }
-            
-            if ($this->students_conn->connect_error) {
-                throw new Exception("Students DB connection failed: " . $this->students_conn->connect_error);
-            }
-            
-            if ($this->website_conn->connect_error) {
-                throw new Exception("Website DB connection failed: " . $this->website_conn->connect_error);
-            }
-            
+            $this->staffs_conn = getStaffConnection();
+            $this->students_conn = getStudentsConnection();
+            $this->website_conn = getWebsiteConnection();
         } catch (Exception $e) {
-            error_log("Authentication service initialization error: " . $e->getMessage());
+            error_log('Authentication service initialization error: ' . $e->getMessage());
             throw $e;
         }
     }
@@ -192,11 +150,11 @@ class AuthenticationService {
             'School Principal' => 'dashboards/school-principal.php',
             'CEO' => 'dashboards/ceo.php',
             'Director Academics' => 'dashboards/director-academics.php',
-            'Director Finance' => 'dashboards/director-finance.php',
+            'Director Finance' => 'dashboards/bursar-finance-hub.php',
             'Director ICT' => 'dashboards/director-ict.php',
             'HR Manager' => 'dashboards/hr-manager.php',
             'Academic Registrar' => 'dashboards/academic-registrar.php',
-            'School Bursar' => 'dashboards/school-bursar.php',
+            'School Bursar' => 'dashboards/bursar-finance-hub.php',
             'School Librarian' => 'dashboards/school-librarian.php',
             'Head Nursing' => 'dashboards/head-nursing.php',
             'Head Midwifery' => 'dashboards/head-midwifery.php',
@@ -209,7 +167,7 @@ class AuthenticationService {
             'Drivers' => 'dashboards/drivers.php',
             'Wardens' => 'dashboards/wardens.php',
             'School Secretary' => 'dashboards/school-secretary.php',
-            'Bursar' => 'dashboards/bursar.php',
+            'Bursar' => 'dashboards/bursar-finance-hub.php',
             'Deputy Principal' => 'dashboards/deputy-principal.php'
         ];
         
