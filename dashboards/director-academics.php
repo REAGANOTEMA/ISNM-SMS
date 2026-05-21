@@ -48,6 +48,8 @@ $academic_activities = $academic_activities_result ? $academic_activities_result
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/partials/_pwa_head.php'; ?>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Director Academics Dashboard - ISNM</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">

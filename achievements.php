@@ -1510,7 +1510,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <nav class="navbar" id="navbar">
             <div class="nav-container">
                 <a href="index.php" class="nav-logo">
-                    <img src="assets/school-logo.png" alt="ISNM Logo">
+                    <img src="images/school-logo.png" alt="ISNM Logo">
                 </a>
                 
                 <!-- Mobile Menu Toggle -->

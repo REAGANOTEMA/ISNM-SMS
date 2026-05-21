@@ -1,40 +1,52 @@
-const CACHE_NAME = 'isnm-static-v1';
+const CACHE_NAME = 'isnm-pwa-v2';
 const ASSETS = [
   './',
   './index.php',
-  './organogram.php',
   './staff-login.php',
   './student-login.php',
+  './organogram.php',
   './images/school-logo.png',
-  './manifest.json'
+  './manifest.json',
+  './browserconfig.xml'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)).then(() => self.skipWaiting())
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
   );
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+    ).then(() => self.clients.claim())
+  );
 });
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') {
     return;
   }
+  const url = new URL(event.request.url);
+  if (url.origin !== location.origin) {
+    return;
+  }
   event.respondWith(
     caches.match(event.request).then((cached) => {
-      // Return cached version if found
       if (cached) {
         return cached;
       }
-      // Otherwise, try to fetch from network
-      return fetch(event.request).catch(() => {
-        // If network request fails, try to return a fallback offline page
-        // For now, we'll just re-throw the error to let the browser handle it
-        throw new Error('Network request failed and no cached version available');
-      });
+      return fetch(event.request).then((response) => {
+        if (!response || response.status !== 200 || response.type === 'opaque') {
+          return response;
+        }
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        return response;
+      }).catch(() => caches.match('./images/school-logo.png'));
     })
   );
 });

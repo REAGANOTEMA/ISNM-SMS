@@ -14,7 +14,7 @@
                     <p><i class="fas fa-map-marker-alt"></i> P.O. Box 418, Iganga</p>
                     <p><i class="fas fa-phone"></i> 0782 990 403 | 0782 633 253 | 0753 393 340 | 0703 999 796</p>
                     <p><i class="fas fa-envelope"></i> iganganursingschool@gmail.com</p>
-                    <p><i class="fas fa-globe"></i> www.isnm.ac.ug</p>
+                    <p><i class="fas fa-globe"></i> <?php require_once __DIR__ . '/includes/site_config.php'; echo isnmSiteLinkHtml(); ?></p>
                   </div>
                 </div>
               </div>

@@ -12,7 +12,12 @@
           <p><i class="fas fa-map-marker-alt"></i> P.O. Box 418, Iganga, Uganda</p>
           <p><i class="fas fa-phone"></i> Tel: 0782 990 403 | 0782 633 253 | 0753 393 340</p>
           <p><i class="fas fa-envelope"></i> Email: iganganursingschool@gmail.com</p>
-          <p><i class="fas fa-globe"></i> Website: www.isnm.ac.ug</p>
+          <?php
+          if (!function_exists('isnmWebsiteFooterLine')) {
+              require_once __DIR__ . '/../includes/site_config.php';
+          }
+          echo isnmWebsiteFooterLine();
+          ?>
           
           <!-- Social Media Links -->
           <div class="social-links mt-3">
@@ -239,13 +244,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
   <script src="js/bootstrap.bundle.js"></script>
   <script src="./shared/app.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js').catch(function () {});
-      });
-    }
-  </script>
+  <?php
+  if (!function_exists('isnmPwaFooter')) {
+      require_once __DIR__ . '/../includes/brand_pwa.php';
+  }
+  isnmPwaFooter();
+  ?>
 </body>
 
 </html>

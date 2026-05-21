@@ -910,7 +910,7 @@ $current_role = isset($roles[$role]) ? $roles[$role] : $roles['admin'];
 <body>
     <div class="login-container">
         <div class="login-header">
-            <img src="assets/school-logo.png" alt="ISNM Logo" class="school-logo">
+            <img src="images/school-logo.png" alt="ISNM Logo" class="school-logo">
             <div class="role-icon">
                 <i class="<?php echo $current_role['icon']; ?>"></i>
             </div>

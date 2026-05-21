@@ -205,7 +205,12 @@ function generateProfessionalTranscript($student, $academic_records, $transcript
                     </div>
                     <div class="info-item">
                         <span class="info-label">Website:</span>
-                        <span class="info-value">www.isnm.ug</span>
+                        <span class="info-value"><?php
+                        if (!function_exists('isnmSiteUrl')) {
+                            require_once __DIR__ . '/../includes/site_config.php';
+                        }
+                        echo htmlspecialchars(isnmSiteUrl());
+                        ?></span>
                     </div>
                 </div>
             </div>

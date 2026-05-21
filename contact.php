@@ -76,7 +76,7 @@ include_once 'shared/_header.php'; ?>
             </div>
             <h4>Website & Social</h4>
             <div class="contact-details">
-              <p><i class="fas fa-globe-africa"></i> www.isnm.ac.ug</p>
+              <p><i class="fas fa-globe-africa"></i> <?php require_once __DIR__ . '/includes/site_config.php'; echo isnmSiteLinkHtml(); ?></p>
               <p><i class="fas fa-share-alt"></i> Follow us on social media</p>
               <p><i class="fab fa-facebook"></i> Facebook: @ISNMUganda</p>
             </div>

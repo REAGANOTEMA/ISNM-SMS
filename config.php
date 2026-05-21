@@ -56,7 +56,8 @@ if (!defined('APP_VERSION')) {
     define('APP_VERSION', '1.0.0');
 }
 if (!defined('BASE_URL')) {
-    define('BASE_URL', 'http://localhost/ISNM-SMS/');
+    require_once __DIR__ . '/includes/site_config.php';
+    define('BASE_URL', isnmResolveBaseUrl());
 }
 if (!defined('UPLOAD_PATH')) {
     define('UPLOAD_PATH', __DIR__ . '/uploads/');

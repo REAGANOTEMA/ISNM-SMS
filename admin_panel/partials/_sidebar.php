@@ -2,7 +2,7 @@
 <div class="sidebar">
     <a href="dashboard.php" class="logo">
         <!-- <i class='bx bx-book-bookmark'></i> -->
-        <img src="../images/1.png">
+        <img src="../images/school-logo.png" alt="ISNM Logo">
           <div class="logo-name"><span class="text-warning">E</span><span class="darkTextColor">R</span><span class="text-warning">P</span></div>
     </a>
     

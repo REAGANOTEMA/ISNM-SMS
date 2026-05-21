@@ -2153,7 +2153,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <nav class="navbar" id="navbar">
             <div class="nav-container">
                 <a href="index.php" class="nav-logo">
-                    <img src="assets/school-logo.png" alt="ISNM Logo" style="width: 75px; height: 75px;">
+                    <img src="images/school-logo.png" alt="ISNM Logo" style="width: 75px; height: 75px;">
                     <div class="nav-logo-text">
                          </div>
                 </a>

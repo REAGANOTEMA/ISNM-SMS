@@ -11,7 +11,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <title>School Management</title>
-    <link rel="icon" type="image/x-icon" href="../images/1.png">
+    <?php require_once __DIR__ . '/../../includes/brand_pwa.php'; isnmPwaHead('#1a237e'); ?>
     
     <link rel="stylesheet" href="css/bootstrap.css">
 

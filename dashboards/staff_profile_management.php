@@ -147,6 +147,8 @@ $access_list = $access_stmt->get_result();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <?php include __DIR__ . '/partials/_pwa_head.php'; ?>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff Profile Management - ISNM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">

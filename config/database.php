@@ -226,3 +226,5 @@ if (!function_exists('validatePhone')) {
         return false;
     }
 }
+
+require_once __DIR__ . '/../includes/site_config.php';

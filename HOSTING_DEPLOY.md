@@ -1,5 +1,9 @@
 # Hosting deployment checklist
 
+**Official website URL:** https://igangaschoolofnursingandmidwifery.ac.ug
+
+After deploy, run once (optional): `php scripts/update_site_url_db.php` to sync the URL in `site_settings`.
+
 ## Database configuration
 
 1. On the server, copy `config/database.local.php.example` to `config/database.local.php`.

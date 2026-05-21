@@ -192,7 +192,7 @@ INSERT INTO settings (setting_key, setting_value, setting_type, description, cat
 ('school_address', 'P.O. Box 418, Iganga, Uganda', 'text', 'School address', 'general', TRUE),
 ('school_phone', '+256 123 456 789', 'text', 'School phone number', 'general', TRUE),
 ('school_email', 'info@isnm.ac.ug', 'email', 'School email address', 'general', TRUE),
-('school_website', 'www.isnm.ac.ug', 'url', 'School website URL', 'general', TRUE),
+('school_website', 'https://igangaschoolofnursingandmidwifery.ac.ug', 'url', 'School website URL', 'general', TRUE),
 ('mission_statement', 'To provide quality nursing and midwifery education for healthcare excellence', 'text', 'School mission statement', 'general', TRUE),
 ('vision_statement', 'To be a leading institution in nursing and midwifery education', 'text', 'School vision statement', 'general', TRUE),
 ('admissions_open', 'true', 'boolean', 'Admissions status', 'admissions', TRUE),

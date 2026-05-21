@@ -5,28 +5,12 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="ISNM">
-  <meta name="application-name" content="ISNM">
-  <meta name="theme-color" content="#3E2723">
-  <meta name="msapplication-TileColor" content="#3E2723">
-  <meta name="msapplication-config" content="/browserconfig.xml">
-  <link rel="manifest" href="manifest.json">
-  
+  <?php require_once __DIR__ . '/../includes/brand_pwa.php'; isnmPwaHead('#3E2723'); ?>
   <title><?php echo isset($pageTitle) ? $pageTitle : 'Iganga School of Nursing and Midwifery'; ?></title>
   <meta name="description" content="Iganga School of Nursing and Midwifery - Quality Healthcare Education in Uganda">
   <meta name="keywords" content="nursing school, midwifery, healthcare education, ISNM, Uganda">
   <meta name="author" content="Iganga School of Nursing and Midwifery">
   
-  <!-- Favicon and Apple Touch Icons -->
-  <link rel="icon" type="image/x-icon" href="images/school-logo.png">
-  <link rel="apple-touch-icon" href="images/school-logo.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="images/school-logo.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="images/school-logo.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="images/school-logo.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="images/school-logo.png">
-    
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   

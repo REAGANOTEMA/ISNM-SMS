@@ -1,25 +1,88 @@
 {
-  "name": "ISNM School Management System",
+  "id": "/",
+  "name": "Iganga School of Nursing and Midwifery",
   "short_name": "ISNM",
-  "description": "Iganga School of Nursing and Midwifery portal",
+  "description": "ISNM School Management System — students, staff, and public portal",
   "start_url": "./index.php",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "any",
   "background_color": "#3E2723",
   "theme_color": "#3E2723",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "productivity"],
+  "prefer_related_applications": false,
   "icons": [
+    {
+      "src": "images/school-logo.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/school-logo.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/school-logo.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/school-logo.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/school-logo.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "images/school-logo.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "images/school-logo.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "images/school-logo.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "images/school-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Student Login",
+      "short_name": "Student",
+      "url": "./student-login.php",
+      "icons": [{ "src": "images/school-logo.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Staff Login",
+      "short_name": "Staff",
+      "url": "./staff-login.php",
+      "icons": [{ "src": "images/school-logo.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]
 }

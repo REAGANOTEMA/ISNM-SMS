@@ -243,7 +243,12 @@ ob_start();
             <img src="../images/school-logo.png" alt="ISNM Logo" style="width: 80px; height: 80px; margin-right: 20px;">
             <div>
                 <div class="school-name">IGANGA SCHOOL OF NURSING AND MIDWIFERY</div>
-                <div class="school-address">P.O. Box 123, Iganga, Uganda | Tel: +256 456 789012 | Email: info@isnm.ac.ug</div>
+                <div class="school-address">P.O. Box 418, Iganga, Uganda | Tel: 0782 990 403 | Email: iganganursingschool@gmail.com | Web: <?php
+                if (!function_exists('isnmSiteUrl')) {
+                    require_once __DIR__ . '/site_config.php';
+                }
+                echo htmlspecialchars(isnmSiteUrl());
+                ?></div>
             </div>
         </div>
         <div class="transcript-title">ACADEMIC TRANSCRIPT</div>

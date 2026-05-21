@@ -1027,7 +1027,7 @@ INSERT INTO system_settings (setting_key, setting_value, setting_type, descripti
 ('school_address', 'P.O. Box 12345, Kampala, Uganda', 'text', 'School address for documents', 'general', TRUE),
 ('school_phone', '+256 123 456 789', 'text', 'School phone number', 'general', TRUE),
 ('school_email', 'info@isnm.edu.ug', 'email', 'School email address', 'general', TRUE),
-('school_website', 'www.isnm.edu.ug', 'url', 'School website URL', 'general', TRUE),
+('school_website', 'https://igangaschoolofnursingandmidwifery.ac.ug', 'url', 'School website URL', 'general', TRUE),
 ('academic_year', '2025/2026', 'text', 'Current academic year', 'academic', TRUE),
 ('semester', 'Semester 2', 'text', 'Current semester', 'academic', TRUE),
 ('currency', 'UGX', 'text', 'Default currency', 'financial', TRUE),

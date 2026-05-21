@@ -11,7 +11,8 @@ if (session_status() === PHP_SESSION_NONE) {
 // Application settings
 define('APP_NAME', 'ISNM Student Management System');
 define('APP_VERSION', '1.0.0');
-define('APP_URL', 'http://localhost/ISNM');
+require_once __DIR__ . '/../includes/site_config.php';
+define('APP_URL', rtrim(isnmSiteUrl(), '/'));
 
 // File upload settings
 define('UPLOAD_PATH', __DIR__ . '/../uploads/');
